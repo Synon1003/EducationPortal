@@ -22,6 +22,15 @@ public static class RepositoryTestEndpoints
         app.MapGet("/materials", async (IMaterialRepository repository) =>
             TypedResults.Ok(await repository.GetAllAsync()));
 
+        app.MapGet("/materials/videos", async (IMaterialRepository repository) =>
+            TypedResults.Ok(await repository.GetVideosAsync()));
+
+        app.MapGet("/materials/publications", async (IMaterialRepository repository) =>
+            TypedResults.Ok(await repository.GetPublicationsAsync()));
+
+        app.MapGet("/materials/articles", async (IMaterialRepository repository) =>
+            TypedResults.Ok(await repository.GetArticlesAsync()));
+
         return app;
     }
 }

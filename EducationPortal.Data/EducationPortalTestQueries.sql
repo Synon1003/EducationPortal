@@ -17,3 +17,15 @@ FROM [EducationPortalDb].[dbo].[CourseMaterials];
 SELECT TOP (10)
   *
 FROM [EducationPortalDb].[dbo].[CourseSkills];
+
+SELECT TOP (10)
+  *
+FROM [EducationPortalDb].[dbo].[Videos];
+
+SELECT TOP (10)
+  *
+FROM [EducationPortalDb].[dbo].[Publications];
+
+SELECT TOP (10)
+  *
+FROM [EducationPortalDb].[dbo].[Articles];

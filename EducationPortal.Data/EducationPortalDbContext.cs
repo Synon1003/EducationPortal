@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using EducationPortal.Data.Entities;
+using EducationPortal.Data.Configurations;
 
 namespace EducationPortal.Data;
 
@@ -12,33 +13,16 @@ public class EducationPortalDbContext : DbContext
     public virtual DbSet<Skill> Skills { get; set; }
     public virtual DbSet<CourseSkill> CourseSkills { get; set; }
     public virtual DbSet<Material> Materials { get; set; }
+    public virtual DbSet<Video> Videos { get; set; }
+    public virtual DbSet<Publication> Publications { get; set; }
+    public virtual DbSet<Article> Articles { get; set; }
     public virtual DbSet<CourseMaterial> CourseMaterials { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CourseSkill>()
-            .HasOne(cs => cs.Course)
-            .WithMany(c => c.CourseSkills)
-            .HasForeignKey(cs => cs.CourseId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<CourseSkill>()
-            .HasOne(cs => cs.Skill)
-            .WithMany(c => c.CourseSkills)
-            .HasForeignKey(cs => cs.SkillId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<CourseMaterial>()
-            .HasOne(cs => cs.Course)
-            .WithMany(c => c.CourseMaterials)
-            .HasForeignKey(cs => cs.CourseId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.Entity<CourseMaterial>()
-            .HasOne(cs => cs.Material)
-            .WithMany(c => c.CourseMaterials)
-            .HasForeignKey(cs => cs.MaterialId)
-            .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.ApplyConfiguration(new CourseSkillConfigurations());
+        modelBuilder.ApplyConfiguration(new CourseMaterialConfigurations());
+        modelBuilder.ApplyConfiguration(new MaterialConfigurations());
 
         SeedData(modelBuilder);
     }
@@ -52,7 +36,8 @@ public class EducationPortalDbContext : DbContext
 
         modelBuilder.Entity<Material>().HasData(
             new Material { Id = 1, Title = "Ultimate C# Masterclass", Type = "Video" },
-            new Material { Id = 2, Title = "Asp.Net Core", Type = "Video" }
+            new Material { Id = 2, Title = "Asp.Net Core", Type = "Video" },
+            new Material { Id = 3, Title = "Vue 3 + Pinia - JWT Authentication Tutorial & Example", Type = "Article" }
         );
 
         modelBuilder.Entity<Course>().HasData(
@@ -61,13 +46,22 @@ public class EducationPortalDbContext : DbContext
         );
 
         modelBuilder.Entity<CourseSkill>().HasData(
-            new { Id = 1, CourseId = 1, SkillId = 1 },
-            new { Id = 2, CourseId = 2, SkillId = 2 }
+            new CourseSkill { Id = 1, CourseId = 1, SkillId = 1 },
+            new CourseSkill { Id = 2, CourseId = 2, SkillId = 2 }
         );
 
         modelBuilder.Entity<CourseMaterial>().HasData(
-            new { Id = 1, CourseId = 1, MaterialId = 1 },
-            new { Id = 2, CourseId = 1, MaterialId = 2 }
+            new CourseMaterial { Id = 1, CourseId = 1, MaterialId = 1 },
+            new CourseMaterial { Id = 2, CourseId = 1, MaterialId = 2 }
+        );
+
+        modelBuilder.Entity<Video>().HasData(
+            new Video { Id = 1, MaterialId = 1, Duration = 120, Quality = "1080p" },
+            new Video { Id = 2, MaterialId = 2, Duration = 90, Quality = "720p" }
+        );
+
+        modelBuilder.Entity<Article>().HasData(
+            new Article { Id = 1, MaterialId = 1, PublicationDate = new DateOnly(2022, 5, 26), ResourceLink = "https://jasonwatmore.com/post/2022/05/26/vue-3-pinia-jwt-authentication-tutorial-example" }
         );
     }
 }
