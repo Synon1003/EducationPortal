@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EducationPortal.Data.Entities;
 
@@ -16,5 +16,6 @@ public class Material
     [StringLength(20)]
     public string Type { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<CourseMaterial> CourseMaterials { get; } = [];
 }
