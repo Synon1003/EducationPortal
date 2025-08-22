@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 
@@ -17,5 +16,18 @@ public class HomeController : Controller
             WelcomeText = "Your gateway to knowledge and learning."
         };
         return View(model);
+    }
+
+    public IActionResult Flash([FromForm] HomeViewModel model)
+    {
+        TempData.Put("flash", new FlashViewModel()
+        {
+            Message = model.InputText,
+            Type = "info"
+        });
+
+        model.Header = "Welcome to the Education Portal";
+        model.WelcomeText = "Your gateway to knowledge and learning.";
+        return View("Index", model);
     }
 }
