@@ -62,6 +62,12 @@ public class AccountController : Controller
         return View(registerViewModel);
     }
 
+    public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
+    {
+        ApplicationUser? user = await _userManager.FindByEmailAsync(email);
+        return Json(user == null);
+    }
+
     [HttpGet]
     public IActionResult Login()
     {
