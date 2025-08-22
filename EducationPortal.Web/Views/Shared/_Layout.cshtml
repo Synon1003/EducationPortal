@@ -49,6 +49,7 @@
                 <ul class="menu menu-horizontal px-1">
                     @if (User.Identity?.IsAuthenticated ?? false)
                     {
+                        <li><span>@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</span></li>
                         <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
                     }
                     else
