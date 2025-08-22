@@ -4,6 +4,7 @@ using EducationPortal.RepositoryTestEndpoints;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbRepositories(builder.Configuration);
+builder.Services.AddIdentityProviders();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();

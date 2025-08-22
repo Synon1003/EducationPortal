@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using EducationPortal.Data.Entities;
 using EducationPortal.Data.Configurations;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace EducationPortal.Data;
 
-public class EducationPortalDbContext : DbContext
+public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public EducationPortalDbContext(DbContextOptions<EducationPortalDbContext> options) : base(options)
     { }
@@ -20,6 +22,8 @@ public class EducationPortalDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.ApplyConfiguration(new CourseSkillConfigurations());
         modelBuilder.ApplyConfiguration(new CourseMaterialConfigurations());
         modelBuilder.ApplyConfiguration(new MaterialConfigurations());
