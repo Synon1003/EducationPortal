@@ -10,4 +10,6 @@ public class ApplicationUser : IdentityUser<Guid>
 
     [Required]
     public string LastName { get; set; }
+
+    public string Theme { get; set; }
 }

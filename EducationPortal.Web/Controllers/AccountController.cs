@@ -108,6 +108,7 @@ public class AccountController : Controller
         return View(loginViewModel);
     }
 
+    [HttpGet]
     [Authorize]
     public async Task<IActionResult> Logout()
     {
@@ -115,5 +116,26 @@ public class AccountController : Controller
         TempData.CreateFlash("Logged out successfully.", "info");
 
         return RedirectToAction(nameof(HomeController.Index), "Home");
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> SetUserTheme(string theme)
+    {
+        List<string> validThemes = ["night", "corporate"];
+        if (!validThemes.Contains(theme))
+        {
+            return Problem("Invalid theme");
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null)
+        {
+            user.Theme = theme;
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
+        }
+
+        return Ok(new { theme });
     }
 }

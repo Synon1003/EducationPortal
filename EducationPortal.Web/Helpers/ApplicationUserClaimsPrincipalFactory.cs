@@ -26,6 +26,9 @@ public class ApplicationUserClaimsPrincipalFactory
         if (!string.IsNullOrEmpty(user.LastName))
             identity.AddClaim(new Claim("LastName", user.LastName));
 
+        if (!string.IsNullOrEmpty(user.Theme))
+            identity.AddClaim(new Claim("Theme", user.Theme));
+
         return identity;
     }
 }
