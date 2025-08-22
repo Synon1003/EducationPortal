@@ -25,7 +25,7 @@ public class EducationPortalDbContext : DbContext
         modelBuilder.Entity<CourseSkill>()
             .HasOne(cs => cs.Skill)
             .WithMany(c => c.CourseSkills)
-            .HasForeignKey(cs => cs.CourseId)
+            .HasForeignKey(cs => cs.SkillId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<CourseMaterial>()
@@ -37,7 +37,7 @@ public class EducationPortalDbContext : DbContext
         modelBuilder.Entity<CourseMaterial>()
             .HasOne(cs => cs.Material)
             .WithMany(c => c.CourseMaterials)
-            .HasForeignKey(cs => cs.CourseId)
+            .HasForeignKey(cs => cs.MaterialId)
             .OnDelete(DeleteBehavior.Restrict);
 
         SeedData(modelBuilder);
