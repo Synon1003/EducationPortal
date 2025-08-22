@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@source inline("alert-success");
+@source inline("alert-error");
+@source inline("alert-info");
+
+@plugin "daisyui" {
+    themes: corporate --default, night;
+}

@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 
@@ -6,26 +5,29 @@ namespace EducationPortal.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
+    public HomeController()
+    { }
 
     public IActionResult Index()
     {
-        return View();
+        HomeViewModel model = new HomeViewModel
+        {
+            Header = "Welcome to the Education Portal",
+            WelcomeText = "Your gateway to knowledge and learning."
+        };
+        return View(model);
     }
 
-    public IActionResult Privacy()
+    public IActionResult Flash([FromForm] HomeViewModel model)
     {
-        return View();
-    }
+        TempData.Put("flash", new FlashViewModel()
+        {
+            Message = model.InputText,
+            Type = "info"
+        });
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        model.Header = "Welcome to the Education Portal";
+        model.WelcomeText = "Your gateway to knowledge and learning.";
+        return View("Index", model);
     }
 }

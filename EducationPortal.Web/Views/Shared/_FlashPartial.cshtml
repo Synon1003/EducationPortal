@@ -1,0 +1,28 @@
+@if (TempData["flash"] != null)
+{
+    <div class="toast toast-bottom toast-center fade-out-5s z-1" data-aos="zoom-in-up">
+        <div class="alert alert-@(TempData.Get<FlashViewModel>("flash")?.Type)">
+            <span>@(TempData.Get<FlashViewModel>("flash")?.Message)</span>
+        </div>
+    </div>
+
+    <style>
+        @@keyframes fade-out {
+            0% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .fade-out-5s {
+            animation: fade-out 5s forwards;
+        }
+    </style>
+}

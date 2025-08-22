@@ -1,8 +1,31 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]" data-aos="fade-up">
+    <div class="card card-border w-120 md:w-168 lg:w-226 xl:w-268 bg-base-200 shadow-sm">
+        <div class="card-body">
+            <h3 class="font-bold text-lg ml-2 mb-4">@Model.Header</h3>
+            <div class="text-sm">
+                <p class="mb-4">@Model.WelcomeText</p>
+            </div>
+            <form asp-controller="Home" asp-action="Flash" method="post" class="space-y-4">
+                <div>
+                    <label class="floating-label">
+                        <span>Put 50 characters in</span>
+                        <input asp-for="InputText" placeholder="40 character is the limit" maxlength="50"
+                            class="input input-md w-full" />
+                        <span asp-validation-for="InputText" class="text-error text-sm ml-1"></span>
+                </div>
+                <button type="submit" class="btn btn-md btn-primary text-right">Flash</button>
+            </form>
+        </div>
+    </div>
 </div>
+
+@section ValidationScripts {
+    <partial name="_ValidationScriptsPartial" />
+}
