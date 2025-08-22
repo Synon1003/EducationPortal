@@ -1,0 +1,141 @@
+using Microsoft.AspNetCore.Mvc;
+using EducationPortal.Web.Models;
+using EducationPortal.Data.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+
+namespace EducationPortal.Web.Controllers;
+
+public class AccountController : Controller
+{
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
+
+    public AccountController(
+        UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager
+    )
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
+
+    [HttpGet]
+    [Authorize("NotAuthorized")]
+    public IActionResult Register()
+    {
+        return View(new RegisterViewModel());
+    }
+
+    [HttpPost]
+    [Authorize("NotAuthorized")]
+    public async Task<IActionResult> Register([FromForm] RegisterViewModel registerViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData.Put<List<string>>("errors",
+                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
+            TempData.CreateFlash("Registration failed.", "error");
+
+            return View(registerViewModel);
+        }
+
+        ApplicationUser user = new ApplicationUser()
+        {
+            FirstName = registerViewModel.FirstName,
+            LastName = registerViewModel.LastName,
+            Email = registerViewModel.Email,
+            UserName = registerViewModel.Email,
+        };
+
+        IdentityResult result = await _userManager.CreateAsync(user, registerViewModel.Password);
+
+        if (result.Succeeded)
+        {
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            TempData.CreateFlash("Account created successfully. You are now logged in.", "info");
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        foreach (IdentityError error in result.Errors)
+            ModelState.AddModelError("Register", error.Description);
+        TempData.CreateFlash("Registration failed.", "error");
+
+        return View(registerViewModel);
+    }
+
+    [Authorize("NotAuthorized")]
+    public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
+    {
+        ApplicationUser? user = await _userManager.FindByEmailAsync(email);
+        return Json(user == null);
+    }
+
+    [HttpGet]
+    [Authorize("NotAuthorized")]
+    public IActionResult Login()
+    {
+        return View(new LoginViewModel());
+    }
+
+    [HttpPost]
+    [Authorize("NotAuthorized")]
+    public async Task<IActionResult> Login([FromForm] LoginViewModel loginViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData.Put<List<string>>("errors",
+                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
+            TempData.CreateFlash("Login failed.", "error");
+
+            return View(loginViewModel);
+        }
+
+        var result = await _signInManager.PasswordSignInAsync(
+            loginViewModel.Email, loginViewModel.Password, isPersistent: false, lockoutOnFailure: false);
+
+        if (result.Succeeded)
+        {
+            TempData.CreateFlash("Logged in successfully.", "info");
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        ModelState.AddModelError("Login", "Invalid email or password.");
+        TempData.CreateFlash("Login failed.", "error");
+
+        return View(loginViewModel);
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        TempData.CreateFlash("Logged out successfully.", "info");
+
+        return RedirectToAction(nameof(HomeController.Index), "Home");
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> SetUserTheme(string theme)
+    {
+        List<string> validThemes = ["night", "corporate"];
+        if (!validThemes.Contains(theme))
+        {
+            return Problem("Invalid theme");
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null)
+        {
+            user.Theme = theme;
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
+        }
+
+        return Ok(new { theme });
+    }
+}

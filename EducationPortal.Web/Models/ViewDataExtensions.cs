@@ -15,4 +15,13 @@ public static class TempDataExtensions
     {
         tempData[key] = JsonSerializer.Serialize(value);
     }
+
+    public static void CreateFlash(this ITempDataDictionary tempData, string message, string type)
+    {
+        tempData.Put("flash", new FlashViewModel()
+        {
+            Message = message,
+            Type = type
+        });
+    }
 }

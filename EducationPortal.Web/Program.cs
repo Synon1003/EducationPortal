@@ -1,11 +1,33 @@
-using EducationPortal.DataServiceExtensions;
+using EducationPortal.Extensions;
 using EducationPortal.RepositoryTestEndpoints;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbRepositories(builder.Configuration);
+builder.Services.AddIdentityProviders();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser().Build();
+
+    options.AddPolicy("NotAuthorized", policy =>
+    {
+        policy.RequireAssertion(context =>
+        {
+            return context.User.Identity is not null ?
+                !context.User.Identity.IsAuthenticated : true;
+        });
+    });
+});
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+});
+
+builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -27,14 +49,17 @@ if (app.Environment.IsDevelopment())
 app.UseHsts();
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
 app.MapGet("/", () => "Education Portal");
 app.UseRouting();
 
-app.UseStaticFiles();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller}/{action}/{id?}");
 
 
 app.Run();

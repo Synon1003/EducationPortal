@@ -1,26 +1,97 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+    data-theme="@(User.Identity?.IsAuthenticated ?? false ? (User?.FindFirst("Theme")?.Value ?? "corporate") : "corporate")">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EducationPortal.Web</title>
+    <title>@ViewData["Title"] - EducationPortal</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
 <body>
-    <div class="max-w-4xl mx-auto p-4">
-        <main role="main" class="pb-3">
-            <partial name="_FlashPartial"></partial>
-            @RenderBody()
-        </main>
-    </div>
+    <div class="min-h-screen">
+        <div class="navbar bg-base-100 shadow-sm">
+            <div class="navbar-start">
 
-    <partial name="_AosScriptsPartial" />
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("ValidationScripts", required: false)
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-10 w-52 p-2 shadow bg-base-100 rounded-box">
+                        <li><a asp-controller="Home" asp-action="Index"
+                                class="@(ViewBag.CurrentUrl == "~/Home/Index" ? "text-primary" : "")">Home</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <a asp-controller="Home" asp-action="Index" class="btn btn-ghost text-md">EducationPortal</a>
+
+                <div class="hidden lg:flex">
+                    <ul class="menu menu-horizontal px-1">
+                        <li>
+                        <li><a asp-controller="Home" asp-action="Index"
+                                class="@(ViewBag.CurrentUrl == "~/Home/Index" ? "text-primary" : "")">
+                                Home</a></li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right side: account menu -->
+            <div class="navbar-end">
+                <ul class="menu menu-horizontal px-1">
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <label class="flex cursor-pointer gap-2 py-[6px] px-[12px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5" />
+                                <path
+                                    d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+                            </svg>
+                            <input type="checkbox" class="toggle max-h-[20px]"
+                                onchange="setUserTheme(this.checked ? 'night' : 'corporate')"
+                                @(User?.FindFirst("Theme")?.Value == "corporate" ? "" : "checked") />
+                            <svg xmlns=" http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </label>
+                        <li><span>@User.FindFirst("FirstName")?.Value @User.FindFirst("LastName")?.Value</span></li>
+                        <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Account" asp-action="Register"
+                                class="@(ViewBag.CurrentUrl == "~/Account/Register" ? "text-primary" : "")">Register</a>
+                        </li>
+                        <li><a asp-controller="Account" asp-action="Login"
+                                class="@(ViewBag.CurrentUrl == "~/Account/Login" ? "text-primary" : "")">Login</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="max-w-4xl mx-auto p-4">
+            <main role="main" class="pb-3">
+                <partial name="_FlashPartial"></partial>
+                @RenderBody()
+            </main>
+        </div>
+
+        <partial name="_AosScriptsPartial" />
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("ValidationScripts", required: false)
 </body>
 
 </html>

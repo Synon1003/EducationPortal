@@ -1,0 +1,60 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    ViewBag.CurrentUrl = "~/Account/Register";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
+    <div class="card card-border w-96 bg-base-200 shadow-sm">
+        <div class="card-body">
+            <h3 class="font-bold text-lg ml-2 mb-4">Register User</h3>
+
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <div>
+                    <label class="floating-label mb-4">
+                        <span>@Html.DisplayNameFor(m => m.FirstName)</span>
+                        <input asp-for="FirstName" placeholder=@Html.DisplayNameFor(m => m.FirstName)
+                            class="input input-md w-full" />
+                        <span asp-validation-for="FirstName" class="text-error text-sm ml-1"></span>
+                    </label>
+                </div>
+                <div>
+                    <label class="floating-label mb-4">
+                        <span>@Html.DisplayNameFor(m => m.LastName)</span>
+                        <input asp-for="LastName" placeholder=@Html.DisplayNameFor(m => m.LastName)
+                            class="input input-md w-full" />
+                        <span asp-validation-for="LastName" class="text-error text-sm ml-1"></span>
+                    </label>
+                </div>
+                <div>
+                    <label class="floating-label mb-4">
+                        <span>@Html.DisplayNameFor(m => m.Email)</span>
+                        <input asp-for="Email" placeholder=@Html.DisplayNameFor(m => m.Email)
+                            class="input input-md w-full" />
+                        <span asp-validation-for="Email" class="text-error text-sm ml-1"></span>
+                </div>
+                <div>
+                    <label class="floating-label mb-4">
+                        <span>@Html.DisplayNameFor(m => m.Password)</span>
+                        <input asp-for="Password" placeholder=@Html.DisplayNameFor(m => m.Password)
+                            class="input input-md w-full" />
+                        <span asp-validation-for="Password" class="text-error text-sm ml-1"></span>
+                </div>
+                <div>
+                    <label class="floating-label mb-4">
+                        <span>@Html.DisplayNameFor(m => m.ConfirmPassword)</span>
+                        <input asp-for="ConfirmPassword" placeholder=@Html.DisplayNameFor(m => m.ConfirmPassword)
+                            class="input input-md w-full" />
+                        <span asp-validation-for="ConfirmPassword" class="text-error text-sm ml-1"></span>
+                </div>
+                <div asp-validation-summary="All" class="text-error text-sm"></div>
+                <partial name="_ControllerErrorsPartial" />
+                <button type="submit" class="btn btn-md btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section ValidationScripts {
+    <partial name="_ValidationScriptsPartial" />
+}
