@@ -1,12 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
+using EducationPortal.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace EducationPortal.Web.Controllers;
 
 public class AccountController : Controller
 {
-    public AccountController()
-    { }
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
+
+    public AccountController(
+        UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager
+    )
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
 
     [HttpGet]
     public IActionResult Register()
@@ -21,12 +32,31 @@ public class AccountController : Controller
         {
             TempData.Put<List<string>>("errors",
                 [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
-            TempData.CreateFlash("Validation failed.", "error");
+            TempData.CreateFlash("Registration failed.", "error");
 
             return View(registerViewModel);
         }
 
-        ModelState.AddModelError("Register", "Register failed for no reason.");
+        ApplicationUser user = new ApplicationUser()
+        {
+            FirstName = registerViewModel.FirstName,
+            LastName = registerViewModel.LastName,
+            Email = registerViewModel.Email,
+            UserName = registerViewModel.Email,
+        };
+
+        IdentityResult result = await _userManager.CreateAsync(user, registerViewModel.Password);
+
+        if (result.Succeeded)
+        {
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            TempData.CreateFlash("Account created successfully. You are now logged in.", "info");
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        foreach (IdentityError error in result.Errors)
+            ModelState.AddModelError("Register", error.Description);
         TempData.CreateFlash("Registration failed.", "error");
 
         return View(registerViewModel);
@@ -45,14 +75,32 @@ public class AccountController : Controller
         {
             TempData.Put<List<string>>("errors",
                 [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
-            TempData.CreateFlash("Validation failed.", "error");
+            TempData.CreateFlash("Login failed.", "error");
 
             return View(loginViewModel);
         }
 
-        ModelState.AddModelError("Login", "Login failed for no reason.");
+        var result = await _signInManager.PasswordSignInAsync(
+            loginViewModel.Email, loginViewModel.Password, isPersistent: false, lockoutOnFailure: false);
+
+        if (result.Succeeded)
+        {
+            TempData.CreateFlash("Logged in successfully.", "info");
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        ModelState.AddModelError("Login", "Invalid email or password.");
         TempData.CreateFlash("Login failed.", "error");
 
         return View(loginViewModel);
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        TempData.CreateFlash("Logged out successfully.", "info");
+
+        return RedirectToAction(nameof(HomeController.Index), "Home");
     }
 }

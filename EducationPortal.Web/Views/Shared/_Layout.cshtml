@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EducationPortal.Web</title>
+    <title>@ViewData["Title"] - EducationPortal</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -47,12 +47,19 @@
             <!-- Right side: account menu -->
             <div class="navbar-end">
                 <ul class="menu menu-horizontal px-1">
-                    <li><a asp-controller="Account" asp-action="Register"
-                            class="@(ViewBag.CurrentUrl == "~/Account/Register" ? "text-primary" : "")">Register</a>
-                    </li>
-                    <li><a asp-controller="Account" asp-action="Login"
-                            class="@(ViewBag.CurrentUrl == "~/Account/Login" ? "text-primary" : "")">Login</a>
-                    </li>
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="Account" asp-action="Register"
+                                class="@(ViewBag.CurrentUrl == "~/Account/Register" ? "text-primary" : "")">Register</a>
+                        </li>
+                        <li><a asp-controller="Account" asp-action="Login"
+                                class="@(ViewBag.CurrentUrl == "~/Account/Login" ? "text-primary" : "")">Login</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
