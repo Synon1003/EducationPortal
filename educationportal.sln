@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Web", "EducationPortal.Web\EducationPortal.Web.csproj", "{2989135E-9369-4AF9-A2BA-AE8CEBFC204C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Data", "EducationPortal.Data\EducationPortal.Data.csproj", "{D66E7044-00B9-4A1F-B6C3-058616213CEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{2989135E-9369-4AF9-A2BA-AE8CEBFC204C}.Release|x64.Build.0 = Release|Any CPU
 		{2989135E-9369-4AF9-A2BA-AE8CEBFC204C}.Release|x86.ActiveCfg = Release|Any CPU
 		{2989135E-9369-4AF9-A2BA-AE8CEBFC204C}.Release|x86.Build.0 = Release|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Debug|x64.Build.0 = Debug|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Debug|x86.Build.0 = Debug|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Release|x64.ActiveCfg = Release|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Release|x64.Build.0 = Release|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Release|x86.ActiveCfg = Release|Any CPU
+		{D66E7044-00B9-4A1F-B6C3-058616213CEB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
