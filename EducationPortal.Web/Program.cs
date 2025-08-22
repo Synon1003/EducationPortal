@@ -1,18 +1,9 @@
-using System.Text.Json.Serialization;
-using EducationPortal.Data;
-using EducationPortal.Data.Repositories;
-using EducationPortal.Data.Repositories.Interfaces;
+using EducationPortal.DataServiceExtensions;
 using EducationPortal.RepositoryTestEndpoints;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<EducationPortalDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-builder.Services.AddScoped<ISkillRepository, SkillRepository>();
-builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
+builder.Services.AddDbRepositories(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
