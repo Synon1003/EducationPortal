@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -20,12 +21,14 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [Authorize("NotAuthorized")]
     public IActionResult Register()
     {
         return View(new RegisterViewModel());
     }
 
     [HttpPost]
+    [Authorize("NotAuthorized")]
     public async Task<IActionResult> Register([FromForm] RegisterViewModel registerViewModel)
     {
         if (!ModelState.IsValid)
@@ -62,6 +65,7 @@ public class AccountController : Controller
         return View(registerViewModel);
     }
 
+    [Authorize("NotAuthorized")]
     public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
     {
         ApplicationUser? user = await _userManager.FindByEmailAsync(email);
@@ -69,12 +73,14 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [Authorize("NotAuthorized")]
     public IActionResult Login()
     {
         return View(new LoginViewModel());
     }
 
     [HttpPost]
+    [Authorize("NotAuthorized")]
     public async Task<IActionResult> Login([FromForm] LoginViewModel loginViewModel)
     {
         if (!ModelState.IsValid)
@@ -102,6 +108,7 @@ public class AccountController : Controller
         return View(loginViewModel);
     }
 
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();

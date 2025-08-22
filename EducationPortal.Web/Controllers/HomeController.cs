@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EducationPortal.Web.Controllers;
 
+[AllowAnonymous]
 public class HomeController : Controller
 {
     public HomeController()
