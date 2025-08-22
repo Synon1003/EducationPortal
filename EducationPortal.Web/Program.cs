@@ -1,4 +1,4 @@
-using EducationPortal.DataServiceExtensions;
+using EducationPortal.Extensions;
 using EducationPortal.RepositoryTestEndpoints;
 using Microsoft.AspNetCore.Authorization;
 

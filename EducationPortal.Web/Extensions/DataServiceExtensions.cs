@@ -5,9 +5,9 @@ using EducationPortal.Data.Repositories;
 using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace EducationPortal.DataServiceExtensions;
+namespace EducationPortal.Extensions;
 
-public static class DatabaseExtensions
+public static class DataServiceExtensions
 {
     public static IServiceCollection AddDbRepositories(
         this IServiceCollection services,
