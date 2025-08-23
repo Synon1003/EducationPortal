@@ -81,7 +81,7 @@ public class AccountController : Controller
 
     [HttpPost]
     [Authorize("NotAuthorized")]
-    public async Task<IActionResult> Login([FromForm] LoginViewModel loginViewModel)
+    public async Task<IActionResult> Login([FromForm] LoginViewModel loginViewModel, string? returnUrl)
     {
         if (!ModelState.IsValid)
         {
@@ -98,6 +98,9 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             TempData.CreateFlash("Logged in successfully.", "info");
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return LocalRedirect(returnUrl);
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }

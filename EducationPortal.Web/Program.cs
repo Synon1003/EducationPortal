@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbRepositories(builder.Configuration);
 builder.Services.AddServices();
+builder.Services.AddViewModelMappers();
 builder.Services.AddIdentityProviders();
 
 builder.Services.AddAuthorization(options =>

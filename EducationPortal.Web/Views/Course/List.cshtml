@@ -1,0 +1,42 @@
+@model ListCoursesViewModel
+@{
+    ViewData["Title"] = "Courses";
+    ViewBag.CurrentUrl = "~/Course/List";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
+    <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268">
+        <div class="card-body">
+            <div class="text-3xl ml-2 font-medium">Courses</div>
+
+            <div class="flex items-center justify-between ml-2 mb-4">
+                <span class="text-sm font-medium">@Model.TotalCount registered courses </span>
+            </div>
+
+            <div class="overflow-x-auto" data-aos="fade-up">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Skills</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var course in Model.Courses)
+                        {
+                            <tr>
+                                <td><a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id"
+                                        class="text-primary">@course.Id</a></td>
+                                <td>@course.Name</td>
+                                <td>@course.Description</td>
+                                <td>@(String.Join(", ", course.Skills))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
