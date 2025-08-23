@@ -35,6 +35,8 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    await app.UpdateDatabaseMigrationsAsync();
+
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
