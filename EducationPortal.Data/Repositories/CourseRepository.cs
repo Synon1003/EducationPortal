@@ -9,6 +9,15 @@ public class CourseRepository : EntityFrameworkRepository<Course>, ICourseReposi
     public CourseRepository(EducationPortalDbContext context) : base(context)
     { }
 
+    public async Task<ICollection<Course>> GetAllCoursesWithSkillsAsync()
+    {
+        return await _context.Courses
+            .AsNoTracking()
+            .Include(c => c.CourseSkills)
+            .ThenInclude(cs => cs.Skill)
+            .ToListAsync();
+    }
+
     public async Task<ICollection<Course>> GetAllCoursesWithSkillsAndMaterialsAsync()
     {
         return await _context.Courses
@@ -20,16 +29,18 @@ public class CourseRepository : EntityFrameworkRepository<Course>, ICourseReposi
             .ToListAsync();
     }
 
-    public async Task<Course?> GetCourseWithSkillsAsync(int id)
+    public async Task<Course?> GetCourseWithSkillsAndMaterialsByIdAsync(int id)
     {
         return await _context.Courses
             .AsNoTracking()
             .Include(c => c.CourseSkills)
             .ThenInclude(cs => cs.Skill)
+            .Include(c => c.CourseMaterials)
+            .ThenInclude(cm => cm.Material)
             .SingleOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<ICollection<Course>> GetAstronautsByMaterialIdAsync(int materialId)
+    public async Task<ICollection<Course>> GetCoursesByMaterialIdAsync(int materialId)
     {
         return await _context.Courses
             .AsNoTracking()
