@@ -43,7 +43,7 @@
                         <ul class="menu menu-horizontal px-1">
                             <li>
                             <li><a asp-controller="Course" asp-action="List"
-                                    class="@(ViewBag.CurrentUrl == "~/Course/List" ? "text-primary" : "")">
+                                    class="@(ViewBag.CurrentUrl == "~/Course/List" || ViewBag.CurrentUrl.StartsWith("~/Course/Details") ? "text-primary" : "")">
                                     Courses</a></li>
                             </li>
                         </ul>

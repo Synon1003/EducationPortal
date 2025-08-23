@@ -5,9 +5,9 @@
 }
 
 <div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
-    <div class="card card-border bg-base-200 shadow-sm w-120 md:w-168 lg:w-226 xl:w-268">
+    <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268">
         <div class="card-body">
-            <div class="text-4xl ml-2 font-medium">Courses</div>
+            <div class="text-3xl ml-2 font-medium">Courses</div>
 
             <div class="flex items-center justify-between ml-2 mb-4">
                 <span class="text-sm font-medium">@Model.TotalCount registered courses </span>
@@ -27,7 +27,8 @@
                         @foreach (var course in Model.Courses)
                         {
                             <tr>
-                                <td>@course.Id</td>
+                                <td><a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id"
+                                        class="text-primary">@course.Id</a></td>
                                 <td>@course.Name</td>
                                 <td>@course.Description</td>
                                 <td>@(String.Join(", ", course.Skills))</td>

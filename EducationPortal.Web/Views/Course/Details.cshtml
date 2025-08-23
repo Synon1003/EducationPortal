@@ -1,0 +1,36 @@
+@model CourseDetailViewModel
+@{
+    ViewData["Title"] = "Course Details";
+    ViewBag.CurrentUrl = "~/Course/Details";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
+    <div class="card card-border w-120 sm:w-144 md:w-168 bg-base-200 shadow-sm">
+        <div class="card-body">
+            <h3 class="font-medium text-3xl ml-2 mb-4">@Html.DisplayFor(c => c.Name)</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayNameFor(c => c.Name)</td>
+                        <td>@Html.DisplayFor(c => c.Name)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(c => c.Description)</td>
+                        <td>@Html.DisplayFor(c => c.Description)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(c => c.Skills)</td>
+                        <td>@(String.Join(", ", Model.Skills))</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(c => c.Materials)</td>
+                        <td>@(String.Join(", ", Model.Materials))</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary self-start mt-4">
+                Back to Courses
+            </a>
+        </div>
+    </div>
+</div>
