@@ -19,17 +19,29 @@ public static class RepositoryTestEndpoints
         app.MapGet("/skills", async (ISkillRepository repository) =>
             TypedResults.Ok(await repository.GetAllAsync()));
 
-        app.MapGet("/materials", async (IMaterialRepository repository) =>
-            TypedResults.Ok(await repository.GetAllAsync()));
+        app.MapGet("/materials", async (IMaterialService service) =>
+            TypedResults.Ok(await service.GetAllMaterialsAsync()));
 
         app.MapGet("/materials/videos", async (IMaterialRepository repository) =>
-            TypedResults.Ok(await repository.GetVideosAsync()));
+            TypedResults.Ok(await repository.GetAllVideosAsync()));
 
         app.MapGet("/materials/publications", async (IMaterialRepository repository) =>
-            TypedResults.Ok(await repository.GetPublicationsAsync()));
+            TypedResults.Ok(await repository.GetAllPublicationsAsync()));
 
         app.MapGet("/materials/articles", async (IMaterialRepository repository) =>
-            TypedResults.Ok(await repository.GetArticlesAsync()));
+            TypedResults.Ok(await repository.GetAllArticlesAsync()));
+
+        app.MapGet("/materials/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
+            TypedResults.Ok(await service.GetMaterialsByCourseIdAsync(courseId)));
+
+        app.MapGet("/videos/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
+            TypedResults.Ok(await service.GetVideosByCourseIdAsync(courseId)));
+
+        app.MapGet("/publications/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
+            TypedResults.Ok(await service.GetPublicationsByCourseIdAsync(courseId)));
+
+        app.MapGet("/articles/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
+            TypedResults.Ok(await service.GetArticlesByCourseIdAsync(courseId)));
 
         return app;
     }
