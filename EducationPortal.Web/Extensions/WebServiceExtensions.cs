@@ -1,0 +1,17 @@
+using EducationPortal.Web.Mappings;
+using EducationPortal.Web.Models;
+
+namespace EducationPortal.Extensions;
+
+public static class WebServiceExtensions
+{
+    public static IServiceCollection AddViewModelMappers(
+        this IServiceCollection services)
+    {
+        services.AddAutoMapper(
+            typeof(CourseViewModelProfile).Assembly
+        );
+
+        return services;
+    }
+}
