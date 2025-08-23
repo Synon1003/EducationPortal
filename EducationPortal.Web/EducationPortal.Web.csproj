@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EducationPortal.Data\EducationPortal.Data.csproj" />
+    <ProjectReference Include="..\EducationPortal.Application\EducationPortal.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
