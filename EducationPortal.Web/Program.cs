@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbRepositories(builder.Configuration);
+builder.Services.AddServices();
 builder.Services.AddIdentityProviders();
 
 builder.Services.AddAuthorization(options =>
