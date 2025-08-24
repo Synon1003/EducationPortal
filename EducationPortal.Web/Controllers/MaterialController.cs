@@ -35,4 +35,18 @@ public class MaterialController : Controller
         var article = await _materialService.GetArticleByMaterialIdAsync(materialId: id);
         return PartialView("_ArticleDetailsPartial", _mapper.Map<ArticleViewModel>(article));
     }
+
+    public IActionResult AddMaterialToViewModel(CourseCreateViewModel model)
+    {
+        model.Materials.Add(new MaterialCreateViewModel());
+        return PartialView("_CreateMaterialsListPartial", model.Materials);
+    }
+
+    public IActionResult RemoveMaterialFromViewModel(CourseCreateViewModel model, int index)
+    {
+        if (index >= 0 && index < model.Materials.Count)
+            model.Materials.RemoveAt(index);
+
+        return PartialView("_CreateMaterialsListPartial", model.Materials);
+    }
 }

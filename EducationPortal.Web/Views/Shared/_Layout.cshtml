@@ -98,6 +98,7 @@
         <partial name="_AosScriptsPartial" />
         <script src="~/js/site.js" asp-append-version="true"></script>
         @await RenderSectionAsync("ValidationScripts", required: false)
+        @await RenderSectionAsync("CreateCourseHelperScripts", required: false)
 </body>
 
 </html>

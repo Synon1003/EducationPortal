@@ -8,7 +8,7 @@ public class MaterialViewModelProfile : Profile
 {
     public MaterialViewModelProfile()
     {
-        CreateMap<MaterialDto, MaterialViewModel>().ReverseMap();
-        CreateMap<SkillCreateViewModel, SkillCreateDto>();
+        CreateMap<MaterialDto, MaterialViewModel>();
+        CreateMap<MaterialCreateViewModel, MaterialCreateDto>();
     }
 }

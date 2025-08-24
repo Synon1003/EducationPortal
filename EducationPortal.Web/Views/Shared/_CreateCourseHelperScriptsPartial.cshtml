@@ -1,0 +1,45 @@
+<script>
+    async function addSkillToViewModel()
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        const response = await fetch('@Url.Action("AddSkillToViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-skills-container").innerHTML = await response.text();
+    }
+
+    async function removeSkillFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("RemoveSkillFromViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-skills-container").innerHTML = await response.text();
+    }
+
+    async function addMaterialToViewModel()
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        const response = await fetch('@Url.Action("AddMaterialToViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-materials-container").innerHTML = await response.text();
+    }
+
+    async function removeMaterialFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("RemoveMaterialFromViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-materials-container").innerHTML = await response.text();
+    }
+</script>
