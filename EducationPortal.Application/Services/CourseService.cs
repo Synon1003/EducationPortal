@@ -49,4 +49,12 @@ public class CourseService : ICourseService
 
         return _mapper.Map<CourseDetailDto>(course);
     }
+
+    public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
+    {
+        Course courseWithSkillAndMaterials = _mapper.Map<Course>(courseCreateDto);
+        await _courseRepository.InsertAsync(courseWithSkillAndMaterials);
+
+        return _mapper.Map<CourseDetailDto>(courseWithSkillAndMaterials);
+    }
 }

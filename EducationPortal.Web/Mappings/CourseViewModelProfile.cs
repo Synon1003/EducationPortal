@@ -17,5 +17,13 @@ public class CourseViewModelProfile : Profile
                 opt.MapFrom(src => src.Skills.Select(s => s.Name).ToList()))
             .ForMember(dest => dest.Materials, opt =>
                 opt.MapFrom(src => src.Materials.Select(s => s.Title).ToList()));
+
+        CreateMap<CourseCreateViewModel, CourseCreateDto>()
+            .ConstructUsing(src => new CourseCreateDto(
+                src.Name,
+                src.Description,
+                new List<SkillCreateDto>(),
+                new List<MaterialCreateDto>()
+            ));
     }
 }

@@ -20,3 +20,10 @@ public record CourseDetailDto(
     List<SkillDto> Skills,
     List<MaterialDto> Materials
 ) : ICourseDto;
+
+public record CourseCreateDto(
+    string Name,
+    string Description,
+    List<SkillCreateDto> Skills,
+    List<MaterialCreateDto> Materials
+) : ICourseDto;
