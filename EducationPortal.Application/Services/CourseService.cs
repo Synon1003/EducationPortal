@@ -68,7 +68,13 @@ public class CourseService : ICourseService
 
         await _courseRepository.InsertAsync(course);
         await InsertCourseSkills(course, courseCreateDto);
-        // await InsertCourseMaterials(course, courseCreateDto);
+
+        List<Material> materials = [];
+        AttachNewVideosToMaterials(materials, courseCreateDto);
+        AttachNewPublicationsToMaterials(materials, courseCreateDto);
+        AttachNewArticlesToMaterials(materials, courseCreateDto);
+
+        await InsertCourseMaterials(course, materials);
 
         return _mapper.Map<CourseDetailDto>(course);
     }
@@ -93,26 +99,90 @@ public class CourseService : ICourseService
         await _courseRepository.UpdateAsync(course);
     }
 
-    // private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
-    // {
-    //     var materials = courseCreateDto.Materials
-    //         .Select(m => new Material { Title = m.Title, Type = m.Type })
-    //         .ToList();
+    private void AttachNewVideosToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
+    {
+        foreach (var videoDto in courseCreateDto.Videos)
+        {
+            if (_materialRepository.Exists(m => m.Title == videoDto.Material.Title && m.Type == "Video"))
+                continue;
 
-    //     foreach (var material in materials)
-    //     {
-    //         if (_materialRepository.Exists(m => m.Title == material.Title && m.Type == m.Type))
-    //             continue;
-    //         await _materialRepository.InsertAsync(material);
-    //         // TODO insert material type also (video/publication/article)
-    //     }
+            Material material = new Material
+            {
+                Title = videoDto.Material.Title,
+                Type = "Video"
+            };
 
-    //     course.CourseMaterials = materials.Select(material => new CourseMaterial
-    //     {
-    //         CourseId = course.Id,
-    //         MaterialId = material.Id
-    //     }).ToList();
+            material.Video = new Video
+            {
+                Duration = videoDto.Duration,
+                Quality = videoDto.Quality,
+                Material = material
+            };
 
-    //     await _courseRepository.UpdateAsync(course);
-    // }
+            materials.Add(material);
+        }
+    }
+
+    private void AttachNewPublicationsToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
+    {
+        foreach (var publicationDto in courseCreateDto.Publications)
+        {
+            if (_materialRepository.Exists(m => m.Title == publicationDto.Material.Title && m.Type == "Publication"))
+                continue;
+
+            Material material = new Material
+            {
+                Title = publicationDto.Material.Title,
+                Type = "Publication"
+            };
+
+            material.Publication = new Publication
+            {
+                Authors = publicationDto.Authors,
+                Format = publicationDto.Format,
+                Pages = publicationDto.Pages,
+                PublicationYear = publicationDto.PublicationYear,
+                Material = material
+            };
+
+            materials.Add(material);
+        }
+    }
+
+    private void AttachNewArticlesToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
+    {
+        foreach (var articleDto in courseCreateDto.Articles)
+        {
+            if (_materialRepository.Exists(m => m.Title == articleDto.Material.Title && m.Type == "Article"))
+                continue;
+
+            Material material = new Material
+            {
+                Title = articleDto.Material.Title,
+                Type = "Article"
+            };
+
+            material.Article = new Article
+            {
+                PublicationDate = articleDto.PublicationDate,
+                ResourceLink = articleDto.ResourceLink,
+                Material = material
+            };
+
+            materials.Add(material);
+        }
+    }
+
+    private async Task InsertCourseMaterials(Course course, List<Material> materials)
+    {
+        await _materialRepository.InsertRangeAsync(materials);
+
+        course.CourseMaterials = materials.Select(material => new CourseMaterial
+        {
+            CourseId = course.Id,
+            MaterialId = material.Id
+        }).ToList();
+
+        await _courseRepository.UpdateAsync(course);
+    }
 }
