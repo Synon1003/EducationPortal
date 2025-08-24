@@ -1,0 +1,91 @@
+@model ListProfileMaterialViewModel
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
+    <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268">
+        <div class="card-body">
+            <div class="text-3xl ml-2 font-medium">Materials</div>
+
+            @if (@Model.Videos.Count > 0)
+            {
+                <div class="text-2xl mt-4 mb-4 font-medium">Videos</div>
+                <div class="overflow-x-auto" data-aos="fade-up">
+                    <table class="table table-fixed w-full">
+                        <thead>
+                            <tr>
+                                <th class="w-1/3">Title</th>
+                                <th class="w-1/3">Duration</th>
+                                <th class="w-1/3">Quality</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var video in Model.Videos)
+                            {
+                                <tr>
+                                    <td>@video.Title</td>
+                                    <td>@video.Duration</td>
+                                    <td>@video.Quality</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            @if (@Model.Publications.Count > 0)
+            {
+                <div class="text-2xl mt-4 mb-4 font-medium">Publications</div>
+                <div class="overflow-x-auto" data-aos="fade-up">
+                    <table class="table table-fixed w-full">
+                        <thead>
+                            <tr>
+                                <th class="w-1/5">Title</th>
+                                <th class="w-1/5">Authors</th>
+                                <th class="w-1/5">Pages</th>
+                                <th class="w-1/5">Format</th>
+                                <th class="w-1/5">PublicationYear</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var publication in Model.Publications)
+                            {
+                                <tr>
+                                    <td>@publication.Title</td>
+                                    <td>@publication.Authors</td>
+                                    <td>@publication.Pages</td>
+                                    <td>@publication.Format</td>
+                                    <td>@publication.PublicationYear</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            @if (@Model.Articles.Count > 0)
+            {
+                <div class="text-2xl mt-4 mb-4 font-medium">Articles</div>
+                <div class="overflow-x-auto" data-aos="fade-up">
+                    <table class="table table-fixed w-full">
+                        <thead>
+                            <tr>
+                                <th class="w-1/3">Title</th>
+                                <th class="w-1/3">PublicationDate</th>
+                                <th class="w-1/3">ResourceLink</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var article in Model.Articles)
+                            {
+                                <tr>
+                                    <td>@article.Title</td>
+                                    <td>@article.PublicationDate</td>
+                                    <td class="whitespace-normal break-words">@article.ResourceLink</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>
