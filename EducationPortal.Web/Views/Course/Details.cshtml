@@ -28,9 +28,14 @@
                     </tr>
                 </tbody>
             </table>
-            <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary self-start mt-4">
+            <div class="flex items-center justify-between mt-4">
+            <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary">
                 Back to Courses
             </a>
+            <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id" class="btn btn-md btn-primary">
+                View Materials
+            </a>
+            </div>
         </div>
     </div>
 </div>

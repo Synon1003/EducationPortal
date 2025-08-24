@@ -1,0 +1,18 @@
+@model ArticleViewModel
+
+<table class="table table-fixed w-full">
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(c => c.Title)</td>
+            <td>@Html.DisplayFor(c => c.Title)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(a => a.PublicationDate)</td>
+            <td>@Html.DisplayFor(a => a.PublicationDate)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(a => a.ResourceLink)</td>
+            <td class="whitespace-normal break-words">@Html.DisplayFor(a => a.ResourceLink)</td>
+        </tr>
+    </tbody>
+</table>

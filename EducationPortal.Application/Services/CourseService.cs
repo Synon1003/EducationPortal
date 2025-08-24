@@ -32,6 +32,15 @@ public class CourseService : ICourseService
         return _mapper.Map<List<CourseListDto>>(courses);
     }
 
+    public async Task<CourseListDto> GetCourseByIdAsync(int id)
+    {
+        var course = await _courseRepository.GetByIdAsync(id);
+        if (course == null)
+            throw new NotFoundException(nameof(Course), id);
+
+        return _mapper.Map<CourseListDto>(course);
+    }
+
     public async Task<CourseDetailDto> GetCourseWithSkillsAndMaterialsByIdAsync(int id)
     {
         var course = await _courseRepository.GetCourseWithSkillsAndMaterialsByIdAsync(id);

@@ -4,5 +4,6 @@ public record VideoDto(
     int Id,
     int Duration,
     string Quality,
-    int materialId
+    int MaterialId,
+    MaterialDto Material
 );

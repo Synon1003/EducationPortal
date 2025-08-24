@@ -4,5 +4,6 @@ public record ArticleDto(
     int Id,
     DateOnly PublicationDate,
     string ResourceLink,
-    int materialId
+    int MaterialId,
+    MaterialDto Material
 );

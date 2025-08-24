@@ -6,5 +6,6 @@ public record PublicationDto(
     int Pages,
     string Format,
     int PublicationYear,
-    int materialId
+    int MaterialId,
+    MaterialDto Material
 );
