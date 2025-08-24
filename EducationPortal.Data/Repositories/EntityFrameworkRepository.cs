@@ -22,15 +22,26 @@ public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEn
         return await _context.Set<TEntity>().FindAsync(id);
     }
 
-    public async Task<bool> Exists(int id)
+    public bool Exists(Func<TEntity, bool> predicate)
     {
-        var entity = await GetByIdAsync(id);
-        return entity != null;
+        return _context.Set<TEntity>().AsNoTracking().Any(predicate);
     }
 
     public async Task InsertAsync(TEntity entity)
     {
         await _context.Set<TEntity>().AddAsync(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task InsertRangeAsync(List<TEntity> entities)
+    {
+        await _context.Set<TEntity>().AddRangeAsync(entities);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(TEntity entity)
+    {
+        _context.Set<TEntity>().Update(entity);
         await _context.SaveChangesAsync();
     }
 }

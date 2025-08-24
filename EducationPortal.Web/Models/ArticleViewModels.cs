@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace EducationPortal.Web.Models;
 
 public class ListArticlesViewModel
@@ -12,4 +14,19 @@ public class ArticleViewModel
     public string PublicationDate { get; set; }
     public string ResourceLink { get; set; }
     public int MaterialId { get; set; }
+}
+
+public class ArticleCreateViewModel
+{
+    [Required]
+    [StringLength(100)]
+    public string Title { get; set; }
+
+    [Required]
+    [DataType(DataType.Date)]
+    public DateOnly PublicationDate { get; set; }
+
+    [Required]
+    [StringLength(500)]
+    public string ResourceLink { get; set; }
 }

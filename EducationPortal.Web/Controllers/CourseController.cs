@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using EducationPortal.Application.Services.Interfaces;
+using EducationPortal.Application.Dtos;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -37,10 +38,36 @@ public class CourseController : Controller
         return View(listCoursesViewModel);
     }
 
+    [HttpGet]
     public async Task<ActionResult<CourseDetailViewModel>> Details(int id)
     {
         var course = await _courseService.GetCourseWithSkillsAndMaterialsByIdAsync(id);
         return View(_mapper.Map<CourseDetailViewModel>(course));
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View(new CourseCreateViewModel());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromForm] CourseCreateViewModel courseCreateViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData.Put<List<string>>("errors",
+                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
+            TempData.CreateFlash("Course creation failed.", "error");
+
+            return View(courseCreateViewModel);
+        }
+
+        var courseCreateDto = _mapper.Map<CourseCreateDto>(courseCreateViewModel);
+        await _courseService.CreateCourseAsync(courseCreateDto);
+        TempData.CreateFlash("Course created successfully.", "info");
+
+        return RedirectToAction(nameof(List));
     }
 
     [HttpGet]

@@ -35,13 +35,20 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
     {
         modelBuilder.Entity<Skill>().HasData(
             new Skill { Id = 1, Name = "C#" },
-            new Skill { Id = 2, Name = "Git" }
+            new Skill { Id = 2, Name = "Git" },
+            new Skill { Id = 3, Name = "Sql" },
+            new Skill { Id = 4, Name = "Uml" },
+            new Skill { Id = 5, Name = "Md" },
+            new Skill { Id = 6, Name = "Gitlab" }
         );
 
         modelBuilder.Entity<Material>().HasData(
             new Material { Id = 1, Title = "Ultimate C# Masterclass", Type = "Video" },
             new Material { Id = 2, Title = "Asp.Net Core", Type = "Video" },
-            new Material { Id = 3, Title = "Vue 3 + Pinia - JWT Authentication Tutorial & Example", Type = "Article" }
+            new Material { Id = 3, Title = "Vue 3 + Pinia - JWT Authentication Tutorial & Example", Type = "Article" },
+            new Material { Id = 4, Title = "Vue 3 + Pinia - JWT Authentication with Refresh Tokens Example & Tutorial", Type = "Article" },
+            new Material { Id = 5, Title = "Gutenberg Bible", Type = "Publication" },
+            new Material { Id = 6, Title = "Star Wars", Type = "Publication" }
         );
 
         modelBuilder.Entity<Course>().HasData(
@@ -51,12 +58,20 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
 
         modelBuilder.Entity<CourseSkill>().HasData(
             new CourseSkill { Id = 1, CourseId = 1, SkillId = 1 },
-            new CourseSkill { Id = 2, CourseId = 2, SkillId = 2 }
+            new CourseSkill { Id = 2, CourseId = 2, SkillId = 2 },
+            new CourseSkill { Id = 3, CourseId = 1, SkillId = 3 },
+            new CourseSkill { Id = 4, CourseId = 1, SkillId = 4 },
+            new CourseSkill { Id = 5, CourseId = 2, SkillId = 5 },
+            new CourseSkill { Id = 6, CourseId = 2, SkillId = 6 }
         );
 
         modelBuilder.Entity<CourseMaterial>().HasData(
             new CourseMaterial { Id = 1, CourseId = 1, MaterialId = 1 },
-            new CourseMaterial { Id = 2, CourseId = 1, MaterialId = 2 }
+            new CourseMaterial { Id = 2, CourseId = 1, MaterialId = 2 },
+            new CourseMaterial { Id = 3, CourseId = 1, MaterialId = 3 },
+            new CourseMaterial { Id = 4, CourseId = 1, MaterialId = 4 },
+            new CourseMaterial { Id = 5, CourseId = 2, MaterialId = 5 },
+            new CourseMaterial { Id = 6, CourseId = 2, MaterialId = 6 }
         );
 
         modelBuilder.Entity<Video>().HasData(
@@ -64,8 +79,14 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             new Video { Id = 2, MaterialId = 2, Duration = 90, Quality = "720p" }
         );
 
+        modelBuilder.Entity<Publication>().HasData(
+            new Publication { Id = 1, MaterialId = 5, Format = "txt", Authors = "Johann Gutenberg", Pages = 1286, PublicationYear = 1455 },
+            new Publication { Id = 2, MaterialId = 6, Format = "txt", Authors = "Alan Dean Foster, George Lucas", Pages = 272, PublicationYear = 1976 }
+        );
+
         modelBuilder.Entity<Article>().HasData(
-            new Article { Id = 1, MaterialId = 1, PublicationDate = new DateOnly(2022, 5, 26), ResourceLink = "https://jasonwatmore.com/post/2022/05/26/vue-3-pinia-jwt-authentication-tutorial-example" }
+            new Article { Id = 1, MaterialId = 3, PublicationDate = new DateOnly(2022, 5, 26), ResourceLink = "https://jasonwatmore.com/post/2022/05/26/vue-3-pinia-jwt-authentication-tutorial-example" },
+            new Article { Id = 2, MaterialId = 4, PublicationDate = new DateOnly(2022, 5, 26), ResourceLink = "https://jasonwatmore.com/vue-3-pinia-jwt-authentication-with-refresh-tokens-example-tutorial" }
         );
     }
 }

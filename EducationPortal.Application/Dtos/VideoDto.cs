@@ -7,3 +7,9 @@ public record VideoDto(
     int MaterialId,
     MaterialDto Material
 );
+
+public record VideoCreateDto(
+    int Duration,
+    string Quality,
+    MaterialCreateDto Material
+);

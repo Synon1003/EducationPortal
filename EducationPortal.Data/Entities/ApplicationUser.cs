@@ -6,10 +6,14 @@ namespace EducationPortal.Data.Entities;
 public class ApplicationUser : IdentityUser<Guid>
 {
     [Required]
+    [StringLength(50)]
     public string FirstName { get; set; }
 
     [Required]
+    [StringLength(50)]
     public string LastName { get; set; }
 
-    public string Theme { get; set; }
+    [Required]
+    [StringLength(20)]
+    public string Theme { get; set; } = "corporate";
 }

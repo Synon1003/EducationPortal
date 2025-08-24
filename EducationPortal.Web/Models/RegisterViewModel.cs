@@ -6,9 +6,11 @@ namespace EducationPortal.Web.Models;
 public class RegisterViewModel
 {
     [Required(ErrorMessage = "First name is required.")]
+    [StringLength(50)]
     public string FirstName { get; set; }
 
     [Required(ErrorMessage = "Last name is required.")]
+    [StringLength(50)]
     public string LastName { get; set; }
 
     [Required(ErrorMessage = "Email is required.")]

@@ -9,3 +9,11 @@ public record PublicationDto(
     int MaterialId,
     MaterialDto Material
 );
+
+public record PublicationCreateDto(
+    string Authors,
+    int Pages,
+    string Format,
+    int PublicationYear,
+    MaterialCreateDto Material
+);

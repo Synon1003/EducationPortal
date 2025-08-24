@@ -7,3 +7,9 @@ public record ArticleDto(
     int MaterialId,
     MaterialDto Material
 );
+
+public record ArticleCreateDto(
+    DateOnly PublicationDate,
+    string ResourceLink,
+    MaterialCreateDto Material
+);

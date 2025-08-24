@@ -9,10 +9,10 @@ public class MaterialProfile : Profile
     public MaterialProfile()
     {
         CreateMap<Material, MaterialDto>();
-        CreateMap<MaterialDto, Material>()
-            .ForMember(dest => dest.CourseMaterials, opt => opt.Ignore())
-            .ForMember(dest => dest.Video, opt => opt.Ignore())
-            .ForMember(dest => dest.Publication, opt => opt.Ignore())
-            .ForMember(dest => dest.Article, opt => opt.Ignore());
+        CreateMap<MaterialCreateDto, Material>()
+           .ForMember(dest => dest.CourseMaterials, opt => opt.Ignore())
+           .ForMember(dest => dest.Video, opt => opt.Ignore())
+           .ForMember(dest => dest.Publication, opt => opt.Ignore())
+           .ForMember(dest => dest.Article, opt => opt.Ignore());
     }
 }

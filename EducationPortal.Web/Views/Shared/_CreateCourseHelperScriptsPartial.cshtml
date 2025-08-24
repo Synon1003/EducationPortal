@@ -1,0 +1,89 @@
+<script>
+    async function addSkillToViewModel()
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        const response = await fetch('@Url.Action("AddSkillToViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-skills-container").innerHTML = await response.text();
+    }
+
+    async function removeSkillFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("RemoveSkillFromViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-skills-container").innerHTML = await response.text();
+    }
+
+    async function addVideoToViewModel()
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        const response = await fetch('@Url.Action("AddVideoToViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-videos-container").innerHTML = await response.text();
+    }
+
+    async function removeVideoFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("RemoveVideoFromViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-videos-container").innerHTML = await response.text();
+    }
+
+    async function addPublicationToViewModel()
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        const response = await fetch('@Url.Action("AddPublicationToViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-publications-container").innerHTML = await response.text();
+    }
+
+    async function removePublicationFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("RemovePublicationFromViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-publications-container").innerHTML = await response.text();
+    }
+
+    async function addArticleToViewModel()
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        const response = await fetch('@Url.Action("AddArticleToViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-articles-container").innerHTML = await response.text();
+    }
+
+    async function removeArticleFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("RemoveArticleFromViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("create-articles-container").innerHTML = await response.text();
+    }
+</script>

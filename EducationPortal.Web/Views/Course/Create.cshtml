@@ -1,0 +1,86 @@
+@model CourseCreateViewModel
+@{
+    ViewData["Title"] = "Create Course";
+    ViewBag.CurrentUrl = "~/Course/Create";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
+    <div class="card card-border w-96 bg-base-200 shadow-smw-120 sm:w-144 md:w-168 lg:w-226 xl:w-268">
+        <div class="card-body">
+            <h3 class="font-medium text-3xl ml-2 mb-4">Create Course</h3>
+            <form asp-controller="Course" asp-action="Create" method="post" id="create-course-form">
+                <div>
+                    <label class="floating-label mb-4">
+                        <span>@Html.DisplayNameFor(m => m.Name)</span>
+                        <input asp-for="Name" placeholder=@Html.DisplayNameFor(m => m.Name)
+                            class="input input-md w-full" />
+                        <span asp-validation-for="Name" class="text-error text-sm ml-1"></span>
+                    </label>
+                </div>
+                <div>
+                    <label class="floating-label mb-4">
+                        <span>@Html.DisplayNameFor(m => m.Description)</span>
+                        <input asp-for="Description" placeholder=@Html.DisplayNameFor(m => m.Description)
+                            class="input input-md w-full" />
+                        <span asp-validation-for="Description" class="text-error text-sm ml-1"></span>
+                    </label>
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Skills</h3>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addSkillToViewModel()">Add</button>
+                </div>
+
+                <div id="create-skills-container">
+                    @await Html.PartialAsync("~/Views/Skill/_CreateSkillsListPartial.cshtml", Model.Skills)
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Materials</h3>
+                    <button type="button" class="btn btn-primary btn-sm">Add Previously Created</button>
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Videos</h3>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addVideoToViewModel()">Add</button>
+                </div>
+
+                <div id="create-videos-container">
+                    @await Html.PartialAsync("~/Views/Material/_CreateVideosListPartial.cshtml", Model.Videos)
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Publications</h3>
+                    <button type="button" class="btn btn-primary btn-sm"
+                        onclick="addPublicationToViewModel()">Add</button>
+                </div>
+
+                <div id="create-publications-container">
+                    @await Html.PartialAsync("~/Views/Material/_CreatePublicationsListPartial.cshtml",
+                    Model.Publications)
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Articles</h3>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addArticleToViewModel()">Add</button>
+                </div>
+
+                <div id="create-articles-container">
+                    @await Html.PartialAsync("~/Views/Material/_CreateArticlesListPartial.cshtml", Model.Articles)
+                </div>
+
+                @* <div asp-validation-summary="All" class="text-error text-sm"></div> *@
+                <partial name="_ControllerErrorsPartial" />
+                <button type="submit" class="btn btn-md btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section ValidationScripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section CreateCourseHelperScripts {
+    <partial name="_CreateCourseHelperScriptsPartial" />
+}
