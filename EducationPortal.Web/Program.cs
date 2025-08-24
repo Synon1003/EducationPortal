@@ -55,7 +55,11 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.MapGet("/", () => "Education Portal");
+app.MapGet("/", () => @"Education Portal test endpoints url: /
+Swagger test endpoints url: /swagger
+Application Guest url: /Home/Index
+Application Login url: /Account/Login
+Application User url: /Course/List");
 app.UseRouting();
 
 app.UseAuthentication();
