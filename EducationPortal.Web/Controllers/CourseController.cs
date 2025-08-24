@@ -37,10 +37,36 @@ public class CourseController : Controller
         return View(listCoursesViewModel);
     }
 
+    [HttpGet]
     public async Task<ActionResult<CourseDetailViewModel>> Details(int id)
     {
         var course = await _courseService.GetCourseWithSkillsAndMaterialsByIdAsync(id);
         return View(_mapper.Map<CourseDetailViewModel>(course));
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View(new CreateCourseViewModel());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromForm] CreateCourseViewModel createCourseViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData.Put<List<string>>("errors",
+                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
+            TempData.CreateFlash("Course creation failed.", "error");
+
+            return View(createCourseViewModel);
+        }
+
+        // var courseCreateDto = _mapper.Map<CourseCreateDto>(createCourseViewModel);
+        // await _courseService.AddCourseAsync(courseCreateDto);
+        TempData.CreateFlash("Course created successfully.", "info");
+
+        return RedirectToAction(nameof(List));
     }
 
     [HttpGet]
