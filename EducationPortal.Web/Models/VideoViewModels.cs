@@ -23,6 +23,7 @@ public class VideoCreateViewModel
     public string Title { get; set; }
 
     [Required]
+    [Range(0, 86400)]
     public int Duration { get; set; }
 
     [Required]

@@ -13,7 +13,7 @@ public class Course
     public string Name { get; set; }
 
     [Required]
-    [StringLength(100)]
+    [StringLength(250)]
     public string Description { get; set; }
 
     public virtual ICollection<CourseSkill> CourseSkills { get; set; } = [];

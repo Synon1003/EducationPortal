@@ -13,5 +13,11 @@ public class ArticleViewModelProfile : Profile
                 opt.MapFrom(src => src.Material.Title))
             .ForMember(dest => dest.PublicationDate, opt =>
                 opt.MapFrom(src => src.PublicationDate.ToString("d")));
+
+        CreateMap<ArticleCreateViewModel, ArticleCreateDto>()
+            .ConstructUsing(src => new ArticleCreateDto(
+                src.PublicationDate,
+                src.ResourceLink,
+                new MaterialCreateDto(src.Title, "Article")));
     }
 }

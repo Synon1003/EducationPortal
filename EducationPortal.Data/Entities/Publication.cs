@@ -10,9 +10,11 @@ public class Publication
     public int Id { get; set; }
 
     [Required]
+    [StringLength(250)]
     public string Authors { get; set; }
 
     [Required]
+    [Range(0, 9999)]
     public int Pages { get; set; }
 
     [Required]
@@ -20,6 +22,7 @@ public class Publication
     public string Format { get; set; }
 
     [Required]
+    [Range(-1000, 3000)]
     public int PublicationYear { get; set; }
 
     public int MaterialId { get; set; }

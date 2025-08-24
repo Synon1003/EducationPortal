@@ -11,5 +11,11 @@ public class VideoViewModelProfile : Profile
         CreateMap<VideoDto, VideoViewModel>()
             .ForMember(dest => dest.Title, opt =>
                 opt.MapFrom(src => src.Material.Title));
+
+        CreateMap<VideoCreateViewModel, VideoCreateDto>()
+            .ConstructUsing(src => new VideoCreateDto(
+                src.Duration,
+                src.Quality,
+                new MaterialCreateDto(src.Title, "Video")));
     }
 }

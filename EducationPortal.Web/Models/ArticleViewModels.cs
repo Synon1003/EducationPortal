@@ -23,8 +23,10 @@ public class ArticleCreateViewModel
     public string Title { get; set; }
 
     [Required]
+    [DataType(DataType.Date)]
     public DateOnly PublicationDate { get; set; }
 
     [Required]
+    [StringLength(500)]
     public string ResourceLink { get; set; }
 }

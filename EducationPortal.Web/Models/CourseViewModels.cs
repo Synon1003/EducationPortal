@@ -32,7 +32,7 @@ public class CourseCreateViewModel
     public string Name { get; set; }
 
     [Required]
-    [StringLength(100)]
+    [StringLength(250)]
     public string Description { get; set; }
 
     public List<SkillCreateViewModel> Skills { get; set; } = [];
