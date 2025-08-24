@@ -9,7 +9,11 @@ public static class WebServiceExtensions
         this IServiceCollection services)
     {
         services.AddAutoMapper(
-            typeof(CourseViewModelProfile).Assembly
+            typeof(CourseViewModelProfile).Assembly,
+            typeof(MaterialViewModelProfile).Assembly,
+            typeof(VideoViewModelProfile).Assembly,
+            typeof(PublicationViewModelProfile).Assembly,
+            typeof(ArticleViewModelProfile).Assembly
         );
 
         return services;
