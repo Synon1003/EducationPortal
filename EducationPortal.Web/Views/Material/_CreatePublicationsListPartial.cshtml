@@ -1,0 +1,37 @@
+@model List<PublicationCreateViewModel>
+
+<div>
+    @for (int idx = 0; idx < Model.Count; idx++)
+    {
+        <div class="flex items-center gap-2 mb-4">
+            <label class="floating-label flex-1">
+                <span>Title</span>
+                <input asp-for="@Model[idx].Title" name="Publications[@idx].Title" class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].Title" class="text-error text-sm ml-1"></span>
+            </label>
+            <label class="floating-label flex-1">
+                <span>Authors</span>
+                <input asp-for="@Model[idx].Authors" name="Publications[@idx].Authors" class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].Authors" class="text-error text-sm ml-1"></span>
+            </label>
+            <label class="floating-label flex-1">
+                <span>Pages</span>
+                <input asp-for="@Model[idx].Pages" name="Publications[@idx].Pages" class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].Pages" class="text-error text-sm ml-1"></span>
+            </label>
+            <label class="floating-label flex-1">
+                <span>Format</span>
+                <input asp-for="@Model[idx].Format" name="Publications[@idx].Format" class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].Format" class="text-error text-sm ml-1"></span>
+            </label>
+            <label class="floating-label flex-1">
+                <span>PublicationYear</span>
+                <input asp-for="@Model[idx].PublicationYear" name="Publications[@idx].PublicationYear"
+                    class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].PublicationYear" class="text-error text-sm ml-1"></span>
+            </label>
+            <button type="button" class="btn btn-error btn-sm"
+                onclick="removePublicationFromViewModel(@idx)">Delete</button>
+        </div>
+    }
+</div>

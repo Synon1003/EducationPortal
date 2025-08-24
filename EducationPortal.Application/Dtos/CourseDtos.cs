@@ -25,5 +25,7 @@ public record CourseCreateDto(
     string Name,
     string Description,
     List<SkillCreateDto> Skills,
-    List<MaterialCreateDto> Materials
+    List<VideoCreateDto> Videos,
+    List<PublicationCreateDto> Publications,
+    List<ArticleCreateDto> Articles
 ) : ICourseDto;

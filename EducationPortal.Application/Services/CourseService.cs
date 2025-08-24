@@ -68,7 +68,7 @@ public class CourseService : ICourseService
 
         await _courseRepository.InsertAsync(course);
         await InsertCourseSkills(course, courseCreateDto);
-        await InsertCourseMaterials(course, courseCreateDto);
+        // await InsertCourseMaterials(course, courseCreateDto);
 
         return _mapper.Map<CourseDetailDto>(course);
     }
@@ -93,26 +93,26 @@ public class CourseService : ICourseService
         await _courseRepository.UpdateAsync(course);
     }
 
-    private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
-    {
-        var materials = courseCreateDto.Materials
-            .Select(m => new Material { Title = m.Title, Type = m.Type })
-            .ToList();
+    // private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
+    // {
+    //     var materials = courseCreateDto.Materials
+    //         .Select(m => new Material { Title = m.Title, Type = m.Type })
+    //         .ToList();
 
-        foreach (var material in materials)
-        {
-            if (_materialRepository.Exists(m => m.Title == material.Title && m.Type == m.Type))
-                continue;
-            await _materialRepository.InsertAsync(material);
-            // TODO insert material type also (video/publication/article)
-        }
+    //     foreach (var material in materials)
+    //     {
+    //         if (_materialRepository.Exists(m => m.Title == material.Title && m.Type == m.Type))
+    //             continue;
+    //         await _materialRepository.InsertAsync(material);
+    //         // TODO insert material type also (video/publication/article)
+    //     }
 
-        course.CourseMaterials = materials.Select(material => new CourseMaterial
-        {
-            CourseId = course.Id,
-            MaterialId = material.Id
-        }).ToList();
+    //     course.CourseMaterials = materials.Select(material => new CourseMaterial
+    //     {
+    //         CourseId = course.Id,
+    //         MaterialId = material.Id
+    //     }).ToList();
 
-        await _courseRepository.UpdateAsync(course);
-    }
+    //     await _courseRepository.UpdateAsync(course);
+    // }
 }

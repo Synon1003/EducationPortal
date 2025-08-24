@@ -36,5 +36,7 @@ public class CourseCreateViewModel
     public string Description { get; set; }
 
     public List<SkillCreateViewModel> Skills { get; set; } = [];
-    public List<MaterialCreateViewModel> Materials { get; set; } = [];
+    public List<VideoCreateViewModel> Videos { get; set; } = [];
+    public List<PublicationCreateViewModel> Publications { get; set; } = [];
+    public List<ArticleCreateViewModel> Articles { get; set; } = [];
 }

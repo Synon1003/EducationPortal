@@ -37,11 +37,34 @@
 
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-2xl">Materials</h3>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="addMaterialToViewModel()">Add</button>
+                    <button type="button" class="btn btn-primary btn-sm">Add Previously Created</button>
                 </div>
 
-                <div id="create-materials-container">
-                    @await Html.PartialAsync("~/Views/Material/_CreateMaterialsListPartial.cshtml", Model.Materials)
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Videos</h3>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addVideoToViewModel()">Add</button>
+                </div>
+
+                <div id="create-videos-container">
+                    @await Html.PartialAsync("~/Views/Material/_CreateVideosListPartial.cshtml", Model.Videos)
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Publications</h3>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addPublicationToViewModel()">Add</button>
+                </div>
+
+                <div id="create-publications-container">
+                    @await Html.PartialAsync("~/Views/Material/_CreatePublicationsListPartial.cshtml", Model.Publications)
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Articles</h3>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addArticleToViewModel()">Add</button>
+                </div>
+
+                <div id="create-articles-container">
+                    @await Html.PartialAsync("~/Views/Material/_CreateArticlesListPartial.cshtml", Model.Articles)
                 </div>
 
                 <div asp-validation-summary="All" class="text-error text-sm"></div>
