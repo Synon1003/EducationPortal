@@ -1,0 +1,117 @@
+@model ListMaterialViewModel
+@{
+    ViewData["Title"] = @Model.CourseName + " Materials";
+    ViewBag.CurrentUrl = "~/Course/Materials";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
+    <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168">
+        <div class="card-body">
+            <div class="text-3xl ml-2 font-medium">@Model.CourseName Materials</div>
+
+            @if (@Model.Videos.Count > 0)
+            {
+                <div class="text-2xl mt-4 mb-4 font-medium">Videos</div>
+                <div class="overflow-x-auto" data-aos="fade-up">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var video in Model.Videos)
+                            {
+                                <tr>
+                                    <td>
+                                        <a class="text-primary cursor-pointer"
+                                        onclick="openModalWithPartialViewContent('@Url.Action("VideoDetails", "Material", new { id = video.Id })')">
+                                            @video.Title
+                                        </a>
+                                    </td>
+                                    <td class="text-right"><a class="btn btn-success btn-sm">Done</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            @if (@Model.Publications.Count > 0)
+            {
+                <div class="text-2xl mt-4 mb-4 font-medium">Publications</div>
+                <div class="overflow-x-auto" data-aos="fade-up">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var publication in Model.Publications)
+                            {
+                                <tr>
+                                    <td>
+                                        <a class="text-primary cursor-pointer"
+                                        onclick="openModalWithPartialViewContent('@Url.Action("PublicationDetails", "Material", new { id = publication.Id })')">
+                                            @publication.Title
+                                        </a>
+                                    </td>
+                                    <td class="text-right"><a class="btn btn-success btn-outline btn-md">Mark as Done</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            @if (@Model.Articles.Count > 0)
+            {
+                <div class="text-2xl mt-4 mb-4 font-medium">Articles</div>
+                <div class="overflow-x-auto" data-aos="fade-up">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var article in Model.Articles)
+                            {
+                                <tr>
+                                    <td>
+                                        <a class="text-primary cursor-pointer"
+                                        onclick="openModalWithPartialViewContent('@Url.Action("ArticleDetails", "Material", new { id = article.Id })')">
+                                            @article.Title
+                                        </a>
+                                    </td>
+                                    <td class="text-right"><a class="btn btn-success btn-outline btn-md">Mark as Done</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            <dialog id="material-detail-modal" class="modal">
+                <div class="modal-box">
+                    <div class="flex items-center justify-between ml-2 mb-4">
+                        <div class="text-2xl mt-4 mb-4 font-medium">@Model.CourseName - Material</div>
+                        <a class="btn btn-success btn-outline btn-sm">Mark as Done</a>
+                    </div>
+                    <div id="material-detail-content">
+                        <!-- _VideoDetailsPartial view content -->
+                        <!-- _PublicationDetailsPartial view content -->
+                        <!-- _ArticleDetailsPartial view content -->
+                    </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <div class="flex items-center justify-start mt-4">
+                <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId"
+                    class="btn btn-md btn-secondary">
+                    Back to @Model.CourseName
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function openModalWithPartialViewContent(url) {
+        const response = await fetch(url);
+        if (!response.ok) return;
+
+        const html = await response.text();
+        document.getElementById("material-detail-content").innerHTML = html;
+        document.getElementById("material-detail-modal").showModal();
+    }
+</script>

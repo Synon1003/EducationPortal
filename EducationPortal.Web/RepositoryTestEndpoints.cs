@@ -35,13 +35,13 @@ public static class RepositoryTestEndpoints
             TypedResults.Ok(await service.GetMaterialsByCourseIdAsync(courseId)));
 
         app.MapGet("/videos/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
-            TypedResults.Ok(await service.GetVideosByCourseIdAsync(courseId)));
+            TypedResults.Ok(await service.GetVideosWithMaterialByCourseIdAsync(courseId)));
 
         app.MapGet("/publications/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
-            TypedResults.Ok(await service.GetPublicationsByCourseIdAsync(courseId)));
+            TypedResults.Ok(await service.GetPublicationsWithMaterialByCourseIdAsync(courseId)));
 
         app.MapGet("/articles/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
-            TypedResults.Ok(await service.GetArticlesByCourseIdAsync(courseId)));
+            TypedResults.Ok(await service.GetArticlesWithMaterialByCourseIdAsync(courseId)));
 
         return app;
     }

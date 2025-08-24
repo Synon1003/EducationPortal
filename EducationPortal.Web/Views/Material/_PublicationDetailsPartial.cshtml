@@ -1,0 +1,26 @@
+@model PublicationViewModel
+
+<table class="table table-fixed w-full">
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.Title)</td>
+            <td>@Html.DisplayFor(p => p.Title)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.Authors)</td>
+            <td>@Html.DisplayFor(p => p.Authors)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.Pages)</td>
+            <td>@Html.DisplayFor(p => p.Pages)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.Format)</td>
+            <td>@Html.DisplayFor(p => p.Format)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.PublicationYear)</td>
+            <td>@Html.DisplayFor(p => p.PublicationYear)</td>
+        </tr>
+    </tbody>
+</table>

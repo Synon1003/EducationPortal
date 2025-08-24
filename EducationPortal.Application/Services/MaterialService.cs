@@ -2,6 +2,8 @@ using AutoMapper;
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Application.Dtos;
 using EducationPortal.Application.Services.Interfaces;
+using EducationPortal.Application.Exceptions;
+using EducationPortal.Data.Entities;
 
 namespace EducationPortal.Application.Services;
 
@@ -30,24 +32,61 @@ public class MaterialService : IMaterialService
         return _mapper.Map<List<MaterialDto>>(materials);
     }
 
-    public async Task<ICollection<VideoDto>> GetVideosByCourseIdAsync(int courseId)
+    public async Task<MaterialDto> GetByIdAsync(int id)
     {
-        var videos = await _materialRepository.GetVideosByCourseIdAsync(courseId);
+        var material = await _materialRepository.GetByIdAsync(id);
+        if (material == null)
+            throw new NotFoundException(nameof(Material), id);
+
+        return _mapper.Map<MaterialDto>(material);
+    }
+
+
+    public async Task<ICollection<VideoDto>> GetVideosWithMaterialByCourseIdAsync(int courseId)
+    {
+        var videos = await _materialRepository.GetVideosWithMaterialByCourseIdAsync(courseId);
 
         return _mapper.Map<List<VideoDto>>(videos);
     }
 
-    public async Task<ICollection<PublicationDto>> GetPublicationsByCourseIdAsync(int courseId)
+    public async Task<ICollection<PublicationDto>> GetPublicationsWithMaterialByCourseIdAsync(int courseId)
     {
-        var publications = await _materialRepository.GetPublicationsByCourseIdAsync(courseId);
+        var publications = await _materialRepository.GetPublicationsWithMaterialByCourseIdAsync(courseId);
 
         return _mapper.Map<List<PublicationDto>>(publications);
     }
 
-    public async Task<ICollection<ArticleDto>> GetArticlesByCourseIdAsync(int courseId)
+    public async Task<ICollection<ArticleDto>> GetArticlesWithMaterialByCourseIdAsync(int courseId)
     {
-        var articles = await _materialRepository.GetArticlesByCourseIdAsync(courseId);
+        var articles = await _materialRepository.GetArticlesWithMaterialByCourseIdAsync(courseId);
 
         return _mapper.Map<List<ArticleDto>>(articles);
+    }
+
+    public async Task<VideoDto> GetVideoByMaterialIdAsync(int materialId)
+    {
+        var video = await _materialRepository.GetVideoByMaterialIdAsync(materialId);
+        if (video == null)
+            throw new NotFoundException(nameof(Material), materialId);
+
+        return _mapper.Map<VideoDto>(video);
+    }
+
+    public async Task<PublicationDto> GetPublicationByMaterialIdAsync(int materialId)
+    {
+        var publication = await _materialRepository.GetPublicationByMaterialIdAsync(materialId);
+        if (publication == null)
+            throw new NotFoundException(nameof(Material), materialId);
+
+        return _mapper.Map<PublicationDto>(publication);
+    }
+
+    public async Task<ArticleDto> GetArticleByMaterialIdAsync(int materialId)
+    {
+        var article = await _materialRepository.GetArticleByMaterialIdAsync(materialId);
+        if (article == null)
+            throw new NotFoundException(nameof(Material), materialId);
+
+        return _mapper.Map<ArticleDto>(article);
     }
 }
