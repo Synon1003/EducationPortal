@@ -13,7 +13,8 @@ public static class WebServiceExtensions
             typeof(MaterialViewModelProfile).Assembly,
             typeof(VideoViewModelProfile).Assembly,
             typeof(PublicationViewModelProfile).Assembly,
-            typeof(ArticleViewModelProfile).Assembly
+            typeof(ArticleViewModelProfile).Assembly,
+            typeof(SkillViewModelProfile).Assembly
         );
 
         return services;

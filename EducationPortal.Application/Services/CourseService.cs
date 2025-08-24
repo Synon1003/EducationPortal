@@ -10,11 +10,16 @@ namespace EducationPortal.Application.Services;
 public class CourseService : ICourseService
 {
     private readonly ICourseRepository _courseRepository;
+    private readonly ISkillRepository _skillRepository;
     private readonly IMapper _mapper;
 
-    public CourseService(ICourseRepository courseRepository, IMapper mapper)
+    public CourseService(
+        ICourseRepository courseRepository,
+        ISkillRepository skillRepository,
+        IMapper mapper)
     {
         _courseRepository = courseRepository;
+        _skillRepository = skillRepository;
         _mapper = mapper;
     }
 
@@ -52,9 +57,26 @@ public class CourseService : ICourseService
 
     public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
     {
-        Course courseWithSkillAndMaterials = _mapper.Map<Course>(courseCreateDto);
-        await _courseRepository.InsertAsync(courseWithSkillAndMaterials);
+        Course course = _mapper.Map<Course>(courseCreateDto);
 
-        return _mapper.Map<CourseDetailDto>(courseWithSkillAndMaterials);
+        var skills = courseCreateDto.Skills.Select(s => new Skill { Name = s.Name }).ToList();
+
+        await _courseRepository.InsertAsync(course);
+
+        // TODO check for duplicates)
+        foreach (var skill in skills)
+        {
+            await _skillRepository.InsertAsync(skill);
+        }
+
+        course.CourseSkills = skills.Select(skill => new CourseSkill
+        {
+            CourseId = course.Id,
+            SkillId = skill.Id
+        }).ToList();
+
+        await _courseRepository.UpdateAsync(course);
+
+        return _mapper.Map<CourseDetailDto>(course);
     }
 }

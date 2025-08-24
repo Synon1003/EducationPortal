@@ -27,8 +27,6 @@ public class CourseDetailViewModel
 
 public class CourseCreateViewModel
 {
-    public int Id { get; set; }
-
     [Required]
     [StringLength(50)]
     public string Name { get; set; }
@@ -36,4 +34,7 @@ public class CourseCreateViewModel
     [Required]
     [StringLength(100)]
     public string Description { get; set; }
+
+    public List<SkillCreateViewModel> Skills { get; set; } = [];
+    public List<MaterialCreateViewModel> Materials { get; set; } = [];
 }

@@ -22,8 +22,8 @@ public class CourseViewModelProfile : Profile
             .ConstructUsing(src => new CourseCreateDto(
                 src.Name,
                 src.Description,
-                new List<SkillCreateDto>(),
-                new List<MaterialCreateDto>()
+                src.Skills.Select(s => new SkillCreateDto(s.Name)).ToList(),
+                src.Materials.Select(m => new MaterialCreateDto(m.Title, m.Type)).ToList()
             ));
     }
 }

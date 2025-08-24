@@ -4,11 +4,10 @@ using EducationPortal.Application.Dtos;
 
 namespace EducationPortal.Web.Mappings;
 
-public class MaterialViewModelProfile : Profile
+public class SkillViewModelProfile : Profile
 {
-    public MaterialViewModelProfile()
+    public SkillViewModelProfile()
     {
-        CreateMap<MaterialDto, MaterialViewModel>().ReverseMap();
         CreateMap<SkillCreateViewModel, SkillCreateDto>();
     }
 }

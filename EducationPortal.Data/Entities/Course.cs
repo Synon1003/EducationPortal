@@ -16,8 +16,8 @@ public class Course
     [StringLength(100)]
     public string Description { get; set; }
 
-    public virtual ICollection<CourseSkill> CourseSkills { get; } = [];
-    public virtual ICollection<CourseMaterial> CourseMaterials { get; } = [];
+    public virtual ICollection<CourseSkill> CourseSkills { get; set; } = [];
+    public virtual ICollection<CourseMaterial> CourseMaterials { get; set; } = [];
 
     [NotMapped]
     public virtual ICollection<Skill> Skills => [.. CourseSkills.Select(cs => cs.Skill)];

@@ -15,3 +15,9 @@ public class MaterialViewModel
     public string Title { get; set; }
     public string Type { get; set; }
 }
+
+public class MaterialCreateViewModel
+{
+    public string Title { get; set; }
+    public string Type { get; set; }
+}

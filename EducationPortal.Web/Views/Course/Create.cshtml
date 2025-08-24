@@ -8,7 +8,7 @@
     <div class="card card-border w-96 bg-base-200 shadow-smw-120 sm:w-144 md:w-168 lg:w-226 xl:w-268">
         <div class="card-body">
             <h3 class="font-medium text-3xl ml-2 mb-4">Create Course</h3>
-            <form asp-controller="Course" asp-action="Create" method="post">
+            <form asp-controller="Course" asp-action="Create" method="post" id="create-course-form">
                 <div>
                     <label class="floating-label mb-4">
                         <span>@Html.DisplayNameFor(m => m.Name)</span>
@@ -25,6 +25,16 @@
                         <span asp-validation-for="Description" class="text-error text-sm ml-1"></span>
                     </label>
                 </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-medium text-2xl">Skills</h3>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="addSkillToViewModel()">Add</button>
+                </div>
+
+                <div id="skills-container">
+                    @await Html.PartialAsync("~/Views/Skill/_CreateSkillsListPartial.cshtml", Model.Skills)
+                </div>
+
                 <div asp-validation-summary="All" class="text-error text-sm"></div>
                 <partial name="_ControllerErrorsPartial" />
                 <button type="submit" class="btn btn-md btn-primary">Create</button>
@@ -36,3 +46,27 @@
 @section ValidationScripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<script>
+    async function addSkillToViewModel()
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        const response = await fetch('@Url.Action("AddSkillToViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("skills-container").innerHTML = await response.text();
+    }
+
+    async function removeSkillFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("RemoveSkillFromViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("skills-container").innerHTML = await response.text();
+    }
+</script>
