@@ -79,7 +79,6 @@ public class CourseService : ICourseService
             course.Skills.Add(new Skill { Name = skill.Name, Courses = [course] });
         }
         await _unitOfWork.SkillRepository.InsertRangeAsync(course.Skills.ToList());
-        await _unitOfWork.CourseRepository.UpdateAsync(course);
     }
 
     private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
@@ -90,7 +89,6 @@ public class CourseService : ICourseService
         AttachNewArticlesToMaterials(course, materials, courseCreateDto);
 
         await _unitOfWork.MaterialRepository.InsertRangeAsync(materials);
-        await _unitOfWork.CourseRepository.UpdateAsync(course);
     }
 
     private void AttachNewVideosToMaterials(

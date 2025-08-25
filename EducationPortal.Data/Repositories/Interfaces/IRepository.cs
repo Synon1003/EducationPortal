@@ -7,5 +7,4 @@ public interface IRepository<TEntity> where TEntity : class
     bool Exists(Func<TEntity, bool> predicate);
     Task InsertAsync(TEntity entity);
     Task InsertRangeAsync(List<TEntity> entities);
-    Task UpdateAsync(TEntity entity);
 }

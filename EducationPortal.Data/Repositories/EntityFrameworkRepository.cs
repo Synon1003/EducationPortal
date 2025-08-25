@@ -30,18 +30,10 @@ public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEn
     public async Task InsertAsync(TEntity entity)
     {
         await _context.Set<TEntity>().AddAsync(entity);
-        await _context.SaveChangesAsync();
     }
 
     public async Task InsertRangeAsync(List<TEntity> entities)
     {
         await _context.Set<TEntity>().AddRangeAsync(entities);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task UpdateAsync(TEntity entity)
-    {
-        _context.Set<TEntity>().Update(entity);
-        await _context.SaveChangesAsync();
     }
 }
