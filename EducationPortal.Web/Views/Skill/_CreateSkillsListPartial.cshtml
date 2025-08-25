@@ -9,7 +9,7 @@
                 <input asp-for="@Model[idx].Name" name="Skills[@idx].Name" class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Name" class="text-error text-sm ml-1"></span>
             </label>
-            <button type="button" class="btn btn-error btn-sm" onclick="removeSkillFromViewModel(@idx)">Delete</button>
+            <button type="button" class="btn btn-error btn-sm w-20" onclick="removeSkillFromViewModel(@idx)">Delete</button>
         </div>
     }
 </div>

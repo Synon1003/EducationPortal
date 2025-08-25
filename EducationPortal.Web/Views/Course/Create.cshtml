@@ -28,7 +28,7 @@
 
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-2xl">Skills</h3>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="addSkillToViewModel()">Add</button>
+                    <button type="button" class="btn btn-info btn-sm w-20" onclick="addSkillToViewModel()">New</button>
                 </div>
 
                 <div id="create-skills-container">
@@ -37,41 +37,48 @@
 
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-2xl">Materials</h3>
-                    <button type="button" class="btn btn-primary btn-sm">Add Previously Created</button>
+                    <button type="button" class="btn btn-info btn-sm">New Previously Created</button>
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl">Videos</h3>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="addVideoToViewModel()">Add</button>
+                    <h3 class="font-medium text-2xl ml-4">Videos</h3>
+                    <button type="button" class="btn btn-info btn-sm w-20" onclick="addVideoToViewModel()">New</button>
                 </div>
 
-                <div id="create-videos-container">
+                <div id="create-videos-container" class="ml-4">
                     @await Html.PartialAsync("~/Views/Material/_CreateVideosListPartial.cshtml", Model.Videos)
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl">Publications</h3>
-                    <button type="button" class="btn btn-primary btn-sm"
-                        onclick="addPublicationToViewModel()">Add</button>
+                    <h3 class="font-medium text-2xl ml-4">Publications</h3>
+                    <button type="button" class="btn btn-info btn-sm w-20"
+                        onclick="addPublicationToViewModel()">New</button>
                 </div>
 
-                <div id="create-publications-container">
+                <div id="create-publications-container" class="ml-4">
                     @await Html.PartialAsync("~/Views/Material/_CreatePublicationsListPartial.cshtml",
                     Model.Publications)
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl">Articles</h3>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="addArticleToViewModel()">Add</button>
+                    <h3 class="font-medium text-2xl ml-4">Articles</h3>
+                    <button type="button" class="btn btn-info btn-sm w-20" onclick="addArticleToViewModel()">New</button>
                 </div>
 
-                <div id="create-articles-container">
+                <div id="create-articles-container" class="ml-4">
                     @await Html.PartialAsync("~/Views/Material/_CreateArticlesListPartial.cshtml", Model.Articles)
                 </div>
 
                 @* <div asp-validation-summary="All" class="text-error text-sm"></div> *@
                 <partial name="_ControllerErrorsPartial" />
-                <button type="submit" class="btn btn-md btn-primary">Create</button>
+
+                <div class="flex items-center justify-between mt-4">
+                    <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary">
+                        Back to Courses
+                    </a>
+                    <button type="submit" class="btn btn-md btn-primary">Create</button>
+                </div>
+                
             </form>
         </div>
     </div>

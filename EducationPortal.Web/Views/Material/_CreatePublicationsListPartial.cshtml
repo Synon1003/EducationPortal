@@ -3,17 +3,21 @@
 <div>
     @for (int idx = 0; idx < Model.Count; idx++)
     {
-        <div class="flex items-center gap-2 mb-4">
-            <label class="floating-label flex-1">
+        <div>
+            <label class="floating-label mb-4">
                 <span>Title</span>
                 <input asp-for="@Model[idx].Title" name="Publications[@idx].Title" class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Title" class="text-error text-sm ml-1"></span>
             </label>
-            <label class="floating-label flex-1">
+        </div>
+        <div>
+            <label class="floating-label mb-4">
                 <span>Authors</span>
                 <input asp-for="@Model[idx].Authors" name="Publications[@idx].Authors" class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Authors" class="text-error text-sm ml-1"></span>
             </label>
+        </div>
+        <div class="flex items-center gap-2 mb-4">
             <label class="floating-label flex-1">
                 <span>Pages</span>
                 <input asp-for="@Model[idx].Pages" name="Publications[@idx].Pages" class="input input-md w-full" />
@@ -30,7 +34,10 @@
                     class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].PublicationYear" class="text-error text-sm ml-1"></span>
             </label>
-            <button type="button" class="btn btn-error btn-sm"
+            
+        </div>
+        <div class="flex justify-center mb-4">
+            <button type="button" class="btn btn-error btn-sm w-20"
                 onclick="removePublicationFromViewModel(@idx)">Delete</button>
         </div>
     }
