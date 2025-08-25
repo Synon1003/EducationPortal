@@ -18,6 +18,7 @@ public static class DataServiceExtensions
         services.AddDbContext<EducationPortalDbContext>(options =>
             options.UseSqlServer(connectionString));
 
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICourseRepository, CourseRepository>()
                 .AddScoped<ISkillRepository, SkillRepository>()
                 .AddScoped<IMaterialRepository, MaterialRepository>();

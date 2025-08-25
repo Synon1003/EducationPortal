@@ -9,40 +9,32 @@ namespace EducationPortal.Application.Services;
 
 public class CourseService : ICourseService
 {
-    private readonly ICourseRepository _courseRepository;
-    private readonly ISkillRepository _skillRepository;
-    private readonly IMaterialRepository _materialRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CourseService(
-        ICourseRepository courseRepository,
-        ISkillRepository skillRepository,
-        IMaterialRepository materialRepository,
-        IMapper mapper)
+    public CourseService(IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _courseRepository = courseRepository;
-        _skillRepository = skillRepository;
-        _materialRepository = materialRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
     public async Task<ICollection<CourseListDto>> GetAllCoursesWithSkillsAsync()
     {
-        var courses = await _courseRepository.GetAllCoursesWithSkillsAsync();
+        var courses = await _unitOfWork.CourseRepository.GetAllCoursesWithSkillsAsync();
 
         return _mapper.Map<List<CourseListDto>>(courses);
     }
 
     public async Task<ICollection<CourseListDto>> GetCoursesByMaterialIdAsync(int materialId)
     {
-        var courses = await _courseRepository.GetCoursesByMaterialIdAsync(materialId);
+        var courses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
 
         return _mapper.Map<List<CourseListDto>>(courses);
     }
 
     public async Task<CourseListDto> GetCourseByIdAsync(int id)
     {
-        var course = await _courseRepository.GetByIdAsync(id);
+        var course = await _unitOfWork.CourseRepository.GetByIdAsync(id);
         if (course == null)
             throw new NotFoundException(nameof(Course), id);
 
@@ -51,7 +43,7 @@ public class CourseService : ICourseService
 
     public async Task<CourseDetailDto> GetCourseWithSkillsAndMaterialsByIdAsync(int id)
     {
-        var course = await _courseRepository.GetCourseWithSkillsAndMaterialsByIdAsync(id);
+        var course = await _unitOfWork.CourseRepository.GetCourseWithSkillsAndMaterialsByIdAsync(id);
         if (course == null)
             throw new NotFoundException(nameof(Course), id);
 
@@ -66,9 +58,10 @@ public class CourseService : ICourseService
             Description = courseCreateDto.Description
         };
 
-        await _courseRepository.InsertAsync(course);
+        await _unitOfWork.CourseRepository.InsertAsync(course);
         await InsertCourseSkills(course, courseCreateDto);
         await InsertCourseMaterials(course, courseCreateDto);
+        await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<CourseDetailDto>(course);
     }
@@ -77,13 +70,13 @@ public class CourseService : ICourseService
     {
         foreach (var skill in courseCreateDto.Skills)
         {
-            if (_skillRepository.Exists(s => s.Name == skill.Name))
+            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
                 continue;
 
             course.Skills.Add(new Skill { Name = skill.Name, Courses = [course] });
         }
-        await _skillRepository.InsertRangeAsync(course.Skills.ToList());
-        await _courseRepository.UpdateAsync(course);
+        await _unitOfWork.SkillRepository.InsertRangeAsync(course.Skills.ToList());
+        await _unitOfWork.CourseRepository.UpdateAsync(course);
     }
 
     private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
@@ -93,8 +86,8 @@ public class CourseService : ICourseService
         AttachNewPublicationsToMaterials(course, materials, courseCreateDto);
         AttachNewArticlesToMaterials(course, materials, courseCreateDto);
 
-        await _materialRepository.InsertRangeAsync(materials);
-        await _courseRepository.UpdateAsync(course);
+        await _unitOfWork.MaterialRepository.InsertRangeAsync(materials);
+        await _unitOfWork.CourseRepository.UpdateAsync(course);
     }
 
     private void AttachNewVideosToMaterials(
@@ -102,7 +95,7 @@ public class CourseService : ICourseService
     {
         foreach (var video in courseCreateDto.Videos)
         {
-            if (_materialRepository.Exists(
+            if (_unitOfWork.MaterialRepository.Exists(
                     m => m.Title == video.Title && m.Type == "Video"))
                 continue;
 
@@ -121,7 +114,7 @@ public class CourseService : ICourseService
     {
         foreach (var publication in courseCreateDto.Publications)
         {
-            if (_materialRepository.Exists(
+            if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == publication.Title && m.Type == "Publication"))
                 continue;
 
@@ -142,7 +135,7 @@ public class CourseService : ICourseService
     {
         foreach (var article in courseCreateDto.Articles)
         {
-            if (_materialRepository.Exists(
+            if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == article.Title && m.Type == "Article"))
                 continue;
 
