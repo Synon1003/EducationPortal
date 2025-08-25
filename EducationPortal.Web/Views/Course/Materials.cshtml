@@ -47,7 +47,7 @@
                                             @publication.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success btn-outline btn-md">Mark as Done</a></td>
+                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm">Mark as Done</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -70,13 +70,18 @@
                                             @article.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success btn-outline btn-md">Mark as Done</a></td>
+                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm">Mark as Done</a></td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             }
+            
+            <div class="flex items-center justify-between">
+                <progress class="progress progress-success" value="50" max="100"></progress>
+                <div class="font-medium text-lg ml-2">2/4</div>
+            </div>
 
             <dialog id="material-detail-modal" class="modal">
                 <div class="modal-box">
