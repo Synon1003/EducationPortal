@@ -103,23 +103,17 @@ public class CourseService : ICourseService
     {
         foreach (var videoDto in courseCreateDto.Videos)
         {
-            if (_materialRepository.Exists(m => m.Title == videoDto.Material.Title && m.Type == "Video"))
+            if (_materialRepository.Exists(m => m.Title == videoDto.Title && m.Type == "Video"))
                 continue;
 
-            Material material = new Material
+            Video video = new Video
             {
-                Title = videoDto.Material.Title,
-                Type = "Video"
-            };
-
-            material.Video = new Video
-            {
+                Title = videoDto.Title,
                 Duration = videoDto.Duration,
-                Quality = videoDto.Quality,
-                Material = material
+                Quality = videoDto.Quality
             };
 
-            materials.Add(material);
+            materials.Add(video);
         }
     }
 
@@ -127,25 +121,19 @@ public class CourseService : ICourseService
     {
         foreach (var publicationDto in courseCreateDto.Publications)
         {
-            if (_materialRepository.Exists(m => m.Title == publicationDto.Material.Title && m.Type == "Publication"))
+            if (_materialRepository.Exists(m => m.Title == publicationDto.Title && m.Type == "Publication"))
                 continue;
 
-            Material material = new Material
+            Publication publication = new Publication
             {
-                Title = publicationDto.Material.Title,
-                Type = "Publication"
-            };
-
-            material.Publication = new Publication
-            {
+                Title = publicationDto.Title,
                 Authors = publicationDto.Authors,
                 Format = publicationDto.Format,
                 Pages = publicationDto.Pages,
-                PublicationYear = publicationDto.PublicationYear,
-                Material = material
+                PublicationYear = publicationDto.PublicationYear
             };
 
-            materials.Add(material);
+            materials.Add(publication);
         }
     }
 
@@ -153,23 +141,17 @@ public class CourseService : ICourseService
     {
         foreach (var articleDto in courseCreateDto.Articles)
         {
-            if (_materialRepository.Exists(m => m.Title == articleDto.Material.Title && m.Type == "Article"))
+            if (_materialRepository.Exists(m => m.Title == articleDto.Title && m.Type == "Article"))
                 continue;
 
-            Material material = new Material
+            Article article = new Article
             {
-                Title = articleDto.Material.Title,
-                Type = "Article"
-            };
-
-            material.Article = new Article
-            {
+                Title = articleDto.Title,
                 PublicationDate = articleDto.PublicationDate,
-                ResourceLink = articleDto.ResourceLink,
-                Material = material
+                ResourceLink = articleDto.ResourceLink
             };
 
-            materials.Add(material);
+            materials.Add(article);
         }
     }
 

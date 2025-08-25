@@ -2,14 +2,13 @@ namespace EducationPortal.Application.Dtos;
 
 public record ArticleDto(
     int Id,
+    string Title,
     DateOnly PublicationDate,
-    string ResourceLink,
-    int MaterialId,
-    MaterialDto Material
+    string ResourceLink
 );
 
 public record ArticleCreateDto(
+    string Title,
     DateOnly PublicationDate,
-    string ResourceLink,
-    MaterialCreateDto Material
+    string ResourceLink
 );

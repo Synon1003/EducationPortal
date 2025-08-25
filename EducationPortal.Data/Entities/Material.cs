@@ -18,8 +18,4 @@ public class Material
 
     [JsonIgnore]
     public virtual ICollection<CourseMaterial> CourseMaterials { get; } = [];
-
-    public virtual Video? Video { get; set; }
-    public virtual Publication? Publication { get; set; }
-    public virtual Article? Article { get; set; }
 }

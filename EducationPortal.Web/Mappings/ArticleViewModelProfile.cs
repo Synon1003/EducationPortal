@@ -9,15 +9,14 @@ public class ArticleViewModelProfile : Profile
     public ArticleViewModelProfile()
     {
         CreateMap<ArticleDto, ArticleViewModel>()
-            .ForMember(dest => dest.Title, opt =>
-                opt.MapFrom(src => src.Material.Title))
             .ForMember(dest => dest.PublicationDate, opt =>
                 opt.MapFrom(src => src.PublicationDate.ToString("d")));
 
         CreateMap<ArticleCreateViewModel, ArticleCreateDto>()
             .ConstructUsing(src => new ArticleCreateDto(
+                src.Title,
                 src.PublicationDate,
-                src.ResourceLink,
-                new MaterialCreateDto(src.Title, "Article")));
+                src.ResourceLink
+            ));
     }
 }
