@@ -8,11 +8,7 @@ public class CourseProfile : Profile
 {
     public CourseProfile()
     {
-        CreateMap<Course, CourseListDto>()
-            .ForCtorParam(ctorParamName: "Skills", opt => opt.MapFrom(src => src.CourseSkills.Select(cs => cs.Skill).ToList()));
-
-        CreateMap<Course, CourseDetailDto>()
-            .ForCtorParam(ctorParamName: "Skills", opt => opt.MapFrom(src => src.CourseSkills.Select(cs => cs.Skill).ToList()))
-            .ForCtorParam(ctorParamName: "Materials", opt => opt.MapFrom(src => src.CourseMaterials.Select(cs => cs.Material).ToList()));
+        CreateMap<Course, CourseListDto>();
+        CreateMap<Course, CourseDetailDto>();
     }
 }

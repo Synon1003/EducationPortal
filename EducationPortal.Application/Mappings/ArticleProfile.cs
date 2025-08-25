@@ -9,7 +9,5 @@ public class ArticleProfile : Profile
     public ArticleProfile()
     {
         CreateMap<Article, ArticleDto>();
-        CreateMap<ArticleDto, Article>()
-            .ForMember(dest => dest.Material, opt => opt.Ignore());
     }
 }

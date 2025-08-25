@@ -41,28 +41,6 @@ public class MaterialService : IMaterialService
         return _mapper.Map<MaterialDto>(material);
     }
 
-
-    public async Task<ICollection<VideoDto>> GetVideosWithMaterialByCourseIdAsync(int courseId)
-    {
-        var videos = await _materialRepository.GetVideosWithMaterialByCourseIdAsync(courseId);
-
-        return _mapper.Map<List<VideoDto>>(videos);
-    }
-
-    public async Task<ICollection<PublicationDto>> GetPublicationsWithMaterialByCourseIdAsync(int courseId)
-    {
-        var publications = await _materialRepository.GetPublicationsWithMaterialByCourseIdAsync(courseId);
-
-        return _mapper.Map<List<PublicationDto>>(publications);
-    }
-
-    public async Task<ICollection<ArticleDto>> GetArticlesWithMaterialByCourseIdAsync(int courseId)
-    {
-        var articles = await _materialRepository.GetArticlesWithMaterialByCourseIdAsync(courseId);
-
-        return _mapper.Map<List<ArticleDto>>(articles);
-    }
-
     public async Task<VideoDto> GetVideoByMaterialIdAsync(int materialId)
     {
         var video = await _materialRepository.GetVideoByMaterialIdAsync(materialId);

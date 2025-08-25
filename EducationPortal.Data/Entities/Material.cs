@@ -16,10 +16,5 @@ public class Material
     [StringLength(20)]
     public string Type { get; set; }
 
-    [JsonIgnore]
-    public virtual ICollection<CourseMaterial> CourseMaterials { get; } = [];
-
-    public virtual Video? Video { get; set; }
-    public virtual Publication? Publication { get; set; }
-    public virtual Article? Article { get; set; }
+    public virtual ICollection<Course> Courses { get; set; } = [];
 }

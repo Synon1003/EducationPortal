@@ -1,17 +1,11 @@
 namespace EducationPortal.Application.Dtos;
 
-public interface ICourseDto
-{
-    public string Name { get; init; }
-    public string Description { get; init; }
-}
-
 public record CourseListDto(
     int Id,
     string Name,
     string Description,
     List<SkillDto> Skills
-) : ICourseDto;
+);
 
 public record CourseDetailDto(
     int Id,
@@ -19,7 +13,7 @@ public record CourseDetailDto(
     string Description,
     List<SkillDto> Skills,
     List<MaterialDto> Materials
-) : ICourseDto;
+);
 
 public record CourseCreateDto(
     string Name,
@@ -28,4 +22,4 @@ public record CourseCreateDto(
     List<VideoCreateDto> Videos,
     List<PublicationCreateDto> Publications,
     List<ArticleCreateDto> Articles
-) : ICourseDto;
+);

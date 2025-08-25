@@ -9,7 +9,5 @@ public class VideoProfile : Profile
     public VideoProfile()
     {
         CreateMap<Video, VideoDto>();
-        CreateMap<VideoDto, Video>()
-            .ForMember(dest => dest.Material, opt => opt.Ignore());
     }
 }

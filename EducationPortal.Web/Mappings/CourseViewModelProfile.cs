@@ -23,12 +23,12 @@ public class CourseViewModelProfile : Profile
                 src.Name,
                 src.Description,
                 src.Skills.Select(s => new SkillCreateDto(s.Name)).ToList(),
-                src.Videos.Select(v => new VideoCreateDto(v.Duration, v.Quality,
-                    new MaterialCreateDto(v.Title, "Video"))).ToList(),
-                src.Publications.Select(v => new PublicationCreateDto(v.Authors, v.Pages, v.Format, v.PublicationYear,
-                    new MaterialCreateDto(v.Title, "Publication"))).ToList(),
-                src.Articles.Select(v => new ArticleCreateDto(v.PublicationDate, v.ResourceLink,
-                    new MaterialCreateDto(v.Title, "Article"))).ToList()
+                src.Videos.Select(v => new VideoCreateDto(
+                    v.Title, v.Duration, v.Quality)).ToList(),
+                src.Publications.Select(v => new PublicationCreateDto(
+                    v.Title, v.Authors, v.Pages, v.Format, v.PublicationYear)).ToList(),
+                src.Articles.Select(v => new ArticleCreateDto(
+                    v.Title, v.PublicationDate, v.ResourceLink)).ToList()
 
             ));
     }

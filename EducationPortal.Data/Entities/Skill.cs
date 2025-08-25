@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace EducationPortal.Data.Entities;
 
@@ -12,6 +11,5 @@ public class Skill
     [StringLength(50)]
     public string Name { get; set; }
 
-    [JsonIgnore]
-    public virtual ICollection<CourseSkill> CourseSkills { get; } = [];
+    public virtual ICollection<Course> Courses { get; set; } = [];
 }

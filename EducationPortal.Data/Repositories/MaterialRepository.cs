@@ -9,97 +9,26 @@ public class MaterialRepository : EntityFrameworkRepository<Material>, IMaterial
     public MaterialRepository(EducationPortalDbContext context) : base(context)
     { }
 
-    public async Task<ICollection<Material>> GetMaterialsByCourseIdAsync(int courseId)
-    {
-        return await _context.Materials
-            .AsNoTracking()
-            .Where(m => m.CourseMaterials.Any(cm => cm.CourseId == courseId)).ToListAsync();
-    }
+    public async Task<ICollection<Material>> GetMaterialsByCourseIdAsync(int courseId) =>
+        await _context.Materials.AsNoTracking()
+            .Where(m => m.Courses.Any(c => c.Id == courseId)).ToListAsync();
 
 
-    public async Task<ICollection<Video>> GetAllVideosAsync()
-    {
-        return await _context.Videos
-            .AsNoTracking()
-            .Include(m => m.Material)
-            .ToListAsync();
-    }
+    public async Task<ICollection<Video>> GetAllVideosAsync() =>
+        await _context.Videos.AsNoTracking().ToListAsync();
 
-    public async Task<ICollection<Video>> GetVideosWithMaterialByCourseIdAsync(int courseId)
-    {
-        var materials = _context.Materials
-            .AsNoTracking()
-            .Where(m => m.CourseMaterials.Any(cm => cm.CourseId == courseId));
+    public async Task<ICollection<Publication>> GetAllPublicationsAsync() => await _context.Publications.AsNoTracking().ToListAsync();
 
-        return await _context.Videos
-            .AsNoTracking()
-            .Include(m => m.Material)
-            .Where(v => materials.Any(m => m.Id == v.MaterialId))
-            .ToListAsync();
-    }
-
-    public async Task<Video?> GetVideoByMaterialIdAsync(int materialId)
-    {
-        return await _context.Videos
-            .Include(v => v.Material)
-            .FirstOrDefaultAsync(v => v.MaterialId == materialId);
-    }
+    public async Task<ICollection<Article>> GetAllArticlesAsync() =>
+        await _context.Articles.AsNoTracking().ToListAsync();
 
 
-    public async Task<ICollection<Publication>> GetAllPublicationsAsync()
-    {
-        return await _context.Publications
-            .AsNoTracking()
-            .Include(m => m.Material)
-            .ToListAsync();
-    }
+    public async Task<Video?> GetVideoByMaterialIdAsync(int materialId) =>
+        await _context.Videos.FirstOrDefaultAsync(v => v.Id == materialId);
 
-    public async Task<ICollection<Publication>> GetPublicationsWithMaterialByCourseIdAsync(int courseId)
-    {
-        var materials = _context.Materials
-            .AsNoTracking()
-            .Where(m => m.CourseMaterials.Any(cm => cm.CourseId == courseId));
+    public async Task<Publication?> GetPublicationByMaterialIdAsync(int materialId) =>
+        await _context.Publications.FirstOrDefaultAsync(v => v.Id == materialId);
 
-        return await _context.Publications
-            .AsNoTracking()
-            .Include(m => m.Material)
-            .Where(v => materials.Any(m => m.Id == v.MaterialId))
-            .ToListAsync();
-    }
-
-    public async Task<Publication?> GetPublicationByMaterialIdAsync(int materialId)
-    {
-        return await _context.Publications
-            .Include(p => p.Material)
-            .FirstOrDefaultAsync(v => v.MaterialId == materialId);
-    }
-
-
-    public async Task<ICollection<Article>> GetAllArticlesAsync()
-    {
-        return await _context.Articles
-            .AsNoTracking()
-            .Include(m => m.Material)
-            .ToListAsync();
-    }
-
-    public async Task<ICollection<Article>> GetArticlesWithMaterialByCourseIdAsync(int courseId)
-    {
-        var materials = _context.Materials
-            .AsNoTracking()
-            .Where(m => m.CourseMaterials.Any(cm => cm.CourseId == courseId));
-
-        return await _context.Articles
-            .AsNoTracking()
-            .Include(m => m.Material)
-            .Where(v => materials.Any(m => m.Id == v.MaterialId))
-            .ToListAsync();
-    }
-
-    public async Task<Article?> GetArticleByMaterialIdAsync(int materialId)
-    {
-        return await _context.Articles
-            .Include(a => a.Material)
-            .FirstOrDefaultAsync(v => v.MaterialId == materialId);
-    }
+    public async Task<Article?> GetArticleByMaterialIdAsync(int materialId) =>
+        await _context.Articles.FirstOrDefaultAsync(v => v.Id == materialId);
 }

@@ -4,6 +4,7 @@ using EducationPortal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EducationPortal.Data.Migrations
 {
     [DbContext(typeof(EducationPortalDbContext))]
-    partial class EducationPortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250825195820_AddedInheritetanceForMaterialTypes")]
+    partial class AddedInheritetanceForMaterialTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -577,32 +580,40 @@ namespace EducationPortal.Data.Migrations
 
             modelBuilder.Entity("EducationPortal.Data.Entities.CourseMaterial", b =>
                 {
-                    b.HasOne("EducationPortal.Data.Entities.Course", null)
-                        .WithMany()
+                    b.HasOne("EducationPortal.Data.Entities.Course", "Course")
+                        .WithMany("CourseMaterials")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("EducationPortal.Data.Entities.Material", null)
-                        .WithMany()
+                    b.HasOne("EducationPortal.Data.Entities.Material", "Material")
+                        .WithMany("CourseMaterials")
                         .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("EducationPortal.Data.Entities.CourseSkill", b =>
                 {
-                    b.HasOne("EducationPortal.Data.Entities.Course", null)
-                        .WithMany()
+                    b.HasOne("EducationPortal.Data.Entities.Course", "Course")
+                        .WithMany("CourseSkills")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("EducationPortal.Data.Entities.Skill", null)
-                        .WithMany()
+                    b.HasOne("EducationPortal.Data.Entities.Skill", "Skill")
+                        .WithMany("CourseSkills")
                         .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -654,6 +665,23 @@ namespace EducationPortal.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EducationPortal.Data.Entities.Course", b =>
+                {
+                    b.Navigation("CourseMaterials");
+
+                    b.Navigation("CourseSkills");
+                });
+
+            modelBuilder.Entity("EducationPortal.Data.Entities.Material", b =>
+                {
+                    b.Navigation("CourseMaterials");
+                });
+
+            modelBuilder.Entity("EducationPortal.Data.Entities.Skill", b =>
+                {
+                    b.Navigation("CourseSkills");
                 });
 #pragma warning restore 612, 618
         }

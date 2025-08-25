@@ -1,14 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace EducationPortal.Data.Entities;
 
-public class Publication
+public class Publication : Material
 {
-    [Key]
-    public int Id { get; set; }
-
     [Required]
     [StringLength(250)]
     public string Authors { get; set; }
@@ -24,10 +19,4 @@ public class Publication
     [Required]
     [Range(-1000, 3000)]
     public int PublicationYear { get; set; }
-
-    public int MaterialId { get; set; }
-
-    [JsonIgnore]
-    [ForeignKey(nameof(MaterialId))]
-    public virtual Material Material { get; set; }
 }

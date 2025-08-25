@@ -9,7 +9,6 @@ public class SkillProfile : Profile
     public SkillProfile()
     {
         CreateMap<Skill, SkillDto>();
-        CreateMap<SkillCreateDto, Skill>()
-            .ForMember(dest => dest.CourseSkills, opt => opt.Ignore());
+        CreateMap<SkillCreateDto, Skill>();
     }
 }

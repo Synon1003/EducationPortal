@@ -9,40 +9,32 @@ namespace EducationPortal.Application.Services;
 
 public class CourseService : ICourseService
 {
-    private readonly ICourseRepository _courseRepository;
-    private readonly ISkillRepository _skillRepository;
-    private readonly IMaterialRepository _materialRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CourseService(
-        ICourseRepository courseRepository,
-        ISkillRepository skillRepository,
-        IMaterialRepository materialRepository,
-        IMapper mapper)
+    public CourseService(IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _courseRepository = courseRepository;
-        _skillRepository = skillRepository;
-        _materialRepository = materialRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
     public async Task<ICollection<CourseListDto>> GetAllCoursesWithSkillsAsync()
     {
-        var courses = await _courseRepository.GetAllCoursesWithSkillsAsync();
+        var courses = await _unitOfWork.CourseRepository.GetAllCoursesWithSkillsAsync();
 
         return _mapper.Map<List<CourseListDto>>(courses);
     }
 
     public async Task<ICollection<CourseListDto>> GetCoursesByMaterialIdAsync(int materialId)
     {
-        var courses = await _courseRepository.GetCoursesByMaterialIdAsync(materialId);
+        var courses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
 
         return _mapper.Map<List<CourseListDto>>(courses);
     }
 
     public async Task<CourseListDto> GetCourseByIdAsync(int id)
     {
-        var course = await _courseRepository.GetByIdAsync(id);
+        var course = await _unitOfWork.CourseRepository.GetByIdAsync(id);
         if (course == null)
             throw new NotFoundException(nameof(Course), id);
 
@@ -51,7 +43,7 @@ public class CourseService : ICourseService
 
     public async Task<CourseDetailDto> GetCourseWithSkillsAndMaterialsByIdAsync(int id)
     {
-        var course = await _courseRepository.GetCourseWithSkillsAndMaterialsByIdAsync(id);
+        var course = await _unitOfWork.CourseRepository.GetCourseWithSkillsAndMaterialsByIdAsync(id);
         if (course == null)
             throw new NotFoundException(nameof(Course), id);
 
@@ -60,129 +52,103 @@ public class CourseService : ICourseService
 
     public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
     {
+        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
+            throw new BadRequestException($"Course ({courseCreateDto.Name}) already exists in the db.");
+
         Course course = new Course
         {
             Name = courseCreateDto.Name,
             Description = courseCreateDto.Description
         };
 
-        await _courseRepository.InsertAsync(course);
+        await _unitOfWork.CourseRepository.InsertAsync(course);
         await InsertCourseSkills(course, courseCreateDto);
-
-        List<Material> materials = [];
-        AttachNewVideosToMaterials(materials, courseCreateDto);
-        AttachNewPublicationsToMaterials(materials, courseCreateDto);
-        AttachNewArticlesToMaterials(materials, courseCreateDto);
-
-        await InsertCourseMaterials(course, materials);
+        await InsertCourseMaterials(course, courseCreateDto);
+        await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<CourseDetailDto>(course);
     }
 
     private async Task InsertCourseSkills(Course course, CourseCreateDto courseCreateDto)
     {
-        var skills = courseCreateDto.Skills.Select(s => new Skill { Name = s.Name }).ToList();
-
-        foreach (var skill in skills)
+        foreach (var skill in courseCreateDto.Skills)
         {
-            if (_skillRepository.Exists(s => s.Name == skill.Name))
-                continue;
-            await _skillRepository.InsertAsync(skill);
+            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
+                throw new BadRequestException($"Skill ({skill.Name}) already exists in the db.");
+
+            course.Skills.Add(new Skill { Name = skill.Name, Courses = [course] });
         }
-
-        course.CourseSkills = skills.Select(skill => new CourseSkill
-        {
-            CourseId = course.Id,
-            SkillId = skill.Id
-        }).ToList();
-
-        await _courseRepository.UpdateAsync(course);
+        await _unitOfWork.SkillRepository.InsertRangeAsync(course.Skills.ToList());
+        await _unitOfWork.CourseRepository.UpdateAsync(course);
     }
 
-    private void AttachNewVideosToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
+    private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
     {
-        foreach (var videoDto in courseCreateDto.Videos)
-        {
-            if (_materialRepository.Exists(m => m.Title == videoDto.Material.Title && m.Type == "Video"))
-                continue;
+        List<Material> materials = [];
+        AttachNewVideosToMaterials(course, materials, courseCreateDto);
+        AttachNewPublicationsToMaterials(course, materials, courseCreateDto);
+        AttachNewArticlesToMaterials(course, materials, courseCreateDto);
 
-            Material material = new Material
-            {
-                Title = videoDto.Material.Title,
-                Type = "Video"
-            };
-
-            material.Video = new Video
-            {
-                Duration = videoDto.Duration,
-                Quality = videoDto.Quality,
-                Material = material
-            };
-
-            materials.Add(material);
-        }
+        await _unitOfWork.MaterialRepository.InsertRangeAsync(materials);
+        await _unitOfWork.CourseRepository.UpdateAsync(course);
     }
 
-    private void AttachNewPublicationsToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
+    private void AttachNewVideosToMaterials(
+        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
     {
-        foreach (var publicationDto in courseCreateDto.Publications)
+        foreach (var video in courseCreateDto.Videos)
         {
-            if (_materialRepository.Exists(m => m.Title == publicationDto.Material.Title && m.Type == "Publication"))
-                continue;
+            if (_unitOfWork.MaterialRepository.Exists(
+                    m => m.Title == video.Title && m.Type == "Video"))
+                throw new BadRequestException($"Video ({video.Title}) already exists in the db.");
 
-            Material material = new Material
+            materials.Add(new Video
             {
-                Title = publicationDto.Material.Title,
-                Type = "Publication"
-            };
-
-            material.Publication = new Publication
-            {
-                Authors = publicationDto.Authors,
-                Format = publicationDto.Format,
-                Pages = publicationDto.Pages,
-                PublicationYear = publicationDto.PublicationYear,
-                Material = material
-            };
-
-            materials.Add(material);
+                Title = video.Title,
+                Duration = video.Duration,
+                Quality = video.Quality,
+                Courses = [course]
+            });
         }
     }
 
-    private void AttachNewArticlesToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
+    private void AttachNewPublicationsToMaterials(
+        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
     {
-        foreach (var articleDto in courseCreateDto.Articles)
+        foreach (var publication in courseCreateDto.Publications)
         {
-            if (_materialRepository.Exists(m => m.Title == articleDto.Material.Title && m.Type == "Article"))
-                continue;
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == publication.Title && m.Type == "Publication"))
+                throw new BadRequestException($"Publication ({publication.Title}) already exists in the db.");
 
-            Material material = new Material
+            materials.Add(new Publication
             {
-                Title = articleDto.Material.Title,
-                Type = "Article"
-            };
-
-            material.Article = new Article
-            {
-                PublicationDate = articleDto.PublicationDate,
-                ResourceLink = articleDto.ResourceLink,
-                Material = material
-            };
-
-            materials.Add(material);
+                Title = publication.Title,
+                Authors = publication.Authors,
+                Format = publication.Format,
+                Pages = publication.Pages,
+                PublicationYear = publication.PublicationYear,
+                Courses = [course]
+            });
         }
     }
 
-    private async Task InsertCourseMaterials(Course course, List<Material> materials)
+    private void AttachNewArticlesToMaterials(
+        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
     {
-        await _materialRepository.InsertRangeAsync(materials);
-
-        course.CourseMaterials = materials.Select(material => new CourseMaterial
+        foreach (var article in courseCreateDto.Articles)
         {
-            CourseId = course.Id,
-            MaterialId = material.Id
-        }).ToList();
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == article.Title && m.Type == "Article"))
+                throw new BadRequestException($"Article ({article.Title}) already exists in the db.");
 
-        await _courseRepository.UpdateAsync(course);
+            materials.Add(new Article
+            {
+                Title = article.Title,
+                PublicationDate = article.PublicationDate,
+                ResourceLink = article.ResourceLink,
+                Courses = [course]
+            });
+        }
     }
 }
