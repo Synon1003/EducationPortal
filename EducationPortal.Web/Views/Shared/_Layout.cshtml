@@ -71,8 +71,21 @@
                                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                             </svg>
                         </label>
-                        <li><span>@User?.FindFirst("FirstName")?.Value @User?.FindFirst("LastName")?.Value</span></li>
-                        <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+
+                        <li>
+                            <details>
+                                <summary class="cursor-pointer py-[6px] px-[12px]">
+                                    @User?.FindFirst("FirstName")?.Value @User?.FindFirst("LastName")?.Value
+
+                                </summary>
+                                <ul class="p-1 bg-base-100 rounded-box min-w-full max-w-max z-1">
+                                    <li>
+                                        <a asp-controller="User" asp-action="Profile">Profile</a>
+                                        <a asp-controller="Account" asp-action="Logout">Logout</a>
+                                    </li>
+                                </ul>
+                            </details>
+                        </li>
                     }
                     else
                     {
