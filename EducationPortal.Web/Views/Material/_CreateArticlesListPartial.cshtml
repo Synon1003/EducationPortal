@@ -4,24 +4,28 @@
     @for (int idx = 0; idx < Model.Count; idx++)
     {
         <div class="flex items-center gap-2 mb-4">
-            <label class="floating-label flex-1">
+            <label class="floating-label basis-2/3">
                 <span>Title</span>
                 <input asp-for="@Model[idx].Title" name="Articles[@idx].Title" class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Title" class="text-error text-sm ml-1"></span>
             </label>
-            <label class="floating-label flex-1">
+            <label class="floating-label basis-1/3">
                 <span>PublicationDate</span>
                 <input asp-for="@Model[idx].PublicationDate" name="Articles[@idx].PublicationDate"
                     class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].PublicationDate" class="text-error text-sm ml-1"></span>
             </label>
-            <label class="floating-label flex-1">
+        </div>
+        <div>
+            <label class="floating-label mb-4">
                 <span>ResourceLink</span>
                 <input asp-for="@Model[idx].ResourceLink" name="Articles[@idx].ResourceLink"
                     class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].ResourceLink" class="text-error text-sm ml-1"></span>
             </label>
-            <button type="button" class="btn btn-error btn-sm" onclick="removeArticleFromViewModel(@idx)">Delete</button>
+        </div>
+        <div class="flex justify-center mb-4">
+            <button type="button" class="btn btn-error btn-sm w-20" onclick="removeArticleFromViewModel(@idx)">Delete</button>
         </div>
     }
 </div>

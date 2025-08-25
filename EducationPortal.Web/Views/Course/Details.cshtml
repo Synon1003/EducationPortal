@@ -5,9 +5,12 @@
 }
 
 <div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
-    <div class="card card-border w-120 sm:w-144 md:w-168 bg-base-200 shadow-sm">
+    <div class="card card-border w-120 sm:w-144 md:w-168 bg-base-200 shadow-sm" data-aos="zoom-in">
         <div class="card-body">
-            <h3 class="font-medium text-3xl ml-2 mb-4">@Html.DisplayFor(c => c.Name)</h3>
+            <div class="flex items-center justify-between">
+                <h3 class="font-medium text-3xl ml-2 mb-4">@Html.DisplayFor(c => c.Name)</h3>
+                <div class="radial-progress text-primary" style="--value:40; --size:3rem;" aria-valuenow="60" role="progressbar">80%</div>
+            </div>
             <table class="table">
                 <tbody>
                     <tr>

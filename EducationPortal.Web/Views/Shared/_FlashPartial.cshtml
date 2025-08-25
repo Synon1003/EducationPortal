@@ -1,6 +1,6 @@
 @if (TempData["flash"] != null)
 {
-    <div class="toast toast-bottom toast-center fade-out-5s z-1" data-aos="zoom-in-up">
+    <div class="toast toast-bottom toast-center fade-out-5s z-1" data-aos="zoom-in-up" data-aos-duration="800">
         <div class="alert alert-@(TempData.Get<FlashViewModel>("flash")?.Type)">
             <span>@(TempData.Get<FlashViewModel>("flash")?.Message)</span>
         </div>
