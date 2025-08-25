@@ -24,8 +24,7 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfiguration(new CourseSkillConfigurations());
-        modelBuilder.ApplyConfiguration(new CourseMaterialConfigurations());
+        modelBuilder.ApplyConfiguration(new CourseConfigurations());
         modelBuilder.ApplyConfiguration(new MaterialConfigurations());
 
         SeedData(modelBuilder);
@@ -33,6 +32,11 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
 
     private void SeedData(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Course>().HasData(
+            new Course { Id = 1, Name = "Dotnet course", Description = "Dotnet course to learn how to create C# Asp.Net Core MVC application" },
+            new Course { Id = 2, Name = "Git course", Description = "Git course to learn how to use Git repositories" }
+        );
+
         modelBuilder.Entity<Skill>().HasData(
             new Skill { Id = 1, Name = "C#" },
             new Skill { Id = 2, Name = "Git" },
@@ -40,12 +44,6 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             new Skill { Id = 4, Name = "Uml" },
             new Skill { Id = 5, Name = "Md" },
             new Skill { Id = 6, Name = "Gitlab" }
-        );
-
-
-        modelBuilder.Entity<Course>().HasData(
-            new Course { Id = 1, Name = "Dotnet course", Description = "Dotnet course to learn how to create C# Asp.Net Core MVC application" },
-            new Course { Id = 2, Name = "Git course", Description = "Git course to learn how to use Git repositories" }
         );
 
         modelBuilder.Entity<CourseSkill>().HasData(

@@ -9,12 +9,9 @@ public class MaterialRepository : EntityFrameworkRepository<Material>, IMaterial
     public MaterialRepository(EducationPortalDbContext context) : base(context)
     { }
 
-    public async Task<ICollection<Material>> GetMaterialsByCourseIdAsync(int courseId)
-    {
-        return await _context.Materials.AsNoTracking()
-            .Where(m => m.CourseMaterials.Any(cm => cm.CourseId == courseId))
-            .ToListAsync();
-    }
+    public async Task<ICollection<Material>> GetMaterialsByCourseIdAsync(int courseId) =>
+        await _context.Materials.AsNoTracking()
+            .Where(m => m.Courses.Any(c => c.Id == courseId)).ToListAsync();
 
 
     public async Task<ICollection<Video>> GetAllVideosAsync() =>

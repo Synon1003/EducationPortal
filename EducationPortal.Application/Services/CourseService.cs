@@ -68,103 +68,91 @@ public class CourseService : ICourseService
 
         await _courseRepository.InsertAsync(course);
         await InsertCourseSkills(course, courseCreateDto);
-
-        List<Material> materials = [];
-        AttachNewVideosToMaterials(materials, courseCreateDto);
-        AttachNewPublicationsToMaterials(materials, courseCreateDto);
-        AttachNewArticlesToMaterials(materials, courseCreateDto);
-
-        await InsertCourseMaterials(course, materials);
+        await InsertCourseMaterials(course, courseCreateDto);
 
         return _mapper.Map<CourseDetailDto>(course);
     }
 
     private async Task InsertCourseSkills(Course course, CourseCreateDto courseCreateDto)
     {
-        var skills = courseCreateDto.Skills.Select(s => new Skill { Name = s.Name }).ToList();
-
-        foreach (var skill in skills)
+        foreach (var skill in courseCreateDto.Skills)
         {
             if (_skillRepository.Exists(s => s.Name == skill.Name))
                 continue;
-            await _skillRepository.InsertAsync(skill);
+
+            course.Skills.Add(new Skill { Name = skill.Name, Courses = [course] });
         }
-
-        course.CourseSkills = skills.Select(skill => new CourseSkill
-        {
-            CourseId = course.Id,
-            SkillId = skill.Id
-        }).ToList();
-
+        await _skillRepository.InsertRangeAsync(course.Skills.ToList());
         await _courseRepository.UpdateAsync(course);
     }
 
-    private void AttachNewVideosToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
+    private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
     {
-        foreach (var videoDto in courseCreateDto.Videos)
-        {
-            if (_materialRepository.Exists(m => m.Title == videoDto.Title && m.Type == "Video"))
-                continue;
+        List<Material> materials = [];
+        AttachNewVideosToMaterials(course, materials, courseCreateDto);
+        AttachNewPublicationsToMaterials(course, materials, courseCreateDto);
+        AttachNewArticlesToMaterials(course, materials, courseCreateDto);
 
-            Video video = new Video
-            {
-                Title = videoDto.Title,
-                Duration = videoDto.Duration,
-                Quality = videoDto.Quality
-            };
-
-            materials.Add(video);
-        }
-    }
-
-    private void AttachNewPublicationsToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
-    {
-        foreach (var publicationDto in courseCreateDto.Publications)
-        {
-            if (_materialRepository.Exists(m => m.Title == publicationDto.Title && m.Type == "Publication"))
-                continue;
-
-            Publication publication = new Publication
-            {
-                Title = publicationDto.Title,
-                Authors = publicationDto.Authors,
-                Format = publicationDto.Format,
-                Pages = publicationDto.Pages,
-                PublicationYear = publicationDto.PublicationYear
-            };
-
-            materials.Add(publication);
-        }
-    }
-
-    private void AttachNewArticlesToMaterials(List<Material> materials, CourseCreateDto courseCreateDto)
-    {
-        foreach (var articleDto in courseCreateDto.Articles)
-        {
-            if (_materialRepository.Exists(m => m.Title == articleDto.Title && m.Type == "Article"))
-                continue;
-
-            Article article = new Article
-            {
-                Title = articleDto.Title,
-                PublicationDate = articleDto.PublicationDate,
-                ResourceLink = articleDto.ResourceLink
-            };
-
-            materials.Add(article);
-        }
-    }
-
-    private async Task InsertCourseMaterials(Course course, List<Material> materials)
-    {
         await _materialRepository.InsertRangeAsync(materials);
-
-        course.CourseMaterials = materials.Select(material => new CourseMaterial
-        {
-            CourseId = course.Id,
-            MaterialId = material.Id
-        }).ToList();
-
         await _courseRepository.UpdateAsync(course);
+    }
+
+    private void AttachNewVideosToMaterials(
+        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
+    {
+        foreach (var video in courseCreateDto.Videos)
+        {
+            if (_materialRepository.Exists(
+                    m => m.Title == video.Title && m.Type == "Video"))
+                continue;
+
+            materials.Add(new Video
+            {
+                Title = video.Title,
+                Duration = video.Duration,
+                Quality = video.Quality,
+                Courses = [course]
+            });
+        }
+    }
+
+    private void AttachNewPublicationsToMaterials(
+        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
+    {
+        foreach (var publication in courseCreateDto.Publications)
+        {
+            if (_materialRepository.Exists(
+                m => m.Title == publication.Title && m.Type == "Publication"))
+                continue;
+
+            materials.Add(new Publication
+            {
+                Title = publication.Title,
+                Authors = publication.Authors,
+                Format = publication.Format,
+                Pages = publication.Pages,
+                PublicationYear = publication.PublicationYear,
+                Courses = [course]
+            });
+        }
+    }
+
+    private void AttachNewArticlesToMaterials(
+        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
+    {
+        foreach (var article in courseCreateDto.Articles)
+        {
+            if (_materialRepository.Exists(
+                m => m.Title == article.Title && m.Type == "Article"))
+                continue;
+
+            materials.Add(new Article
+            {
+                Title = article.Title,
+                PublicationDate = article.PublicationDate,
+                ResourceLink = article.ResourceLink,
+                Courses = [course]
+            });
+        }
     }
 }
