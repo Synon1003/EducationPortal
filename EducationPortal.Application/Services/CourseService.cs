@@ -52,6 +52,9 @@ public class CourseService : ICourseService
 
     public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
     {
+        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
+            throw new BadRequestException($"Course ({courseCreateDto.Name}) already exists in the db.");
+
         Course course = new Course
         {
             Name = courseCreateDto.Name,
@@ -71,7 +74,7 @@ public class CourseService : ICourseService
         foreach (var skill in courseCreateDto.Skills)
         {
             if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
-                continue;
+                throw new BadRequestException($"Skill ({skill.Name}) already exists in the db.");
 
             course.Skills.Add(new Skill { Name = skill.Name, Courses = [course] });
         }
@@ -97,7 +100,7 @@ public class CourseService : ICourseService
         {
             if (_unitOfWork.MaterialRepository.Exists(
                     m => m.Title == video.Title && m.Type == "Video"))
-                continue;
+                throw new BadRequestException($"Video ({video.Title}) already exists in the db.");
 
             materials.Add(new Video
             {
@@ -116,7 +119,7 @@ public class CourseService : ICourseService
         {
             if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == publication.Title && m.Type == "Publication"))
-                continue;
+                throw new BadRequestException($"Publication ({publication.Title}) already exists in the db.");
 
             materials.Add(new Publication
             {
@@ -137,7 +140,7 @@ public class CourseService : ICourseService
         {
             if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == article.Title && m.Type == "Article"))
-                continue;
+                throw new BadRequestException($"Article ({article.Title}) already exists in the db.");
 
             materials.Add(new Article
             {
