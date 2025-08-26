@@ -24,7 +24,7 @@
                                             @video.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success whitespace-nowrap btn-sm w-26">Done</a></td>
+                                    <td class="text-right"><a class="btn btn-success whitespace-nowrap btn-sm w-24">Done</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -47,7 +47,7 @@
                                             @publication.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-26">Mark as Done</a></td>
+                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -70,7 +70,7 @@
                                             @article.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-26">Mark as Done</a></td>
+                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -80,14 +80,14 @@
             
             <div class="flex items-center justify-between">
                 <progress class="progress progress-success" value="50" max="100"></progress>
-                <div class="font-medium text-lg ml-2">2/4</div>
+                <div class="font-medium text-xl ml-2">2/4</div>
             </div>
 
             <dialog id="material-detail-modal" class="modal">
                 <div class="modal-box">
                     <div class="flex items-center justify-between ml-2 mb-4">
                         <div class="text-2xl mt-4 mb-4 font-medium">@Model.CourseName - Material</div>
-                        <a class="btn btn-success btn-outline btn-sm w-26">Mark as Done</a>
+                        <a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
                     </div>
                     <div id="material-detail-content">
                         <!-- _VideoDetailsPartial view content -->
@@ -102,8 +102,8 @@
 
             <div class="flex items-center justify-start mt-4">
                 <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId"
-                    class="btn btn-md btn-secondary">
-                    Back to @Model.CourseName
+                    class="btn btn-md btn-secondary w-20">
+                    Back
                 </a>
             </div>
         </div>

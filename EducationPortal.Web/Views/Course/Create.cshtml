@@ -69,14 +69,14 @@
                     @await Html.PartialAsync("~/Views/Material/_CreateArticlesListPartial.cshtml", Model)
                 </div>
 
-                @* <div asp-validation-summary="All" class="text-error text-sm"></div> *@
+                <div asp-validation-summary="All" class="text-error text-sm"></div>
                 <partial name="_ControllerErrorsPartial" />
 
                 <div class="flex items-center justify-between mt-4">
-                    <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary">
-                        Back to Courses
+                    <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
+                        Back
                     </a>
-                    <button type="submit" class="btn btn-md btn-primary">Create</button>
+                    <button type="submit" class="btn btn-md btn-primary w-24">Create</button>
                 </div>
                 
             </form>
