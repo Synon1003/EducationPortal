@@ -40,7 +40,7 @@ public class MaterialController : Controller
     public IActionResult AddVideoToViewModel(CourseCreateViewModel model)
     {
         model.Videos.Add(new VideoCreateViewModel());
-        return PartialView("_CreateVideosListPartial", model.Videos);
+        return PartialView("_CreateVideosListPartial", model);
     }
 
     public IActionResult RemoveVideoFromViewModel(CourseCreateViewModel model, int idx)
@@ -48,14 +48,14 @@ public class MaterialController : Controller
         if (idx >= 0 && idx < model.Videos.Count)
             model.Videos.RemoveAt(idx);
 
-        return PartialView("_CreateVideosListPartial", model.Videos);
+        return PartialView("_CreateVideosListPartial", model);
     }
 
 
     public IActionResult AddPublicationToViewModel(CourseCreateViewModel model)
     {
         model.Publications.Add(new PublicationCreateViewModel());
-        return PartialView("_CreatePublicationsListPartial", model.Publications);
+        return PartialView("_CreatePublicationsListPartial", model);
     }
 
     public IActionResult RemovePublicationFromViewModel(CourseCreateViewModel model, int idx)
@@ -63,14 +63,14 @@ public class MaterialController : Controller
         if (idx >= 0 && idx < model.Publications.Count)
             model.Publications.RemoveAt(idx);
 
-        return PartialView("_CreatePublicationsListPartial", model.Publications);
+        return PartialView("_CreatePublicationsListPartial", model);
     }
 
 
     public IActionResult AddArticleToViewModel(CourseCreateViewModel model)
     {
         model.Articles.Add(new ArticleCreateViewModel());
-        return PartialView("_CreateArticlesListPartial", model.Articles);
+        return PartialView("_CreateArticlesListPartial", model);
     }
 
     public IActionResult RemoveArticleFromViewModel(CourseCreateViewModel model, int idx)
@@ -78,6 +78,6 @@ public class MaterialController : Controller
         if (idx >= 0 && idx < model.Articles.Count)
             model.Articles.RemoveAt(idx);
 
-        return PartialView("_CreateArticlesListPartial", model.Articles);
+        return PartialView("_CreateArticlesListPartial", model);
     }
 }

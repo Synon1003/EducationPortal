@@ -10,7 +10,7 @@ public class SkillController : Controller
     public IActionResult AddSkillToViewModel(CourseCreateViewModel model)
     {
         model.Skills.Add(new SkillCreateViewModel());
-        return PartialView("_CreateSkillsListPartial", model.Skills);
+        return PartialView("_CreateSkillsListPartial", model);
     }
 
     public IActionResult RemoveSkillFromViewModel(CourseCreateViewModel model, int idx)
@@ -18,6 +18,6 @@ public class SkillController : Controller
         if (idx >= 0 && idx < model.Skills.Count)
             model.Skills.RemoveAt(idx);
 
-        return PartialView("_CreateSkillsListPartial", model.Skills);
+        return PartialView("_CreateSkillsListPartial", model);
     }
 }
