@@ -18,7 +18,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Skills</th>
@@ -29,8 +28,7 @@
                         {
                             <tr>
                                 <td><a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id"
-                                        class="text-primary">@course.Id</a></td>
-                                <td>@course.Name</td>
+                                        class="text-primary">@course.Name</a></td>
                                 <td>@course.Description</td>
                                 <td>@(String.Join(", ", course.Skills))</td>
                             </tr>
