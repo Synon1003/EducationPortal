@@ -14,22 +14,13 @@ public class HomeController : Controller
     {
         HomeViewModel model = new HomeViewModel
         {
-            Header = "Welcome to the Education Portal",
-            WelcomeText = "Your gateway to knowledge and learning."
+            Header = "Education Portal",
+            SubHeader = "Your gateway to knowledge and learning",
+            WelcomeText = "Improve Your skills by completing various courses or create courses to teach your friends",
+            AdviceHeader = "Create Your own course",
+            AdviceText = "Label the skills it touches upon and provide the materials"
+
         };
         return View(model);
-    }
-
-    public IActionResult Flash([FromForm] HomeViewModel model)
-    {
-        TempData.Put("flash", new FlashViewModel()
-        {
-            Message = model.InputText,
-            Type = "info"
-        });
-
-        model.Header = "Welcome to the Education Portal";
-        model.WelcomeText = "Your gateway to knowledge and learning.";
-        return View("Index", model);
     }
 }

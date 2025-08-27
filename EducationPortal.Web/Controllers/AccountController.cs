@@ -102,7 +102,7 @@ public class AccountController : Controller
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return LocalRedirect(returnUrl);
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(CourseController.List), "Course");
         }
 
         ModelState.AddModelError("Login", "Invalid email or password.");
