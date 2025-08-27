@@ -17,4 +17,5 @@ public class Material
     public string Type { get; set; }
 
     public virtual ICollection<Course> Courses { get; set; } = [];
+    public virtual ICollection<ApplicationUser> AcquiredByUsers { get; set; } = [];
 }

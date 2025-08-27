@@ -12,4 +12,6 @@ public class Skill
     public string Name { get; set; }
 
     public virtual ICollection<Course> Courses { get; set; } = [];
+    public virtual ICollection<UserSkill> UserSkills { get; set; } = [];
+    public virtual ICollection<ApplicationUser> AcquiredByUsers { get; set; } = [];
 }

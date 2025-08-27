@@ -19,6 +19,7 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
     public virtual DbSet<Publication> Publications { get; set; }
     public virtual DbSet<Article> Articles { get; set; }
     public virtual DbSet<CourseMaterial> CourseMaterials { get; set; }
+    public virtual DbSet<UserSkill> UserSkills { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,6 +27,7 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
 
         modelBuilder.ApplyConfiguration(new CourseConfigurations());
         modelBuilder.ApplyConfiguration(new MaterialConfigurations());
+        modelBuilder.ApplyConfiguration(new ApplicationUserConfigurations());
 
         SeedData(modelBuilder);
     }
@@ -88,6 +90,12 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             new CourseSkill { Id = 4, CourseId = 1, SkillId = 4 },
             new CourseSkill { Id = 5, CourseId = 2, SkillId = 5 },
             new CourseSkill { Id = 6, CourseId = 2, SkillId = 6 }
+        );
+
+        modelBuilder.Entity<UserSkill>().HasData(
+            new UserSkill { Id = 1, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), SkillId = 1 },
+            new UserSkill { Id = 2, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), SkillId = 3 },
+            new UserSkill { Id = 3, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), SkillId = 4 }
         );
 
         modelBuilder.Entity<Video>().HasData(
@@ -153,6 +161,13 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             new CourseMaterial { Id = 4, CourseId = 1, MaterialId = 4 },
             new CourseMaterial { Id = 5, CourseId = 2, MaterialId = 5 },
             new CourseMaterial { Id = 6, CourseId = 2, MaterialId = 6 }
+        );
+
+        modelBuilder.Entity("UserMaterials").HasData(
+            new { Id = 1, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 1 },
+            new { Id = 2, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 2 },
+            new { Id = 3, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 3 },
+            new { Id = 4, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 4 }
         );
     }
 }
