@@ -19,4 +19,9 @@ public class Course
     public virtual ICollection<Skill> Skills { get; set; } = [];
 
     public virtual ICollection<Material> Materials { get; set; } = [];
+
+    public Guid CreatedBy { get; set; }
+
+    [ForeignKey(nameof(CreatedBy))]
+    public virtual ApplicationUser? ApplicationUser { get; set; }
 }

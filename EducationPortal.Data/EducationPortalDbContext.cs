@@ -32,9 +32,44 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
 
     private void SeedData(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ApplicationUser>().HasData(
+            new ApplicationUser
+            {
+                Id = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
+                FirstName = "Zo1",
+                LastName = "Zo2",
+                UserName = "zozo@zo.zo",
+                NormalizedUserName = "ZOZO@ZO.ZO",
+                Email = "zozo@zo.zo",
+                NormalizedEmail = "ZOZO@ZO.ZO",
+                EmailConfirmed = true,
+                PasswordHash = "AQAAAAIAAYagAAAAEG4kPMUMao9yxVsc7yWKoFfd19HOWaBU45bskSnfBLjMQZUTqsvKfjupNn0Ad9SSfQ==",
+                SecurityStamp = "P6DH6DQNU6KVOFRNHZZ2KJR3Z3CJHZ4M",
+                ConcurrencyStamp = "14ab1c04-7ca7-4b15-b4cf-2f6b7e488a5e",
+                LockoutEnabled = true,
+                PhoneNumber = null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                AccessFailedCount = 0,
+                Theme = "business"
+            }
+        );
+
         modelBuilder.Entity<Course>().HasData(
-            new Course { Id = 1, Name = "Dotnet course", Description = "Dotnet course to learn how to create C# Asp.Net Core MVC application" },
-            new Course { Id = 2, Name = "Git course", Description = "Git course to learn how to use Git repositories" }
+            new Course
+            {
+                Id = 1,
+                Name = "Dotnet course",
+                Description = "Dotnet course to learn how to create C# Asp.Net Core MVC application",
+                CreatedBy = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe")
+            },
+            new Course
+            {
+                Id = 2,
+                Name = "Git course",
+                Description = "Git course to learn how to use Git repositories",
+                CreatedBy = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe")
+            }
         );
 
         modelBuilder.Entity<Skill>().HasData(
