@@ -1,0 +1,38 @@
+services:
+  educationportalsqldb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: educationportalsqldb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P@ssw0rd
+    ports:
+      - "1433:1433"
+    volumes:
+      - educationportalsqldbvolume:/var/opt/mssql
+    networks:
+      - educationportal_network
+    restart: unless-stopped
+
+  educationportalwebapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: educationportalwebapp
+    depends_on:
+      - educationportalsqldb
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - ./keys:/keys
+    networks:
+      - educationportal_network
+    restart: unless-stopped
+
+volumes:
+  educationportalsqldbvolume:
+
+
+networks:
+  educationportal_network:
+    driver: bridge

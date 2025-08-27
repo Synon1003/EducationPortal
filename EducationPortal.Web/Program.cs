@@ -1,6 +1,7 @@
 using EducationPortal.Extensions;
 using EducationPortal.RepositoryTestEndpoints;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,13 @@ builder.Services.AddDbRepositories(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddViewModelMappers();
 builder.Services.AddIdentityProviders();
+
+if (builder.Environment.IsProduction())
+{
+    builder.Services.AddDataProtection()
+        .PersistKeysToFileSystem(new DirectoryInfo("/keys"))
+        .SetApplicationName("EducationPortal");
+}
 
 builder.Services.AddAuthorization(options =>
 {
@@ -48,10 +56,13 @@ if (app.Environment.IsDevelopment())
 
     app.MapRepositoryTestEndpoints();
 
+    app.UseHsts();
+    app.UseHttpsRedirection();
 }
-
-app.UseHsts();
-app.UseHttpsRedirection();
+else if (app.Environment.IsProduction())
+{
+    await app.InitializeDatabaseAsync();
+}
 
 app.UseStaticFiles();
 

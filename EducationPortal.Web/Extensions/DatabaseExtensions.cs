@@ -7,6 +7,41 @@ namespace EducationPortal.Extensions;
 
 public static class DatabaseExtensions
 {
+    public static async Task InitializeDatabaseAsync(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<EducationPortalDbContext>();
+        var env = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<EducationPortalDbContext>>();
+
+        const int maxRetries = 5;
+        const int delaySeconds = 10;
+
+        for (int attempt = 1; attempt <= maxRetries; attempt++)
+        {
+            try
+            {
+                logger.LogInformation("Attempt {Attempt}: Ensuring database created...", attempt);
+                await EnsureDatabaseAsync(dbContext);
+
+                logger.LogInformation("Attempt {Attempt}: Applying migrations...", attempt);
+                await RunMigrationsAsync(dbContext);
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, "Database connection attempt {Attempt} failed.", attempt);
+
+                if (attempt == maxRetries)
+                {
+                    logger.LogError("All {MaxRetries} database connection attempts failed.", maxRetries);
+                    throw;
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(delaySeconds));
+            }
+        }
+    }
+
     public static async Task UpdateDatabaseMigrationsAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
