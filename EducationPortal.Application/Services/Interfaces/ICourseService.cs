@@ -7,6 +7,6 @@ public interface ICourseService
     Task<ICollection<CourseListDto>> GetAllCoursesWithSkillsAsync();
     Task<ICollection<CourseListDto>> GetCoursesByMaterialIdAsync(int materialId);
     Task<CourseListDto> GetCourseByIdAsync(int id);
-    Task<CourseDetailDto> GetCourseWithSkillsAndMaterialsByIdAsync(int id);
+    Task<CourseDetailDto> GetCourseWithRelationshipsByIdAsync(int id);
     Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto);
 }

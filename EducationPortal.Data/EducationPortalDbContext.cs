@@ -18,6 +18,7 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
     public virtual DbSet<Publication> Publications { get; set; }
     public virtual DbSet<Article> Articles { get; set; }
     public virtual DbSet<UserSkill> UserSkills { get; set; }
+    public virtual DbSet<UserCourse> UserCourses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -70,6 +71,10 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
                 Description = "Git course to learn how to use Git repositories",
                 CreatedBy = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe")
             }
+        );
+
+        modelBuilder.Entity<UserCourse>().HasData(
+            new UserCourse { Id = 1, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), CourseId = 1, ProgressPercentage = 100 }
         );
 
         modelBuilder.Entity<Skill>().HasData(

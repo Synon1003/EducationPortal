@@ -17,7 +17,9 @@ public class ApplicationUser : IdentityUser<Guid>
     [StringLength(20)]
     public string Theme { get; set; } = "corporate";
 
+    public virtual ICollection<Course> CreatedCourses { get; set; } = [];
     public virtual ICollection<Course> Courses { get; set; } = [];
+    public virtual ICollection<UserCourse> UserCourses { get; set; } = [];
 
     public virtual ICollection<UserSkill> UserSkills { get; set; } = [];
     public virtual ICollection<Skill> Skills { get; set; } = [];

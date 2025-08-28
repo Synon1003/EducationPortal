@@ -9,6 +9,11 @@ namespace EducationPortal.Data.Configurations
         public void Configure(EntityTypeBuilder<Course> builder)
         {
             builder
+                .HasOne(c => c.CreatedByUser)
+                .WithMany(u => u.CreatedCourses)
+                .HasForeignKey(c => c.CreatedBy);
+
+            builder
                 .HasMany(e => e.Materials)
                 .WithMany(e => e.Courses)
                 .UsingEntity<Dictionary<string, object>>(

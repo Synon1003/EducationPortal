@@ -9,6 +9,23 @@ namespace EducationPortal.Data.Configurations
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             builder
+                .HasMany(e => e.Courses)
+                .WithMany(e => e.Users)
+                .UsingEntity<UserCourse>(
+                    entity => entity
+                        .HasOne(us => us.Course)
+                        .WithMany(s => s.UserCourses)
+                        .HasForeignKey(us => us.CourseId)
+                        .OnDelete(DeleteBehavior.NoAction),
+                    entity => entity
+                        .HasOne(us => us.User)
+                        .WithMany(u => u.UserCourses)
+                        .HasForeignKey(us => us.UserId)
+                        .OnDelete(DeleteBehavior.NoAction),
+                    entity => entity.ToTable("UserCourses")
+                );
+
+            builder
                 .HasMany(e => e.Materials)
                 .WithMany(e => e.AcquiredByUsers)
                 .UsingEntity<Dictionary<string, object>>(

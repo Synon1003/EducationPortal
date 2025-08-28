@@ -12,7 +12,8 @@ public record CourseDetailDto(
     string Name,
     string Description,
     List<SkillDto> Skills,
-    List<MaterialDto> Materials
+    List<MaterialDto> Materials,
+    string CreatedByUserName
 );
 
 public record CourseCreateDto(
@@ -21,5 +22,6 @@ public record CourseCreateDto(
     List<SkillCreateDto> Skills,
     List<VideoCreateDto> Videos,
     List<PublicationCreateDto> Publications,
-    List<ArticleCreateDto> Articles
+    List<ArticleCreateDto> Articles,
+    Guid? CreatedBy
 );

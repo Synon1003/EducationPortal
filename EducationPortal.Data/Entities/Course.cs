@@ -20,8 +20,11 @@ public class Course
 
     public virtual ICollection<Material> Materials { get; set; } = [];
 
-    public Guid CreatedBy { get; set; }
+    public Guid CreatedBy { get; init; }
 
     [ForeignKey(nameof(CreatedBy))]
-    public virtual ApplicationUser? ApplicationUser { get; set; }
+    public virtual ApplicationUser CreatedByUser { get; }
+
+    public virtual ICollection<ApplicationUser> Users { get; set; } = [];
+    public virtual ICollection<UserCourse> UserCourses { get; set; } = [];
 }
