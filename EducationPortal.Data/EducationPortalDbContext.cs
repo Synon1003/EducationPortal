@@ -13,12 +13,10 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
 
     public virtual DbSet<Course> Courses { get; set; }
     public virtual DbSet<Skill> Skills { get; set; }
-    public virtual DbSet<CourseSkill> CourseSkills { get; set; }
     public virtual DbSet<Material> Materials { get; set; }
     public virtual DbSet<Video> Videos { get; set; }
     public virtual DbSet<Publication> Publications { get; set; }
     public virtual DbSet<Article> Articles { get; set; }
-    public virtual DbSet<CourseMaterial> CourseMaterials { get; set; }
     public virtual DbSet<UserSkill> UserSkills { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -83,13 +81,13 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             new Skill { Id = 6, Name = "Gitlab" }
         );
 
-        modelBuilder.Entity<CourseSkill>().HasData(
-            new CourseSkill { Id = 1, CourseId = 1, SkillId = 1 },
-            new CourseSkill { Id = 2, CourseId = 2, SkillId = 2 },
-            new CourseSkill { Id = 3, CourseId = 1, SkillId = 3 },
-            new CourseSkill { Id = 4, CourseId = 1, SkillId = 4 },
-            new CourseSkill { Id = 5, CourseId = 2, SkillId = 5 },
-            new CourseSkill { Id = 6, CourseId = 2, SkillId = 6 }
+        modelBuilder.Entity("CourseSkills").HasData(
+            new { CourseId = 1, SkillId = 1 },
+            new { CourseId = 2, SkillId = 2 },
+            new { CourseId = 1, SkillId = 3 },
+            new { CourseId = 1, SkillId = 4 },
+            new { CourseId = 2, SkillId = 5 },
+            new { CourseId = 2, SkillId = 6 }
         );
 
         modelBuilder.Entity<UserSkill>().HasData(
@@ -154,13 +152,13 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
         );
 
 
-        modelBuilder.Entity<CourseMaterial>().HasData(
-            new CourseMaterial { Id = 1, CourseId = 1, MaterialId = 1 },
-            new CourseMaterial { Id = 2, CourseId = 1, MaterialId = 2 },
-            new CourseMaterial { Id = 3, CourseId = 1, MaterialId = 3 },
-            new CourseMaterial { Id = 4, CourseId = 1, MaterialId = 4 },
-            new CourseMaterial { Id = 5, CourseId = 2, MaterialId = 5 },
-            new CourseMaterial { Id = 6, CourseId = 2, MaterialId = 6 }
+        modelBuilder.Entity("CourseMaterials").HasData(
+            new { CourseId = 1, MaterialId = 1 },
+            new { CourseId = 1, MaterialId = 2 },
+            new { CourseId = 1, MaterialId = 3 },
+            new { CourseId = 1, MaterialId = 4 },
+            new { CourseId = 2, MaterialId = 5 },
+            new { CourseId = 2, MaterialId = 6 }
         );
 
         modelBuilder.Entity("UserMaterials").HasData(

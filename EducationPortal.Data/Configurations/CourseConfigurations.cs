@@ -11,12 +11,42 @@ namespace EducationPortal.Data.Configurations
             builder
                 .HasMany(e => e.Materials)
                 .WithMany(e => e.Courses)
-                .UsingEntity<CourseMaterial>();
+                .UsingEntity<Dictionary<string, object>>(
+                    "CourseMaterials",
+                    entity => entity.HasOne<Material>()
+                        .WithMany()
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    entity => entity.HasOne<Course>()
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    entity =>
+                    {
+                        entity.HasKey("CourseId", "MaterialId");
+                        entity.ToTable("CourseMaterials");
+                    }
+                );
 
             builder
                 .HasMany(e => e.Skills)
                 .WithMany(e => e.Courses)
-                .UsingEntity<CourseSkill>();
+                .UsingEntity<Dictionary<string, object>>(
+                    "CourseSkills",
+                    entity => entity.HasOne<Skill>()
+                        .WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    entity => entity.HasOne<Course>()
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    entity =>
+                    {
+                        entity.HasKey("CourseId", "SkillId");
+                        entity.ToTable("CourseSkills");
+                    }
+                );
         }
     }
 }
