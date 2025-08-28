@@ -4,6 +4,7 @@ using EducationPortal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EducationPortal.Data.Migrations
 {
     [DbContext(typeof(EducationPortalDbContext))]
-    partial class EducationPortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250828093510_ChangedCourseSkillsAndCourseMaterialsToJoinTablesOnly")]
+    partial class ChangedCourseSkillsAndCourseMaterialsToJoinTablesOnly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -336,41 +339,6 @@ namespace EducationPortal.Data.Migrations
                         {
                             Id = 6,
                             Name = "Gitlab"
-                        });
-                });
-
-            modelBuilder.Entity("EducationPortal.Data.Entities.UserCourse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProgressPercentage")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserCourses", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CourseId = 1,
-                            ProgressPercentage = 100,
-                            UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe")
                         });
                 });
 
@@ -728,32 +696,13 @@ namespace EducationPortal.Data.Migrations
 
             modelBuilder.Entity("EducationPortal.Data.Entities.Course", b =>
                 {
-                    b.HasOne("EducationPortal.Data.Entities.ApplicationUser", "CreatedByUser")
-                        .WithMany("CreatedCourses")
+                    b.HasOne("EducationPortal.Data.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany("Courses")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CreatedByUser");
-                });
-
-            modelBuilder.Entity("EducationPortal.Data.Entities.UserCourse", b =>
-                {
-                    b.HasOne("EducationPortal.Data.Entities.Course", "Course")
-                        .WithMany("UserCourses")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("EducationPortal.Data.Entities.ApplicationUser", "User")
-                        .WithMany("UserCourses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("User");
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("EducationPortal.Data.Entities.UserSkill", b =>
@@ -843,16 +792,9 @@ namespace EducationPortal.Data.Migrations
 
             modelBuilder.Entity("EducationPortal.Data.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("CreatedCourses");
-
-                    b.Navigation("UserCourses");
+                    b.Navigation("Courses");
 
                     b.Navigation("UserSkills");
-                });
-
-            modelBuilder.Entity("EducationPortal.Data.Entities.Course", b =>
-                {
-                    b.Navigation("UserCourses");
                 });
 
             modelBuilder.Entity("EducationPortal.Data.Entities.Skill", b =>

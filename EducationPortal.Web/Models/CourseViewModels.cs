@@ -23,6 +23,7 @@ public class CourseDetailViewModel
     public string Description { get; set; }
     public List<string> Skills { get; set; } = [];
     public List<string> Materials { get; set; } = [];
+    public string CreatedBy { get; set; }
 }
 
 public class CourseCreateViewModel

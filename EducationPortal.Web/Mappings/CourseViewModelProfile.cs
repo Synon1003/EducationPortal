@@ -16,7 +16,9 @@ public class CourseViewModelProfile : Profile
             .ForMember(dest => dest.Skills, opt =>
                 opt.MapFrom(src => src.Skills.Select(s => s.Name).ToList()))
             .ForMember(dest => dest.Materials, opt =>
-                opt.MapFrom(src => src.Materials.Select(s => s.Title).ToList()));
+                opt.Ignore())
+            .ForMember(dest => dest.CreatedBy, opt =>
+                opt.MapFrom(src => src.CreatedByUserName));
 
         CreateMap<CourseCreateViewModel, CourseCreateDto>()
             .ConstructUsing(src => new CourseCreateDto(
@@ -28,8 +30,8 @@ public class CourseViewModelProfile : Profile
                 src.Publications.Select(v => new PublicationCreateDto(
                     v.Title, v.Authors, v.Pages, v.Format, v.PublicationYear)).ToList(),
                 src.Articles.Select(v => new ArticleCreateDto(
-                    v.Title, v.PublicationDate, v.ResourceLink)).ToList()
-
+                    v.Title, v.PublicationDate, v.ResourceLink)).ToList(),
+                null
             ));
     }
 }

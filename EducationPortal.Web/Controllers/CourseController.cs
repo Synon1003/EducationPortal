@@ -4,6 +4,8 @@ using EducationPortal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using EducationPortal.Application.Services.Interfaces;
 using EducationPortal.Application.Dtos;
+using Microsoft.AspNetCore.Identity;
+using EducationPortal.Data.Entities;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -12,15 +14,18 @@ public class CourseController : Controller
 {
     private readonly ICourseService _courseService;
     private readonly IMaterialService _materialService;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IMapper _mapper;
 
     public CourseController(
         ICourseService courseService,
         IMaterialService materialService,
+        UserManager<ApplicationUser> userManager,
         IMapper mapper)
     {
         _courseService = courseService;
         _materialService = materialService;
+        _userManager = userManager;
         _mapper = mapper;
     }
 
@@ -41,7 +46,7 @@ public class CourseController : Controller
     [HttpGet]
     public async Task<ActionResult<CourseDetailViewModel>> Details(int id)
     {
-        var course = await _courseService.GetCourseWithSkillsAndMaterialsByIdAsync(id);
+        var course = await _courseService.GetCourseWithRelationshipsByIdAsync(id);
         return View(_mapper.Map<CourseDetailViewModel>(course));
     }
 
@@ -63,7 +68,12 @@ public class CourseController : Controller
             return View(courseCreateViewModel);
         }
 
-        var courseCreateDto = _mapper.Map<CourseCreateDto>(courseCreateViewModel);
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+            return Unauthorized();
+
+        var courseCreateDto = _mapper.Map<CourseCreateDto>(courseCreateViewModel) with { CreatedBy = user.Id! };
+
         await _courseService.CreateCourseAsync(courseCreateDto);
         TempData.CreateFlash("Course created successfully.", "info");
 

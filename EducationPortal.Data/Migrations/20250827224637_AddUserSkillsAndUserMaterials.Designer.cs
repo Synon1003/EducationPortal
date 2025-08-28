@@ -4,6 +4,7 @@ using EducationPortal.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EducationPortal.Data.Migrations
 {
     [DbContext(typeof(EducationPortalDbContext))]
-    partial class EducationPortalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250827224637_AddUserSkillsAndUserMaterials")]
+    partial class AddUserSkillsAndUserMaterials
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,100 +24,6 @@ namespace EducationPortal.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CourseMaterials", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "MaterialId");
-
-                    b.HasIndex("MaterialId");
-
-                    b.ToTable("CourseMaterials", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CourseId = 1,
-                            MaterialId = 1
-                        },
-                        new
-                        {
-                            CourseId = 1,
-                            MaterialId = 2
-                        },
-                        new
-                        {
-                            CourseId = 1,
-                            MaterialId = 3
-                        },
-                        new
-                        {
-                            CourseId = 1,
-                            MaterialId = 4
-                        },
-                        new
-                        {
-                            CourseId = 2,
-                            MaterialId = 5
-                        },
-                        new
-                        {
-                            CourseId = 2,
-                            MaterialId = 6
-                        });
-                });
-
-            modelBuilder.Entity("CourseSkills", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "SkillId");
-
-                    b.HasIndex("SkillId");
-
-                    b.ToTable("CourseSkills", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            CourseId = 1,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            CourseId = 2,
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            CourseId = 1,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            CourseId = 1,
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            CourseId = 2,
-                            SkillId = 5
-                        },
-                        new
-                        {
-                            CourseId = 2,
-                            SkillId = 6
-                        });
-                });
 
             modelBuilder.Entity("EducationPortal.Data.Entities.ApplicationUser", b =>
                 {
@@ -262,6 +171,128 @@ namespace EducationPortal.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EducationPortal.Data.Entities.CourseMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("MaterialId");
+
+                    b.ToTable("CourseMaterials");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CourseId = 1,
+                            MaterialId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CourseId = 1,
+                            MaterialId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CourseId = 1,
+                            MaterialId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CourseId = 1,
+                            MaterialId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CourseId = 2,
+                            MaterialId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CourseId = 2,
+                            MaterialId = 6
+                        });
+                });
+
+            modelBuilder.Entity("EducationPortal.Data.Entities.CourseSkill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("CourseSkills");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CourseId = 1,
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CourseId = 2,
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CourseId = 1,
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CourseId = 1,
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CourseId = 2,
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CourseId = 2,
+                            SkillId = 6
+                        });
+                });
+
             modelBuilder.Entity("EducationPortal.Data.Entities.Material", b =>
                 {
                     b.Property<int>("Id")
@@ -336,41 +367,6 @@ namespace EducationPortal.Data.Migrations
                         {
                             Id = 6,
                             Name = "Gitlab"
-                        });
-                });
-
-            modelBuilder.Entity("EducationPortal.Data.Entities.UserCourse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProgressPercentage")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserCourses", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CourseId = 1,
-                            ProgressPercentage = 100,
-                            UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe")
                         });
                 });
 
@@ -696,7 +692,18 @@ namespace EducationPortal.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CourseMaterials", b =>
+            modelBuilder.Entity("EducationPortal.Data.Entities.Course", b =>
+                {
+                    b.HasOne("EducationPortal.Data.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany("Courses")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("EducationPortal.Data.Entities.CourseMaterial", b =>
                 {
                     b.HasOne("EducationPortal.Data.Entities.Course", null)
                         .WithMany()
@@ -711,7 +718,7 @@ namespace EducationPortal.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseSkills", b =>
+            modelBuilder.Entity("EducationPortal.Data.Entities.CourseSkill", b =>
                 {
                     b.HasOne("EducationPortal.Data.Entities.Course", null)
                         .WithMany()
@@ -724,36 +731,6 @@ namespace EducationPortal.Data.Migrations
                         .HasForeignKey("SkillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EducationPortal.Data.Entities.Course", b =>
-                {
-                    b.HasOne("EducationPortal.Data.Entities.ApplicationUser", "CreatedByUser")
-                        .WithMany("CreatedCourses")
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedByUser");
-                });
-
-            modelBuilder.Entity("EducationPortal.Data.Entities.UserCourse", b =>
-                {
-                    b.HasOne("EducationPortal.Data.Entities.Course", "Course")
-                        .WithMany("UserCourses")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("EducationPortal.Data.Entities.ApplicationUser", "User")
-                        .WithMany("UserCourses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EducationPortal.Data.Entities.UserSkill", b =>
@@ -843,16 +820,9 @@ namespace EducationPortal.Data.Migrations
 
             modelBuilder.Entity("EducationPortal.Data.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("CreatedCourses");
-
-                    b.Navigation("UserCourses");
+                    b.Navigation("Courses");
 
                     b.Navigation("UserSkills");
-                });
-
-            modelBuilder.Entity("EducationPortal.Data.Entities.Course", b =>
-                {
-                    b.Navigation("UserCourses");
                 });
 
             modelBuilder.Entity("EducationPortal.Data.Entities.Skill", b =>

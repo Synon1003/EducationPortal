@@ -11,7 +11,7 @@ public static class RepositoryTestEndpoints
             TypedResults.Ok(await service.GetAllCoursesWithSkillsAsync()));
 
         app.MapGet("/courses/{id}", async (ICourseService service, int id) =>
-            TypedResults.Ok(await service.GetCourseWithSkillsAndMaterialsByIdAsync(id)));
+            TypedResults.Ok(await service.GetCourseWithRelationshipsByIdAsync(id)));
 
         app.MapGet("/courses/bymaterial/{materialId}", async (ICourseService service, int materialId) =>
             TypedResults.Ok(await service.GetCoursesByMaterialIdAsync(materialId)));

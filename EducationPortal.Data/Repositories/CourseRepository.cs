@@ -19,10 +19,11 @@ public class CourseRepository : EntityFrameworkRepository<Course>, ICourseReposi
             .Include(c => c.Materials)
             .ToListAsync();
 
-    public async Task<Course?> GetCourseWithSkillsAndMaterialsByIdAsync(int id) =>
+    public async Task<Course?> GetCourseWithRelationshipsByIdAsync(int id) =>
         await _context.Courses.AsNoTracking()
             .Include(c => c.Skills)
             .Include(c => c.Materials)
+            .Include(c => c.CreatedByUser)
             .SingleOrDefaultAsync(c => c.Id == id);
 
     public async Task<ICollection<Course>> GetCoursesByMaterialIdAsync(int materialId) =>

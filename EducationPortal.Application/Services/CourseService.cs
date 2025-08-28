@@ -41,9 +41,9 @@ public class CourseService : ICourseService
         return _mapper.Map<CourseListDto>(course);
     }
 
-    public async Task<CourseDetailDto> GetCourseWithSkillsAndMaterialsByIdAsync(int id)
+    public async Task<CourseDetailDto> GetCourseWithRelationshipsByIdAsync(int id)
     {
-        var course = await _unitOfWork.CourseRepository.GetCourseWithSkillsAndMaterialsByIdAsync(id);
+        var course = await _unitOfWork.CourseRepository.GetCourseWithRelationshipsByIdAsync(id);
         if (course == null)
             throw new NotFoundException(nameof(Course), id);
 
@@ -58,7 +58,8 @@ public class CourseService : ICourseService
         Course course = new Course
         {
             Name = courseCreateDto.Name,
-            Description = courseCreateDto.Description
+            Description = courseCreateDto.Description,
+            CreatedBy = courseCreateDto.CreatedBy ?? throw new BadRequestException("User cannot be null.")
         };
 
         await _unitOfWork.CourseRepository.InsertAsync(course);
