@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -22,5 +23,19 @@ public class HomeController : Controller
 
         };
         return View(model);
+    }
+
+    public IActionResult Error()
+    {
+        // var feature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+        var model = new ErrorViewModel
+        {
+            // Message = feature?.Error?.Message ?? "An unknown error occurred."
+            Message = "An unknown error occurred."
+        };
+
+        TempData.CreateFlash(model.Message, "error");
+        return View();
     }
 }

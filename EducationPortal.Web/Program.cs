@@ -1,6 +1,6 @@
+using EducationPortal.Application.Web.Middlewares;
 using EducationPortal.Extensions;
 using EducationPortal.RepositoryTestEndpoints;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,20 +18,7 @@ if (builder.Environment.IsProduction())
         .SetApplicationName("EducationPortal");
 }
 
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser().Build();
-
-    options.AddPolicy("NotAuthorized", policy =>
-    {
-        policy.RequireAssertion(context =>
-        {
-            return context.User.Identity is not null ?
-                !context.User.Identity.IsAuthenticated : true;
-        });
-    });
-});
+builder.Services.AddAuthorization();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
@@ -42,6 +29,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// app.UseExceptionHandler("/Home/Error");
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

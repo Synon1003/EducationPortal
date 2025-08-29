@@ -20,6 +20,7 @@ public static class DataServiceExtensions
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICourseRepository, CourseRepository>()
+                .AddScoped<IUserCourseRepository, UserCourseRepository>()
                 .AddScoped<ISkillRepository, SkillRepository>()
                 .AddScoped<IMaterialRepository, MaterialRepository>();
 
