@@ -5,6 +5,7 @@ public class UnitOfWork : IUnitOfWork
     private readonly EducationPortalDbContext _context;
 
     private ICourseRepository? _courseRepository = null;
+    private IUserCourseRepository? _userCourseRepository = null;
     private ISkillRepository? _skillRepository = null;
     private IMaterialRepository? _materialRepository = null;
 
@@ -15,6 +16,9 @@ public class UnitOfWork : IUnitOfWork
 
     public ICourseRepository CourseRepository =>
         _courseRepository ?? new CourseRepository(_context);
+
+    public IUserCourseRepository UserCourseRepository =>
+        _userCourseRepository ?? new UserCourseRepository(_context);
 
     public ISkillRepository SkillRepository =>
         _skillRepository ?? new SkillRepository(_context);

@@ -13,7 +13,7 @@ public record CourseDetailDto(
     string Description,
     List<SkillDto> Skills,
     List<MaterialDto> Materials,
-    string CreatedByUserName
+    string CreatedBy
 );
 
 public record CourseCreateDto(

@@ -70,6 +70,29 @@ public class CourseService : ICourseService
         return _mapper.Map<CourseDetailDto>(course);
     }
 
+    public bool IsUserEnrolledOnCourse(Guid userId, int courseId)
+    {
+        return _unitOfWork.UserCourseRepository.Exists(c => c.UserId == userId && c.CourseId == courseId);
+    }
+
+    public async Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId)
+    {
+        var userCourse = await _unitOfWork.UserCourseRepository.GetByFilterAsync(
+            c => c.UserId == userId && c.CourseId == courseId);
+
+        return _mapper.Map<UserCourseDto>(userCourse);
+    }
+
+    public async Task EnrollUserOnCourseAsync(Guid userId, int courseId)
+    {
+        await _unitOfWork.UserCourseRepository.InsertAsync(new UserCourse()
+        {
+            UserId = userId,
+            CourseId = courseId
+        });
+        await _unitOfWork.SaveChangesAsync();
+    }
+
     private async Task InsertCourseSkills(Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var skill in courseCreateDto.Skills)

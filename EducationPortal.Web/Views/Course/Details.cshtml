@@ -9,8 +9,19 @@
         <div class="card-body">
             <div class="flex items-center justify-between">
                 <h3 class="font-medium text-3xl ml-2 mb-4">@Html.DisplayFor(c => c.Name)</h3>
-                <div class="radial-progress text-primary" style="--value:40; --size:3rem;" aria-valuenow="60"
-                    role="progressbar">80%</div>
+                @if (Model.UserCourse is not null)
+                {
+                    <div class="radial-progress @(Model.UserCourse.IsCompleted ? "text-success" : "text-info")"
+                        style="--value:(@Model.UserCourse.ProgressPercentage); --size:3rem;"
+                        aria-valuenow="@Model.UserCourse.ProgressPercentage" role="progressbar">
+                        @Model.UserCourse.ProgressPercentage%</div>
+
+                }
+                else
+                {
+                    <a asp-controller="User" asp-action="EnrollOnCourse" asp-route-id="@Model.Id"
+                        class="btn btn-primary btn-md w-24">Enroll</a>
+                }
             </div>
             <table class="table">
                 <tbody>
@@ -36,10 +47,13 @@
                 <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
                     Back
                 </a>
-                <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
-                    class="btn btn-md btn-primary w-24">
-                    Materials
-                </a>
+                @if (Model.UserCourse is not null)
+                {
+                    <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
+                        class="btn btn-md btn-info w-24">
+                        Materials
+                    </a>
+                }
             </div>
         </div>
     </div>

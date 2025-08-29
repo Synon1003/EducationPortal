@@ -14,6 +14,7 @@ public static class ApplicationServiceExtensions
 
         services.AddAutoMapper(
             typeof(CourseProfile).Assembly,
+            typeof(UserCourseProfile).Assembly,
             typeof(SkillProfile).Assembly,
             typeof(MaterialProfile).Assembly,
             typeof(VideoProfile).Assembly,

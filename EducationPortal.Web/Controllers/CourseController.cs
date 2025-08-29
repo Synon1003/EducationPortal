@@ -47,7 +47,16 @@ public class CourseController : Controller
     public async Task<ActionResult<CourseDetailViewModel>> Details(int id)
     {
         var course = await _courseService.GetCourseWithRelationshipsByIdAsync(id);
-        return View(_mapper.Map<CourseDetailViewModel>(course));
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        var courseDetailViewModel = _mapper.Map<CourseDetailViewModel>(course);
+
+        courseDetailViewModel.UserCourse = _mapper.Map<UserCourseViewModel>
+            (await _courseService.GetUserCourseAsync(user.Id, course.Id));
+
+        return View(courseDetailViewModel);
     }
 
     [HttpGet]
@@ -69,8 +78,7 @@ public class CourseController : Controller
         }
 
         var user = await _userManager.GetUserAsync(User);
-        if (user == null)
-            return Unauthorized();
+        if (user == null) return Unauthorized();
 
         var courseCreateDto = _mapper.Map<CourseCreateDto>(courseCreateViewModel) with { CreatedBy = user.Id! };
 

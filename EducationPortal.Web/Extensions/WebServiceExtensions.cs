@@ -10,6 +10,7 @@ public static class WebServiceExtensions
     {
         services.AddAutoMapper(
             typeof(CourseViewModelProfile).Assembly,
+            typeof(UserCourseViewModelProfile).Assembly,
             typeof(MaterialViewModelProfile).Assembly,
             typeof(VideoViewModelProfile).Assembly,
             typeof(PublicationViewModelProfile).Assembly,

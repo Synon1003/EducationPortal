@@ -10,7 +10,7 @@ public class CourseProfile : Profile
     {
         CreateMap<Course, CourseListDto>();
         CreateMap<Course, CourseDetailDto>()
-            .ForCtorParam(ctorParamName: "CreatedByUserName",
+            .ForCtorParam(ctorParamName: "CreatedBy",
                 opt => opt.MapFrom(src => src.CreatedByUser.UserName));
     }
 }
