@@ -21,14 +21,15 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [Authorize("NotAuthorized")]
     public IActionResult Register()
     {
+        if (User.Identity != null && User.Identity.IsAuthenticated)
+            return RedirectToAction("List", "Course");
+
         return View(new RegisterViewModel());
     }
 
     [HttpPost]
-    [Authorize("NotAuthorized")]
     public async Task<IActionResult> Register([FromForm] RegisterViewModel registerViewModel)
     {
         if (!ModelState.IsValid)
@@ -65,7 +66,6 @@ public class AccountController : Controller
         return View(registerViewModel);
     }
 
-    [Authorize("NotAuthorized")]
     public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
     {
         ApplicationUser? user = await _userManager.FindByEmailAsync(email);
@@ -73,14 +73,15 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [Authorize("NotAuthorized")]
     public IActionResult Login()
     {
+        if (User.Identity != null && User.Identity.IsAuthenticated)
+            return RedirectToAction("List", "Course");
+
         return View(new LoginViewModel());
     }
 
     [HttpPost]
-    [Authorize("NotAuthorized")]
     public async Task<IActionResult> Login([FromForm] LoginViewModel loginViewModel, string? returnUrl)
     {
         if (!ModelState.IsValid)
