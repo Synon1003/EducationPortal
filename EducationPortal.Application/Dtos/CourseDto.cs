@@ -4,7 +4,8 @@ public record CourseListDto(
     int Id,
     string Name,
     string Description,
-    List<SkillDto> Skills
+    List<SkillDto> Skills,
+    string CreatedBy
 );
 
 public record CourseDetailDto(

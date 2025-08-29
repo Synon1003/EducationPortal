@@ -30,14 +30,24 @@ public class CourseController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> List()
+    public async Task<IActionResult> List(string filter)
     {
-        var courses = await _courseService.GetAllCoursesWithSkillsAsync();
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        var courses = await _courseService.GetFilteredCoursesWithSkillsAsync(user.Id, filter);
+
+        var courseListViewModels = _mapper.Map<List<CourseListViewModel>>(courses);
+
+        foreach (var course in courseListViewModels)
+            course.UserCourse = _mapper.Map<UserCourseViewModel>
+            (await _courseService.GetUserCourseAsync(user.Id, course.Id));
 
         var listCoursesViewModel = new ListCoursesViewModel
         {
-            Courses = _mapper.Map<List<CourseListViewModel>>(courses),
-            TotalCount = courses.Count
+            Courses = courseListViewModels,
+            TotalCount = courses.Count,
+            CurrentOption = filter
         };
 
         return View(listCoursesViewModel);
@@ -46,10 +56,10 @@ public class CourseController : Controller
     [HttpGet]
     public async Task<ActionResult<CourseDetailViewModel>> Details(int id)
     {
-        var course = await _courseService.GetCourseWithRelationshipsByIdAsync(id);
-
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
+
+        var course = await _courseService.GetCourseWithRelationshipsByIdAsync(id);
 
         var courseDetailViewModel = _mapper.Map<CourseDetailViewModel>(course);
 

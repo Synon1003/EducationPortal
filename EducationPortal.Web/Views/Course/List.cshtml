@@ -7,11 +7,30 @@
 <div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
     <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268" data-aos="zoom-in">
         <div class="card-body">
-            <div class="text-3xl ml-2 font-medium">Courses</div>
+            <div class="flex items-center justify-start ml-2">
+                <div class="text-3xl font-medium">Courses</div>
+            </div>
 
             <div class="flex items-center justify-between ml-2 mb-4">
-                <span class="text-sm font-medium">@Model.TotalCount registered courses </span>
-                <a asp-controller="Course" asp-action="Create" class="btn btn-primary btn-md w-24">New</a>
+                <span class="text-sm font-medium">@Model.TotalCountText</span>
+                <div class="flex items-center space-x-2">
+                    <form asp-controller="Course" asp-action="List" method="get" class="flex items-center">
+                        <select class="select w-32" name="filter" onchange="this.form.submit()">
+                            @foreach (var selectOption in Model.SelectOptions)
+                            {
+                                if (selectOption.Value == Model.CurrentOption)
+                                {
+                                    <option selected value=@selectOption.Value>@selectOption.Key</option>
+                                }
+                                else
+                                {
+                                    <option value=@selectOption.Value>@selectOption.Key</option>
+                                }
+                            }
+                        </select>
+                    </form>
+                    <a asp-controller="Course" asp-action="Create" class="btn btn-primary btn-md w-24">New</a>
+                </div>
             </div>
 
             <div class="overflow-x-auto">
@@ -21,6 +40,11 @@
                             <th>Name</th>
                             <th>Description</th>
                             <th>Skills</th>
+                            <th>CreatedBy</th>
+                            @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
+                            {
+                                <th>Progress</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -31,6 +55,11 @@
                                         class="text-primary">@course.Name</a></td>
                                 <td>@course.Description</td>
                                 <td>@(String.Join(", ", course.Skills))</td>
+                                <td>@course.CreatedBy</td>
+                                @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
+                                {
+                                    <td>@course.UserCourse?.ProgressPercentage%</td>
+                                }
                             </tr>
                         }
                     </tbody>

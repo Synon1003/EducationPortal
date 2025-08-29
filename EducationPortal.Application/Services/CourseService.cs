@@ -18,9 +18,16 @@ public class CourseService : ICourseService
         _mapper = mapper;
     }
 
-    public async Task<ICollection<CourseListDto>> GetAllCoursesWithSkillsAsync()
+    public async Task<ICollection<CourseListDto>> GetFilteredCoursesWithSkillsAsync(Guid userId, string filter)
     {
-        var courses = await _unitOfWork.CourseRepository.GetAllCoursesWithSkillsAsync();
+        var courses = filter switch
+        {
+            "available" => await _unitOfWork.CourseRepository.GetAvailableCoursesWithSkillsForUserAsync(userId),
+            "in-progress" => await _unitOfWork.CourseRepository.GetInProgressCoursesWithSkillsForUserAsync(userId),
+            "completed" => await _unitOfWork.CourseRepository.GetCompletedCoursesWithSkillsForUserAsync(userId),
+            "created" => await _unitOfWork.CourseRepository.GetCreatedCoursesWithSkillsForUserAsync(userId),
+            _ => await _unitOfWork.CourseRepository.GetAllCoursesWithSkillsAsync(),
+        };
 
         return _mapper.Map<List<CourseListDto>>(courses);
     }

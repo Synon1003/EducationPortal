@@ -4,7 +4,7 @@ namespace EducationPortal.Application.Services.Interfaces;
 
 public interface ICourseService
 {
-    Task<ICollection<CourseListDto>> GetAllCoursesWithSkillsAsync();
+    Task<ICollection<CourseListDto>> GetFilteredCoursesWithSkillsAsync(Guid userId, string filter);
     Task<ICollection<CourseListDto>> GetCoursesByMaterialIdAsync(int materialId);
     Task<CourseListDto> GetCourseByIdAsync(int id);
     Task<CourseDetailDto> GetCourseWithRelationshipsByIdAsync(int id);
