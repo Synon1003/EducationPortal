@@ -47,7 +47,7 @@
                 <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
                     Back
                 </a>
-                @if (Model.UserCourse is not null || Model.CreatedBy == User.Identity?.Name)
+                @if (Model.UserCourse is not null)
                 {
                     <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
                         class="btn btn-md btn-info w-24">

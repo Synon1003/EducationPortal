@@ -18,6 +18,7 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
     public virtual DbSet<Publication> Publications { get; set; }
     public virtual DbSet<Article> Articles { get; set; }
     public virtual DbSet<UserSkill> UserSkills { get; set; }
+    public virtual DbSet<UserMaterial> UserMaterials { get; set; }
     public virtual DbSet<UserCourse> UserCourses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -166,11 +167,11 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             new { CourseId = 2, MaterialId = 6 }
         );
 
-        modelBuilder.Entity("UserMaterials").HasData(
-            new { Id = 1, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 1 },
-            new { Id = 2, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 2 },
-            new { Id = 3, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 3 },
-            new { Id = 4, UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 4 }
+        modelBuilder.Entity<UserMaterial>().HasData(
+            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 1 },
+            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 2 },
+            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 3 },
+            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 4 }
         );
     }
 }

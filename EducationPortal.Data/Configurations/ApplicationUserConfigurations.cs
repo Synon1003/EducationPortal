@@ -28,8 +28,7 @@ namespace EducationPortal.Data.Configurations
             builder
                 .HasMany(e => e.Materials)
                 .WithMany(e => e.AcquiredByUsers)
-                .UsingEntity<Dictionary<string, object>>(
-                    "UserMaterials",
+                .UsingEntity<UserMaterial>(
                     entity => entity.HasOne<Material>()
                         .WithMany()
                         .HasForeignKey("MaterialId")

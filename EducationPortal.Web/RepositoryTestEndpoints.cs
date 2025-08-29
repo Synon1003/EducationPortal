@@ -16,9 +16,6 @@ public static class RepositoryTestEndpoints
         app.MapGet("/materials", async (IMaterialService service) =>
             TypedResults.Ok(await service.GetAllMaterialsAsync()));
 
-        app.MapGet("/materials/bycourse/{courseId}", async (IMaterialService service, int courseId) =>
-            TypedResults.Ok(await service.GetMaterialsByCourseIdAsync(courseId)));
-
         return app;
     }
 }

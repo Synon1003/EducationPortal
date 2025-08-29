@@ -28,4 +28,9 @@ public class UserCourseRepository : IUserCourseRepository
     {
         await _context.Set<UserCourse>().AddAsync(userCourse);
     }
+
+    public void Update(UserCourse userCourse)
+    {
+        _context.Set<UserCourse>().Update(userCourse);
+    }
 }
