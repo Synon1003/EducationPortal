@@ -4,7 +4,8 @@ public record CourseListDto(
     int Id,
     string Name,
     string Description,
-    List<SkillDto> Skills
+    List<SkillDto> Skills,
+    string CreatedBy
 );
 
 public record CourseDetailDto(
@@ -13,7 +14,7 @@ public record CourseDetailDto(
     string Description,
     List<SkillDto> Skills,
     List<MaterialDto> Materials,
-    string CreatedByUserName
+    string CreatedBy
 );
 
 public record CourseCreateDto(

@@ -35,7 +35,8 @@
                     </div>
                 }
 
-                <a asp-controller="Home" asp-action="Index" class="btn btn-ghost text-md">EducationPortal</a>
+                <a asp-controller="Home" asp-action="Index"
+                    class="btn btn-ghost text-md @(ViewBag.CurrentUrl == "~/Home/Index" ? "text-primary" : "")">EducationPortal</a>
 
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {

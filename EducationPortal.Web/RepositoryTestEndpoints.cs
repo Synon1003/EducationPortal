@@ -7,9 +7,6 @@ public static class RepositoryTestEndpoints
 {
     public static IEndpointRouteBuilder MapRepositoryTestEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/courses", async (ICourseService service) =>
-            TypedResults.Ok(await service.GetAllCoursesWithSkillsAsync()));
-
         app.MapGet("/courses/{id}", async (ICourseService service, int id) =>
             TypedResults.Ok(await service.GetCourseWithRelationshipsByIdAsync(id)));
 

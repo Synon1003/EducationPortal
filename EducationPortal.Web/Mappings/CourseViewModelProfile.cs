@@ -18,7 +18,7 @@ public class CourseViewModelProfile : Profile
             .ForMember(dest => dest.Materials, opt =>
                 opt.Ignore())
             .ForMember(dest => dest.CreatedBy, opt =>
-                opt.MapFrom(src => src.CreatedByUserName));
+                opt.MapFrom(src => src.CreatedBy));
 
         CreateMap<CourseCreateViewModel, CourseCreateDto>()
             .ConstructUsing(src => new CourseCreateDto(

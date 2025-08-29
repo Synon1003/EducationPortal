@@ -18,9 +18,16 @@ public class CourseService : ICourseService
         _mapper = mapper;
     }
 
-    public async Task<ICollection<CourseListDto>> GetAllCoursesWithSkillsAsync()
+    public async Task<ICollection<CourseListDto>> GetFilteredCoursesWithSkillsAsync(Guid userId, string filter)
     {
-        var courses = await _unitOfWork.CourseRepository.GetAllCoursesWithSkillsAsync();
+        var courses = filter switch
+        {
+            "available" => await _unitOfWork.CourseRepository.GetAvailableCoursesWithSkillsForUserAsync(userId),
+            "in-progress" => await _unitOfWork.CourseRepository.GetInProgressCoursesWithSkillsForUserAsync(userId),
+            "completed" => await _unitOfWork.CourseRepository.GetCompletedCoursesWithSkillsForUserAsync(userId),
+            "created" => await _unitOfWork.CourseRepository.GetCreatedCoursesWithSkillsForUserAsync(userId),
+            _ => await _unitOfWork.CourseRepository.GetAllCoursesWithSkillsAsync(),
+        };
 
         return _mapper.Map<List<CourseListDto>>(courses);
     }
@@ -68,6 +75,29 @@ public class CourseService : ICourseService
         await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<CourseDetailDto>(course);
+    }
+
+    public bool IsUserEnrolledOnCourse(Guid userId, int courseId)
+    {
+        return _unitOfWork.UserCourseRepository.Exists(c => c.UserId == userId && c.CourseId == courseId);
+    }
+
+    public async Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId)
+    {
+        var userCourse = await _unitOfWork.UserCourseRepository.GetByFilterAsync(
+            c => c.UserId == userId && c.CourseId == courseId);
+
+        return _mapper.Map<UserCourseDto>(userCourse);
+    }
+
+    public async Task EnrollUserOnCourseAsync(Guid userId, int courseId)
+    {
+        await _unitOfWork.UserCourseRepository.InsertAsync(new UserCourse()
+        {
+            UserId = userId,
+            CourseId = courseId
+        });
+        await _unitOfWork.SaveChangesAsync();
     }
 
     private async Task InsertCourseSkills(Course course, CourseCreateDto courseCreateDto)

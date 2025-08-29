@@ -12,9 +12,9 @@ public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEn
         _context = context;
     }
 
-    public async Task<ICollection<TEntity>> GetAllAsync()
+    public IQueryable<TEntity> GetAll()
     {
-        return await _context.Set<TEntity>().AsNoTracking().ToListAsync();
+        return _context.Set<TEntity>().AsNoTracking();
     }
 
     public async Task<TEntity?> GetByIdAsync(int id)
