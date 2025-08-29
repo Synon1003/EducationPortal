@@ -1,3 +1,4 @@
+using EducationPortal.Application.Web.Middlewares;
 using EducationPortal.Extensions;
 using EducationPortal.RepositoryTestEndpoints;
 using Microsoft.AspNetCore.DataProtection;
@@ -28,6 +29,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// app.UseExceptionHandler("/Home/Error");
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

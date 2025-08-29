@@ -59,19 +59,25 @@ public class CourseService : ICourseService
 
     public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
     {
-        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
-            throw new BadRequestException($"Course ({courseCreateDto.Name}) already exists in the db.");
+        if (courseCreateDto.CreatedBy is null)
+            throw new BadRequestException($"User id ({courseCreateDto.CreatedBy}) cannot be null.");
+
+        CheckValidationErrors(courseCreateDto, out List<string> validationErrors);
+        if (validationErrors.Any())
+            throw new ValidationException(validationErrors);
 
         Course course = new Course
         {
             Name = courseCreateDto.Name,
             Description = courseCreateDto.Description,
-            CreatedBy = courseCreateDto.CreatedBy ?? throw new BadRequestException("User cannot be null.")
+            CreatedBy = courseCreateDto.CreatedBy!.Value
         };
 
+        AddCourseSkills(course, courseCreateDto);
+        AddCourseVideos(course, courseCreateDto);
+        AddCoursePublications(course, courseCreateDto);
+        AddCourseArticles(course, courseCreateDto);
         await _unitOfWork.CourseRepository.InsertAsync(course);
-        await InsertCourseSkills(course, courseCreateDto);
-        await InsertCourseMaterials(course, courseCreateDto);
         await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<CourseDetailDto>(course);
@@ -79,7 +85,8 @@ public class CourseService : ICourseService
 
     public bool IsUserEnrolledOnCourse(Guid userId, int courseId)
     {
-        return _unitOfWork.UserCourseRepository.Exists(c => c.UserId == userId && c.CourseId == courseId);
+        return _unitOfWork.UserCourseRepository
+            .Exists(c => c.UserId == userId && c.CourseId == courseId);
     }
 
     public async Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId)
@@ -100,84 +107,80 @@ public class CourseService : ICourseService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    private async Task InsertCourseSkills(Course course, CourseCreateDto courseCreateDto)
+    private void AddCourseSkills(Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var skill in courseCreateDto.Skills)
-        {
-            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
-                throw new BadRequestException($"Skill ({skill.Name}) already exists in the db.");
-
-            course.Skills.Add(new Skill { Name = skill.Name, Courses = [course] });
-        }
-        await _unitOfWork.SkillRepository.InsertRangeAsync(course.Skills.ToList());
+            course.Skills.Add(new Skill { Name = skill.Name });
     }
 
-    private async Task InsertCourseMaterials(Course course, CourseCreateDto courseCreateDto)
-    {
-        List<Material> materials = [];
-        AttachNewVideosToMaterials(course, materials, courseCreateDto);
-        AttachNewPublicationsToMaterials(course, materials, courseCreateDto);
-        AttachNewArticlesToMaterials(course, materials, courseCreateDto);
-
-        await _unitOfWork.MaterialRepository.InsertRangeAsync(materials);
-    }
-
-    private void AttachNewVideosToMaterials(
-        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
+    private void AddCourseVideos(
+        Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var video in courseCreateDto.Videos)
         {
-            if (_unitOfWork.MaterialRepository.Exists(
-                    m => m.Title == video.Title && m.Type == "Video"))
-                throw new BadRequestException($"Video ({video.Title}) already exists in the db.");
-
-            materials.Add(new Video
+            course.Materials.Add(new Video
             {
                 Title = video.Title,
                 Duration = video.Duration,
-                Quality = video.Quality,
-                Courses = [course]
+                Quality = video.Quality
             });
         }
     }
 
-    private void AttachNewPublicationsToMaterials(
-        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
+    private void AddCoursePublications(
+        Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var publication in courseCreateDto.Publications)
         {
-            if (_unitOfWork.MaterialRepository.Exists(
-                m => m.Title == publication.Title && m.Type == "Publication"))
-                throw new BadRequestException($"Publication ({publication.Title}) already exists in the db.");
-
-            materials.Add(new Publication
+            course.Materials.Add(new Publication
             {
                 Title = publication.Title,
                 Authors = publication.Authors,
                 Format = publication.Format,
                 Pages = publication.Pages,
-                PublicationYear = publication.PublicationYear,
-                Courses = [course]
+                PublicationYear = publication.PublicationYear
             });
         }
     }
 
-    private void AttachNewArticlesToMaterials(
-        Course course, List<Material> materials, CourseCreateDto courseCreateDto)
+    private void AddCourseArticles(
+        Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var article in courseCreateDto.Articles)
         {
-            if (_unitOfWork.MaterialRepository.Exists(
-                m => m.Title == article.Title && m.Type == "Article"))
-                throw new BadRequestException($"Article ({article.Title}) already exists in the db.");
-
-            materials.Add(new Article
+            course.Materials.Add(new Article
             {
                 Title = article.Title,
                 PublicationDate = article.PublicationDate,
-                ResourceLink = article.ResourceLink,
-                Courses = [course]
+                ResourceLink = article.ResourceLink
             });
         }
+    }
+
+    private void CheckValidationErrors(CourseCreateDto courseCreateDto, out List<string> validationErrors)
+    {
+        validationErrors = new List<string>();
+
+        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
+            validationErrors.Add($"Course ({courseCreateDto.Name}) already exists in the db.");
+
+        foreach (var skill in courseCreateDto.Skills)
+            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
+                validationErrors.Add($"Skill ({skill.Name}) already exists in the db.");
+
+        foreach (var video in courseCreateDto.Videos)
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == video.Title && m.Type == "Video"))
+                validationErrors.Add($"Video ({video.Title}) already exists in the db.");
+
+        foreach (var publication in courseCreateDto.Publications)
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == publication.Title && m.Type == "Publication"))
+                validationErrors.Add($"Publication ({publication.Title}) already exists in the db.");
+
+        foreach (var article in courseCreateDto.Articles)
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == article.Title && m.Type == "Article"))
+                validationErrors.Add($"Article ({article.Title}) already exists in the db.");
     }
 }
