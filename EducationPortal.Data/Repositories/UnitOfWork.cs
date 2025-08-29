@@ -4,27 +4,30 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly EducationPortalDbContext _context;
 
-    private ICourseRepository? _courseRepository = null;
-    private IUserCourseRepository? _userCourseRepository = null;
-    private ISkillRepository? _skillRepository = null;
-    private IMaterialRepository? _materialRepository = null;
+    private ICourseRepository _courseRepository;
+    private IUserCourseRepository _userCourseRepository;
+    private ISkillRepository _skillRepository;
+    private IMaterialRepository _materialRepository;
 
-    public UnitOfWork(EducationPortalDbContext context)
+    public UnitOfWork(
+        EducationPortalDbContext context,
+        ICourseRepository courseRepository,
+        IUserCourseRepository userCourseRepository,
+        ISkillRepository skillRepository,
+        IMaterialRepository materialRepository
+    )
     {
         _context = context;
+        _courseRepository = courseRepository;
+        _userCourseRepository = userCourseRepository;
+        _skillRepository = skillRepository;
+        _materialRepository = materialRepository;
     }
 
-    public ICourseRepository CourseRepository =>
-        _courseRepository ?? new CourseRepository(_context);
-
-    public IUserCourseRepository UserCourseRepository =>
-        _userCourseRepository ?? new UserCourseRepository(_context);
-
-    public ISkillRepository SkillRepository =>
-        _skillRepository ?? new SkillRepository(_context);
-
-    public IMaterialRepository MaterialRepository =>
-        _materialRepository ?? new MaterialRepository(_context);
+    public ICourseRepository CourseRepository => _courseRepository;
+    public IUserCourseRepository UserCourseRepository => _userCourseRepository;
+    public ISkillRepository SkillRepository => _skillRepository;
+    public IMaterialRepository MaterialRepository => _materialRepository;
 
     public void Dispose()
     {
