@@ -4,7 +4,7 @@ using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using EducationPortal.Application.Services.Interfaces;
-using EducationPortal.Application.Dtos;
+using AutoMapper;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -13,18 +13,21 @@ namespace EducationPortal.Web.Controllers;
 public class UserController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IMaterialService _materialService;
     private readonly ICourseService _courseService;
+    private readonly IUserService _userService;
+    private readonly IMapper _mapper;
 
     public UserController(
         UserManager<ApplicationUser> userManager,
-        IMaterialService materialService,
-        ICourseService courseService
+        ICourseService courseService,
+        IUserService userService,
+        IMapper mapper
     )
     {
         _userManager = userManager;
-        _materialService = materialService;
+        _userService = userService;
         _courseService = courseService;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -50,5 +53,38 @@ public class UserController : Controller
         TempData.CreateFlash(isCourseDone ? "Congratulations! You have finished the course successfully." : "Material has been Marked Done", "info");
 
         return RedirectToAction(nameof(CourseController.Materials), "Course", new { id = courseId });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Profile()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+
+        var videos = _mapper.Map<List<VideoViewModel>>(
+            await _userService.GetAcquiredVideosByUserIdAsync(user.Id));
+        var publications = _mapper.Map<List<PublicationViewModel>>(
+            await _userService.GetAcquiredPublicationsByUserIdAsync(user.Id));
+        var articles = _mapper.Map<List<ArticleViewModel>>(
+            await _userService.GetAcquiredArticlesByUserIdAsync(user.Id));
+
+        var userSkills = _mapper.Map<List<UserSkillViewModel>>(
+            await _userService.GetAcquiredSkillsByUserIdAsync(user.Id)
+        );
+
+        UserProfileViewModel profile = new UserProfileViewModel()
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email!,
+            UserName = user.UserName!,
+            Videos = videos,
+            Publications = publications,
+            Articles = articles,
+            UserSkills = userSkills
+        };
+
+        return View(profile);
     }
 }

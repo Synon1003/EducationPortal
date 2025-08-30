@@ -5,9 +5,6 @@ namespace EducationPortal.Data.Entities;
 
 public class UserSkill
 {
-    [Key]
-    public int Id { get; set; }
-
     public int Level { get; set; } = 0;
 
     public Guid UserId { get; set; }

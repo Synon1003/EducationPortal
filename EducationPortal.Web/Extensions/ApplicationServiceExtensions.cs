@@ -11,10 +11,12 @@ public static class ApplicationServiceExtensions
     {
         services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<IMaterialService, MaterialService>();
+        services.AddScoped<IUserService, UserService>();
 
         services.AddAutoMapper(
             typeof(CourseProfile).Assembly,
             typeof(UserCourseProfile).Assembly,
+            typeof(UserSkillProfile).Assembly,
             typeof(SkillProfile).Assembly,
             typeof(MaterialProfile).Assembly,
             typeof(VideoProfile).Assembly,
