@@ -1,31 +1,36 @@
-@model CourseCreateViewModel
+@model List<ArticleCreateViewModel>
 
 <div>
-    @for (int idx = 0; idx < Model.Articles.Count; idx++)
+    @for (int idx = 0; idx < Model.Count; idx++)
     {
         <div class="flex items-center gap-2 mb-4">
             <label class="floating-label basis-2/3">
                 <span>Title</span>
-                <input asp-for="@Model.Articles[idx].Title" name="Articles[@idx].Title" class="input input-md w-full" />
-                <span asp-validation-for="@Model.Articles[idx].Title" class="text-error text-sm ml-1"></span>
+                <input asp-for="@Model[idx].Title" id="Articles[@idx].Title" name="Articles[@idx].Title"
+                    class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].Title" data-valmsg-for="Articles[@idx].Title"
+                    class="text-error text-sm ml-1"></span>
             </label>
             <label class="floating-label basis-1/3">
                 <span>PublicationDate</span>
-                <input asp-for="@Model.Articles[idx].PublicationDate" name="Articles[@idx].PublicationDate"
-                    class="input input-md w-full" />
-                <span asp-validation-for="@Model.Articles[idx].PublicationDate" class="text-error text-sm ml-1"></span>
+                <input asp-for="@Model[idx].PublicationDate" id="Articles[@idx].PublicationDate"
+                    name="Articles[@idx].PublicationDate" class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].PublicationDate" data-valmsg-for="Articles[@idx].PublicationDate"
+                    class="text-error text-sm ml-1"></span>
             </label>
         </div>
         <div>
             <label class="floating-label mb-4">
                 <span>ResourceLink</span>
-                <input asp-for="@Model.Articles[idx].ResourceLink" name="Articles[@idx].ResourceLink"
-                    class="input input-md w-full" />
-                <span asp-validation-for="@Model.Articles[idx].ResourceLink" class="text-error text-sm ml-1"></span>
+                <input asp-for="@Model[idx].ResourceLink" id="Articles[@idx].ResourceLink"
+                    name="Articles[@idx].ResourceLink" class="input input-md w-full" />
+                <span asp-validation-for="@Model[idx].ResourceLink" data-valmsg-for="Articles[@idx].ResourceLink"
+                    class="text-error text-sm ml-1"></span>
             </label>
         </div>
         <div class="flex justify-center mb-4">
-            <button type="button" class="btn btn-error btn-sm w-20" onclick="removeArticleFromViewModel(@idx)">Delete</button>
+            <button type="button" class="btn btn-error btn-sm w-20"
+                onclick="removeArticleFromViewModel(@idx)">Delete</button>
         </div>
     }
 </div>

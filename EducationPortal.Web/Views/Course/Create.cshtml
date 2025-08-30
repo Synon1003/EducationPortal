@@ -30,13 +30,14 @@
                     <h3 class="font-medium text-2xl">Skills</h3>
 
                     <div>
-                        <button type="button" class="btn btn-info btn-sm w-20" onclick="addSkillToViewModel()">New</button>
+                        <button type="button" class="btn btn-info btn-sm w-20"
+                            onclick="addSkillToViewModel()">New</button>
                         <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
                 </div>
 
                 <div id="create-skills-container">
-                    @await Html.PartialAsync("~/Views/Skill/_CreateSkillsListPartial.cshtml", Model)
+                    @await Html.PartialAsync("~/Views/Skill/_CreateSkillsListPartial.cshtml", Model.Skills)
                 </div>
 
                 <div class="flex items-center justify-start mb-4">
@@ -46,39 +47,41 @@
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-2xl ml-4">Videos</h3>
                     <div>
-                        <button type="button" class="btn btn-info btn-sm w-20" onclick="addVideoToViewModel()">New</button>
+                        <button type="button" class="btn btn-info btn-sm w-20"
+                            onclick="addVideoToViewModel()">New</button>
                         <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
                 </div>
 
                 <div id="create-videos-container" class="ml-4">
-                    @await Html.PartialAsync("~/Views/Material/_CreateVideosListPartial.cshtml", Model)
+                    @await Html.PartialAsync("~/Views/Material/_CreateVideosListPartial.cshtml", Model.Videos)
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-2xl ml-4">Publications</h3>
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
-                        onclick="addPublicationToViewModel()">New</button>
+                            onclick="addPublicationToViewModel()">New</button>
                         <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
                 </div>
 
                 <div id="create-publications-container" class="ml-4">
                     @await Html.PartialAsync("~/Views/Material/_CreatePublicationsListPartial.cshtml",
-                    Model)
+                    Model.Publications)
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-2xl ml-4">Articles</h3>
                     <div>
-                        <button type="button" class="btn btn-info btn-sm w-20" onclick="addArticleToViewModel()">New</button>
+                        <button type="button" class="btn btn-info btn-sm w-20"
+                            onclick="addArticleToViewModel()">New</button>
                         <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
                 </div>
 
                 <div id="create-articles-container" class="ml-4">
-                    @await Html.PartialAsync("~/Views/Material/_CreateArticlesListPartial.cshtml", Model)
+                    @await Html.PartialAsync("~/Views/Material/_CreateArticlesListPartial.cshtml", Model.Articles)
                 </div>
 
                 <div asp-validation-summary="All" class="text-error text-sm"></div>
@@ -90,7 +93,7 @@
                     </a>
                     <button type="submit" class="btn btn-md btn-primary w-24">Create</button>
                 </div>
-                
+
             </form>
         </div>
     </div>
