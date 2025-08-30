@@ -50,7 +50,7 @@ public class CourseRepository : EntityFrameworkRepository<Course>, ICourseReposi
             .Include(c => c.Skills)
             .Include(c => c.Materials)
             .Include(c => c.CreatedByUser)
-            .SingleOrDefaultAsync(c => c.Id == id);
+            .FirstOrDefaultAsync(c => c.Id == id);
 
     public async Task<ICollection<Course>> GetCoursesByMaterialIdAsync(int materialId) =>
         await GetAll()

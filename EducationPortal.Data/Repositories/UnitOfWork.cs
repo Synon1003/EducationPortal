@@ -7,6 +7,7 @@ public class UnitOfWork : IUnitOfWork
     private ICourseRepository _courseRepository;
     private IUserCourseRepository _userCourseRepository;
     private IUserMaterialRepository _userMaterialRepository;
+    private IUserSkillRepository _userSkillRepository;
     private ISkillRepository _skillRepository;
     private IMaterialRepository _materialRepository;
 
@@ -15,6 +16,7 @@ public class UnitOfWork : IUnitOfWork
         ICourseRepository courseRepository,
         IUserCourseRepository userCourseRepository,
         IUserMaterialRepository userMaterialRepository,
+        IUserSkillRepository userSkillRepository,
         ISkillRepository skillRepository,
         IMaterialRepository materialRepository
     )
@@ -23,6 +25,7 @@ public class UnitOfWork : IUnitOfWork
         _courseRepository = courseRepository;
         _userCourseRepository = userCourseRepository;
         _userMaterialRepository = userMaterialRepository;
+        _userSkillRepository = userSkillRepository;
         _skillRepository = skillRepository;
         _materialRepository = materialRepository;
     }
@@ -30,6 +33,7 @@ public class UnitOfWork : IUnitOfWork
     public ICourseRepository CourseRepository => _courseRepository;
     public IUserCourseRepository UserCourseRepository => _userCourseRepository;
     public IUserMaterialRepository UserMaterialRepository => _userMaterialRepository;
+    public IUserSkillRepository UserSkillRepository => _userSkillRepository;
     public ISkillRepository SkillRepository => _skillRepository;
     public IMaterialRepository MaterialRepository => _materialRepository;
 

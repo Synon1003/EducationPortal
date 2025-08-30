@@ -113,7 +113,7 @@ public class CourseController : Controller
         var materials = _mapper.Map<List<MaterialViewModel>>(materialDtos);
         foreach (var material in materials)
         {
-            material.IsDoneByUser = _materialService.IsUserDoneWithMaterial(user.Id, material.Id);
+            material.IsDoneByUser = _courseService.IsUserDoneWithMaterial(user.Id, material.Id);
             counter.Total++;
             if (material.IsDoneByUser)
                 counter.Done++;

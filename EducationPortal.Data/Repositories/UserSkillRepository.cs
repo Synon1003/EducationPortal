@@ -21,7 +21,7 @@ public class UserSkillRepository : IUserSkillRepository
 
     public async Task<UserSkill?> GetByFilterAsync(Expression<Func<UserSkill, bool>> predicate)
     {
-        return await _context.Set<UserSkill>().AsNoTracking().Where(predicate).SingleOrDefaultAsync();
+        return await _context.Set<UserSkill>().AsNoTracking().Where(predicate).FirstOrDefaultAsync();
     }
 
     public async Task InsertAsync(UserSkill userSkill)

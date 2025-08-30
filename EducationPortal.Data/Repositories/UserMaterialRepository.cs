@@ -21,7 +21,7 @@ public class UserMaterialRepository : IUserMaterialRepository
 
     public async Task<UserMaterial?> GetByFilterAsync(Expression<Func<UserMaterial, bool>> predicate)
     {
-        return await _context.Set<UserMaterial>().AsNoTracking().Where(predicate).SingleOrDefaultAsync();
+        return await _context.Set<UserMaterial>().AsNoTracking().Where(predicate).FirstOrDefaultAsync();
     }
 
     public async Task InsertAsync(UserMaterial userMaterial)
