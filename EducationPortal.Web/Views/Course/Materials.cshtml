@@ -7,7 +7,10 @@
 <div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
     <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168" data-aos="zoom-in">
         <div class="card-body">
-            <div class="text-3xl ml-2 font-medium">@Model.CourseName Materials</div>
+            <div class="flex items-start justify-center">
+                <h3 class="font-medium text-3xl ml-2 mb-4">
+                    @Model.CourseName - Materials</h3>
+            </div>
 
             @if (@Model.Videos.Count > 0)
             {
@@ -19,7 +22,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <a class="text-primary cursor-pointer"
+                                        <a class="text-info cursor-pointer"
                                             onclick="openModalWithPartialViewContent('@Url.Action("VideoDetails", "Material", new { id = video.Id })')">
                                             @video.Title
                                         </a>
@@ -53,7 +56,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <a class="text-primary cursor-pointer"
+                                        <a class="text-info cursor-pointer"
                                             onclick="openModalWithPartialViewContent('@Url.Action("PublicationDetails", "Material", new { id = publication.Id })')">
                                             @publication.Title
                                         </a>
@@ -87,7 +90,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <a class="text-primary cursor-pointer"
+                                        <a class="text-info cursor-pointer"
                                             onclick="openModalWithPartialViewContent('@Url.Action("ArticleDetails", "Material", new { id = article.Id })')">
                                             @article.Title
                                         </a>
