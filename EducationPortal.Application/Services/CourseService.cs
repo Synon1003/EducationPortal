@@ -97,14 +97,27 @@ public class CourseService : ICourseService
         return _mapper.Map<UserCourseDto>(userCourse);
     }
 
-    public async Task EnrollUserOnCourseAsync(Guid userId, int courseId)
+    public async Task<bool> EnrollUserOnCourseAsync(Guid userId, int courseId)
     {
+        var course = await _unitOfWork.CourseRepository.GetCourseWithRelationshipsByIdAsync(courseId);
+        if (course is null)
+            throw new NotFoundException(nameof(Course), courseId);
+
+        bool isInstantCompleted = course.Materials.Count == 0;
+
         await _unitOfWork.UserCourseRepository.InsertAsync(new UserCourse()
         {
+            ProgressPercentage = isInstantCompleted ? 100 : 0,
             UserId = userId,
             CourseId = courseId
         });
+
+        if (isInstantCompleted)
+            await UpdateUserSkillsByCourseSkillsAsync(userId, course.Skills);
+
         await _unitOfWork.SaveChangesAsync();
+
+        return isInstantCompleted;
     }
 
     public bool IsUserDoneWithMaterial(Guid userId, int materialId)
