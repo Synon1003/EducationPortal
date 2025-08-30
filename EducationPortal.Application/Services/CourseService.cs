@@ -107,6 +107,37 @@ public class CourseService : ICourseService
         await _unitOfWork.SaveChangesAsync();
     }
 
+    public bool IsUserDoneWithMaterial(Guid userId, int materialId)
+    {
+        return _unitOfWork.UserMaterialRepository
+            .Exists(c => c.UserId == userId && c.MaterialId == materialId);
+    }
+
+    public async Task<bool> MarkMaterialDone(Guid userId, int materialId, int courseId)
+    {
+        var course = await _unitOfWork.CourseRepository
+            .GetCourseWithRelationshipsByIdAsync(courseId);
+        if (course is null)
+            throw new NotFoundException(nameof(Course), courseId);
+
+        var userCourse = await _unitOfWork.UserCourseRepository
+            .GetByFilterAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
+        if (userCourse is null)
+            throw new NotFoundException(nameof(UserCourse), (userId, courseId));
+
+        await _unitOfWork.UserMaterialRepository.InsertAsync(
+            new UserMaterial() { UserId = userId, MaterialId = materialId });
+
+        UpdateUserCoursePercentage(userId, userCourse, course.Materials);
+
+        if (userCourse.IsCompleted)
+            await UpdateUserSkillsByCourseSkillsAsync(userId, course.Skills);
+
+        await _unitOfWork.SaveChangesAsync();
+
+        return userCourse.IsCompleted;
+    }
+
     private void AddCourseSkills(Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var skill in courseCreateDto.Skills)
@@ -182,5 +213,45 @@ public class CourseService : ICourseService
             if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == article.Title && m.Type == "Article"))
                 validationErrors.Add($"Article ({article.Title}) already exists in the db.");
+    }
+
+    private int CountUserMaterials(Guid userId, ICollection<Material> materials)
+    {
+        int count = 0;
+        foreach (var material in materials)
+        {
+            if (_unitOfWork.UserMaterialRepository
+                .Exists(us => us.MaterialId == material.Id && us.UserId == userId))
+                count++;
+        }
+
+        return count;
+    }
+
+    private void UpdateUserCoursePercentage(Guid userId, UserCourse userCourse, ICollection<Material> materials)
+    {
+        int acquiredUserMaterials = CountUserMaterials(userId, materials);
+        userCourse.ProgressPercentage = 100 * (acquiredUserMaterials + 1) / materials.Count;
+
+        _unitOfWork.UserCourseRepository.Update(userCourse);
+    }
+
+    private async Task UpdateUserSkillsByCourseSkillsAsync(Guid userId, ICollection<Skill> skills)
+    {
+        foreach (var skill in skills)
+        {
+            var userSkill = await _unitOfWork.UserSkillRepository.GetByFilterAsync(us => us.UserId == userId && us.SkillId == skill.Id);
+
+            if (userSkill is null)
+            {
+                await _unitOfWork.UserSkillRepository.InsertAsync(
+                    new UserSkill() { UserId = userId, SkillId = skill.Id });
+            }
+            else
+            {
+                userSkill.Level++;
+                _unitOfWork.UserSkillRepository.Update(userSkill);
+            }
+        }
     }
 }

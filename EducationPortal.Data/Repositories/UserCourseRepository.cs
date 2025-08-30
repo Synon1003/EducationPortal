@@ -21,11 +21,16 @@ public class UserCourseRepository : IUserCourseRepository
 
     public async Task<UserCourse?> GetByFilterAsync(Expression<Func<UserCourse, bool>> predicate)
     {
-        return await _context.Set<UserCourse>().AsNoTracking().Where(predicate).SingleOrDefaultAsync();
+        return await _context.Set<UserCourse>().AsNoTracking().Where(predicate).FirstOrDefaultAsync();
     }
 
     public async Task InsertAsync(UserCourse userCourse)
     {
         await _context.Set<UserCourse>().AddAsync(userCourse);
+    }
+
+    public void Update(UserCourse userCourse)
+    {
+        _context.Set<UserCourse>().Update(userCourse);
     }
 }

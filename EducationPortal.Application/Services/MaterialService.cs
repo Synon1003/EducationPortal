@@ -11,6 +11,7 @@ namespace EducationPortal.Application.Services;
 public class MaterialService : IMaterialService
 {
     private readonly IMaterialRepository _materialRepository;
+
     private readonly IMapper _mapper;
 
     public MaterialService(IMaterialRepository materialRepository, IMapper mapper)

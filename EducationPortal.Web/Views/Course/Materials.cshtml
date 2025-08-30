@@ -20,11 +20,22 @@
                                 <tr>
                                     <td>
                                         <a class="text-primary cursor-pointer"
-                                        onclick="openModalWithPartialViewContent('@Url.Action("VideoDetails", "Material", new { id = video.Id })')">
+                                            onclick="openModalWithPartialViewContent('@Url.Action("VideoDetails", "Material", new { id = video.Id })')">
                                             @video.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success whitespace-nowrap btn-sm w-24">Done</a></td>
+                                    <td class="text-right">
+                                        @if (video.IsDoneByUser)
+                                        {
+                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">Done</button>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="User" asp-action="SetCourseMaterialDone"
+                                                asp-route-courseId="@Model.CourseId" asp-route-materialId="@video.Id"
+                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
+                                        }
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -43,11 +54,22 @@
                                 <tr>
                                     <td>
                                         <a class="text-primary cursor-pointer"
-                                        onclick="openModalWithPartialViewContent('@Url.Action("PublicationDetails", "Material", new { id = publication.Id })')">
+                                            onclick="openModalWithPartialViewContent('@Url.Action("PublicationDetails", "Material", new { id = publication.Id })')">
                                             @publication.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a></td>
+                                    <td class="text-right">
+                                        @if (publication.IsDoneByUser)
+                                        {
+                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">Done</button>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="User" asp-action="SetCourseMaterialDone"
+                                                asp-route-courseId="@Model.CourseId" asp-route-materialId="@publication.Id"
+                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
+                                        }
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -66,29 +88,41 @@
                                 <tr>
                                     <td>
                                         <a class="text-primary cursor-pointer"
-                                        onclick="openModalWithPartialViewContent('@Url.Action("ArticleDetails", "Material", new { id = article.Id })')">
+                                            onclick="openModalWithPartialViewContent('@Url.Action("ArticleDetails", "Material", new { id = article.Id })')">
                                             @article.Title
                                         </a>
                                     </td>
-                                    <td class="text-right"><a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a></td>
+                                    <td class="text-right">
+                                        @if (article.IsDoneByUser)
+                                        {
+                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">Done</button>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="User" asp-action="SetCourseMaterialDone"
+                                                asp-route-courseId="@Model.CourseId" asp-route-materialId="@article.Id"
+                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
+                                        }
+                                    </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
             }
-            
-            <div class="flex items-center justify-between">
-                <progress class="progress progress-success" value="50" max="100"></progress>
-                <div class="font-medium text-xl ml-2">2/4</div>
-            </div>
+
+            @if (@Model.MaterialsTotal != 0)
+            {
+                <div class="flex items-center justify-between">
+
+                    <progress class="progress progress-success" value="@Model.MaterialsDone"
+                        max="@Model.MaterialsTotal"></progress>
+                    <div class="font-medium text-xl ml-2">@Model.MaterialsDone/@Model.MaterialsTotal</div>
+                </div>
+            }
 
             <dialog id="material-detail-modal" class="modal">
                 <div class="modal-box">
-                    <div class="flex items-center justify-between ml-2 mb-4">
-                        <div class="text-2xl mt-4 mb-4 font-medium">@Model.CourseName - Material</div>
-                        <a class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
-                    </div>
                     <div id="material-detail-content">
                         <!-- _VideoDetailsPartial view content -->
                         <!-- _PublicationDetailsPartial view content -->
@@ -111,7 +145,8 @@
 </div>
 
 <script>
-    async function openModalWithPartialViewContent(url) {
+    async function openModalWithPartialViewContent(url)
+    {
         const response = await fetch(url);
         if (!response.ok) return;
 

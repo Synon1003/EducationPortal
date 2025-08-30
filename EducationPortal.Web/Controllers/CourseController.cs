@@ -101,22 +101,33 @@ public class CourseController : Controller
     [HttpGet]
     public async Task<IActionResult> Materials(int id)
     {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
         var course = await _courseService.GetCourseByIdAsync(id);
 
-        var materials = await _materialService.
+        var materialDtos = await _materialService.
             GetMaterialsByCourseIdAsync(courseId: id);
 
-        var videos = materials.Where(m => m.Type == "Video").ToList();
-        var publications = materials.Where(m => m.Type == "Publication").ToList();
-        var articles = materials.Where(m => m.Type == "Article").ToList();
+        (int Total, int Done) counter = (0, 0);
+        var materials = _mapper.Map<List<MaterialViewModel>>(materialDtos);
+        foreach (var material in materials)
+        {
+            material.IsDoneByUser = _courseService.IsUserDoneWithMaterial(user.Id, material.Id);
+            counter.Total++;
+            if (material.IsDoneByUser)
+                counter.Done++;
+        }
 
         var listMaterialsViewModel = new ListMaterialViewModel
         {
             CourseId = id,
             CourseName = course.Name,
-            Videos = _mapper.Map<List<MaterialViewModel>>(videos),
-            Publications = _mapper.Map<List<MaterialViewModel>>(publications),
-            Articles = _mapper.Map<List<MaterialViewModel>>(articles)
+            Videos = materials.Where(m => m.Type == "Video").ToList(),
+            Publications = materials.Where(m => m.Type == "Publication").ToList(),
+            Articles = materials.Where(m => m.Type == "Article").ToList(),
+            MaterialsTotal = counter.Total,
+            MaterialsDone = counter.Done,
         };
 
         return View(listMaterialsViewModel);

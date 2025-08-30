@@ -12,5 +12,7 @@ public interface ICourseService
 
     bool IsUserEnrolledOnCourse(Guid userId, int courseId);
     Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId);
+    bool IsUserDoneWithMaterial(Guid userId, int materialId);
     Task EnrollUserOnCourseAsync(Guid userId, int courseId);
+    Task<bool> MarkMaterialDone(Guid userId, int materialId, int courseId);
 }

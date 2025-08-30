@@ -9,6 +9,8 @@ public class ListMaterialViewModel
     public List<MaterialViewModel> Videos { get; set; } = [];
     public List<MaterialViewModel> Publications { get; set; } = [];
     public List<MaterialViewModel> Articles { get; set; } = [];
+    public int MaterialsTotal { get; set; }
+    public int MaterialsDone { get; set; }
 }
 
 public class MaterialViewModel
@@ -16,6 +18,7 @@ public class MaterialViewModel
     public int Id { get; set; }
     public string Title { get; set; }
     public string Type { get; set; }
+    public bool IsDoneByUser { get; set; } = false;
 }
 
 public class MaterialCreateViewModel
