@@ -2,11 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EducationPortal.Web.Models;
 
-public class ListPublicationsViewModel
-{
-    public List<PublicationViewModel> Publications { get; set; } = [];
-}
-
 public class PublicationViewModel
 {
     public int Id { get; set; }
@@ -15,7 +10,6 @@ public class PublicationViewModel
     public int Pages { get; set; }
     public string Format { get; set; }
     public int PublicationYear { get; set; }
-    public int MaterialId { get; set; }
 }
 
 public class PublicationCreateViewModel
