@@ -33,38 +33,41 @@
                 </div>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Skills</th>
-                            <th>CreatedBy</th>
-                            @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
-                            {
-                                <th>Progress</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var course in Model.Courses)
-                        {
+            @if (Model.TotalCount > 0)
+            {
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td><a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id"
-                                        class="text-primary">@course.Name</a></td>
-                                <td>@course.Description</td>
-                                <td>@(String.Join(", ", course.Skills))</td>
-                                <td>@course.CreatedBy</td>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Skills</th>
+                                <th>CreatedBy</th>
                                 @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
                                 {
-                                    <td>@course.UserCourse?.ProgressPercentage%</td>
+                                    <th>Progress</th>
                                 }
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach (var course in Model.Courses)
+                            {
+                                <tr>
+                                    <td><a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id"
+                                            class="text-primary">@course.Name</a></td>
+                                    <td>@course.Description</td>
+                                    <td>@(String.Join(", ", course.Skills))</td>
+                                    <td>@course.CreatedBy</td>
+                                    @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
+                                    {
+                                        <td>@course.UserCourse?.ProgressPercentage%</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -27,19 +27,19 @@
                 <tbody>
                     <tr>
                         <td>@Html.DisplayNameFor(c => c.Name)</td>
-                        <td>@Html.DisplayFor(c => c.Name)</td>
+                        <td class="text-right">@Html.DisplayFor(c => c.Name)</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(c => c.Description)</td>
-                        <td>@Html.DisplayFor(c => c.Description)</td>
+                        <td class="text-right">@Html.DisplayFor(c => c.Description)</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(c => c.CreatedBy)</td>
-                        <td>@Html.DisplayFor(c => c.CreatedBy)</td>
+                        <td class="text-right">@Html.DisplayFor(c => c.CreatedBy)</td>
                     </tr>
                     <tr>
                         <td>@Html.DisplayNameFor(c => c.Skills)</td>
-                        <td>@(String.Join(", ", Model.Skills))</td>
+                        <td class="text-right">@(String.Join(", ", Model.Skills))</td>
                     </tr>
                 </tbody>
             </table>

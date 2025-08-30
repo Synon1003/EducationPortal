@@ -81,7 +81,8 @@
                                 </summary>
                                 <ul class="p-1 bg-base-100 rounded-box min-w-full max-w-max z-1">
                                     <li>
-                                        <a asp-controller="User" asp-action="Profile">Profile</a>
+                                        <a asp-controller="User" asp-action="Profile"
+                                            class="@(ViewBag.CurrentUrl == "~/User/Profile" ? "text-primary" : "")">Profile</a>
                                         <a asp-controller="Account" asp-action="Logout">Logout</a>
                                     </li>
                                 </ul>

@@ -13,14 +13,12 @@ public class MaterialRepository : EntityFrameworkRepository<Material>, IMaterial
         await _context.Materials.AsNoTracking()
             .Where(m => m.Courses.Any(c => c.Id == courseId)).ToListAsync();
 
+    public async Task<ICollection<Video>> GetAcquiredVideosByUserIdAsync(Guid userId) => await _context.Videos.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
 
-    public async Task<ICollection<Video>> GetAllVideosAsync() =>
-        await _context.Videos.AsNoTracking().ToListAsync();
+    public async Task<ICollection<Publication>> GetAcquiredPublicationsByUserIdAsync(Guid userId) => await _context.Publications.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
 
-    public async Task<ICollection<Publication>> GetAllPublicationsAsync() => await _context.Publications.AsNoTracking().ToListAsync();
-
-    public async Task<ICollection<Article>> GetAllArticlesAsync() =>
-        await _context.Articles.AsNoTracking().ToListAsync();
+    public async Task<ICollection<Article>> GetAcquiredArticlesByUserIdAsync(Guid userId) =>
+        await _context.Articles.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
 
 
     public async Task<Video?> GetVideoByMaterialIdAsync(int materialId) =>

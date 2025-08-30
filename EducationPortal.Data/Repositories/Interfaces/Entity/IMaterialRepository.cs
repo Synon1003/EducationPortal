@@ -6,9 +6,9 @@ public interface IMaterialRepository : IRepository<Material>
 {
     Task<ICollection<Material>> GetMaterialsByCourseIdAsync(int courseId);
 
-    Task<ICollection<Video>> GetAllVideosAsync();
-    Task<ICollection<Publication>> GetAllPublicationsAsync();
-    Task<ICollection<Article>> GetAllArticlesAsync();
+    Task<ICollection<Video>> GetAcquiredVideosByUserIdAsync(Guid userId);
+    Task<ICollection<Publication>> GetAcquiredPublicationsByUserIdAsync(Guid userId);
+    Task<ICollection<Article>> GetAcquiredArticlesByUserIdAsync(Guid userId);
 
     Task<Video?> GetVideoByMaterialIdAsync(int materialId);
     Task<Publication?> GetPublicationByMaterialIdAsync(int materialId);

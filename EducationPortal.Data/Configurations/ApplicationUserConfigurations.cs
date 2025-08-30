@@ -56,7 +56,11 @@ namespace EducationPortal.Data.Configurations
                         .HasOne(us => us.User)
                         .WithMany(u => u.UserSkills)
                         .HasForeignKey(us => us.UserId),
-                    entity => entity.ToTable("UserSkills")
+                    entity =>
+                    {
+                        entity.HasKey("UserId", "SkillId");
+                        entity.ToTable("UserSkills");
+                    }
                 );
         }
     }

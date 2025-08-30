@@ -1,5 +1,4 @@
 using EducationPortal.Web.Mappings;
-using EducationPortal.Web.Models;
 
 namespace EducationPortal.Extensions;
 
@@ -11,6 +10,7 @@ public static class WebServiceExtensions
         services.AddAutoMapper(
             typeof(CourseViewModelProfile).Assembly,
             typeof(UserCourseViewModelProfile).Assembly,
+            typeof(UserSkillViewModelProfile).Assembly,
             typeof(MaterialViewModelProfile).Assembly,
             typeof(VideoViewModelProfile).Assembly,
             typeof(PublicationViewModelProfile).Assembly,

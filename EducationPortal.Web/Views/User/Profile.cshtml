@@ -1,0 +1,66 @@
+@model UserProfileViewModel
+@{
+    ViewData["Title"] = "User Profile";
+    ViewBag.CurrentUrl = "~/User/Profile";
+}
+
+<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
+    <div class="card card-border w-120 bg-base-200 shadow-sm" data-aos="zoom-in">
+        <div class="card-body">
+            <div class="flex items-center justify-center">
+                <h3 class="font-medium text-3xl ml-2 mb-4">
+                    @Html.DisplayFor(c => c.FirstName) @Html.DisplayFor(c => c.LastName)</h3>
+            </div>
+            <table class="table mb-4">
+                <tbody>
+                    <tr>
+                        <td>@Html.DisplayNameFor(c => c.FirstName)</td>
+                        <td class="text-right">@Html.DisplayFor(c => c.FirstName)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(c => c.LastName)</td>
+                        <td class="text-right">@Html.DisplayFor(c => c.LastName)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayNameFor(c => c.Email)</td>
+                        <td class="text-right">@Html.DisplayFor(c => c.Email)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="flex items-center justify-between">
+                <a class="btn btn-md btn-info w-24" onclick="openModalWithPartialViewContent('skill-list-modal')">
+                    Skills
+                </a>
+                <a class="btn btn-md btn-info w-24" onclick="openModalWithPartialViewContent('material-list-modal')">
+                    Materials
+                </a>
+            </div>
+
+            <dialog id="skill-list-modal" class="modal">
+                <div class="modal-box max-w-120">
+                    @await Html.PartialAsync("~/Views/User/_SkillListPartial.cshtml", Model.UserSkills)
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <dialog id="material-list-modal" class="modal">
+                <div class="modal-box min-w-226 max-w-226 xl:max-w-268">
+                    @await Html.PartialAsync("~/Views/User/_MaterialListPartial.cshtml", Model)
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function openModalWithPartialViewContent(modal)
+    {
+        document.getElementById(modal).showModal();
+    }
+</script>
