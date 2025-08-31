@@ -5,5 +5,5 @@
 @source inline("alert-info");
 
 @plugin "daisyui" {
-    themes: corporate --default, business;
+    themes: corporate --default, business --prefersdark;
 }

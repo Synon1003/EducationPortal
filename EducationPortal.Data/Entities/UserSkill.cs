@@ -5,7 +5,7 @@ namespace EducationPortal.Data.Entities;
 
 public class UserSkill
 {
-    public int Level { get; set; } = 0;
+    public int Level { get; set; } = 0; // TODO:  = 1 migration
 
     public Guid UserId { get; set; }
     [ForeignKey(nameof(UserId))]

@@ -80,4 +80,24 @@ public class MaterialController : Controller
 
         return PartialView("_CreateArticlesListPartial", model.Articles);
     }
+
+    public IActionResult LoadVideoToViewModel(CourseCreateViewModel model, int videoId, string title)
+    {
+        if (!model.LoadedVideos.Any(v => v.Id == videoId))
+            model.LoadedVideos.Add(new VideoViewModel()
+            {
+                Id = videoId,
+                Title = title,
+            });
+
+        return PartialView("_LoadVideosPartial", model.LoadedVideos);
+    }
+
+    public IActionResult UnloadVideoFromViewModel(CourseCreateViewModel model, int idx)
+    {
+        if (idx >= 0 && idx < model.LoadedVideos.Count)
+            model.LoadedVideos.RemoveAt(idx);
+
+        return PartialView("_LoadVideosPartial", model.LoadedVideos);
+    }
 }

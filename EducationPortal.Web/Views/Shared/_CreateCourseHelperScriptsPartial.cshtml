@@ -1,5 +1,6 @@
 <script>
-    function reparseValidation() {
+    function reparseValidation()
+    {
         var form = $('#create-course-form');
         form.removeData("validator");
         form.removeData("unobtrusiveValidation");
@@ -100,5 +101,55 @@
         });
         document.getElementById("create-articles-container").innerHTML = await response.text();
         reparseValidation()
+    }
+
+    function registerLoadVideosModal()
+    {
+        const loadVideosModal = document.getElementById("load-videos-modal");
+        const openLoadVideosModalButton = document.getElementById("open-load-videos-button");
+        const loadVideosList = document.getElementById("load-videos-list");
+
+        openLoadVideosModalButton.addEventListener('click', () => loadVideosModal.showModal());
+        loadVideosList.addEventListener("pointerdown", (e) =>
+        {
+            const label = e.target.closest(".load-video-item");
+            if (!label) return;
+
+            const id = label.dataset.id;
+            const title = label.dataset.title;
+
+            console.log(`id: ${id}, title: ${title}`)
+            loadVideoToViewModel(id, title);
+
+            loadVideosModal.close();
+        });
+    }
+
+    registerLoadVideosModal();
+
+    async function loadVideoToViewModel(id, title)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("videoId", id);
+        formData.append("title", title);
+
+        const response = await fetch('@Url.Action("LoadVideoToViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("load-videos-container").innerHTML = await response.text();
+    }
+
+    async function unloadVideoFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("UnloadVideoFromViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+
+        document.getElementById("load-videos-container").innerHTML = await response.text();
     }
 </script>

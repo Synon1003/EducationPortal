@@ -37,4 +37,8 @@ public class CourseCreateViewModel
     public List<VideoCreateViewModel> Videos { get; set; } = [];
     public List<PublicationCreateViewModel> Publications { get; set; } = [];
     public List<ArticleCreateViewModel> Articles { get; set; } = [];
+
+    public List<VideoViewModel> RegisteredVideos { get; set; } = [];
+    public List<VideoViewModel> LoadedVideos { get; set; } = [];
+
 }

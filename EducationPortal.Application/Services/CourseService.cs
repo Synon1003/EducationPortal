@@ -258,7 +258,7 @@ public class CourseService : ICourseService
             if (userSkill is null)
             {
                 await _unitOfWork.UserSkillRepository.InsertAsync(
-                    new UserSkill() { UserId = userId, SkillId = skill.Id });
+                    new UserSkill() { UserId = userId, SkillId = skill.Id, Level = 1 });
             }
             else
             {

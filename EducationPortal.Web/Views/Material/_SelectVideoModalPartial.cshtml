@@ -1,0 +1,29 @@
+@model List<VideoViewModel>
+
+<dialog id="load-videos-modal" class="modal">
+    <div class="modal-box max-w-120">
+        <form method="dialog">
+            <div class="flex items-center justify-center">
+                <h3 class="font-medium text-3xl ml-2 mb-4">Select video</h3>
+            </div>
+
+            <div id="load-videos-list" class="space-y-1 text-center max-h-72 overflow-auto">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="flex flex-col items-center text-center load-video-item rounded hover:bg-primary hover:text-primary-content cursor-pointer p-2"
+                        data-id="@Model[i].Id" data-title="@Model[i].Title">
+                        <input type="radio" name="loadVideosSelect" value="@Model[i].Id" data-title="@Model[i].Title"
+                            class="hidden" />
+                        <div>
+                            <div class="font-semibold text-lg">@Model[i].Title</div>
+                            <div class="text-sm">Video</div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>

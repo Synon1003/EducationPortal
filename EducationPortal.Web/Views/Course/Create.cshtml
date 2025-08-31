@@ -49,8 +49,13 @@
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addVideoToViewModel()">New</button>
-                        <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                        <button type="button" id="open-load-videos-button"
+                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
+                </div>
+
+                <div id="load-videos-container" class="ml-4">
+                    @await Html.PartialAsync("~/Views/Material/_LoadVideosPartial.cshtml", Model.LoadedVideos)
                 </div>
 
                 <div id="create-videos-container" class="ml-4">
@@ -95,6 +100,8 @@
                 </div>
 
             </form>
+
+            @await Html.PartialAsync("~/Views/Material/_SelectVideoModalPartial.cshtml", Model.RegisteredVideos)
         </div>
     </div>
 </div>
