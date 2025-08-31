@@ -8,9 +8,7 @@ public class PublicationViewModelProfile : Profile
 {
     public PublicationViewModelProfile()
     {
-        CreateMap<PublicationDto, PublicationViewModel>()
-            .ForMember(dest => dest.Authors, opt =>
-                opt.MapFrom(src => String.Join(", ", src.Authors)));
+        CreateMap<PublicationDto, PublicationViewModel>().ReverseMap();
 
         CreateMap<PublicationCreateViewModel, PublicationCreateDto>()
             .ConstructUsing(src => new PublicationCreateDto(

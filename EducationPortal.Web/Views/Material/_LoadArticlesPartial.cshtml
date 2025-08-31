@@ -1,0 +1,17 @@
+@model List<ArticleViewModel>
+
+<div class="mb-4">
+    @for (int idx = 0; idx < Model.Count; idx++)
+    {
+        <a onclick="unloadArticleFromViewModel(@idx)" class="text-info cursor-pointer">@(idx < Model.Count - 1?
+                    Model[idx].Title + "," : Model[idx].Title)</a>
+        }
+</div>
+
+@for (int idx = 0; idx < Model.Count; idx++)
+{
+    <input type="hidden" name="LoadedArticles[@idx].Id" value="@Model[idx].Id" />
+    <input type="hidden" name="LoadedArticles[@idx].Title" value="@Model[idx].Title" />
+    <input type="hidden" name="LoadedArticles[@idx].PublicationDate" value="@Model[idx].PublicationDate" />
+    <input type="hidden" name="LoadedArticles[@idx].ResourceLink" value="@Model[idx].ResourceLink" />
+}

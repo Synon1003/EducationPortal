@@ -8,9 +8,7 @@ public class ArticleViewModelProfile : Profile
 {
     public ArticleViewModelProfile()
     {
-        CreateMap<ArticleDto, ArticleViewModel>()
-            .ForMember(dest => dest.PublicationDate, opt =>
-                opt.MapFrom(src => src.PublicationDate.ToString("d")));
+        CreateMap<ArticleDto, ArticleViewModel>().ReverseMap();
 
         CreateMap<ArticleCreateViewModel, ArticleCreateDto>()
             .ConstructUsing(src => new ArticleCreateDto(

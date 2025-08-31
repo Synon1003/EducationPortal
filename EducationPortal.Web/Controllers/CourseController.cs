@@ -79,9 +79,15 @@ public class CourseController : Controller
         if (user == null) return Unauthorized();
 
         var registeredVideosByUser = await _userService.GetAcquiredVideosByUserIdAsync(user.Id);
+        var registeredPublicationsByUser = await _userService.GetAcquiredPublicationsByUserIdAsync(user.Id);
+        var registeredArticlesByUser = await _userService.GetAcquiredArticlesByUserIdAsync(user.Id);
 
-        var courseCreateViewModel = new CourseCreateViewModel();
-        courseCreateViewModel.RegisteredVideos = _mapper.Map<List<VideoViewModel>>(registeredVideosByUser);
+        var courseCreateViewModel = new CourseCreateViewModel()
+        {
+            RegisteredVideos = _mapper.Map<List<VideoViewModel>>(registeredVideosByUser),
+            RegisteredPublications = _mapper.Map<List<PublicationViewModel>>(registeredPublicationsByUser),
+            RegisteredArticles = _mapper.Map<List<ArticleViewModel>>(registeredArticlesByUser)
+        };
 
         return View(courseCreateViewModel);
     }

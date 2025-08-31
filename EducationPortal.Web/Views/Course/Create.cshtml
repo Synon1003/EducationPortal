@@ -67,13 +67,19 @@
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addPublicationToViewModel()">New</button>
-                        <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                        <button type="button" id="open-load-publications-button"
+                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
+                </div>
+
+                <div id="load-publications-container" class="ml-4">
+                    @await Html.PartialAsync("~/Views/Material/_LoadPublicationsPartial.cshtml",
+                    Model.LoadedPublications)
                 </div>
 
                 <div id="create-publications-container" class="ml-4">
                     @await Html.PartialAsync("~/Views/Material/_CreatePublicationsListPartial.cshtml",
-                    Model.Publications)
+                                        Model.Publications)
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
@@ -81,8 +87,14 @@
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addArticleToViewModel()">New</button>
-                        <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                        <button type="button" id="open-load-articles-button"
+                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
+                </div>
+
+                <div id="load-articles-container" class="ml-4">
+                    @await Html.PartialAsync("~/Views/Material/_LoadArticlesPartial.cshtml",
+                                        Model.LoadedArticles)
                 </div>
 
                 <div id="create-articles-container" class="ml-4">
@@ -102,6 +114,9 @@
             </form>
 
             @await Html.PartialAsync("~/Views/Material/_SelectVideoModalPartial.cshtml", Model.RegisteredVideos)
+            @await Html.PartialAsync("~/Views/Material/_SelectPublicationModalPartial.cshtml",
+                        Model.RegisteredPublications)
+            @await Html.PartialAsync("~/Views/Material/_SelectArticleModalPartial.cshtml", Model.RegisteredArticles)
         </div>
     </div>
 </div>

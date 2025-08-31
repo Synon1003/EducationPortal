@@ -103,29 +103,6 @@
         reparseValidation()
     }
 
-    function registerLoadVideosModal()
-    {
-        const loadVideosModal = document.getElementById("load-videos-modal");
-        const openLoadVideosModalButton = document.getElementById("open-load-videos-button");
-        const loadVideosList = document.getElementById("load-videos-list");
-
-        openLoadVideosModalButton.addEventListener('click', () => loadVideosModal.showModal());
-        loadVideosList.addEventListener("pointerdown", (e) =>
-        {
-            const label = e.target.closest(".load-video-item");
-            if (!label) return;
-
-            const id = label.dataset.id;
-            const title = label.dataset.title;
-
-            console.log(`id: ${id}, title: ${title}`)
-            loadVideoToViewModel(id, title);
-
-            loadVideosModal.close();
-        });
-    }
-
-    registerLoadVideosModal();
 
     async function loadVideoToViewModel(id, title)
     {
@@ -152,4 +129,103 @@
 
         document.getElementById("load-videos-container").innerHTML = await response.text();
     }
+
+    async function loadPublicationToViewModel(id, title)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("publicationId", id);
+        formData.append("title", title);
+
+        const response = await fetch('@Url.Action("LoadPublicationToViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("load-publications-container").innerHTML = await response.text();
+    }
+
+    async function unloadPublicationFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("UnloadPublicationFromViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+
+        document.getElementById("load-publications-container").innerHTML = await response.text();
+    }
+
+    async function loadArticleToViewModel(id, title)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("articleId", id);
+        formData.append("title", title);
+
+        const response = await fetch('@Url.Action("LoadArticleToViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("load-articles-container").innerHTML = await response.text();
+    }
+
+    async function unloadArticleFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("UnloadArticleFromViewModel", "Material")', {
+            method: "POST",
+            body: formData
+        });
+
+        document.getElementById("load-articles-container").innerHTML = await response.text();
+    }
+
+    function registerLoadModal({ modalId, buttonId, listId, itemClass, onSelect })
+    {
+        const modal = document.getElementById(modalId);
+        const openButton = document.getElementById(buttonId);
+        const list = document.getElementById(listId);
+
+        if (!modal || !openButton || !list) return;
+
+        openButton.addEventListener('click', () => modal.showModal());
+
+        list.addEventListener("pointerdown", (e) =>
+        {
+            const label = e.target.closest(`.${itemClass}`);
+            if (!label) return;
+
+            const id = label.dataset.id;
+            const title = label.dataset.title;
+
+            onSelect(id, title);
+            modal.close();
+        });
+    }
+
+    registerLoadModal({
+        modalId: "load-videos-modal",
+        buttonId: "open-load-videos-button",
+        listId: "load-videos-list",
+        itemClass: "load-video-item",
+        onSelect: (id, title) => loadVideoToViewModel(id, title)
+    });
+
+    registerLoadModal({
+        modalId: "load-publications-modal",
+        buttonId: "open-load-publications-button",
+        listId: "load-publications-list",
+        itemClass: "load-publication-item",
+        onSelect: (id, title) => loadPublicationToViewModel(id, title)
+    });
+
+    registerLoadModal({
+        modalId: "load-articles-modal",
+        buttonId: "open-load-articles-button",
+        listId: "load-articles-list",
+        itemClass: "load-article-item",
+        onSelect: (id, title) => loadArticleToViewModel(id, title)
+    });
 </script>

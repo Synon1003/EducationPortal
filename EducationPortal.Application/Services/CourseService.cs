@@ -77,6 +77,7 @@ public class CourseService : ICourseService
         AddCourseVideos(course, courseCreateDto);
         AddCoursePublications(course, courseCreateDto);
         AddCourseArticles(course, courseCreateDto);
+        await AddLoadedMaterials(course, courseCreateDto);
         await _unitOfWork.CourseRepository.InsertAsync(course);
         await _unitOfWork.SaveChangesAsync();
 
@@ -103,11 +104,12 @@ public class CourseService : ICourseService
         if (course is null)
             throw new NotFoundException(nameof(Course), courseId);
 
-        bool isInstantCompleted = course.Materials.Count == 0;
+        (int completedCount, int totalCount) = await GetCountersFromMaterialRatioAsync(userId, course);
+        bool isInstantCompleted = completedCount == totalCount;
 
         await _unitOfWork.UserCourseRepository.InsertAsync(new UserCourse()
         {
-            ProgressPercentage = isInstantCompleted ? 100 : 0,
+            ProgressPercentage = totalCount == 0 ? 0 : 100 * completedCount / totalCount,
             UserId = userId,
             CourseId = courseId
         });
@@ -151,14 +153,45 @@ public class CourseService : ICourseService
         return userCourse.IsCompleted;
     }
 
+    private async Task<(int, int)> GetCountersFromMaterialRatioAsync(Guid userId, Course course)
+    {
+        var userMaterials = await _unitOfWork.UserMaterialRepository
+        .GetAllByUserIdAsync(userId);
+
+        var userMaterialIds = userMaterials.Select(um => um.MaterialId).ToList();
+        var courseMaterialIds = course.Materials.Select(m => m.Id).ToList();
+
+        int completedCount = courseMaterialIds.Intersect(userMaterialIds).Count();
+        int totalCount = courseMaterialIds.Count;
+
+        return (completedCount, totalCount);
+    }
+
     private void AddCourseSkills(Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var skill in courseCreateDto.Skills)
             course.Skills.Add(new Skill { Name = skill.Name });
     }
 
-    private void AddCourseVideos(
-        Course course, CourseCreateDto courseCreateDto)
+    private async Task AddLoadedMaterials(Course course, CourseCreateDto courseCreateDto)
+    {
+        foreach (var video in courseCreateDto.LoadedVideos)
+        {
+            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(video.Id))!);
+        }
+
+        foreach (var publication in courseCreateDto.LoadedPublications)
+        {
+            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(publication.Id))!);
+        }
+
+        foreach (var article in courseCreateDto.LoadedArticles)
+        {
+            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(article.Id))!);
+        }
+    }
+
+    private void AddCourseVideos(Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var video in courseCreateDto.Videos)
         {
@@ -187,8 +220,7 @@ public class CourseService : ICourseService
         }
     }
 
-    private void AddCourseArticles(
-        Course course, CourseCreateDto courseCreateDto)
+    private void AddCourseArticles(Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var article in courseCreateDto.Articles)
         {

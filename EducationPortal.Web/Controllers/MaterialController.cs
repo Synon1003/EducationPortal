@@ -21,19 +21,19 @@ public class MaterialController : Controller
     public async Task<ActionResult<VideoViewModel>> VideoDetails(int id)
     {
         var video = await _materialService.GetVideoByMaterialIdAsync(materialId: id);
-        return PartialView("_VideoDetailsPartial", _mapper.Map<VideoViewModel>(video));
+        return PartialView("_DetailsVideoPartial", _mapper.Map<VideoViewModel>(video));
     }
 
     public async Task<ActionResult<PublicationViewModel>> PublicationDetails(int id)
     {
         var publication = await _materialService.GetPublicationByMaterialIdAsync(materialId: id);
-        return PartialView("_PublicationDetailsPartial", _mapper.Map<PublicationViewModel>(publication));
+        return PartialView("_DetailsPublicationPartial", _mapper.Map<PublicationViewModel>(publication));
     }
 
     public async Task<ActionResult<ArticleViewModel>> ArticleDetails(int id)
     {
         var article = await _materialService.GetArticleByMaterialIdAsync(materialId: id);
-        return PartialView("_ArticleDetailsPartial", _mapper.Map<ArticleViewModel>(article));
+        return PartialView("_DetailsArticlePartial", _mapper.Map<ArticleViewModel>(article));
     }
 
 
@@ -81,14 +81,16 @@ public class MaterialController : Controller
         return PartialView("_CreateArticlesListPartial", model.Articles);
     }
 
-    public IActionResult LoadVideoToViewModel(CourseCreateViewModel model, int videoId, string title)
+
+    public async Task<IActionResult> LoadVideoToViewModel(CourseCreateViewModel model, int videoId, string title)
     {
         if (!model.LoadedVideos.Any(v => v.Id == videoId))
-            model.LoadedVideos.Add(new VideoViewModel()
-            {
-                Id = videoId,
-                Title = title,
-            });
+        {
+            var video = await _materialService.GetVideoByMaterialIdAsync(videoId);
+
+            if (video is not null && video.Title == title)
+                model.LoadedVideos.Add(_mapper.Map<VideoViewModel>(video));
+        }
 
         return PartialView("_LoadVideosPartial", model.LoadedVideos);
     }
@@ -99,5 +101,47 @@ public class MaterialController : Controller
             model.LoadedVideos.RemoveAt(idx);
 
         return PartialView("_LoadVideosPartial", model.LoadedVideos);
+    }
+
+    public async Task<IActionResult> LoadPublicationToViewModel(CourseCreateViewModel model, int publicationId, string title)
+    {
+        if (!model.LoadedPublications.Any(v => v.Id == publicationId))
+        {
+            var publication = await _materialService.GetPublicationByMaterialIdAsync(publicationId);
+
+            if (publication is not null && publication.Title == title)
+                model.LoadedPublications.Add(_mapper.Map<PublicationViewModel>(publication));
+        }
+
+        return PartialView("_LoadPublicationsPartial", model.LoadedPublications);
+    }
+
+    public IActionResult UnloadPublicationFromViewModel(CourseCreateViewModel model, int idx)
+    {
+        if (idx >= 0 && idx < model.LoadedPublications.Count)
+            model.LoadedPublications.RemoveAt(idx);
+
+        return PartialView("_LoadPublicationsPartial", model.LoadedPublications);
+    }
+
+    public async Task<IActionResult> LoadArticleToViewModel(CourseCreateViewModel model, int articleId, string title)
+    {
+        if (!model.LoadedArticles.Any(v => v.Id == articleId))
+        {
+            var article = await _materialService.GetArticleByMaterialIdAsync(articleId);
+
+            if (article is not null && article.Title == title)
+                model.LoadedArticles.Add(_mapper.Map<ArticleViewModel>(article));
+        }
+
+        return PartialView("_LoadArticlesPartial", model.LoadedArticles);
+    }
+
+    public IActionResult UnloadArticleFromViewModel(CourseCreateViewModel model, int idx)
+    {
+        if (idx >= 0 && idx < model.LoadedArticles.Count)
+            model.LoadedArticles.RemoveAt(idx);
+
+        return PartialView("_LoadArticlesPartial", model.LoadedArticles);
     }
 }
