@@ -24,5 +24,8 @@ public record CourseCreateDto(
     List<VideoCreateDto> Videos,
     List<PublicationCreateDto> Publications,
     List<ArticleCreateDto> Articles,
+    List<VideoDto> LoadedVideos,
+    List<PublicationDto> LoadedPublications,
+    List<ArticleDto> LoadedArticles,
     Guid? CreatedBy
 );

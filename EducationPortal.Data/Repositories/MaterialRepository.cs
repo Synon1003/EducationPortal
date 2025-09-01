@@ -13,13 +13,29 @@ public class MaterialRepository : EntityFrameworkRepository<Material>, IMaterial
         await _context.Materials.AsNoTracking()
             .Where(m => m.Courses.Any(c => c.Id == courseId)).ToListAsync();
 
-    public async Task<ICollection<Video>> GetAcquiredVideosByUserIdAsync(Guid userId) => await _context.Videos.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
+    public async Task<ICollection<Video>> GetAcquiredVideosByUserIdAsync(Guid userId) =>
+        await _context.Videos.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
 
-    public async Task<ICollection<Publication>> GetAcquiredPublicationsByUserIdAsync(Guid userId) => await _context.Publications.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
+    public async Task<ICollection<Publication>> GetAcquiredPublicationsByUserIdAsync(Guid userId) =>
+        await _context.Publications.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
 
     public async Task<ICollection<Article>> GetAcquiredArticlesByUserIdAsync(Guid userId) =>
         await _context.Articles.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
 
+    public async Task<ICollection<Video>> GetVideosCreatedByUserIdAsync(Guid userId) =>
+        await _context.Videos.AsNoTracking()
+            .Where(v => v.Courses.Any(c => c.CreatedBy == userId))
+            .ToListAsync();
+
+    public async Task<ICollection<Publication>> GetPublicationsCreatedByUserIdAsync(Guid userId) =>
+        await _context.Publications.AsNoTracking()
+            .Where(v => v.Courses.Any(c => c.CreatedBy == userId))
+            .ToListAsync();
+
+    public async Task<ICollection<Article>> GetArticlesCreatedByUserIdAsync(Guid userId) =>
+        await _context.Articles.AsNoTracking()
+            .Where(v => v.Courses.Any(c => c.CreatedBy == userId))
+            .ToListAsync();
 
     public async Task<Video?> GetVideoByMaterialIdAsync(int materialId) =>
         await _context.Videos.FirstOrDefaultAsync(v => v.Id == materialId);

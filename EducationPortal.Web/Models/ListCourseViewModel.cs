@@ -5,8 +5,8 @@ public class ListCoursesViewModel
     public List<CourseListViewModel> Courses { get; set; } = [];
     public int TotalCount { get; set; }
     public string TotalCountText => TotalCount == 1 ?
-        $"{TotalCount}  {(CurrentOption == "all" ? "registered" : CurrentOption)} course" :
-        $"{TotalCount}  {(CurrentOption == "all" ? "registered" : CurrentOption)} courses";
+        $"{TotalCount} {(CurrentOption == "all" || CurrentOption is null ? "registered" : CurrentOption)} course" :
+        $"{TotalCount} {(CurrentOption == "all" || CurrentOption is null ? "registered" : CurrentOption)} courses";
 
     public Dictionary<string, string> SelectOptions { get; set; } =
         new Dictionary<string, string>()

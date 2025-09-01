@@ -1,6 +1,6 @@
 @model ArticleViewModel
 
-<div class="flex items-center justify-start ml-2 mb-4">
+<div class="flex items-center justify-center ml-2 mb-4">
     <div class="text-2xl mt-4 mb-4 font-medium">@Model.Title</div>
 </div>
 
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <td>@Html.DisplayNameFor(a => a.PublicationDate)</td>
-            <td class="text-right">@Html.DisplayFor(a => a.PublicationDate)</td>
+            <td class="text-right">@Model.PublicationDate.ToString("yyyy-MM-dd")</td>
         </tr>
         <tr>
             <td>@Html.DisplayNameFor(a => a.ResourceLink)</td>

@@ -14,17 +14,20 @@ public class CourseController : Controller
 {
     private readonly ICourseService _courseService;
     private readonly IMaterialService _materialService;
+    private readonly IUserService _userService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IMapper _mapper;
 
     public CourseController(
         ICourseService courseService,
         IMaterialService materialService,
+        IUserService userService,
         UserManager<ApplicationUser> userManager,
         IMapper mapper)
     {
         _courseService = courseService;
         _materialService = materialService;
+        _userService = userService;
         _userManager = userManager;
         _mapper = mapper;
     }
@@ -70,9 +73,23 @@ public class CourseController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        return View(new CourseCreateViewModel());
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        var createdVideosByUser = await _userService.GetVideosCreatedByUserIdAsync(user.Id);
+        var createdPublicationsByUser = await _userService.GetPublicationsCreatedByUserIdAsync(user.Id);
+        var createdArticlesByUser = await _userService.GetArticlesCreatedByUserIdAsync(user.Id);
+
+        var courseCreateViewModel = new CourseCreateViewModel()
+        {
+            PreviouslyCreatedVideos = _mapper.Map<List<VideoViewModel>>(createdVideosByUser),
+            PreviouslyCreatedPublications = _mapper.Map<List<PublicationViewModel>>(createdPublicationsByUser),
+            PreviouslyCreatedArticles = _mapper.Map<List<ArticleViewModel>>(createdArticlesByUser)
+        };
+
+        return View(courseCreateViewModel);
     }
 
     [HttpPost]

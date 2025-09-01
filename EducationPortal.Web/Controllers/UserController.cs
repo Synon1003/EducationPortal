@@ -36,9 +36,9 @@ public class UserController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
 
-        await _courseService.EnrollUserOnCourseAsync(user.Id, id);
+        var isCourseDone = await _courseService.EnrollUserOnCourseAsync(user.Id, id);
 
-        TempData.CreateFlash("You have Enrolled successfully.", "info");
+        TempData.CreateFlash(isCourseDone ? "Congratulations! You passed successfully." : "You enrolled successfully.", "info");
 
         return RedirectToAction(nameof(CourseController.Details), "Course", new { id = id });
     }
@@ -50,7 +50,7 @@ public class UserController : Controller
 
         var isCourseDone = await _courseService.MarkMaterialDone(user.Id, materialId, courseId);
 
-        TempData.CreateFlash(isCourseDone ? "Congratulations! You have finished the course successfully." : "Material has been Marked Done", "info");
+        TempData.CreateFlash(isCourseDone ? "Congratulations! You passed successfully." : "Material marked as Done", "info");
 
         return RedirectToAction(nameof(CourseController.Materials), "Course", new { id = courseId });
     }

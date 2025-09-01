@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EducationPortal.Data.Entities;
 
 public class UserSkill
 {
-    public int Level { get; set; } = 0;
+    public int Level { get; set; } = 1;
 
     public Guid UserId { get; set; }
     [ForeignKey(nameof(UserId))]

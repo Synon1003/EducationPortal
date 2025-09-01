@@ -1,0 +1,17 @@
+@model List<VideoViewModel>
+
+<div class="mb-4">
+    @for (int idx = 0; idx < Model.Count; idx++)
+    {
+        <a onclick="unloadVideoFromViewModel(@idx)" class="text-info cursor-pointer">@(idx < Model.Count - 1?
+                    Model[idx].Title + "," : Model[idx].Title)</a>
+        }
+</div>
+
+@for (int idx = 0; idx < Model.Count; idx++)
+{
+    <input type="hidden" name="LoadedVideos[@idx].Id" value="@Model[idx].Id" />
+    <input type="hidden" name="LoadedVideos[@idx].Title" value="@Model[idx].Title" />
+    <input type="hidden" name="LoadedVideos[@idx].Quality" value="@Model[idx].Quality" />
+    <input type="hidden" name="LoadedVideos[@idx].Duration" value="@Model[idx].Duration" />
+}

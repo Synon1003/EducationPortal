@@ -29,14 +29,14 @@
                         <ul tabindex="0"
                             class="menu menu-sm dropdown-content mt-3 z-10 w-52 p-2 shadow bg-base-100 rounded-box">
                             <li><a asp-controller="Course" asp-action="List"
-                                    class="@(ViewBag.CurrentUrl == "~/Course/List" ? "text-primary" : "")">Courses</a>
+                                    class="@(ViewBag.CurrentUrl == "~/Course/List" ? "text-info" : "")">Courses</a>
                             </li>
                         </ul>
                     </div>
                 }
 
                 <a asp-controller="Home" asp-action="Index"
-                    class="btn btn-ghost text-md @(ViewBag.CurrentUrl == "~/Home/Index" ? "text-primary" : "")">EducationPortal</a>
+                    class="btn btn-ghost text-md @(ViewBag.CurrentUrl == "~/Home/Index" ? "text-info" : "")">EducationPortal</a>
 
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
@@ -44,7 +44,7 @@
                         <ul class="menu menu-horizontal px-1">
                             <li>
                             <li><a asp-controller="Course" asp-action="List"
-                                    class="@(ViewBag.CurrentUrl == "~/Course/List" || ViewBag.CurrentUrl.StartsWith("~/Course/Details") ? "text-primary" : "")">
+                                    class="@(ViewBag.CurrentUrl.StartsWith("~/Course") ? "text-info" : "")">
                                     Courses</a></li>
                             </li>
                         </ul>
@@ -82,7 +82,7 @@
                                 <ul class="p-1 bg-base-100 rounded-box min-w-full max-w-max z-1">
                                     <li>
                                         <a asp-controller="User" asp-action="Profile"
-                                            class="@(ViewBag.CurrentUrl == "~/User/Profile" ? "text-primary" : "")">Profile</a>
+                                            class="@(ViewBag.CurrentUrl == "~/User/Profile" ? "text-info" : "")">Profile</a>
                                         <a asp-controller="Account" asp-action="Logout">Logout</a>
                                     </li>
                                 </ul>
@@ -92,10 +92,10 @@
                     else
                     {
                         <li><a asp-controller="Account" asp-action="Register"
-                                class="@(ViewBag.CurrentUrl == "~/Account/Register" ? "text-primary" : "")">Register</a>
+                                class="@(ViewBag.CurrentUrl == "~/Account/Register" ? "text-info" : "")">Register</a>
                         </li>
                         <li><a asp-controller="Account" asp-action="Login"
-                                class="@(ViewBag.CurrentUrl == "~/Account/Login" ? "text-primary" : "")">Login</a>
+                                class="@(ViewBag.CurrentUrl == "~/Account/Login" ? "text-info" : "")">Login</a>
                         </li>
                     }
                 </ul>

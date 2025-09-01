@@ -31,6 +31,12 @@ public class CourseViewModelProfile : Profile
                     v.Title, v.Authors, v.Pages, v.Format, v.PublicationYear)).ToList(),
                 src.Articles.Select(v => new ArticleCreateDto(
                     v.Title, v.PublicationDate, v.ResourceLink)).ToList(),
+                src.LoadedVideos.Select(v => new VideoDto(
+                    v.Id, v.Title, v.Duration, v.Quality)).ToList(),
+                src.LoadedPublications.Select(p => new PublicationDto(
+                    p.Id, p.Title, p.Authors, p.Pages, p.Format, p.PublicationYear)).ToList(),
+                src.LoadedArticles.Select(a => new ArticleDto(
+                    a.Id, a.Title, a.PublicationDate, a.ResourceLink)).ToList(),
                 null
             ));
     }

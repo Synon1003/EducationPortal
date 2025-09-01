@@ -8,7 +8,7 @@ public class VideoViewModelProfile : Profile
 {
     public VideoViewModelProfile()
     {
-        CreateMap<VideoDto, VideoViewModel>();
+        CreateMap<VideoDto, VideoViewModel>().ReverseMap();
 
         CreateMap<VideoCreateViewModel, VideoCreateDto>()
             .ConstructUsing(src => new VideoCreateDto(
