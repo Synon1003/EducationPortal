@@ -97,9 +97,24 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
         );
 
         modelBuilder.Entity<UserSkill>().HasData(
-            new UserSkill { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), SkillId = 1 },
-            new UserSkill { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), SkillId = 3 },
-            new UserSkill { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), SkillId = 4 }
+            new UserSkill
+            {
+                UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
+                SkillId = 1,
+                Level = 1
+            },
+            new UserSkill
+            {
+                UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
+                SkillId = 3,
+                Level = 1
+            },
+            new UserSkill
+            {
+                UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
+                SkillId = 4,
+                Level = 1
+            }
         );
 
         modelBuilder.Entity<Video>().HasData(
