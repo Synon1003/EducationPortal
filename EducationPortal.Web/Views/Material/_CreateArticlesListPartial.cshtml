@@ -5,25 +5,27 @@
     {
         <div class="flex items-center gap-2 mb-4">
             <label class="floating-label basis-2/3">
-                <span>Title</span>
+                <span>@Html.DisplayNameFor(m => m[idx].Title)</span>
                 <input asp-for="@Model[idx].Title" id="Articles[@idx].Title" name="Articles[@idx].Title"
-                    class="input input-md w-full" />
+                    placeholder=@Html.DisplayNameFor(m => m[idx].Title) class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Title" data-valmsg-for="Articles[@idx].Title"
                     class="text-error text-sm ml-1"></span>
             </label>
             <label class="floating-label basis-1/3">
-                <span>PublicationDate</span>
+                <span>@Html.DisplayNameFor(m => m[idx].PublicationDate)</span>
                 <input asp-for="@Model[idx].PublicationDate" id="Articles[@idx].PublicationDate"
-                    name="Articles[@idx].PublicationDate" class="input input-md w-full" />
+                    name="Articles[@idx].PublicationDate" placeholder=@Html.DisplayNameFor(m => m[idx].PublicationDate)
+                    class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].PublicationDate" data-valmsg-for="Articles[@idx].PublicationDate"
                     class="text-error text-sm ml-1"></span>
             </label>
         </div>
         <div>
             <label class="floating-label mb-4">
-                <span>ResourceLink</span>
+                <span>@Html.DisplayNameFor(m => m[idx].ResourceLink)</span>
                 <input asp-for="@Model[idx].ResourceLink" id="Articles[@idx].ResourceLink"
-                    name="Articles[@idx].ResourceLink" class="input input-md w-full" />
+                    name="Articles[@idx].ResourceLink" placeholder=@Html.DisplayNameFor(m => m[idx].ResourceLink)
+                    class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].ResourceLink" data-valmsg-for="Articles[@idx].ResourceLink"
                     class="text-error text-sm ml-1"></span>
             </label>
