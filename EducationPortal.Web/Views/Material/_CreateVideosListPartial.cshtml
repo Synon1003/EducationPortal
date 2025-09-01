@@ -5,25 +5,25 @@
     {
         <div>
             <label class="floating-label mb-4">
-                <span>Title</span>
+                <span>@Html.DisplayNameFor(m => m[idx].Title)</span>
                 <input asp-for="@Model[idx].Title" id="Videos[@idx].Title" name="Videos[@idx].Title"
-                    class="input input-md w-full" />
+                    placeholder=@Html.DisplayNameFor(m => m[idx].Title) class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Title" data-valmsg-for="Videos[@idx].Title"
                     class="text-error text-sm ml-1"></span>
             </label>
         </div>
         <div class="flex items-center gap-2 mb-4">
             <label class="floating-label flex-1">
-                <span>Duration</span>
+                <span>@Html.DisplayNameFor(m => m[idx].Duration)</span>
                 <input asp-for="@Model[idx].Duration" id="Videos[@idx].Duration" name="Videos[@idx].Duration"
-                    class="input input-md w-full" />
+                    placeholder=@Html.DisplayNameFor(m => m[idx].Duration) class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Duration" data-valmsg-for="Videos[@idx].Duration"
                     class="text-error text-sm ml-1"></span>
             </label>
             <label class="floating-label flex-1">
-                <span>Quality</span>
+                <span>@Html.DisplayNameFor(m => m[idx].Quality)</span>
                 <input asp-for="@Model[idx].Quality" id="Videos[@idx].Quality" name="Videos[@idx].Quality"
-                    class="input input-md w-full" />
+                    placeholder=@Html.DisplayNameFor(m => m[idx].Quality) class="input input-md w-full" />
                 <span asp-validation-for="@Model[idx].Quality" data-valmsg-for="Videos[@idx].Quality"
                     class="text-error text-sm ml-1"></span>
             </label>

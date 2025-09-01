@@ -1,6 +1,5 @@
-using EducationPortal.Application.Web.Middlewares;
+using EducationPortal.Web.Middlewares;
 using EducationPortal.Extensions;
-using EducationPortal.RepositoryTestEndpoints;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,27 +24,14 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-// app.UseExceptionHandler("/Home/Error");
 
 app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
     await app.UpdateDatabaseMigrationsAsync();
-
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        c.RoutePrefix = "swagger";
-    });
-
-    app.MapRepositoryTestEndpoints();
 
     app.UseHsts();
     app.UseHttpsRedirection();
