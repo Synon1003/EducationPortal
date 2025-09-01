@@ -24,6 +24,7 @@ public record CourseCreateDto(
     List<VideoCreateDto> Videos,
     List<PublicationCreateDto> Publications,
     List<ArticleCreateDto> Articles,
+    List<SkillDto> LoadedSkills,
     List<VideoDto> LoadedVideos,
     List<PublicationDto> LoadedPublications,
     List<ArticleDto> LoadedArticles,

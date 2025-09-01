@@ -2,24 +2,43 @@ using AutoMapper;
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Application.Dtos;
 using EducationPortal.Application.Services.Interfaces;
+using EducationPortal.Data.Entities;
+using EducationPortal.Application.Exceptions;
 
 namespace EducationPortal.Application.Services;
 
 public class UserService : IUserService
 {
     private readonly IUserSkillRepository _userSkillRepository;
+    private readonly ISkillRepository _skillRepository;
     private readonly IMaterialRepository _materialRepository;
-
     private readonly IMapper _mapper;
 
     public UserService(
         IUserSkillRepository userSkillRepository,
+        ISkillRepository skillRepository,
         IMaterialRepository materialRepository,
         IMapper mapper)
     {
         _userSkillRepository = userSkillRepository;
+        _skillRepository = skillRepository;
         _materialRepository = materialRepository;
         _mapper = mapper;
+    }
+
+    public async Task<ICollection<SkillDetailDto>> GetAllSkillsAsync()
+    {
+        var skills = await _skillRepository.GetAllSkillsAsync();
+        return _mapper.Map<List<SkillDetailDto>>(skills);
+    }
+
+    public async Task<SkillDto> GetSkillByIdAsync(int skillId)
+    {
+        var skill = await _skillRepository.GetByIdAsync(skillId);
+        if (skill == null)
+            throw new NotFoundException(nameof(Skill), skillId);
+
+        return _mapper.Map<SkillDto>(skill);
     }
 
     public async Task<ICollection<VideoDto>> GetVideosCreatedByUserIdAsync(Guid userId)

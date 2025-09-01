@@ -10,6 +10,9 @@ public class SkillRepository : EntityFrameworkRepository<Skill>, ISkillRepositor
     { }
 
     public async Task<ICollection<Skill>> GetSkillsByCourseIdAsync(int courseId) =>
-        await _context.Skills.AsNoTracking()
-            .Where(m => m.Courses.Any(c => c.Id == courseId)).ToListAsync();
+        await GetAll().Where(m => m.Courses.Any(c => c.Id == courseId))
+            .ToListAsync();
+
+    public async Task<ICollection<Skill>> GetAllSkillsAsync() =>
+        await GetAll().Include(u => u.UserSkills).ToListAsync();
 }

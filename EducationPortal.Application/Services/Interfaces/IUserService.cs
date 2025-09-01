@@ -4,6 +4,8 @@ namespace EducationPortal.Application.Services.Interfaces;
 
 public interface IUserService
 {
+    Task<ICollection<SkillDetailDto>> GetAllSkillsAsync();
+    Task<SkillDto> GetSkillByIdAsync(int skillId);
     Task<ICollection<VideoDto>> GetVideosCreatedByUserIdAsync(Guid userId);
     Task<ICollection<PublicationDto>> GetPublicationsCreatedByUserIdAsync(Guid userId);
     Task<ICollection<ArticleDto>> GetArticlesCreatedByUserIdAsync(Guid userId);

@@ -73,7 +73,7 @@ public class CourseService : ICourseService
             CreatedBy = courseCreateDto.CreatedBy!.Value
         };
 
-        AddCourseSkills(course, courseCreateDto);
+        await AddCourseSkills(course, courseCreateDto);
         AddCourseVideos(course, courseCreateDto);
         AddCoursePublications(course, courseCreateDto);
         AddCourseArticles(course, courseCreateDto);
@@ -175,10 +175,15 @@ public class CourseService : ICourseService
         return (completedCount, totalCount);
     }
 
-    private void AddCourseSkills(Course course, CourseCreateDto courseCreateDto)
+    private async Task AddCourseSkills(Course course, CourseCreateDto courseCreateDto)
     {
         foreach (var skill in courseCreateDto.Skills)
             course.Skills.Add(new Skill { Name = skill.Name });
+
+        foreach (var skill in courseCreateDto.LoadedSkills)
+        {
+            course.Skills.Add((await _unitOfWork.SkillRepository.GetByIdAsync(skill.Id))!);
+        }
     }
 
     private async Task AddLoadedMaterials(Course course, CourseCreateDto courseCreateDto)

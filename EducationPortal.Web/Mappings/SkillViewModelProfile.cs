@@ -9,5 +9,7 @@ public class SkillViewModelProfile : Profile
     public SkillViewModelProfile()
     {
         CreateMap<SkillCreateViewModel, SkillCreateDto>();
+        CreateMap<SkillDetailDto, SkillDetailViewModel>();
+        CreateMap<SkillDto, SkillViewModel>().ReverseMap();
     }
 }

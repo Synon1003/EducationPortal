@@ -104,6 +104,32 @@
     }
 
 
+    async function loadSkillToViewModel(id, name)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("skillId", id);
+        formData.append("skillName", name);
+
+        const response = await fetch('@Url.Action("LoadSkillToViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+        document.getElementById("load-skills-container").innerHTML = await response.text();
+    }
+
+    async function unloadSkillFromViewModel(idx)
+    {
+        const formData = new FormData(document.getElementById("create-course-form"));
+        formData.append("idx", idx);
+
+        const response = await fetch('@Url.Action("UnloadSkillFromViewModel", "Skill")', {
+            method: "POST",
+            body: formData
+        });
+
+        document.getElementById("load-skills-container").innerHTML = await response.text();
+    }
+
     async function loadVideoToViewModel(id, title)
     {
         const formData = new FormData(document.getElementById("create-course-form"));
@@ -182,6 +208,26 @@
         document.getElementById("load-articles-container").innerHTML = await response.text();
     }
 
+    function registerSkillSearchBar()
+    {
+        document.addEventListener("DOMContentLoaded", () =>
+        {
+            const searchInput = document.getElementById("skill-search");
+            const skillItems = document.querySelectorAll(".load-skill-item");
+
+            searchInput.addEventListener("input", () =>
+            {
+                const query = searchInput.value.toLowerCase();
+
+                skillItems.forEach(item =>
+                {
+                    const title = item.dataset.title.toLowerCase();
+                    item.style.display = title.includes(query) ? "" : "none";
+                });
+            });
+        });
+    }
+
     function registerLoadModal({ modalId, buttonId, listId, itemClass, onSelect })
     {
         const modal = document.getElementById(modalId);
@@ -204,6 +250,15 @@
             modal.close();
         });
     }
+
+    registerLoadModal({
+        modalId: "load-skills-modal",
+        buttonId: "open-load-skills-button",
+        listId: "load-skills-list",
+        itemClass: "load-skill-item",
+        onSelect: (id, name) => loadSkillToViewModel(id, name)
+    });
+    registerSkillSearchBar();
 
     registerLoadModal({
         modalId: "load-videos-modal",
