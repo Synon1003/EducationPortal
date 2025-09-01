@@ -25,17 +25,16 @@ public class HomeController : Controller
         return View(model);
     }
 
-    public IActionResult Error()
+    public IActionResult Error(string? message = null, string? type = null)
     {
-        // var feature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-
         var model = new ErrorViewModel
         {
-            // Message = feature?.Error?.Message ?? "An unknown error occurred."
-            Message = "An unknown error occurred."
+            ErrorMessage = message ?? "An unexpected error occurred. Please try again later.",
+            ErrorType = type
         };
 
-        TempData.CreateFlash(model.Message, "error");
-        return View();
+        TempData.CreateFlash(model.ErrorMessage, "error");
+
+        return View(model);
     }
 }

@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en"
-    data-theme="@(User.Identity?.IsAuthenticated ?? false ? (User?.FindFirst("Theme")?.Value ?? "corporate") : "corporate")">
+    data-theme="@(User?.Identity?.IsAuthenticated ?? false ? (User?.FindFirst("Theme")?.Value ?? "corporate") : "corporate")">
 
 <head>
     <meta charset="utf-8" />
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="min-h-screen">
+    <div class="min-h-[calc(100vh-65px)]">
         <div class="navbar bg-base-100 shadow-sm">
             <div class="navbar-start">
 
@@ -44,7 +44,7 @@
                         <ul class="menu menu-horizontal px-1">
                             <li>
                             <li><a asp-controller="Course" asp-action="List"
-                                    class="@(ViewBag.CurrentUrl.StartsWith("~/Course") ? "text-info" : "")">
+                                    class="@((ViewBag.CurrentUrl as string)?.StartsWith("~/Course") == true ? "text-info" : "")">
                                     Courses</a></li>
                             </li>
                         </ul>
