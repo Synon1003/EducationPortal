@@ -32,8 +32,13 @@
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addSkillToViewModel()">New</button>
-                        <button type="button" class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                        <button type="button" id="open-load-skills-button"
+                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
                     </div>
+                </div>
+
+                <div id="load-skills-container" class="ml-4">
+                    @await Html.PartialAsync("~/Views/Skill/_LoadSkillsPartial.cshtml", Model.LoadedSkills)
                 </div>
 
                 <div id="create-skills-container">
@@ -113,6 +118,7 @@
 
             </form>
 
+            @await Html.PartialAsync("~/Views/Skill/_SelectSkillModalPartial.cshtml", Model.ExistingSkills)
             @await Html.PartialAsync("~/Views/Material/_SelectVideoModalPartial.cshtml", Model.PreviouslyCreatedVideos)
             @await Html.PartialAsync("~/Views/Material/_SelectPublicationModalPartial.cshtml",
                         Model.PreviouslyCreatedPublications)

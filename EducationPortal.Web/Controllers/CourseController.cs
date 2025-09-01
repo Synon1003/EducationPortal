@@ -78,12 +78,14 @@ public class CourseController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
 
+        var existingSkills = await _userService.GetAllSkillsAsync();
         var createdVideosByUser = await _userService.GetVideosCreatedByUserIdAsync(user.Id);
         var createdPublicationsByUser = await _userService.GetPublicationsCreatedByUserIdAsync(user.Id);
         var createdArticlesByUser = await _userService.GetArticlesCreatedByUserIdAsync(user.Id);
 
         var courseCreateViewModel = new CourseCreateViewModel()
         {
+            ExistingSkills = _mapper.Map<List<SkillDetailViewModel>>(existingSkills),
             PreviouslyCreatedVideos = _mapper.Map<List<VideoViewModel>>(createdVideosByUser),
             PreviouslyCreatedPublications = _mapper.Map<List<PublicationViewModel>>(createdPublicationsByUser),
             PreviouslyCreatedArticles = _mapper.Map<List<ArticleViewModel>>(createdArticlesByUser)

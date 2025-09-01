@@ -1,0 +1,15 @@
+@model List<SkillViewModel>
+
+<div class="mb-4">
+    @for (int idx = 0; idx < Model.Count; idx++)
+    {
+        <a onclick="unloadSkillFromViewModel(@idx)" class="text-info cursor-pointer">@(idx < Model.Count - 1?
+                    Model[idx].Name + "," : Model[idx].Name)</a>
+        }
+</div>
+
+@for (int idx = 0; idx < Model.Count; idx++)
+{
+    <input type="hidden" name="LoadedSkills[@idx].Id" value="@Model[idx].Id" />
+    <input type="hidden" name="LoadedSkills[@idx].Name" value="@Model[idx].Name" />
+}
