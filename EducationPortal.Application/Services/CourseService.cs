@@ -130,27 +130,35 @@ public class CourseService : ICourseService
 
     public async Task<bool> MarkMaterialDone(Guid userId, int materialId, int courseId)
     {
-        var course = await _unitOfWork.CourseRepository
-            .GetCourseWithRelationshipsByIdAsync(courseId);
-        if (course is null)
-            throw new NotFoundException(nameof(Course), courseId);
-
-        var userCourse = await _unitOfWork.UserCourseRepository
-            .GetByFilterAsync(uc => uc.UserId == userId && uc.CourseId == courseId);
-        if (userCourse is null)
-            throw new NotFoundException(nameof(UserCourse), (userId, courseId));
+        var userCourses = await _unitOfWork.UserCourseRepository.GetAllByUserIdAsync(userId);
 
         await _unitOfWork.UserMaterialRepository.InsertAsync(
             new UserMaterial() { UserId = userId, MaterialId = materialId });
 
-        UpdateUserCoursePercentage(userId, userCourse, course.Materials);
+        var materialRelatedCourses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
 
-        if (userCourse.IsCompleted)
-            await UpdateUserSkillsByCourseSkillsAsync(userId, course.Skills);
+
+        foreach (var relatedCourse in materialRelatedCourses)
+        {
+            foreach (var userCourse in userCourses)
+            {
+                if (relatedCourse.Id == userCourse.CourseId && userCourse.ProgressPercentage != 100)
+                {
+                    UpdateUserCoursePercentage(userId, userCourse, relatedCourse.Materials);
+
+                    if (userCourse.IsCompleted)
+                    {
+                        var relatedSkills = await _unitOfWork.SkillRepository.GetSkillsByCourseIdAsync(relatedCourse.Id);
+
+                        await UpdateUserSkillsByCourseSkillsAsync(userId, relatedSkills);
+                    }
+                }
+            }
+        }
 
         await _unitOfWork.SaveChangesAsync();
 
-        return userCourse.IsCompleted;
+        return userCourses.First(uc => uc.CourseId == courseId).IsCompleted;
     }
 
     private async Task<(int, int)> GetCountersFromMaterialRatioAsync(Guid userId, Course course)

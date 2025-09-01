@@ -28,6 +28,18 @@ public class UserService : IUserService
         return _mapper.Map<List<VideoDto>>(videos);
     }
 
+    public async Task<ICollection<PublicationDto>> GetPublicationsCreatedByUserIdAsync(Guid userId)
+    {
+        var publications = await _materialRepository.GetPublicationsCreatedByUserIdAsync(userId);
+        return _mapper.Map<List<PublicationDto>>(publications);
+    }
+
+    public async Task<ICollection<ArticleDto>> GetArticlesCreatedByUserIdAsync(Guid userId)
+    {
+        var articles = await _materialRepository.GetArticlesCreatedByUserIdAsync(userId);
+        return _mapper.Map<List<ArticleDto>>(articles);
+    }
+
     public async Task<ICollection<UserSkillDto>> GetAcquiredSkillsByUserIdAsync(Guid userId)
     {
         var userSkills = await _userSkillRepository.GetAllByUserIdAsync(userId);

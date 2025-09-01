@@ -5,5 +5,6 @@ namespace EducationPortal.Data.Repositories.Interfaces;
 
 public interface IUserCourseRepository : IJoinRepository<UserCourse>
 {
+    Task<ICollection<UserCourse>> GetAllByUserIdAsync(Guid userId);
     void Update(UserCourse userCourse);
 }

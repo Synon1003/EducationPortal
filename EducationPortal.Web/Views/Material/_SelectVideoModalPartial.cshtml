@@ -15,8 +15,9 @@
                         <input type="radio" name="loadVideosSelect" value="@Model[i].Id" data-title="@Model[i].Title"
                             class="hidden" />
                         <div>
-                            <div class="font-semibold text-lg">@Model[i].Title</div>
-                            <div class="text-sm">Video</div>
+                            <div class="font-semibold text-lg">@Html.DisplayFor(c => c[i].Title)</div>
+                            <div class="text-sm">@Html.DisplayNameFor(c => c[i].Duration): @Model[i].Duration,
+                                @Html.DisplayNameFor(c => c[i].Quality): @Model[i].Quality</div>
                         </div>
                     </div>
                 }

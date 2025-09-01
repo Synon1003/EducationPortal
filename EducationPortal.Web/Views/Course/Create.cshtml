@@ -113,10 +113,11 @@
 
             </form>
 
-            @await Html.PartialAsync("~/Views/Material/_SelectVideoModalPartial.cshtml", Model.RegisteredVideos)
+            @await Html.PartialAsync("~/Views/Material/_SelectVideoModalPartial.cshtml", Model.PreviouslyCreatedVideos)
             @await Html.PartialAsync("~/Views/Material/_SelectPublicationModalPartial.cshtml",
-                        Model.RegisteredPublications)
-            @await Html.PartialAsync("~/Views/Material/_SelectArticleModalPartial.cshtml", Model.RegisteredArticles)
+                        Model.PreviouslyCreatedPublications)
+            @await Html.PartialAsync("~/Views/Material/_SelectArticleModalPartial.cshtml",
+                        Model.PreviouslyCreatedArticles)
         </div>
     </div>
 </div>

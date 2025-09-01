@@ -15,8 +15,9 @@
                         <input type="radio" name="loadPublicationsSelect" value="@Model[i].Id" data-title="@Model[i].Title"
                             class="hidden" />
                         <div>
-                            <div class="font-semibold text-lg">@Model[i].Title</div>
-                            <div class="text-sm">Publication</div>
+                            <div class="font-semibold text-lg">@Html.DisplayFor(c => c[i].Title)</div>
+                            <div class="text-sm">@Html.DisplayNameFor(c => c[i].Authors): @Model[i].Authors,
+                                @Html.DisplayNameFor(c => c[i].PublicationYear): @Model[i].PublicationYear</div>
                         </div>
                     </div>
                 }

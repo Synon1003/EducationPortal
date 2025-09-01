@@ -23,7 +23,19 @@ public class MaterialRepository : EntityFrameworkRepository<Material>, IMaterial
         await _context.Articles.AsNoTracking().Where(p => p.AcquiredByUsers.Any(u => u.Id == userId)).ToListAsync();
 
     public async Task<ICollection<Video>> GetVideosCreatedByUserIdAsync(Guid userId) =>
-        await _context.Videos.AsNoTracking().ToListAsync(); // TODO: later create CreatedBy prop for Material
+        await _context.Videos.AsNoTracking()
+            .Where(v => v.Courses.Any(c => c.CreatedBy == userId))
+            .ToListAsync();
+
+    public async Task<ICollection<Publication>> GetPublicationsCreatedByUserIdAsync(Guid userId) =>
+        await _context.Publications.AsNoTracking()
+            .Where(v => v.Courses.Any(c => c.CreatedBy == userId))
+            .ToListAsync();
+
+    public async Task<ICollection<Article>> GetArticlesCreatedByUserIdAsync(Guid userId) =>
+        await _context.Articles.AsNoTracking()
+            .Where(v => v.Courses.Any(c => c.CreatedBy == userId))
+            .ToListAsync();
 
     public async Task<Video?> GetVideoByMaterialIdAsync(int materialId) =>
         await _context.Videos.FirstOrDefaultAsync(v => v.Id == materialId);
