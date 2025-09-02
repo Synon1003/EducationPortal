@@ -4,13 +4,13 @@ using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Repositories;
 using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
-using EducationPortal.Web.Helpers;
+using EducationPortal.Data.Helpers;
 
 namespace EducationPortal.Extensions;
 
 public static class DataServiceExtensions
 {
-    public static IServiceCollection AddDbRepositories(
+    public static IServiceCollection AddDataServices(
         this IServiceCollection services,
         IConfiguration configuration)
     {

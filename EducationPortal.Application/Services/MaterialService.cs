@@ -20,13 +20,6 @@ public class MaterialService : IMaterialService
         _mapper = mapper;
     }
 
-    public async Task<ICollection<MaterialDto>> GetAllMaterialsAsync()
-    {
-        var materials = await _materialRepository.GetAll().ToListAsync();
-
-        return _mapper.Map<List<MaterialDto>>(materials);
-    }
-
     public async Task<ICollection<MaterialDto>> GetMaterialsByCourseIdAsync(int courseId)
     {
         var materials = await _materialRepository.GetMaterialsByCourseIdAsync(courseId);

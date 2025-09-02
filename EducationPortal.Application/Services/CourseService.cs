@@ -32,13 +32,6 @@ public class CourseService : ICourseService
         return _mapper.Map<List<CourseListDto>>(courses);
     }
 
-    public async Task<ICollection<CourseListDto>> GetCoursesByMaterialIdAsync(int materialId)
-    {
-        var courses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
-
-        return _mapper.Map<List<CourseListDto>>(courses);
-    }
-
     public async Task<CourseListDto> GetCourseByIdAsync(int id)
     {
         var course = await _unitOfWork.CourseRepository.GetByIdAsync(id);
@@ -82,12 +75,6 @@ public class CourseService : ICourseService
         await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<CourseDetailDto>(course);
-    }
-
-    public bool IsUserEnrolledOnCourse(Guid userId, int courseId)
-    {
-        return _unitOfWork.UserCourseRepository
-            .Exists(c => c.UserId == userId && c.CourseId == courseId);
     }
 
     public async Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId)

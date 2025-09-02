@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbRepositories(builder.Configuration);
-builder.Services.AddServices();
+builder.Services.AddDataServices(builder.Configuration)
+                .AddIdentityProviders();
+builder.Services.AddApplicationServices();
 builder.Services.AddViewModelMappers();
-builder.Services.AddIdentityProviders();
 
 if (builder.Environment.IsProduction())
 {
@@ -31,14 +31,14 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
-    await app.UpdateDatabaseMigrationsAsync();
+    await app.InitializeDatabaseAsync();
 
     app.UseHsts();
     app.UseHttpsRedirection();
 }
 else if (app.Environment.IsProduction())
 {
-    await app.InitializeDatabaseAsync();
+    await app.InitializeDatabaseFromContainerAsync();
 }
 
 app.UseStaticFiles();
