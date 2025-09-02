@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,11 +6,13 @@ namespace EducationPortal.Web.Models;
 
 public class RegisterViewModel
 {
-    [Required(ErrorMessage = "First name is required.")]
+    [DisplayName("First Name")]
+    [Required(ErrorMessage = "First Name is required.")]
     [StringLength(50)]
     public string FirstName { get; set; }
 
-    [Required(ErrorMessage = "Last name is required.")]
+    [DisplayName("Last Name")]
+    [Required(ErrorMessage = "Last Name is required.")]
     [StringLength(50)]
     public string LastName { get; set; }
 
@@ -22,8 +25,9 @@ public class RegisterViewModel
     [DataType(DataType.Password)]
     public string Password { get; set; }
 
-    [Required(ErrorMessage = "Confirm password is required.")]
+    [DisplayName("Confirm Password")]
+    [Required(ErrorMessage = "Confirm Password is required.")]
     [DataType(DataType.Password)]
-    [Compare(nameof(Password), ErrorMessage = "Password and confirm password do not match.")]
+    [Compare(nameof(Password), ErrorMessage = "Password and Confirm Password do not match.")]
     public string ConfirmPassword { get; set; }
 }

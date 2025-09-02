@@ -39,13 +39,13 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Skills</th>
-                                <th>CreatedBy</th>
+                                <th>@Html.DisplayNameFor(c => c.Courses.First().Name)</th>
+                                <th>@Html.DisplayNameFor(c => c.Courses.First().Description)</th>
+                                <th>@Html.DisplayNameFor(c => c.Courses.First().Skills)</th>
+                                <th>@Html.DisplayNameFor(c => c.Courses.First().CreatedBy)</th>
                                 @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
                                 {
-                                    <th>Progress</th>
+                                    <th>@Html.DisplayNameFor(c => c.Courses.First().UserCourse!.ProgressPercentage)</th>
                                 }
                             </tr>
                         </thead>

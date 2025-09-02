@@ -13,7 +13,7 @@ public class SkillProfile : Profile
             .ForCtorParam(ctorParamName: "AcquiredCount",
                 opt => opt.MapFrom(src => src.UserSkills.Count))
             .ForCtorParam(ctorParamName: "AcquiredMaxLevel",
-                opt => opt.MapFrom(src => src.UserSkills.Max(us => us.Level)));
+                opt => opt.MapFrom(src => src.UserSkills.Count > 0 ? src.UserSkills.Max(us => us.Level) : 0));
         CreateMap<SkillCreateDto, Skill>();
     }
 }

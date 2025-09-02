@@ -3,6 +3,7 @@ using EducationPortal.Web.Models;
 using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using EducationPortal.Web.Filters;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -56,7 +57,7 @@ public class AccountController : Controller
             await _signInManager.SignInAsync(user, isPersistent: false);
             TempData.CreateFlash("Account created successfully. You are now logged in.", "info");
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("List", "Course");
         }
 
         foreach (IdentityError error in result.Errors)
@@ -66,6 +67,7 @@ public class AccountController : Controller
         return View(registerViewModel);
     }
 
+    [NonAction]
     public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
     {
         ApplicationUser? user = await _userManager.FindByEmailAsync(email);
@@ -103,7 +105,7 @@ public class AccountController : Controller
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return LocalRedirect(returnUrl);
 
-            return RedirectToAction(nameof(CourseController.List), "Course");
+            return RedirectToAction("List", "Course");
         }
 
         ModelState.AddModelError("Login", "Invalid email or password.");
@@ -119,11 +121,12 @@ public class AccountController : Controller
         await _signInManager.SignOutAsync();
         TempData.CreateFlash("Logged out successfully.", "info");
 
-        return RedirectToAction(nameof(HomeController.Index), "Home");
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]
     [Authorize]
+    [FetchOnly]
     public async Task<IActionResult> SetUserTheme(string theme)
     {
         List<string> validThemes = ["business", "corporate"];

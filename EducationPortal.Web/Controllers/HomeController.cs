@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Diagnostics;
 
 namespace EducationPortal.Web.Controllers;
 
 [AllowAnonymous]
 public class HomeController : Controller
 {
-    public HomeController()
-    { }
-
+    [HttpGet]
     public IActionResult Index()
     {
         HomeViewModel model = new HomeViewModel
@@ -25,6 +22,7 @@ public class HomeController : Controller
         return View(model);
     }
 
+    [HttpGet]
     public IActionResult Error(string? message = null, string? type = null)
     {
         var model = new ErrorViewModel

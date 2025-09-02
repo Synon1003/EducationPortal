@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EducationPortal.Web.Models;
@@ -9,6 +10,8 @@ public class PublicationViewModel
     public string Authors { get; set; }
     public int Pages { get; set; }
     public string Format { get; set; }
+
+    [DisplayName("Publication Year")]
     public int PublicationYear { get; set; }
 }
 
@@ -30,6 +33,7 @@ public class PublicationCreateViewModel
     [StringLength(20)]
     public string Format { get; set; }
 
+    [DisplayName("Publication Year")]
     [Required]
     [Range(-1000, 3000)]
     public int PublicationYear { get; set; }
