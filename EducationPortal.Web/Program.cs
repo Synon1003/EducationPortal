@@ -1,4 +1,3 @@
-using EducationPortal.Web.Middlewares;
 using EducationPortal.Extensions;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +25,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 var app = builder.Build();
-
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseExceptionHandler("/Home/Error");
 
 if (app.Environment.IsDevelopment())
 {

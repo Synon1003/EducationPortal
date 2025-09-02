@@ -9,37 +9,20 @@
             <div class="flex-col text-center">
                 <h2 class="text-3xl font-bold text-error mb-4">Oops! Something went wrong.</h2>
 
-                @if (Model.ErrorType == "SqlException")
+                <p class="text-lg">@Model.ErrorMessage</p>
+
+                @if (User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <p class="text-lg">We’re having trouble connecting to the database. Please try again later.</p>
-                }
-                else if (Model.ErrorType == "UnauthorizedAccessException")
-                {
-                    <p class="text-lg">You don’t have permission to access this page.</p>
-                }
-                else if (Model.ErrorType == "FileNotFoundException")
-                {
-                    <p class="text-lg">The resource you were looking for could not be found.</p>
-                }
-                else if (Model.ErrorType == "ValidationException")
-                {
-                    <p class="text-lg">Some of the information you entered is invalid. Please check the form and try again.
-                    </p>
-                }
-                else if (Model.ErrorType == "BadRequestException")
-                {
-                    <p class="text-lg">The request could not be processed. Please make sure the data is correct and try
-                        again.
-                    </p>
+                    <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-24 mt-4">
+                        Go Back
+                    </a>
                 }
                 else
                 {
-                    <p class="text-lg">@Model.ErrorMessage</p>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-md btn-secondary w-24 mt-4">
+                        Go Back
+                    </a>
                 }
-
-                <a asp-controller="Home" asp-action="Index" class="btn btn-md btn-secondary w-24 mt-4">
-                    Go Back
-                </a>
             </div>
         </div>
     </div>
