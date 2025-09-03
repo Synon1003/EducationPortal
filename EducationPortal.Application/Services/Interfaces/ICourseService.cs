@@ -7,6 +7,8 @@ public interface ICourseService
     Task<ICollection<CourseListDto>> GetFilteredCoursesWithSkillsAsync(Guid userId, string filter);
     Task<CourseListDto> GetCourseByIdAsync(int id);
     Task<CourseDetailDto> GetCourseWithRelationshipsByIdAsync(int id);
+    void CheckCourseCreateValidationErrors(
+        CourseCreateDto courseCreateDto, out List<string> validationErrors);
     Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto);
 
     Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId);

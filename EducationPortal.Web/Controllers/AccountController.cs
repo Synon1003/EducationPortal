@@ -67,7 +67,7 @@ public class AccountController : Controller
         return View(registerViewModel);
     }
 
-    [NonAction]
+    [HttpGet]
     public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
     {
         ApplicationUser? user = await _userManager.FindByEmailAsync(email);

@@ -1,0 +1,48 @@
+@model CourseCreateViewModel
+
+@* ExistingSkills *@
+@for (int idx = 0; idx < Model.ExistingSkills.Count; idx++)
+{
+    <input type="hidden" name="ExistingSkills[@idx].Id" value="@Model.ExistingSkills[idx].Id" />
+    <input type="hidden" name="ExistingSkills[@idx].Name" value="@Model.ExistingSkills[idx].Name" />
+    <input type="hidden" name="ExistingSkills[@idx].AcquiredCount" value="@Model.ExistingSkills[idx].AcquiredCount" />
+    <input type="hidden" name="ExistingSkills[@idx].AcquiredMaxLevel" value="@Model.ExistingSkills[idx].AcquiredMaxLevel" />
+}
+
+@* PreviouslyCreatedVideos *@
+@for (int idx = 0; idx < Model.PreviouslyCreatedVideos.Count; idx++)
+{
+    <input type="hidden" name="PreviouslyCreatedVideos[@idx].Id" value="@Model.PreviouslyCreatedVideos[idx].Id" />
+    <input type="hidden" name="PreviouslyCreatedVideos[@idx].Title" value="@Model.PreviouslyCreatedVideos[idx].Title" />
+    <input type="hidden" name="PreviouslyCreatedVideos[@idx].Duration"
+        value="@Model.PreviouslyCreatedVideos[idx].Duration" />
+    <input type="hidden" name="PreviouslyCreatedVideos[@idx].Quality" value="@Model.PreviouslyCreatedVideos[idx].Quality" />
+}
+
+@* PreviouslyCreatedPublications *@
+@for (int idx = 0; idx < Model.PreviouslyCreatedPublications.Count; idx++)
+{
+    <input type="hidden" name="PreviouslyCreatedPublications[@idx].Id"
+        value="@Model.PreviouslyCreatedPublications[idx].Id" />
+    <input type="hidden" name="PreviouslyCreatedPublications[@idx].Title"
+        value="@Model.PreviouslyCreatedPublications[idx].Title" />
+    <input type="hidden" name="PreviouslyCreatedPublications[@idx].Authors"
+        value="@Model.PreviouslyCreatedPublications[idx].Authors" />
+    <input type="hidden" name="PreviouslyCreatedPublications[@idx].Pages"
+        value="@Model.PreviouslyCreatedPublications[idx].Pages" />
+    <input type="hidden" name="PreviouslyCreatedPublications[@idx].Format"
+        value="@Model.PreviouslyCreatedPublications[idx].Format" />
+    <input type="hidden" name="PreviouslyCreatedPublications[@idx].PublicationYear"
+        value="@Model.PreviouslyCreatedPublications[idx].PublicationYear" />
+}
+
+@* PreviouslyCreatedArticles *@
+@for (int idx = 0; idx < Model.PreviouslyCreatedArticles.Count; idx++)
+{
+    <input type="hidden" name="PreviouslyCreatedArticles[@idx].Id" value="@Model.PreviouslyCreatedArticles[idx].Id" />
+    <input type="hidden" name="PreviouslyCreatedArticles[@idx].Title" value="@Model.PreviouslyCreatedArticles[idx].Title" />
+    <input type="hidden" name="PreviouslyCreatedArticles[@idx].PublicationDate"
+        value="@Model.PreviouslyCreatedArticles[idx].PublicationDate" />
+    <input type="hidden" name="PreviouslyCreatedArticles[@idx].ResourceLink"
+        value="@Model.PreviouslyCreatedArticles[idx].ResourceLink" />
+}

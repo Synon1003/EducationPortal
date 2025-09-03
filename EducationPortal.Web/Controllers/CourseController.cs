@@ -111,6 +111,16 @@ public class CourseController : Controller
 
         var courseCreateDto = _mapper.Map<CourseCreateDto>(courseCreateViewModel) with { CreatedBy = user.Id! };
 
+        _courseService.CheckCourseCreateValidationErrors(
+            courseCreateDto, out List<string> validationErrors);
+        if (validationErrors.Count != 0)
+        {
+            TempData.Put<List<string>>("errors", validationErrors);
+            TempData.CreateFlash("Course creation failed.", "error");
+
+            return View(courseCreateViewModel);
+        }
+
         await _courseService.CreateCourseAsync(courseCreateDto);
         TempData.CreateFlash("Course created successfully.", "info");
 
