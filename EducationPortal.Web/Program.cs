@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddSerilogLogging();
 builder.Services.AddHttpLoggingWithFields();
+builder.Services.AddLocalization(options => options.ResourcesPath = "LanguageResources");
 
 builder.Services.AddDataServices(builder.Configuration)
                 .AddIdentityProviders();
@@ -19,16 +20,17 @@ if (builder.Environment.IsProduction())
 }
 
 builder.Services.AddAuthorization();
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Account/Login";
-});
+builder.Services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
 
-builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+builder.Services.AddControllersWithViews(
+    options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
+).AddViewLocalization()
+.AddDataAnnotationsLocalization();
 
 var app = builder.Build();
 app.UseExceptionHandler("/Home/Error");
 app.UseHttpLogging();
+app.UseRequestLanguages();
 
 if (app.Environment.IsDevelopment())
 {
@@ -43,7 +45,6 @@ else if (app.Environment.IsProduction())
 }
 
 app.UseStaticFiles();
-
 app.UseRouting();
 
 app.UseAuthentication();
@@ -52,6 +53,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
 
 app.Run();

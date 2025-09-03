@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EducationPortal.Web.LanguageResources;
 
 namespace EducationPortal.Web.Models;
 
@@ -30,7 +31,8 @@ public class CourseDetailViewModel
 
 public class CourseCreateViewModel
 {
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "Name_IsRequired_Error")]
+    [Display(ResourceType = typeof(Resource), Name = "Name_Label")]
     [StringLength(50)]
     public string Name { get; set; } = "";
 
