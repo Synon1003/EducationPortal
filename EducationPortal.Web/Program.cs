@@ -1,10 +1,10 @@
 using EducationPortal.Extensions;
+using EducationPortal.Web.Middlewares;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddSerilogLogging();
-builder.Services.AddHttpLoggingWithFields();
 builder.Services.AddLocalization(options => options.ResourcesPath = "LanguageResources");
 
 builder.Services.AddDataServices(builder.Configuration)
@@ -29,7 +29,7 @@ builder.Services.AddControllersWithViews(
 
 var app = builder.Build();
 app.UseExceptionHandler("/Home/Error");
-app.UseHttpLogging();
+app.UseMiddleware<HttpLoggingMiddleware>();
 app.UseRequestLanguages();
 
 if (app.Environment.IsDevelopment())

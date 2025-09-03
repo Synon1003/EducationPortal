@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.HttpLogging;
 using Serilog;
 
 namespace EducationPortal.Extensions;
@@ -15,15 +14,5 @@ public static class LogExtensions
                 .Enrich.FromLogContext();
         });
         return builder;
-    }
-
-    public static IServiceCollection AddHttpLoggingWithFields(this IServiceCollection services)
-    {
-        services.AddHttpLogging(logging =>
-        {
-            logging.LoggingFields = HttpLoggingFields.RequestProperties
-                | HttpLoggingFields.ResponsePropertiesAndHeaders;
-        });
-        return services;
     }
 }
