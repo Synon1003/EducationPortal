@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.AddSerilogLogging();
+builder.Services.AddHttpLoggingWithFields();
 
 builder.Services.AddDataServices(builder.Configuration)
                 .AddIdentityProviders();
@@ -26,6 +28,7 @@ builder.Services.AddControllersWithViews(options => options.Filters.Add(new Auto
 
 var app = builder.Build();
 app.UseExceptionHandler("/Home/Error");
+app.UseHttpLogging();
 
 if (app.Environment.IsDevelopment())
 {
