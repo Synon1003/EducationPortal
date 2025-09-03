@@ -26,6 +26,8 @@
                     </label>
                 </div>
 
+                @await Html.PartialAsync("~/Views/Course/_RehydrateLoadedPartial.cshtml", Model)
+
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-medium text-2xl">Skills</h3>
 

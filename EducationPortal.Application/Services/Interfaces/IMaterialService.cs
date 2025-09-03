@@ -4,7 +4,6 @@ namespace EducationPortal.Application.Services.Interfaces;
 
 public interface IMaterialService
 {
-    Task<ICollection<MaterialDto>> GetAllMaterialsAsync();
     Task<ICollection<MaterialDto>> GetMaterialsByCourseIdAsync(int courseId);
     Task<MaterialDto> GetByIdAsync(int id);
 

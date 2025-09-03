@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using EducationPortal.Application.Services.Interfaces;
+using EducationPortal.Web.Filters;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -18,18 +19,24 @@ public class MaterialController : Controller
         _mapper = mapper;
     }
 
+    [HttpGet]
+    [FetchOnly]
     public async Task<ActionResult<VideoViewModel>> VideoDetails(int id)
     {
         var video = await _materialService.GetVideoByMaterialIdAsync(materialId: id);
         return PartialView("_DetailsVideoPartial", _mapper.Map<VideoViewModel>(video));
     }
 
+    [HttpGet]
+    [FetchOnly]
     public async Task<ActionResult<PublicationViewModel>> PublicationDetails(int id)
     {
         var publication = await _materialService.GetPublicationByMaterialIdAsync(materialId: id);
         return PartialView("_DetailsPublicationPartial", _mapper.Map<PublicationViewModel>(publication));
     }
 
+    [HttpGet]
+    [FetchOnly]
     public async Task<ActionResult<ArticleViewModel>> ArticleDetails(int id)
     {
         var article = await _materialService.GetArticleByMaterialIdAsync(materialId: id);
@@ -37,12 +44,14 @@ public class MaterialController : Controller
     }
 
 
+    [HttpPost]
     public IActionResult AddVideoToViewModel(CourseCreateViewModel model)
     {
         model.Videos.Add(new VideoCreateViewModel());
         return PartialView("_CreateVideosListPartial", model.Videos);
     }
 
+    [HttpPost]
     public IActionResult RemoveVideoFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.Videos.Count)
@@ -51,13 +60,14 @@ public class MaterialController : Controller
         return PartialView("_CreateVideosListPartial", model.Videos);
     }
 
-
+    [HttpPost]
     public IActionResult AddPublicationToViewModel(CourseCreateViewModel model)
     {
         model.Publications.Add(new PublicationCreateViewModel());
         return PartialView("_CreatePublicationsListPartial", model.Publications);
     }
 
+    [HttpPost]
     public IActionResult RemovePublicationFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.Publications.Count)
@@ -66,13 +76,14 @@ public class MaterialController : Controller
         return PartialView("_CreatePublicationsListPartial", model.Publications);
     }
 
-
+    [HttpPost]
     public IActionResult AddArticleToViewModel(CourseCreateViewModel model)
     {
         model.Articles.Add(new ArticleCreateViewModel());
         return PartialView("_CreateArticlesListPartial", model.Articles);
     }
 
+    [HttpPost]
     public IActionResult RemoveArticleFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.Articles.Count)
@@ -81,7 +92,7 @@ public class MaterialController : Controller
         return PartialView("_CreateArticlesListPartial", model.Articles);
     }
 
-
+    [HttpPost]
     public async Task<IActionResult> LoadVideoToViewModel(CourseCreateViewModel model, int videoId, string title)
     {
         if (!model.LoadedVideos.Any(v => v.Id == videoId))
@@ -95,6 +106,7 @@ public class MaterialController : Controller
         return PartialView("_LoadVideosPartial", model.LoadedVideos);
     }
 
+    [HttpPost]
     public IActionResult UnloadVideoFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.LoadedVideos.Count)
@@ -103,6 +115,7 @@ public class MaterialController : Controller
         return PartialView("_LoadVideosPartial", model.LoadedVideos);
     }
 
+    [HttpPost]
     public async Task<IActionResult> LoadPublicationToViewModel(CourseCreateViewModel model, int publicationId, string title)
     {
         if (!model.LoadedPublications.Any(v => v.Id == publicationId))
@@ -116,6 +129,7 @@ public class MaterialController : Controller
         return PartialView("_LoadPublicationsPartial", model.LoadedPublications);
     }
 
+    [HttpPost]
     public IActionResult UnloadPublicationFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.LoadedPublications.Count)
@@ -124,6 +138,7 @@ public class MaterialController : Controller
         return PartialView("_LoadPublicationsPartial", model.LoadedPublications);
     }
 
+    [HttpPost]
     public async Task<IActionResult> LoadArticleToViewModel(CourseCreateViewModel model, int articleId, string title)
     {
         if (!model.LoadedArticles.Any(v => v.Id == articleId))
@@ -137,6 +152,7 @@ public class MaterialController : Controller
         return PartialView("_LoadArticlesPartial", model.LoadedArticles);
     }
 
+    [HttpPost]
     public IActionResult UnloadArticleFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.LoadedArticles.Count)

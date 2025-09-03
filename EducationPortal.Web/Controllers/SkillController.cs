@@ -18,12 +18,14 @@ public class SkillController : Controller
         _mapper = mapper;
     }
 
+    [HttpPost]
     public IActionResult AddSkillToViewModel(CourseCreateViewModel model)
     {
         model.Skills.Add(new SkillCreateViewModel());
         return PartialView("_CreateSkillsListPartial", model.Skills);
     }
 
+    [HttpPost]
     public IActionResult RemoveSkillFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.Skills.Count)
@@ -32,6 +34,7 @@ public class SkillController : Controller
         return PartialView("_CreateSkillsListPartial", model.Skills);
     }
 
+    [HttpPost]
     public async Task<IActionResult> LoadSkillToViewModel(CourseCreateViewModel model, int skillId, string skillName)
     {
         if (!model.LoadedSkills.Any(v => v.Id == skillId))
@@ -45,6 +48,7 @@ public class SkillController : Controller
         return PartialView("_LoadSkillsPartial", model.LoadedSkills);
     }
 
+    [HttpPost]
     public IActionResult UnloadSkillFromViewModel(CourseCreateViewModel model, int idx)
     {
         if (idx >= 0 && idx < model.LoadedSkills.Count)

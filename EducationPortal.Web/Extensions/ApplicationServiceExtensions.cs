@@ -6,7 +6,7 @@ namespace EducationPortal.Extensions;
 
 public static class ApplicationServiceExtensions
 {
-    public static IServiceCollection AddServices(
+    public static IServiceCollection AddApplicationServices(
         this IServiceCollection services)
     {
         services.AddScoped<ICourseService, CourseService>();

@@ -150,7 +150,9 @@
 <script>
     async function openModalWithPartialViewContent(url)
     {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: { "X-Fetch-Request": "true" }
+        });
         if (!response.ok) return;
 
         const html = await response.text();

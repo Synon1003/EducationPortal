@@ -15,9 +15,9 @@
                     <table class="table table-fixed w-full">
                         <thead>
                             <tr>
-                                <th class="w-4/6">Title</th>
-                                <th class="w-1/6">Duration</th>
-                                <th class="w-1/6">Quality</th>
+                                <th class="w-4/6">@Html.DisplayNameFor(c => c.Videos.First().Title)</th>
+                                <th class="w-1/6">@Html.DisplayNameFor(c => c.Videos.First().Duration)</th>
+                                <th class="w-1/6">@Html.DisplayNameFor(c => c.Videos.First().Quality)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,11 +46,11 @@
                     <table class="table table-fixed w-full">
                         <thead>
                             <tr>
-                                <th class="w-4/12">Title</th>
-                                <th class="w-4/12">Authors</th>
-                                <th class="w-1/12">Pages</th>
-                                <th class="w-1/12">Format</th>
-                                <th class="w-2/12">PublicationYear</th>
+                                <th class="w-4/12">@Html.DisplayNameFor(c => c.Publications.First().Title)</th>
+                                <th class="w-4/12">@Html.DisplayNameFor(c => c.Publications.First().Authors)</th>
+                                <th class="w-1/12">@Html.DisplayNameFor(c => c.Publications.First().Pages)</th>
+                                <th class="w-1/12">@Html.DisplayNameFor(c => c.Publications.First().Format)</th>
+                                <th class="w-2/12">@Html.DisplayNameFor(c => c.Publications.First().PublicationYear)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,9 +81,9 @@
                     <table class="table table-fixed w-full">
                         <thead>
                             <tr>
-                                <th class="w-2/5">Title</th>
-                                <th class="w-2/5">ResourceLink</th>
-                                <th class="w-1/5">PublicationDate</th>
+                                <th class="w-2/5">@Html.DisplayNameFor(c => c.Articles.First().Title)</th>
+                                <th class="w-2/5">@Html.DisplayNameFor(c => c.Articles.First().ResourceLink)</th>
+                                <th class="w-1/5">@Html.DisplayNameFor(c => c.Articles.First().PublicationDate)</th>
                             </tr>
                         </thead>
                         <tbody>

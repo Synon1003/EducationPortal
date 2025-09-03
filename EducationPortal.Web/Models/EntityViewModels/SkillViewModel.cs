@@ -14,10 +14,10 @@ public class SkillDetailViewModel
     public int Id { get; set; }
     public string Name { get; set; }
 
-    [DisplayName("acquired by")]
+    [DisplayName("Acquired by")]
     public int AcquiredCount { get; set; }
 
-    [DisplayName("highest acquired level")]
+    [DisplayName("Highest acquired level")]
     public int AcquiredMaxLevel { get; set; }
 }
 

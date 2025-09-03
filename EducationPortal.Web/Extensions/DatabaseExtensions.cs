@@ -7,7 +7,7 @@ namespace EducationPortal.Extensions;
 
 public static class DatabaseExtensions
 {
-    public static async Task InitializeDatabaseAsync(this WebApplication app)
+    public static async Task InitializeDatabaseFromContainerAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<EducationPortalDbContext>();
@@ -42,7 +42,7 @@ public static class DatabaseExtensions
         }
     }
 
-    public static async Task UpdateDatabaseMigrationsAsync(this WebApplication app)
+    public static async Task InitializeDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<EducationPortalDbContext>();

@@ -32,13 +32,6 @@ public class CourseService : ICourseService
         return _mapper.Map<List<CourseListDto>>(courses);
     }
 
-    public async Task<ICollection<CourseListDto>> GetCoursesByMaterialIdAsync(int materialId)
-    {
-        var courses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
-
-        return _mapper.Map<List<CourseListDto>>(courses);
-    }
-
     public async Task<CourseListDto> GetCourseByIdAsync(int id)
     {
         var course = await _unitOfWork.CourseRepository.GetByIdAsync(id);
@@ -57,15 +50,22 @@ public class CourseService : ICourseService
         return _mapper.Map<CourseDetailDto>(course);
     }
 
+    public void CheckCourseCreateValidationErrors(
+        CourseCreateDto courseCreateDto, out List<string> validationErrors)
+    {
+        validationErrors = [];
+
+        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
+            validationErrors.Add($"Course name ({courseCreateDto.Name}) is already taken.");
+
+        CheckSkillCreateValidationErrors(courseCreateDto.Skills, validationErrors);
+        CheckVideoCreateValidationErrors(courseCreateDto.Videos, validationErrors);
+        CheckPublicationCreateValidationErrors(courseCreateDto.Publications, validationErrors);
+        CheckArticleCreateValidationErrors(courseCreateDto.Articles, validationErrors);
+    }
+
     public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
     {
-        if (courseCreateDto.CreatedBy is null)
-            throw new BadRequestException($"User id ({courseCreateDto.CreatedBy}) cannot be null.");
-
-        CheckValidationErrors(courseCreateDto, out List<string> validationErrors);
-        if (validationErrors.Any())
-            throw new ValidationException(validationErrors);
-
         Course course = new Course
         {
             Name = courseCreateDto.Name,
@@ -82,12 +82,6 @@ public class CourseService : ICourseService
         await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<CourseDetailDto>(course);
-    }
-
-    public bool IsUserEnrolledOnCourse(Guid userId, int courseId)
-    {
-        return _unitOfWork.UserCourseRepository
-            .Exists(c => c.UserId == userId && c.CourseId == courseId);
     }
 
     public async Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId)
@@ -246,33 +240,6 @@ public class CourseService : ICourseService
         }
     }
 
-    private void CheckValidationErrors(CourseCreateDto courseCreateDto, out List<string> validationErrors)
-    {
-        validationErrors = new List<string>();
-
-        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
-            validationErrors.Add($"Course ({courseCreateDto.Name}) already exists in the db.");
-
-        foreach (var skill in courseCreateDto.Skills)
-            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
-                validationErrors.Add($"Skill ({skill.Name}) already exists in the db.");
-
-        foreach (var video in courseCreateDto.Videos)
-            if (_unitOfWork.MaterialRepository.Exists(
-                m => m.Title == video.Title && m.Type == "Video"))
-                validationErrors.Add($"Video ({video.Title}) already exists in the db.");
-
-        foreach (var publication in courseCreateDto.Publications)
-            if (_unitOfWork.MaterialRepository.Exists(
-                m => m.Title == publication.Title && m.Type == "Publication"))
-                validationErrors.Add($"Publication ({publication.Title}) already exists in the db.");
-
-        foreach (var article in courseCreateDto.Articles)
-            if (_unitOfWork.MaterialRepository.Exists(
-                m => m.Title == article.Title && m.Type == "Article"))
-                validationErrors.Add($"Article ({article.Title}) already exists in the db.");
-    }
-
     private int CountUserMaterials(Guid userId, ICollection<Material> materials)
     {
         int count = 0;
@@ -311,5 +278,64 @@ public class CourseService : ICourseService
                 _unitOfWork.UserSkillRepository.Update(userSkill);
             }
         }
+    }
+
+    private void CheckSkillCreateValidationErrors(
+        List<SkillCreateDto> skills, List<string> validationErrors)
+    {
+        var duplicateSkillNames = skills
+            .GroupBy(s => s.Name).Where(g => g.Count() > 1).Select(g => g.Key);
+
+        foreach (var skill in duplicateSkillNames)
+            validationErrors.Add($"Skill name ({skill}) is duplicated.");
+
+        foreach (var skill in skills)
+            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
+                validationErrors.Add($"Skill name ({skill.Name}) is already taken.");
+    }
+
+    private void CheckVideoCreateValidationErrors(
+        List<VideoCreateDto> videos, List<string> validationErrors)
+    {
+        var duplicateVideoTitles = videos
+            .GroupBy(v => v.Title).Where(g => g.Count() > 1).Select(g => g.Key);
+
+        foreach (var video in duplicateVideoTitles)
+            validationErrors.Add($"Video title ({video}) is duplicated.");
+
+        foreach (var video in videos)
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == video.Title && m.Type == "Video"))
+                validationErrors.Add($"Video title ({video.Title}) is already taken.");
+    }
+
+    private void CheckPublicationCreateValidationErrors(
+        List<PublicationCreateDto> publications, List<string> validationErrors)
+    {
+        var duplicatePublicationTitles = publications
+            .GroupBy(v => v.Title).Where(g => g.Count() > 1).Select(g => g.Key);
+
+        foreach (var publication in duplicatePublicationTitles)
+            validationErrors.Add($"Publication title ({publication}) is duplicated.");
+
+        foreach (var publication in publications)
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == publication.Title && m.Type == "Publication"))
+                validationErrors.Add($"Publication title ({publication.Title}) is already taken.");
+    }
+
+    private void CheckArticleCreateValidationErrors(
+        List<ArticleCreateDto> articles, List<string> validationErrors)
+    {
+        var duplicateArticleTitles = articles
+            .GroupBy(v => v.Title).Where(g => g.Count() > 1).Select(g => g.Key);
+
+        foreach (var article in duplicateArticleTitles)
+            validationErrors.Add($"Article title ({article}) is duplicated.");
+
+        foreach (var article in articles)
+            if (_unitOfWork.MaterialRepository.Exists(
+                m => m.Title == article.Title && m.Type == "Article"))
+                validationErrors.Add($"Article title ({article.Title}) is already taken.");
     }
 }

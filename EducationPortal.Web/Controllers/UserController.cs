@@ -9,7 +9,6 @@ using AutoMapper;
 namespace EducationPortal.Web.Controllers;
 
 [Authorize]
-
 public class UserController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
@@ -43,6 +42,7 @@ public class UserController : Controller
         return RedirectToAction(nameof(CourseController.Details), "Course", new { id = id });
     }
 
+    [HttpGet]
     public async Task<IActionResult> SetCourseMaterialDone(int courseId, int materialId)
     {
         var user = await _userManager.GetUserAsync(User);

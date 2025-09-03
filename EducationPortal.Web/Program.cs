@@ -1,14 +1,13 @@
-using EducationPortal.Web.Middlewares;
 using EducationPortal.Extensions;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbRepositories(builder.Configuration);
-builder.Services.AddServices();
+builder.Services.AddDataServices(builder.Configuration)
+                .AddIdentityProviders();
+builder.Services.AddApplicationServices();
 builder.Services.AddViewModelMappers();
-builder.Services.AddIdentityProviders();
 
 if (builder.Environment.IsProduction())
 {
@@ -26,19 +25,18 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
 var app = builder.Build();
-
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseExceptionHandler("/Home/Error");
 
 if (app.Environment.IsDevelopment())
 {
-    await app.UpdateDatabaseMigrationsAsync();
+    await app.InitializeDatabaseAsync();
 
     app.UseHsts();
     app.UseHttpsRedirection();
 }
 else if (app.Environment.IsProduction())
 {
-    await app.InitializeDatabaseAsync();
+    await app.InitializeDatabaseFromContainerAsync();
 }
 
 app.UseStaticFiles();

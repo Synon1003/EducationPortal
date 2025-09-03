@@ -2,15 +2,15 @@ using Microsoft.AspNetCore.Mvc;
 using EducationPortal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
+using EducationPortal.Application.Exceptions;
+using Microsoft.Data.SqlClient;
 
 namespace EducationPortal.Web.Controllers;
 
 [AllowAnonymous]
 public class HomeController : Controller
 {
-    public HomeController()
-    { }
-
+    [HttpGet]
     public IActionResult Index()
     {
         HomeViewModel model = new HomeViewModel
@@ -25,15 +25,26 @@ public class HomeController : Controller
         return View(model);
     }
 
-    public IActionResult Error(string? message = null, string? type = null)
+    public IActionResult Error()
     {
+        var ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+        string message = ex?.Message ?? "An unexpected error occurred. Please try again later.";
+
+        if (ex is SqlException)
+        {
+            message = "We are having trouble connecting to the database. Please try again later.";
+        }
+        else if (ex is ValidationException vex)
+        {
+            message = string.Join("\n", vex.Errors);
+        }
+
         var model = new ErrorViewModel
         {
-            ErrorMessage = message ?? "An unexpected error occurred. Please try again later.",
-            ErrorType = type
+            ErrorMessage = message,
+            ErrorType = ex?.GetType().Name ?? "Exception"
         };
-
-        TempData.CreateFlash(model.ErrorMessage, "error");
 
         return View(model);
     }
