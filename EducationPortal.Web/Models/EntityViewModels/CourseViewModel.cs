@@ -6,25 +6,25 @@ namespace EducationPortal.Web.Models;
 public class CourseListViewModel
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Name { get; set; } = "";
+    public string Description { get; set; } = "";
     public List<string> Skills { get; set; } = [];
 
     [DisplayName("Created By")]
-    public string CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = "";
     public UserCourseViewModel? UserCourse { get; set; }
 }
 
 public class CourseDetailViewModel
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Name { get; set; } = "";
+    public string Description { get; set; } = "";
     public List<string> Skills { get; set; } = [];
     public List<string> Materials { get; set; } = [];
 
     [DisplayName("Created By")]
-    public string CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = "";
     public UserCourseViewModel? UserCourse { get; set; }
 }
 
@@ -32,11 +32,11 @@ public class CourseCreateViewModel
 {
     [Required]
     [StringLength(50)]
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 
     [Required]
     [StringLength(250)]
-    public string Description { get; set; }
+    public string Description { get; set; } = "";
 
     [DisplayName("Skills")]
     public List<SkillCreateViewModel> Skills { get; set; } = [];

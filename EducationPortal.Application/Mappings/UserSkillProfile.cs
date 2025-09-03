@@ -10,6 +10,6 @@ public class UserSkillProfile : Profile
     {
         CreateMap<UserSkill, UserSkillDto>()
             .ForCtorParam(ctorParamName: "Name",
-                opt => opt.MapFrom(src => src.Skill.Name));
+                opt => opt.MapFrom(src => src.Skill!.Name));
     }
 }
