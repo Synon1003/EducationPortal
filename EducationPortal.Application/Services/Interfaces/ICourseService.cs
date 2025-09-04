@@ -14,5 +14,6 @@ public interface ICourseService
     Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId);
     bool IsUserDoneWithMaterial(Guid userId, int materialId);
     Task<bool> EnrollUserOnCourseAsync(Guid userId, int courseId);
+    Task LeaveCourseAsync(Guid userId, int courseId);
     Task<bool> MarkMaterialDone(Guid userId, int materialId, int courseId);
 }

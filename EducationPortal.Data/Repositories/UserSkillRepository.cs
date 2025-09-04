@@ -11,4 +11,9 @@ public class UserSkillRepository : EntityFrameworkJoinRepository<UserSkill>, IUs
 
     public async Task<ICollection<UserSkill>> GetAllByUserIdAsync(Guid userId) =>
         await _context.UserSkills.Include(us => us.Skill).Where(us => us.UserId == userId).ToListAsync();
+
+    public void Update(UserSkill userSkill)
+    {
+        _context.UserSkills.Update(userSkill);
+    }
 }

@@ -651,5 +651,27 @@ namespace EducationPortal.Web.LanguageResources
                 return ResourceManager.GetString("Email", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Enroll.
+        /// </summary>
+        public static string Enroll
+        {
+            get
+            {
+                return ResourceManager.GetString("Enroll", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Leave.
+        /// </summary>
+        public static string Leave
+        {
+            get
+            {
+                return ResourceManager.GetString("Leave", resourceCulture);
+            }
+        }
     }
 }

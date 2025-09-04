@@ -127,6 +127,17 @@ public class CourseService : ICourseService
         return isInstantCompleted;
     }
 
+    public async Task LeaveCourseAsync(Guid userId, int courseId)
+    {
+        var userCourse = await _unitOfWork.UserCourseRepository
+            .GetByFilterAsync(c => c.CourseId == courseId && c.UserId == userId);
+        if (userCourse is null)
+            throw new NotFoundException(nameof(UserCourse), (userId, courseId));
+
+        _unitOfWork.UserCourseRepository.Delete(userCourse);
+        await _unitOfWork.SaveChangesAsync();
+    }
+
     public bool IsUserDoneWithMaterial(Guid userId, int materialId)
     {
         return _unitOfWork.UserMaterialRepository

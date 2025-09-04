@@ -15,7 +15,6 @@
                         style="--value:(@Model.UserCourse.ProgressPercentage); --size:3rem;"
                         aria-valuenow="@Model.UserCourse.ProgressPercentage" role="progressbar">
                         @Model.UserCourse.ProgressPercentage%</div>
-
                 }
                 else
                 {
@@ -49,10 +48,18 @@
                 </a>
                 @if (Model.UserCourse is not null)
                 {
-                    <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
-                        class="btn btn-md btn-info w-24">
-                        @Html.Translate("Materials")
-                    </a>
+                    <div class="flex items-center space-x-2">
+                        @if (Model.UserCourse.ProgressPercentage != 100)
+                        {
+                            <a asp-controller="User" asp-action="LeaveCourse" asp-route-id="@Model.Id"
+                                class="btn btn-error btn-md w-24">@Html.Translate("Leave")</a>
+                        }
+
+                        <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
+                            class="btn btn-md btn-info w-24">
+                            @Html.Translate("Materials")
+                        </a>
+                    </div>
                 }
             </div>
         </div>

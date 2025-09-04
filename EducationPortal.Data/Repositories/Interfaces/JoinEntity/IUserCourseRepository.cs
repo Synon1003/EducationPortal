@@ -7,4 +7,5 @@ public interface IUserCourseRepository : IJoinRepository<UserCourse>
 {
     Task<ICollection<UserCourse>> GetAllByUserIdAsync(Guid userId);
     void Update(UserCourse userCourse);
+    void Delete(UserCourse userCourse);
 }

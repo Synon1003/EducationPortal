@@ -43,6 +43,19 @@ public class UserController : Controller
     }
 
     [HttpGet]
+    public async Task<IActionResult> LeaveCourse(int id)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        await _courseService.LeaveCourseAsync(user.Id, id);
+
+        TempData.CreateFlash("You left the course successfully.", "info");
+
+        return RedirectToAction(nameof(CourseController.Details), "Course", new { id = id });
+    }
+
+    [HttpGet]
     public async Task<IActionResult> SetCourseMaterialDone(int courseId, int materialId)
     {
         var user = await _userManager.GetUserAsync(User);

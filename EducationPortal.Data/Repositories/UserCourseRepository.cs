@@ -13,4 +13,14 @@ public class UserCourseRepository : EntityFrameworkJoinRepository<UserCourse>, I
         await _context.UserCourses.AsNoTracking()
             .Where(us => us.UserId == userId)
             .ToListAsync();
+
+    public void Update(UserCourse userCourse)
+    {
+        _context.UserCourses.Update(userCourse);
+    }
+
+    public void Delete(UserCourse userCourse)
+    {
+        _context.UserCourses.Remove(userCourse);
+    }
 }
