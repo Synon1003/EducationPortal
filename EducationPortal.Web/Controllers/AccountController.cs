@@ -40,7 +40,7 @@ public class AccountController : Controller
         {
             TempData.Put<List<string>>("errors",
                 [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
-            TempData.CreateFlash("Registration failed.", "error");
+            TempData.CreateFlash("RegistrationFailedFlash", "error");
 
             return View(registerViewModel);
         }
@@ -58,7 +58,7 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             await _signInManager.SignInAsync(user, isPersistent: false);
-            TempData.CreateFlash("Account created successfully. You are now logged in.", "info");
+            TempData.CreateFlash("AccountCreatedSuccessfullyYouAreNowLoggedInFlash.", "info");
             _logger.LogInformation("Created <User Email={Email}>", user.Email);
 
             return RedirectToAction("List", "Course");
@@ -66,7 +66,7 @@ public class AccountController : Controller
 
         foreach (IdentityError error in result.Errors)
             ModelState.AddModelError("Register", error.Description);
-        TempData.CreateFlash("Registration failed.", "error");
+        TempData.CreateFlash("RegistrationFailedFlash", "error");
 
         return View(registerViewModel);
     }
@@ -94,7 +94,7 @@ public class AccountController : Controller
         {
             TempData.Put<List<string>>("errors",
                 [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
-            TempData.CreateFlash("Login failed.", "error");
+            TempData.CreateFlash("LogInFailedFlash", "error");
 
             return View(loginViewModel);
         }
@@ -104,7 +104,7 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
-            TempData.CreateFlash("Logged in successfully.", "info");
+            TempData.CreateFlash("LoggedInSuccessfullyFlash", "info");
             _logger.LogInformation("Logged in <User Email={Email}>", loginViewModel.Email);
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -113,8 +113,8 @@ public class AccountController : Controller
             return RedirectToAction("List", "Course");
         }
 
-        ModelState.AddModelError("Login", "Invalid email or password.");
-        TempData.CreateFlash("Login failed.", "error");
+        ModelState.AddModelError("Login", "InvalidEmailOrPasswordFlash");
+        TempData.CreateFlash("LogInFailedFlash", "error");
 
         return View(loginViewModel);
     }
@@ -129,7 +129,7 @@ public class AccountController : Controller
 
         await _signInManager.SignOutAsync();
 
-        TempData.CreateFlash("Logged out successfully.", "info");
+        TempData.CreateFlash("LoggedOutSuccessfullyFlash", "info");
         _logger.LogInformation("Logged out <User Email={Email}>", user.Email);
 
         return RedirectToAction("Index", "Home");
@@ -143,7 +143,7 @@ public class AccountController : Controller
         List<string> validThemes = ["business", "corporate"];
         if (!validThemes.Contains(theme))
         {
-            return Problem("Invalid theme");
+            return BadRequest("Invalid theme.");
         }
 
         var user = await _userManager.GetUserAsync(User);
@@ -165,7 +165,7 @@ public class AccountController : Controller
         List<string> validLanguages = ["en", "hu"];
         if (!validLanguages.Contains(language))
         {
-            return Problem("Invalid language");
+            return BadRequest("Invalid language.");
         }
 
         var user = await _userManager.GetUserAsync(User);

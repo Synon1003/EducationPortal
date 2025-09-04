@@ -1,13 +1,13 @@
 @model LoginViewModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = @Html.Translate("Login");
     ViewBag.CurrentUrl = "~/Account/Login";
 }
 
 <div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
     <div class="card card-border w-96 bg-base-200 shadow-sm" data-aos="zoom-in">
         <div class="card-body">
-            <h3 class="font-medium text-3xl ml-2 mb-4">Login</h3>
+            <h3 class="font-medium text-3xl ml-2 mb-4">@Html.Translate("Login")</h3>
 
             <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]"
                 method="post">
@@ -25,12 +25,12 @@
                             class="input input-md w-full" />
                         <span asp-validation-for="Password" class="text-error text-sm ml-1"></span>
                 </div>
-                <div class="flex items-center justify-end">Do not have an account? <a asp-controller="Account"
-                        asp-action="Register" class="text-primary ml-1">
-                        Register</a></div>
+                <div class="flex items-center justify-end">@Html.Translate("DoNotHaveAnAccount")<a
+                        asp-controller="Account" asp-action="Register" class="text-primary ml-1">
+                        @Html.Translate("SignUp")</a></div>
                 <div asp-validation-summary="All" class="text-error text-sm"></div>
                 <partial name="_ControllerErrorsPartial" />
-                <button type="submit" class="btn btn-md btn-primary">Login</button>
+                <button type="submit" class="btn btn-md btn-primary">@Html.Translate("Login")</button>
             </form>
         </div>
     </div>

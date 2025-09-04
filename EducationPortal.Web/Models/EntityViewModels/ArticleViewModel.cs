@@ -20,17 +20,17 @@ public class ArticleViewModel
 
 public class ArticleCreateViewModel
 {
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "TitleIsRequiredError")]
     [StringLength(100)]
     [Display(ResourceType = typeof(Resource), Name = "Title")]
     public string Title { get; set; } = "";
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "PublicationDateIsRequiredError")]
     [DataType(DataType.Date)]
     [Display(ResourceType = typeof(Resource), Name = "PublicationDate")]
     public DateOnly PublicationDate { get; set; }
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "ResourceLinkIsRequiredError")]
     [StringLength(500)]
     [Display(ResourceType = typeof(Resource), Name = "ResourceLink")]
     public string ResourceLink { get; set; } = "";

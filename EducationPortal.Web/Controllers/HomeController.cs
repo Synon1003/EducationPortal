@@ -15,13 +15,13 @@ public class HomeController : Controller
     {
         HomeViewModel model = new HomeViewModel
         {
-            Header = "Education Portal",
-            SubHeader = "Your gateway to knowledge and learning",
-            WelcomeText = "Improve Your skills by completing various courses or create courses to teach your friends",
-            AdviceHeader = "Create Your own course",
-            AdviceText = "Label the skills it touches upon and provide the materials"
-
+            Header = "HomeHeader",
+            SubHeader = "HomeSubHeader",
+            WelcomeText = "HomeWelcomeText",
+            AdviceHeader = "HomeAdviceHeader",
+            AdviceText = "HomeAdviceText"
         };
+
         return View(model);
     }
 
@@ -29,11 +29,11 @@ public class HomeController : Controller
     {
         var ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
 
-        string message = ex?.Message ?? "An unexpected error occurred. Please try again later.";
+        string message = ex?.Message ?? "UnexpectedError";
 
         if (ex is SqlException)
         {
-            message = "We are having trouble connecting to the database. Please try again later.";
+            message = "SqlError";
         }
         else if (ex is ValidationException vex)
         {

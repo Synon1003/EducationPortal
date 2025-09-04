@@ -79,9 +79,12 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="NameIsRequiredError" xml:space="preserve"><value>Name is required.</value></data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DescriptionIsRequiredError" xml:space="preserve"><value>Description is required.</value></data>
+  
   <data name="Skills" xml:space="preserve">
     <value>Skills</value>
   </data>
@@ -130,6 +133,33 @@
   <data name="ResourceLink" xml:space="preserve">
     <value>Resource Link</value>
   </data>
+  <data name="TitleIsRequiredError" xml:space="preserve">
+    <value>Title is required.</value>
+  </data>
+  <data name="DurationIsRequiredError" xml:space="preserve">
+    <value>Duration is required.</value>
+  </data>
+  <data name="QualityIsRequiredError" xml:space="preserve">
+    <value>Quality is required.</value>
+  </data>
+  <data name="AuthorsIsRequiredError" xml:space="preserve">
+    <value>Authors is required.</value>
+  </data>
+  <data name="PagesIsRequiredError" xml:space="preserve">
+    <value>Pages is required.</value>
+  </data>
+  <data name="FormatIsRequiredError" xml:space="preserve">
+    <value>Format is required.</value>
+  </data>
+  <data name="PublicationYearIsRequiredError" xml:space="preserve">
+    <value>Publication Year is required.</value>
+  </data>
+  <data name="PublicationDateIsRequiredError" xml:space="preserve">
+    <value>Publication Date is required.</value>
+  </data>
+  <data name="ResourceLinkIsRequiredError" xml:space="preserve">
+    <value>Resource Link is required.</value>
+  </data>
   <data name="SelectSkill" xml:space="preserve">
     <value>Select Skill</value>
   </data>
@@ -146,7 +176,7 @@
     <value>Acquired by</value>
   </data>
   <data name="HighestAcquiredLevel" xml:space="preserve">
-    <value>Highest acquired level</value>
+    <value>Highest Acquired Level</value>
   </data>
   <data name="SelectVideo" xml:space="preserve">
     <value>Select Video</value>
@@ -166,16 +196,184 @@
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
+  <data name="FirstNameIsRequiredError" xml:space="preserve">
+    <value>First Name is required.</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
+  <data name="LastNameIsRequiredError" xml:space="preserve">
+    <value>Last Name is required.</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="EmailIsRequiredError" xml:space="preserve">
+    <value>Email is required.</value>
+  </data>
+  <data name="EmailFormatError" xml:space="preserve">
+    <value>Email should be in email address format.</value>
+  </data>
+  <data name="EmailIsAlreadyTakenError" xml:space="preserve">
+    <value>Email is already taken.</value>
   </data>
   <data name="Enroll" xml:space="preserve">
     <value>Enroll</value>
   </data>
   <data name="Leave" xml:space="preserve">
     <value>Leave</value>
+  </data>
+  <data name="RegistrationFailedFlash" xml:space="preserve">
+    <value>Registration failed.</value>
+  </data>
+  <data name="AccountCreatedSuccessfullyYouAreNowLoggedInFlash" xml:space="preserve">
+    <value>Account created successfully. You are now logged in.</value>
+  </data>
+  <data name="LogInFailedFlash" xml:space="preserve">
+    <value>Login failed.</value>
+  </data>
+  <data name="LoggedInSuccessfullyFlash" xml:space="preserve">
+    <value>Logged in successfully.</value>
+  </data>
+  <data name="LoggedOutSuccessfullyFlash" xml:space="preserve">
+    <value>Logged out successfully.</value>
+  </data>
+  <data name="CourseCreationFailedFlash" xml:space="preserve">
+    <value>Course creation failed.</value>
+  </data>
+  <data name="CourseCreatedSuccessfullyFlash" xml:space="preserve">
+    <value>Course created successfully.</value>
+  </data>
+  <data name="CongratulationsYouPassedSuccessfullyFlash" xml:space="preserve">
+    <value>Congratulations! You passed successfully.</value>
+  </data>
+  <data name="YouEnrolledSuccessfullyFlash" xml:space="preserve">
+    <value>You enrolled successfully.</value>
+  </data>
+  <data name="YouLeftTheCourseSuccessfullyFlash" xml:space="preserve">
+    <value>You left the course successfully.</value>
+  </data>
+  <data name="MaterialMarkedAsDoneFlash" xml:space="preserve">
+    <value>Material marked as Done.</value>
+  </data>
+  <data name="InvalidEmailOrPasswordFlash" xml:space="preserve">
+    <value>Invalid email or password.</value>
+  </data>
+  <data name="CourseName_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Course name ({0}) is already taken.</value>
+  </data>
+  <data name="SkillName_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Skill name ({0}) is already taken.</value>
+  </data>
+  <data name="SkillName_IsDuplicatedFlash" xml:space="preserve">
+    <value>Skill name ({0}) is duplicated.</value>
+  </data>
+  <data name="VideoTitle_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Video title ({0}) is already taken.</value>
+  </data>
+  <data name="VideoTitle_IsDuplicatedFlash" xml:space="preserve">
+    <value>Video title ({0}) is duplicated.</value>
+  </data>
+  <data name="PublicationTitle_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Publication title ({0}) is already taken.</value>
+  </data>
+  <data name="PublicationTitle_IsDuplicatedFlash" xml:space="preserve">
+    <value>Publication title ({0}) is duplicated.</value>
+  </data>
+  <data name="ArticleTitle_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Article title ({0}) is already taken.</value>
+  </data>
+  <data name="ArticleTitle_IsDuplicatedFlash" xml:space="preserve">
+    <value>Article title ({0}) is duplicated.</value>
+  </data>
+  <data name="HomeHeader" xml:space="preserve">
+    <value>Education Portal</value>
+  </data>
+  <data name="HomeSubHeader" xml:space="preserve">
+    <value>Your gateway to knowledge and learning</value>
+  </data>
+  <data name="HomeWelcomeText" xml:space="preserve">
+    <value>Improve your skills by completing various courses or create courses to teach your friends</value>
+  </data>
+  <data name="HomeAdviceHeader" xml:space="preserve">
+    <value>Create your own course</value>
+  </data>
+  <data name="HomeAdviceText" xml:space="preserve">
+    <value>Label the skills it touches upon and provide the materials</value>
+  </data>
+  <data name="ExampleGitCourseName" xml:space="preserve">
+    <value>Git - Gitlab</value>
+  </data>
+  <data name="ExampleGitCourseDescription" xml:space="preserve">
+    <value>A course to teach you how to collaborate with others on gitlab</value>
+  </data>
+  <data name="ExampleGitCourseSkills" xml:space="preserve">
+    <value>Git, Gitlab</value>
+  </data>
+  <data name="ExampleDotnetCourseName" xml:space="preserve">
+    <value>Dotnet course</value>
+  </data>
+  <data name="ExampleDotnetCourseDescription" xml:space="preserve">
+    <value>A course to create Asp.Net Core MVC applications</value>
+  </data>
+  <data name="ExampleDotnetCourseSkills" xml:space="preserve">
+    <value>C#, Asp.Net Core</value>
+  </data>
+  <data name="ExampleAnswersCourseName" xml:space="preserve">
+    <value>Answers</value>
+  </data>
+  <data name="ExampleAnswersCourseDescription" xml:space="preserve">
+    <value>Learn to choose between multiple correct answers quickly</value>
+  </data>
+  <data name="ExampleAnswersCourseSkills" xml:space="preserve">
+    <value>Speed reading</value>
+  </data>
+  <data name="SomethingWentWrongError" xml:space="preserve">
+    <value>Oops! Something went wrong.</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred. Please try again later.</value>
+  </data>
+  <data name="SqlError" xml:space="preserve">
+    <value>We are having trouble connecting to the database. Please try again later.</value>
+  </data>
+  <data name="XFetchBadRequestError" xml:space="preserve">
+    <value>The request could not be processed. Please make sure the data is correct.</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="IAlreadyHaveAnAccount" xml:space="preserve">
+    <value>I already have an account</value>
+  </data>
+  <data name="DoNotHaveAnAccount" xml:space="preserve">
+    <value>Do not have an account?</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordIsRequiredError" xml:space="preserve">
+    <value>Password is required.</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="ConfirmPasswordIsRequiredError" xml:space="preserve">
+    <value>Confirm Password is required.</value>
+  </data>
+  <data name="PasswordAndConfirmPasswordDoNotMatchError" xml:space="preserve">
+    <value>"Password and Confirm Password do not match."</value>
   </data>
 </root>

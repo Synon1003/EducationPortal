@@ -101,7 +101,7 @@ public class CourseController : Controller
         {
             TempData.Put<List<string>>("errors",
                 [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
-            TempData.CreateFlash("Course creation failed.", "error");
+            TempData.CreateFlash("CourseCreationFailedFlash", "error");
 
             return View(courseCreateViewModel);
         }
@@ -116,13 +116,13 @@ public class CourseController : Controller
         if (validationErrors.Count != 0)
         {
             TempData.Put<List<string>>("errors", validationErrors);
-            TempData.CreateFlash("Course creation failed.", "error");
+            TempData.CreateFlash("CourseCreationFailedFlash", "error");
 
             return View(courseCreateViewModel);
         }
 
         await _courseService.CreateCourseAsync(courseCreateDto);
-        TempData.CreateFlash("Course created successfully.", "info");
+        TempData.CreateFlash("CourseCreatedSuccessfullyFlash", "info");
 
         return RedirectToAction(nameof(List));
     }

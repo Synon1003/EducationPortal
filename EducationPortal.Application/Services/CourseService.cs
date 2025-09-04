@@ -63,7 +63,7 @@ public class CourseService : ICourseService
         validationErrors = [];
 
         if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
-            validationErrors.Add($"Course name ({courseCreateDto.Name}) is already taken.");
+            validationErrors.Add($"CourseName({courseCreateDto.Name})IsAlreadyTakenFlash");
 
         CheckSkillCreateValidationErrors(courseCreateDto.Skills, validationErrors);
         CheckVideoCreateValidationErrors(courseCreateDto.Videos, validationErrors);
@@ -310,11 +310,11 @@ public class CourseService : ICourseService
             .GroupBy(s => s.Name).Where(g => g.Count() > 1).Select(g => g.Key);
 
         foreach (var skill in duplicateSkillNames)
-            validationErrors.Add($"Skill name ({skill}) is duplicated.");
+            validationErrors.Add($"SkillName({skill})IsDuplicatedFlash");
 
         foreach (var skill in skills)
             if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
-                validationErrors.Add($"Skill name ({skill.Name}) is already taken.");
+                validationErrors.Add($"SkillName({skill.Name})IsAlreadyTakenFlash");
     }
 
     private void CheckVideoCreateValidationErrors(
@@ -324,12 +324,12 @@ public class CourseService : ICourseService
             .GroupBy(v => v.Title).Where(g => g.Count() > 1).Select(g => g.Key);
 
         foreach (var video in duplicateVideoTitles)
-            validationErrors.Add($"Video title ({video}) is duplicated.");
+            validationErrors.Add($"VideoTitle({video})IsDuplicatedFlash");
 
         foreach (var video in videos)
             if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == video.Title && m.Type == "Video"))
-                validationErrors.Add($"Video title ({video.Title}) is already taken.");
+                validationErrors.Add($"VideoTitle({video.Title})IsAlreadyTakenFlash");
     }
 
     private void CheckPublicationCreateValidationErrors(
@@ -339,12 +339,12 @@ public class CourseService : ICourseService
             .GroupBy(v => v.Title).Where(g => g.Count() > 1).Select(g => g.Key);
 
         foreach (var publication in duplicatePublicationTitles)
-            validationErrors.Add($"Publication title ({publication}) is duplicated.");
+            validationErrors.Add($"PublicationTitle({publication})IsDuplicatedFlash");
 
         foreach (var publication in publications)
             if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == publication.Title && m.Type == "Publication"))
-                validationErrors.Add($"Publication title ({publication.Title}) is already taken.");
+                validationErrors.Add($"PublicationTitle({publication.Title})IsAlreadyTakenFlash");
     }
 
     private void CheckArticleCreateValidationErrors(
@@ -354,11 +354,11 @@ public class CourseService : ICourseService
             .GroupBy(v => v.Title).Where(g => g.Count() > 1).Select(g => g.Key);
 
         foreach (var article in duplicateArticleTitles)
-            validationErrors.Add($"Article title ({article}) is duplicated.");
+            validationErrors.Add($"ArticleTitle({article})IsDuplicatedFlash");
 
         foreach (var article in articles)
             if (_unitOfWork.MaterialRepository.Exists(
                 m => m.Title == article.Title && m.Type == "Article"))
-                validationErrors.Add($"Article title ({article.Title}) is already taken.");
+                validationErrors.Add($"ArticleTitle({article.Title})IsAlreadyTakenFlash");
     }
 }

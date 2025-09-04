@@ -25,27 +25,27 @@ public class PublicationViewModel
 
 public class PublicationCreateViewModel
 {
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "TitleIsRequiredError")]
     [StringLength(100)]
     [Display(ResourceType = typeof(Resource), Name = "Title")]
     public string Title { get; set; } = "";
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "AuthorsIsRequiredError")]
     [StringLength(250)]
     [Display(ResourceType = typeof(Resource), Name = "Authors")]
     public string Authors { get; set; } = "";
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "PagesIsRequiredError")]
     [Range(0, 9999)]
     [Display(ResourceType = typeof(Resource), Name = "Pages")]
     public int Pages { get; set; }
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "FormatIsRequiredError")]
     [StringLength(20)]
     [Display(ResourceType = typeof(Resource), Name = "Format")]
     public string Format { get; set; } = "";
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "PublicationYearIsRequiredError")]
     [Range(-1000, 3000)]
     [Display(ResourceType = typeof(Resource), Name = "PublicationYear")]
     public int PublicationYear { get; set; }
