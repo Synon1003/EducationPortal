@@ -1,33 +1,37 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EducationPortal.Web.LanguageResources;
 
 namespace EducationPortal.Web.Models;
 
 public class ArticleViewModel
 {
     public int Id { get; set; }
-    public string Title { get; set; }
 
-    [DisplayName("Publication Date")]
+    [Display(ResourceType = typeof(Resource), Name = "Title")]
+    public string Title { get; set; } = "";
+
+    [Display(ResourceType = typeof(Resource), Name = "PublicationDate")]
     public DateOnly PublicationDate { get; set; }
 
-    [DisplayName("Resourse Link")]
-    public string ResourceLink { get; set; }
+    [Display(ResourceType = typeof(Resource), Name = "ResourceLink")]
+    public string ResourceLink { get; set; } = "";
 }
 
 public class ArticleCreateViewModel
 {
     [Required]
     [StringLength(100)]
-    public string Title { get; set; }
+    [Display(ResourceType = typeof(Resource), Name = "Title")]
+    public string Title { get; set; } = "";
 
-    [DisplayName("Publication Date")]
     [Required]
     [DataType(DataType.Date)]
+    [Display(ResourceType = typeof(Resource), Name = "PublicationDate")]
     public DateOnly PublicationDate { get; set; }
 
-    [DisplayName("Resourse Link")]
     [Required]
     [StringLength(500)]
-    public string ResourceLink { get; set; }
+    [Display(ResourceType = typeof(Resource), Name = "ResourceLink")]
+    public string ResourceLink { get; set; } = "";
 }

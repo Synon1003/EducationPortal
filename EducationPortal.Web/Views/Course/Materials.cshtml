@@ -1,6 +1,6 @@
 @model ListMaterialViewModel
 @{
-    ViewData["Title"] = @Model.CourseName + " Materials";
+    ViewData["Title"] = @Model.CourseName + " " + @Html.Translate("Materials");
     ViewBag.CurrentUrl = "~/Course/Materials";
 }
 
@@ -9,12 +9,12 @@
         <div class="card-body">
             <div class="flex items-start justify-center">
                 <h3 class="font-medium text-3xl ml-2 mb-4">
-                    @Model.CourseName - Materials</h3>
+                    @Model.CourseName - @Html.Translate("Materials")</h3>
             </div>
 
             @if (@Model.Videos.Count > 0)
             {
-                <div class="text-2xl mt-4 mb-4 font-medium">Videos</div>
+                <div class="text-2xl mt-4 mb-4 font-medium">@Html.Translate("Videos")</div>
                 <div class="overflow-x-auto">
                     <table class="table">
                         <tbody>
@@ -30,13 +30,13 @@
                                     <td class="text-right">
                                         @if (video.IsDoneByUser)
                                         {
-                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">Done</button>
+                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">@Html.Translate("Done")</button>
                                         }
                                         else
                                         {
                                             <a asp-controller="User" asp-action="SetCourseMaterialDone"
                                                 asp-route-courseId="@Model.CourseId" asp-route-materialId="@video.Id"
-                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
+                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">@Html.Translate("MarkAsDone")</a>
                                         }
                                     </td>
                                 </tr>
@@ -48,7 +48,7 @@
 
             @if (@Model.Publications.Count > 0)
             {
-                <div class="text-2xl mt-4 mb-4 font-medium">Publications</div>
+                <div class="text-2xl mt-4 mb-4 font-medium">@Html.Translate("Publications")</div>
                 <div class="overflow-x-auto">
                     <table class="table">
                         <tbody>
@@ -64,13 +64,13 @@
                                     <td class="text-right">
                                         @if (publication.IsDoneByUser)
                                         {
-                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">Done</button>
+                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">@Html.Translate("Done")</button>
                                         }
                                         else
                                         {
                                             <a asp-controller="User" asp-action="SetCourseMaterialDone"
                                                 asp-route-courseId="@Model.CourseId" asp-route-materialId="@publication.Id"
-                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
+                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">@Html.Translate("MarkAsDone")</a>
                                         }
                                     </td>
                                 </tr>
@@ -82,7 +82,7 @@
 
             @if (@Model.Articles.Count > 0)
             {
-                <div class="text-2xl mt-4 mb-4 font-medium">Articles</div>
+                <div class="text-2xl mt-4 mb-4 font-medium">@Html.Translate("Articles")</div>
                 <div class="overflow-x-auto">
                     <table class="table">
                         <tbody>
@@ -98,13 +98,13 @@
                                     <td class="text-right">
                                         @if (article.IsDoneByUser)
                                         {
-                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">Done</button>
+                                            <button class="btn btn-active btn-success whitespace-nowrap btn-sm w-24">@Html.Translate("Done")</button>
                                         }
                                         else
                                         {
                                             <a asp-controller="User" asp-action="SetCourseMaterialDone"
                                                 asp-route-courseId="@Model.CourseId" asp-route-materialId="@article.Id"
-                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">Mark as Done</a>
+                                                class="btn btn-success btn-outline btn-sm whitespace-nowrap w-24">@Html.Translate("MarkAsDone")</a>
                                         }
                                     </td>
                                 </tr>
@@ -140,7 +140,7 @@
             <div class="flex items-center justify-start mt-4">
                 <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId"
                     class="btn btn-md btn-secondary w-20">
-                    Back
+                    @Html.Translate("Back")
                 </a>
             </div>
         </div>

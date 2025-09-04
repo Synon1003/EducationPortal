@@ -1,6 +1,6 @@
 @model UserProfileViewModel
 @{
-    ViewData["Title"] = "User Profile";
+    ViewData["Title"] = @Html.Translate("Profile");
     ViewBag.CurrentUrl = "~/User/Profile";
 }
 
@@ -30,10 +30,10 @@
 
             <div class="flex items-center justify-between">
                 <a class="btn btn-md btn-info w-24" onclick="openModalWithPartialViewContent('skill-list-modal')">
-                    Skills
+                    @Html.Translate("Skills")
                 </a>
                 <a class="btn btn-md btn-info w-24" onclick="openModalWithPartialViewContent('material-list-modal')">
-                    Materials
+                    @Html.Translate("Materials")
                 </a>
             </div>
 

@@ -1,10 +1,10 @@
 @model List<PublicationViewModel>
 
 <dialog id="load-publications-modal" class="modal">
-    <div class="modal-box max-w-120">
+    <div class="modal-box max-w-120 sm:max-w-144 md:max-w-168">
         <form method="dialog">
             <div class="flex items-center justify-center">
-                <h3 class="font-medium text-3xl ml-2 mb-4">Select publication</h3>
+                <h3 class="font-medium text-3xl ml-2 mb-4">@Html.Translate("SelectPublication")</h3>
             </div>
 
             <div id="load-publications-list" class="space-y-1 max-h-72 overflow-auto">

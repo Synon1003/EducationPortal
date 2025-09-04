@@ -11,14 +11,17 @@ public class AccountController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly ILogger<AccountController> _logger;
 
     public AccountController(
         UserManager<ApplicationUser> userManager,
-        SignInManager<ApplicationUser> signInManager
+        SignInManager<ApplicationUser> signInManager,
+        ILogger<AccountController> logger
     )
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -56,6 +59,7 @@ public class AccountController : Controller
         {
             await _signInManager.SignInAsync(user, isPersistent: false);
             TempData.CreateFlash("Account created successfully. You are now logged in.", "info");
+            _logger.LogInformation("Created <User Email={Email}>", user.Email);
 
             return RedirectToAction("List", "Course");
         }
@@ -101,6 +105,7 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             TempData.CreateFlash("Logged in successfully.", "info");
+            _logger.LogInformation("Logged in <User Email={Email}>", loginViewModel.Email);
 
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return LocalRedirect(returnUrl);
@@ -118,8 +123,14 @@ public class AccountController : Controller
     [Authorize]
     public async Task<IActionResult> Logout()
     {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+            return Unauthorized();
+
         await _signInManager.SignOutAsync();
+
         TempData.CreateFlash("Logged out successfully.", "info");
+        _logger.LogInformation("Logged out <User Email={Email}>", user.Email);
 
         return RedirectToAction("Index", "Home");
     }
@@ -144,5 +155,27 @@ public class AccountController : Controller
         }
 
         return Ok(new { theme });
+    }
+
+    [HttpGet]
+    [Authorize]
+    [FetchOnly]
+    public async Task<IActionResult> SetUserLanguage(string language)
+    {
+        List<string> validLanguages = ["en", "hu"];
+        if (!validLanguages.Contains(language))
+        {
+            return Problem("Invalid language");
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null)
+        {
+            user.Language = language;
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
+        }
+
+        return Ok();
     }
 }

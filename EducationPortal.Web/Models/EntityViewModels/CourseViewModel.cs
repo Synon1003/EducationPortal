@@ -1,30 +1,44 @@
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EducationPortal.Web.LanguageResources;
 
 namespace EducationPortal.Web.Models;
 
 public class CourseListViewModel
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+
+    [Display(ResourceType = typeof(Resource), Name = "Name")]
+    public string Name { get; set; } = "";
+
+    [Display(ResourceType = typeof(Resource), Name = "Description")]
+    public string Description { get; set; } = "";
+
+    [Display(ResourceType = typeof(Resource), Name = "Skills")]
     public List<string> Skills { get; set; } = [];
 
-    [DisplayName("Created By")]
-    public string CreatedBy { get; set; }
+    [Display(ResourceType = typeof(Resource), Name = "CreatedBy")]
+    public string CreatedBy { get; set; } = "";
     public UserCourseViewModel? UserCourse { get; set; }
 }
 
 public class CourseDetailViewModel
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+
+    [Display(ResourceType = typeof(Resource), Name = "Name")]
+    public string Name { get; set; } = "";
+
+    [Display(ResourceType = typeof(Resource), Name = "Description")]
+    public string Description { get; set; } = "";
+
+    [Display(ResourceType = typeof(Resource), Name = "Skills")]
     public List<string> Skills { get; set; } = [];
+
+    [Display(ResourceType = typeof(Resource), Name = "Materials")]
     public List<string> Materials { get; set; } = [];
 
-    [DisplayName("Created By")]
-    public string CreatedBy { get; set; }
+    [Display(ResourceType = typeof(Resource), Name = "CreatedBy")]
+    public string CreatedBy { get; set; } = "";
     public UserCourseViewModel? UserCourse { get; set; }
 }
 
@@ -32,13 +46,14 @@ public class CourseCreateViewModel
 {
     [Required]
     [StringLength(50)]
-    public string Name { get; set; }
+    [Display(ResourceType = typeof(Resource), Name = "Name")]
+    public string Name { get; set; } = "";
 
     [Required]
     [StringLength(250)]
-    public string Description { get; set; }
+    [Display(ResourceType = typeof(Resource), Name = "Description")]
+    public string Description { get; set; } = "";
 
-    [DisplayName("Skills")]
     public List<SkillCreateViewModel> Skills { get; set; } = [];
     public List<VideoCreateViewModel> Videos { get; set; } = [];
     public List<PublicationCreateViewModel> Publications { get; set; } = [];

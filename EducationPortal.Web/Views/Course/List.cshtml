@@ -1,6 +1,6 @@
 @model ListCoursesViewModel
 @{
-    ViewData["Title"] = "Courses";
+    ViewData["Title"] = @Html.Translate("Courses");
     ViewBag.CurrentUrl = "~/Course/List";
 }
 
@@ -8,11 +8,11 @@
     <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268" data-aos="zoom-in">
         <div class="card-body">
             <div class="flex items-center justify-start ml-2">
-                <div class="text-3xl font-medium">Courses</div>
+                <div class="text-3xl font-medium">@Html.Translate("Courses")</div>
             </div>
 
             <div class="flex items-center justify-between ml-2 mb-4">
-                <span class="text-sm font-medium">@Model.TotalCountText</span>
+                <span class="text-sm font-medium">@Html.Translate(@Model.TotalCountText): @Model.TotalCount</span>
                 <div class="flex items-center space-x-2">
                     <form asp-controller="Course" asp-action="List" method="get" class="flex items-center">
                         <select class="select w-32" name="filter" onchange="this.form.submit()">
@@ -20,16 +20,17 @@
                             {
                                 if (selectOption.Value == Model.CurrentOption)
                                 {
-                                    <option selected value=@selectOption.Value>@selectOption.Key</option>
+                                    <option selected value=@selectOption.Value>@Html.Translate(@selectOption.Key)</option>
                                 }
                                 else
                                 {
-                                    <option value=@selectOption.Value>@selectOption.Key</option>
+                                    <option value=@selectOption.Value>@Html.Translate(@selectOption.Key)</option>
                                 }
                             }
                         </select>
                     </form>
-                    <a asp-controller="Course" asp-action="Create" class="btn btn-primary btn-md w-24">New</a>
+                    <a asp-controller="Course" asp-action="Create"
+                        class="btn btn-primary btn-md w-24">@Html.Translate("New")</a>
                 </div>
             </div>
 
@@ -43,7 +44,7 @@
                                 <th>@Html.DisplayNameFor(c => c.Courses.First().Description)</th>
                                 <th>@Html.DisplayNameFor(c => c.Courses.First().Skills)</th>
                                 <th>@Html.DisplayNameFor(c => c.Courses.First().CreatedBy)</th>
-                                @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
+                                @if (Model.CurrentOption == "completed" || Model.CurrentOption == "inprogress")
                                 {
                                     <th>@Html.DisplayNameFor(c => c.Courses.First().UserCourse!.ProgressPercentage)</th>
                                 }
@@ -58,7 +59,7 @@
                                     <td>@course.Description</td>
                                     <td>@(String.Join(", ", course.Skills))</td>
                                     <td>@course.CreatedBy</td>
-                                    @if (Model.CurrentOption == "completed" || Model.CurrentOption == "in-progress")
+                                    @if (Model.CurrentOption == "completed" || Model.CurrentOption == "inprogress")
                                     {
                                         <td>@course.UserCourse?.ProgressPercentage%</td>
                                     }

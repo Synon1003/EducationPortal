@@ -6,7 +6,7 @@ public class Publication : Material
 {
     [Required]
     [StringLength(250)]
-    public string Authors { get; set; }
+    public string Authors { get; set; } = "";
 
     [Required]
     [Range(0, 9999)]
@@ -14,7 +14,7 @@ public class Publication : Material
 
     [Required]
     [StringLength(20)]
-    public string Format { get; set; }
+    public string Format { get; set; } = "";
 
     [Required]
     [Range(-1000, 3000)]

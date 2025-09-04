@@ -4,6 +4,7 @@ using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Application.Dtos;
 using EducationPortal.Application.Services.Interfaces;
 using EducationPortal.Application.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace EducationPortal.Application.Services;
 
@@ -11,11 +12,17 @@ public class CourseService : ICourseService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly ILogger<CourseService> _logger;
 
-    public CourseService(IUnitOfWork unitOfWork, IMapper mapper)
+    public CourseService(
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        ILogger<CourseService> logger
+    )
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<ICollection<CourseListDto>> GetFilteredCoursesWithSkillsAsync(Guid userId, string filter)
@@ -23,7 +30,7 @@ public class CourseService : ICourseService
         var courses = filter switch
         {
             "available" => await _unitOfWork.CourseRepository.GetAvailableCoursesWithSkillsForUserAsync(userId),
-            "in-progress" => await _unitOfWork.CourseRepository.GetInProgressCoursesWithSkillsForUserAsync(userId),
+            "inprogress" => await _unitOfWork.CourseRepository.GetInProgressCoursesWithSkillsForUserAsync(userId),
             "completed" => await _unitOfWork.CourseRepository.GetCompletedCoursesWithSkillsForUserAsync(userId),
             "created" => await _unitOfWork.CourseRepository.GetCreatedCoursesWithSkillsForUserAsync(userId),
             _ => await _unitOfWork.CourseRepository.GetAllCoursesWithSkillsAsync(),
@@ -80,6 +87,8 @@ public class CourseService : ICourseService
         await AddLoadedMaterials(course, courseCreateDto);
         await _unitOfWork.CourseRepository.InsertAsync(course);
         await _unitOfWork.SaveChangesAsync();
+        _logger.LogInformation("<User Id={userId}> created <Course Id={courseId} Name={courseName}> done",
+            course.CreatedBy, course.Id, course.Name);
 
         return _mapper.Map<CourseDetailDto>(course);
     }
@@ -112,6 +121,8 @@ public class CourseService : ICourseService
             await UpdateUserSkillsByCourseSkillsAsync(userId, course.Skills);
 
         await _unitOfWork.SaveChangesAsync();
+        _logger.LogInformation("<User Id={userId}> enrolled on <Course Id={courseId} Name={courseName}>",
+            userId, course.Id, course.Name);
 
         return isInstantCompleted;
     }
@@ -151,6 +162,7 @@ public class CourseService : ICourseService
         }
 
         await _unitOfWork.SaveChangesAsync();
+        _logger.LogInformation("<User Id={userId}> marked <Material Id={Id}> done", userId, materialId);
 
         return userCourses.First(uc => uc.CourseId == courseId).IsCompleted;
     }

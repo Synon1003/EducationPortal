@@ -2,14 +2,14 @@
 
 <div>
     <div class="flex items-center justify-center">
-        <div class="text-3xl ml-2 mb-4 font-medium">Materials</div>
+        <div class="text-3xl ml-2 mb-4 font-medium">@Html.Translate("Materials")</div>
     </div>
 
     @if (@Model.Videos.Count > 0)
     {
         <div class="collapse collapse-arrow">
             <input type="radio" name="materials-accordion" />
-            <div class="collapse-title text-2xl font-medium">Videos</div>
+            <div class="collapse-title text-2xl font-medium">@Html.Translate("Videos")</div>
             <div class="collapse-content">
                 <div class="overflow-x-auto">
                     <table class="table table-fixed w-full">
@@ -40,7 +40,7 @@
     {
         <div class="collapse collapse-arrow">
             <input type="radio" name="materials-accordion" />
-            <div class="collapse-title text-2xl font-medium">Publications</div>
+            <div class="collapse-title text-2xl font-medium">@Html.Translate("Publications")</div>
             <div class="collapse-content">
                 <div class="overflow-x-auto">
                     <table class="table table-fixed w-full">
@@ -75,7 +75,7 @@
     {
         <div class="collapse collapse-arrow">
             <input type="radio" name="materials-accordion" checked="checked" />
-            <div class="collapse-title text-2xl font-medium">Articles</div>
+            <div class="collapse-title text-2xl font-medium">@Html.Translate("Articles")</div>
             <div class="collapse-content">
                 <div class="overflow-x-auto">
                     <table class="table table-fixed w-full">

@@ -10,5 +10,5 @@ public class Article : Material
 
     [Required]
     [StringLength(500)]
-    public string ResourceLink { get; set; }
+    public string ResourceLink { get; set; } = "";
 }

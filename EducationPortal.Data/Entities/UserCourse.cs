@@ -14,9 +14,9 @@ public class UserCourse
 
     public Guid UserId { get; set; }
     [ForeignKey(nameof(UserId))]
-    public virtual ApplicationUser User { get; set; }
+    public virtual ApplicationUser? User { get; set; }
 
     public int CourseId { get; set; }
     [ForeignKey(nameof(CourseId))]
-    public virtual Course Course { get; set; }
+    public virtual Course? Course { get; set; }
 }

@@ -1,13 +1,13 @@
 @model CourseCreateViewModel
 @{
-    ViewData["Title"] = "Create Course";
+    ViewData["Title"] = @Html.Translate("Create Course");
     ViewBag.CurrentUrl = "~/Course/Create";
 }
 
 <div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
     <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268" data-aos="zoom-in">
         <div class="card-body">
-            <h3 class="font-medium text-3xl ml-2 mb-4">Create Course</h3>
+            <h3 class="font-medium text-3xl ml-2 mb-4">@Html.Translate("CreateCourse")</h3>
             <form asp-controller="Course" asp-action="Create" method="post" id="create-course-form">
                 <div>
                     <label class="floating-label mb-4">
@@ -29,13 +29,13 @@
                 @await Html.PartialAsync("~/Views/Course/_RehydrateLoadedPartial.cshtml", Model)
 
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl">Skills</h3>
+                    <h3 class="font-medium text-2xl">@Html.Translate("Skills")</h3>
 
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
-                            onclick="addSkillToViewModel()">New</button>
+                            onclick="addSkillToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-skills-button"
-                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -48,16 +48,16 @@
                 </div>
 
                 <div class="flex items-center justify-start mb-4">
-                    <h3 class="font-medium text-2xl">Materials</h3>
+                    <h3 class="font-medium text-2xl">@Html.Translate("Materials")</h3>
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl ml-4">Videos</h3>
+                    <h3 class="font-medium text-2xl ml-4">@Html.Translate("Videos")</h3>
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
-                            onclick="addVideoToViewModel()">New</button>
+                            onclick="addVideoToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-videos-button"
-                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -70,12 +70,12 @@
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl ml-4">Publications</h3>
+                    <h3 class="font-medium text-2xl ml-4">@Html.Translate("Publications")</h3>
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
-                            onclick="addPublicationToViewModel()">New</button>
+                            onclick="addPublicationToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-publications-button"
-                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -90,12 +90,12 @@
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl ml-4">Articles</h3>
+                    <h3 class="font-medium text-2xl ml-4">@Html.Translate("Articles")</h3>
                     <div>
                         <button type="button" class="btn btn-info btn-sm w-20"
-                            onclick="addArticleToViewModel()">New</button>
+                            onclick="addArticleToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-articles-button"
-                            class="btn btn-info btn-sm w-20 ml-1">Load</button>
+                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -113,9 +113,9 @@
 
                 <div class="flex items-center justify-between mt-4">
                     <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
-                        Back
+                        @Html.Translate("Back")
                     </a>
-                    <button type="submit" class="btn btn-md btn-primary w-24">Create</button>
+                    <button type="submit" class="btn btn-md btn-primary w-24">@Html.Translate("Create")</button>
                 </div>
 
             </form>
