@@ -1,6 +1,6 @@
 @model CourseDetailViewModel
 @{
-    ViewData["Title"] = "Course Details";
+    ViewData["Title"] = @Html.Translate("CourseDetails");
     ViewBag.CurrentUrl = "~/Course/Details";
 }
 
@@ -45,13 +45,13 @@
             </table>
             <div class="flex items-center justify-between mt-4">
                 <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
-                    Back
+                    @Html.Translate("Back")
                 </a>
                 @if (Model.UserCourse is not null)
                 {
                     <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
                         class="btn btn-md btn-info w-24">
-                        Materials
+                        @Html.Translate("Materials")
                     </a>
                 }
             </div>

@@ -1,15 +1,20 @@
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using EducationPortal.Web.LanguageResources;
 
 namespace EducationPortal.Web.Models;
 
 public class UserProfileViewModel
 {
-    [DisplayName("First Name")]
+    [Display(ResourceType = typeof(Resource), Name = "FirstName")]
     public string FirstName { get; set; } = "";
 
-    [DisplayName("Last Name")]
+    [Display(ResourceType = typeof(Resource), Name = "LastName")]
     public string LastName { get; set; } = "";
+
     public string UserName { get; set; } = "";
+
+    [Display(ResourceType = typeof(Resource), Name = "Email")]
     public string Email { get; set; } = "";
 
     public List<VideoViewModel> Videos { get; set; } = [];

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using EducationPortal.Web.LanguageResources;
 
 namespace EducationPortal.Web.Models;
 
@@ -14,6 +15,7 @@ public class MaterialCreateViewModel
 {
     [Required]
     [StringLength(100)]
+    [Display(ResourceType = typeof(Resource), Name = "Title")]
     public string Title { get; set; } = "";
 
     [Required]

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EducationPortal</title>
+    <title>@ViewData["Title"] - @Html.Translate("ApplicationName")</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/aos.css" asp-append-version="true" />
@@ -29,14 +29,14 @@
                         <ul tabindex="0"
                             class="menu menu-sm dropdown-content mt-3 z-10 w-52 p-2 shadow bg-base-100 rounded-box">
                             <li><a asp-controller="Course" asp-action="List"
-                                    class="@(ViewBag.CurrentUrl == "~/Course/List" ? "text-info" : "")">Courses</a>
+                                    class="@(ViewBag.CurrentUrl == "~/Course/List" ? "text-info" : "")">@Html.Translate("Courses")</a>
                             </li>
                         </ul>
                     </div>
                 }
 
                 <a asp-controller="Home" asp-action="Index"
-                    class="btn btn-ghost text-md @(ViewBag.CurrentUrl == "~/Home/Index" ? "text-info" : "")">EducationPortal</a>
+                    class="btn btn-ghost text-md @(ViewBag.CurrentUrl == "~/Home/Index" ? "text-info" : "")">@Html.Translate("ApplicationName")</a>
 
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
@@ -45,7 +45,7 @@
                             <li>
                             <li><a asp-controller="Course" asp-action="List"
                                     class="@((ViewBag.CurrentUrl as string)?.StartsWith("~/Course") == true ? "text-info" : "")">
-                                    Courses</a></li>
+                                    @Html.Translate("Courses")</a></li>
                             </li>
                         </ul>
                     </div>
@@ -100,8 +100,8 @@
                                 <ul class="p-1 bg-base-100 rounded-box min-w-full max-w-max z-1">
                                     <li>
                                         <a asp-controller="User" asp-action="Profile"
-                                            class="@(ViewBag.CurrentUrl == "~/User/Profile" ? "text-info" : "")">Profile</a>
-                                        <a asp-controller="Account" asp-action="Logout">Logout</a>
+                                            class="@(ViewBag.CurrentUrl == "~/User/Profile" ? "text-info" : "")">@Html.Translate("Profile")</a>
+                                        <a asp-controller="Account" asp-action="Logout">@Html.Translate("Logout")</a>
                                     </li>
                                 </ul>
                             </details>

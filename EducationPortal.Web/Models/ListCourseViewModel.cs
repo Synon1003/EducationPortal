@@ -4,16 +4,15 @@ public class ListCoursesViewModel
 {
     public List<CourseListViewModel> Courses { get; set; } = [];
     public int TotalCount { get; set; }
-    public string TotalCountText => TotalCount == 1 ?
-        $"{TotalCount} {(CurrentOption == "all" || CurrentOption is null ? "registered" : CurrentOption)} course" :
-        $"{TotalCount} {(CurrentOption == "all" || CurrentOption is null ? "registered" : CurrentOption)} courses";
+    public string TotalCountText =>
+        $"{(CurrentOption == "all" || CurrentOption is null ? "registered" : CurrentOption)}Courses";
 
     public Dictionary<string, string> SelectOptions { get; set; } =
         new Dictionary<string, string>()
         {
             { "All", "all" },
             { "Available", "available" },
-            { "In-progress", "in-progress" },
+            { "InProgress", "inprogress" },
             { "Completed", "completed" },
             { "Created", "created" },
         };

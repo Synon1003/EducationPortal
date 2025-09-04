@@ -1,36 +1,36 @@
 @model List<SkillDetailViewModel>
 
 <dialog id="load-skills-modal" class="modal">
-    <div class="modal-box max-w-120">
-        <form method="dialog">
-            <div class="flex items-center justify-center">
-                <h3 class="font-medium text-3xl ml-2 mb-4">Select skill</h3>
-            </div>
+    <div class="modal-box max-w-120 sm:max-w-144 md:max-w-168"">
+        <form method=" dialog">
+        <div class="flex items-center justify-center">
+            <h3 class="font-medium text-3xl ml-2 mb-4">@Html.Translate("SelectSkill")</h3>
+        </div>
 
-            <label class="input input-bordered flex items-center gap-2 mb-4 w-full max-w-xs">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-60" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
-                </svg>
-                <input id="skill-search" type="search" placeholder="Search skills..." class="grow text-sm" />
-            </label>
+        <label class="input input-bordered flex items-center gap-2 mb-4 w-full max-w-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-60" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+            </svg>
+            <input id="skill-search" type="search" placeholder="@Html.Translate("Search")..." class="grow text-sm" />
+        </label>
 
-            <div id="load-skills-list" class="space-y-1 max-h-72 overflow-auto">
-                @for (int i = 0; i < Model.Count; i++)
-                {
-                    <div class="flex flex-col load-skill-item rounded hover:bg-primary hover:text-primary-content cursor-pointer p-2"
-                        data-id="@Model[i].Id" data-title="@Model[i].Name">
-                        <div>
-                            <div class="font-semibold text-lg">@Html.DisplayFor(c => c[i].Name) - <span
-                                    class="text-sm font-normal"> @Html.DisplayNameFor(c => c[i].AcquiredCount)
-                                    @Model[i].AcquiredCount,
-                                    @Html.DisplayNameFor(c => c[i].AcquiredMaxLevel) @Model[i].AcquiredMaxLevel</span>
-                            </div>
+        <div id="load-skills-list" class="space-y-1 max-h-72 overflow-auto">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="flex flex-col load-skill-item rounded hover:bg-primary hover:text-primary-content cursor-pointer p-2"
+                    data-id="@Model[i].Id" data-title="@Model[i].Name">
+                    <div>
+                        <div class="font-semibold text-lg">@Html.DisplayFor(c => c[i].Name) - <span
+                                class="text-sm font-normal"> @Html.DisplayNameFor(c => c[i].AcquiredCount):
+                                @Model[i].AcquiredCount,
+                                @Html.DisplayNameFor(c => c[i].AcquiredMaxLevel): @Model[i].AcquiredMaxLevel</span>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
+        </div>
         </form>
     </div>
     <form method="dialog" class="modal-backdrop">

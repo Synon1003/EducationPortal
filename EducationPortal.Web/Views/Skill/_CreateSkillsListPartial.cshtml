@@ -11,7 +11,8 @@
                 <span asp-validation-for="@Model[idx].Name" data-valmsg-for="Skills[@idx].Name"
                     class="text-error text-sm ml-1"></span>
             </label>
-            <button type="button" class="btn btn-error btn-sm w-20" onclick="removeSkillFromViewModel(@idx)">Delete</button>
+            <button type="button" class="btn btn-error btn-sm w-20"
+                onclick="removeSkillFromViewModel(@idx)">@Html.Translate("Delete")</button>
         </div>
     }
 </div>
