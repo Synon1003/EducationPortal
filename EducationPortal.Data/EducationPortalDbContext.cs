@@ -53,7 +53,8 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
                 AccessFailedCount = 0,
-                Theme = "business"
+                Theme = "business",
+                Language = "en"
             }
         );
 

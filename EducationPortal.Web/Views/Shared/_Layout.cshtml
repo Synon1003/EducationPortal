@@ -57,6 +57,24 @@
                 <ul class="menu menu-horizontal px-1">
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
+                        <label class="swap swap-flip cursor-pointer">
+                            <input type="checkbox" onchange="setUserLanguage(this.checked ? 'hu' : 'en')"
+                                @(User?.FindFirst("Language")?.Value == "hu" ? "checked" : "") />
+                            <div class="swap-on">
+                                <div class="avatar avatar-placeholder w-8 h-8">
+                                    <div class="rounded-full w-full h-full flex items-center justify-center">
+                                        <span>HU</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swap-off">
+                                <div class="avatar avatar-placeholder w-8 h-8">
+                                    <div class="rounded-full w-full h-full flex items-center justify-center">
+                                        <span>EN</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
                         <label class="flex cursor-pointer gap-2 py-[6px] px-[12px]">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

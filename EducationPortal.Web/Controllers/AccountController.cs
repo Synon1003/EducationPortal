@@ -156,4 +156,26 @@ public class AccountController : Controller
 
         return Ok(new { theme });
     }
+
+    [HttpGet]
+    [Authorize]
+    [FetchOnly]
+    public async Task<IActionResult> SetUserLanguage(string language)
+    {
+        List<string> validLanguages = ["en", "hu"];
+        if (!validLanguages.Contains(language))
+        {
+            return Problem("Invalid language");
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null)
+        {
+            user.Language = language;
+            await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
+        }
+
+        return Ok();
+    }
 }

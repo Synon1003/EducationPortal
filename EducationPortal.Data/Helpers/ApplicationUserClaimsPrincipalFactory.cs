@@ -29,6 +29,9 @@ public class ApplicationUserClaimsPrincipalFactory
         if (!string.IsNullOrEmpty(user.Theme))
             identity.AddClaim(new Claim("Theme", user.Theme));
 
+        if (!string.IsNullOrEmpty(user.Language))
+            identity.AddClaim(new Claim("Language", user.Language));
+
         return identity;
     }
 }

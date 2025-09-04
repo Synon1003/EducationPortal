@@ -24,3 +24,7 @@ FROM [EducationPortalDb].[dbo].[CourseSkills];
 SELECT TOP (10)
   *
 FROM [EducationPortalDb].[dbo].[UserSkills];
+
+SELECT TOP (10)
+  *
+FROM [EducationPortalDb].[dbo].[AspNetUsers];

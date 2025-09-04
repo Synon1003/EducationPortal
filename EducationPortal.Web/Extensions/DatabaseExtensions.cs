@@ -14,7 +14,7 @@ public static class DatabaseExtensions
         var env = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<EducationPortalDbContext>>();
 
-        const int maxRetries = 5;
+        const int maxRetries = 10;
         const int delaySeconds = 10;
 
         for (int attempt = 1; attempt <= maxRetries; attempt++)

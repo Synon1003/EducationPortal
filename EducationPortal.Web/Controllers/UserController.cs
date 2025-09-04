@@ -50,7 +50,7 @@ public class UserController : Controller
 
         var isCourseDone = await _courseService.MarkMaterialDone(user.Id, materialId, courseId);
 
-        TempData.CreateFlash(isCourseDone ? "Congratulations! You passed successfully." : "Material marked as Done", "info");
+        TempData.CreateFlash(isCourseDone ? "Congratulations! You passed successfully." : "Material marked as Done.", "info");
 
         return RedirectToAction(nameof(CourseController.Materials), "Course", new { id = courseId });
     }

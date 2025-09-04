@@ -30,7 +30,6 @@ builder.Services.AddControllersWithViews(
 var app = builder.Build();
 app.UseExceptionHandler("/Home/Error");
 app.UseMiddleware<HttpLoggingMiddleware>();
-app.UseRequestLanguages();
 
 if (app.Environment.IsDevelopment())
 {
@@ -49,6 +48,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRequestLanguages();
 
 app.MapControllerRoute(
     name: "default",

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Localization;
+using EducationPortal.Web.Helpers;
 
 namespace EducationPortal.Extensions;
 
@@ -12,7 +12,7 @@ public static class LanguageExtensions
             .AddSupportedCultures(supportedCultures)
             .AddSupportedUICultures(supportedCultures);
 
-        localizationOptions.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+        localizationOptions.RequestCultureProviders.Insert(0, new UserProfileRequestCultureProvider());
 
         app.UseRequestLocalization(localizationOptions);
         return app;
