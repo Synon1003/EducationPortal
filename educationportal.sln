@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Data", "Edu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Application", "EducationPortal.Application\EducationPortal.Application.csproj", "{A7E9ED61-D41C-43BA-999D-83D3C8CD27F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Tests", "EducationPortal.Tests\EducationPortal.Tests.csproj", "{94444625-E092-4DA2-804A-2067E775DF5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{A7E9ED61-D41C-43BA-999D-83D3C8CD27F9}.Release|x64.Build.0 = Release|Any CPU
 		{A7E9ED61-D41C-43BA-999D-83D3C8CD27F9}.Release|x86.ActiveCfg = Release|Any CPU
 		{A7E9ED61-D41C-43BA-999D-83D3C8CD27F9}.Release|x86.Build.0 = Release|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Debug|x64.Build.0 = Debug|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Debug|x86.Build.0 = Debug|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Release|x64.ActiveCfg = Release|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Release|x64.Build.0 = Release|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Release|x86.ActiveCfg = Release|Any CPU
+		{94444625-E092-4DA2-804A-2067E775DF5B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

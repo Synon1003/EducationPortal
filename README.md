@@ -15,6 +15,11 @@ dotnet ef migrations add MigrationName --project EducationPortal.Data -o Migrati
 dotnet ef database update --project EducationPortal.Data --startup-project EducationPortal.Web
 ```
 
+### Testing
+Unit tests:
+```bash
+dotnet test --filter "FullyQualifiedName~CourseServiceTests"
+```
 
 ### Tailwind DaisyUI
 Install as development dependency
