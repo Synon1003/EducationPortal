@@ -37,7 +37,20 @@ public class UserController : Controller
 
         var isCourseDone = await _courseService.EnrollUserOnCourseAsync(user.Id, id);
 
-        TempData.CreateFlash(isCourseDone ? "Congratulations! You passed successfully." : "You enrolled successfully.", "info");
+        TempData.CreateFlash(isCourseDone ? "CongratulationsYouPassedSuccessfullyFlash" : "YouEnrolledSuccessfullyFlash", "info");
+
+        return RedirectToAction(nameof(CourseController.Details), "Course", new { id = id });
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> LeaveCourse(int id)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null) return Unauthorized();
+
+        await _courseService.LeaveCourseAsync(user.Id, id);
+
+        TempData.CreateFlash("You left the course successfully.", "info");
 
         return RedirectToAction(nameof(CourseController.Details), "Course", new { id = id });
     }
@@ -50,7 +63,7 @@ public class UserController : Controller
 
         var isCourseDone = await _courseService.MarkMaterialDone(user.Id, materialId, courseId);
 
-        TempData.CreateFlash(isCourseDone ? "Congratulations! You passed successfully." : "Material marked as Done.", "info");
+        TempData.CreateFlash(isCourseDone ? "CongratulationsYouPassedSuccessfullyFlash" : "MaterialMarkedAsDoneFlash", "info");
 
         return RedirectToAction(nameof(CourseController.Materials), "Course", new { id = courseId });
     }

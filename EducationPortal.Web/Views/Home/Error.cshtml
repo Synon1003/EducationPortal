@@ -1,26 +1,26 @@
 @model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = @Html.Translate("Error");
 }
 
 <div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
     <div class="card card-border w-120 sm:w-144 md:w-168 bg-base-200 shadow-sm" data-aos="zoom-in">
         <div class="card-body">
             <div class="flex-col text-center">
-                <h2 class="text-3xl font-bold text-error mb-4">Oops! Something went wrong.</h2>
+                <h2 class="text-3xl font-bold text-error mb-4">@Html.Translate("SomethingWentWrongError")</h2>
 
-                <p class="text-lg">@Model.ErrorMessage</p>
+                <p class="text-lg">@Html.Translate(Model.ErrorMessage)</p>
 
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-24 mt-4">
-                        Go Back
+                    <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20 mt-4">
+                        @Html.Translate("Back")
                     </a>
                 }
                 else
                 {
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-md btn-secondary w-24 mt-4">
-                        Go Back
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-md btn-secondary w-20 mt-4">
+                        @Html.Translate("Back")
                     </a>
                 }
             </div>

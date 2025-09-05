@@ -27,9 +27,4 @@ public class EntityFrameworkJoinRepository<TEntity> : IJoinRepository<TEntity> w
     {
         await _context.Set<TEntity>().AddAsync(entity);
     }
-
-    public void Update(TEntity entity)
-    {
-        _context.Set<TEntity>().Update(entity);
-    }
 }

@@ -4,7 +4,7 @@
         <ul>
             @foreach (string error in TempData.Get<List<string>>("errors")!)
             {
-                <li>@error</li>
+                <li>@Html.Translate(error)</li>
             }
         </ul>
     </div>

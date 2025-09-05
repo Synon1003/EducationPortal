@@ -110,10 +110,10 @@
                     else
                     {
                         <li><a asp-controller="Account" asp-action="Register"
-                                class="@(ViewBag.CurrentUrl == "~/Account/Register" ? "text-info" : "")">Register</a>
+                                class="@(ViewBag.CurrentUrl == "~/Account/Register" ? "text-info" : "")">@Html.Translate("Register")</a>
                         </li>
                         <li><a asp-controller="Account" asp-action="Login"
-                                class="@(ViewBag.CurrentUrl == "~/Account/Login" ? "text-info" : "")">Login</a>
+                                class="@(ViewBag.CurrentUrl == "~/Account/Login" ? "text-info" : "")">@Html.Translate("Login")</a>
                         </li>
                     }
                 </ul>

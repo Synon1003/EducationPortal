@@ -5,17 +5,17 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
 
-  <data name="ApplicationName" xml:space="preserve"><value>OktatóPortál</value></data>
-  <data name="Materials" xml:space="preserve"><value>Anyagok</value></data>
+  <data name="ApplicationName" xml:space="preserve"><value>OktatóFelület</value></data>
+  <data name="Materials" xml:space="preserve"><value>Tananyagok</value></data>
   <data name="Videos" xml:space="preserve"><value>Videók</value></data>
   <data name="Publications" xml:space="preserve"><value>Kiadványok</value></data>
   <data name="Articles" xml:space="preserve"><value>Cikkek</value></data>
-  <data name="MarkAsDone" xml:space="preserve"><value>Késznek jelölés</value></data>
+  <data name="MarkAsDone" xml:space="preserve"><value>Késznek Jelölés</value></data>
   <data name="Done" xml:space="preserve"><value>Kész</value></data>
   <data name="Back" xml:space="preserve"><value>Vissza</value></data>
   <data name="Courses" xml:space="preserve"><value>Tanfolyamok</value></data>
   <data name="CourseDetails" xml:space="preserve">
-    <value>Tanfolyam részletek</value>
+    <value>Tanfolyam Részletek</value>
   </data>
   <data name="New" xml:space="preserve"><value>Új</value></data>
   <data name="All" xml:space="preserve"><value>Mind</value></data>
@@ -23,17 +23,19 @@
   <data name="InProgress" xml:space="preserve"><value>Folyamatban</value></data>
   <data name="Completed" xml:space="preserve"><value>Befejezett</value></data>
   <data name="Created" xml:space="preserve"><value>Létrehozott</value></data>
-  <data name="registeredCourses" xml:space="preserve"><value>Regisztrált tanfolyamok</value></data>
-  <data name="availableCourses" xml:space="preserve"><value>Elérhető tanfolyamok</value></data>
-  <data name="inprogressCourses" xml:space="preserve"><value>Folyamatban lévő tanfolyamok</value></data>
-  <data name="completedCourses" xml:space="preserve"><value>Befejezett tanfolyamok</value></data>
-  <data name="createdCourses" xml:space="preserve"><value>Létrehozott tanfolyamok</value></data>
+  <data name="registeredCourses" xml:space="preserve"><value>Regisztrált Tanfolyamok</value></data>
+  <data name="availableCourses" xml:space="preserve"><value>Elérhető Tanfolyamok</value></data>
+  <data name="inprogressCourses" xml:space="preserve"><value>Folyamatban Lévő Tanfolyamok</value></data>
+  <data name="completedCourses" xml:space="preserve"><value>Befejezett Tanfolyamok</value></data>
+  <data name="createdCourses" xml:space="preserve"><value>Létrehozott Tanfolyamok</value></data>
   <data name="Name" xml:space="preserve"><value>Név</value></data>
+  <data name="NameIsRequiredError" xml:space="preserve"><value>Név kitöltése kötelező.</value></data>
   <data name="Description" xml:space="preserve"><value>Leírás</value></data>
-  <data name="Skills" xml:space="preserve"><value>Képességek</value></data>
+  <data name="DescriptionIsRequiredError" xml:space="preserve"><value>Leírás kitöltése kötelező.</value></data>
+  <data name="Skills" xml:space="preserve"><value>Ismeretek</value></data>
   <data name="CreatedBy" xml:space="preserve"><value>Létrehozta</value></data>
   <data name="Progress" xml:space="preserve"><value>Haladás</value></data>
-  <data name="CreateCourse" xml:space="preserve"><value>Tanfolyam létrehozása</value></data>
+  <data name="CreateCourse" xml:space="preserve"><value>Tanfolyam Létrehozása</value></data>
   <data name="Load" xml:space="preserve"><value>Betöltés</value></data>
   <data name="Delete" xml:space="preserve"><value>Törlés</value></data>
   <data name="Create" xml:space="preserve"><value>Létrehozás</value></data>
@@ -46,24 +48,225 @@
   <data name="PublicationYear" xml:space="preserve"><value>Megjelenés Éve</value></data>
   <data name="PublicationDate" xml:space="preserve"><value>Megjelenés Dátuma</value></data>
   <data name="ResourceLink" xml:space="preserve"><value>Forrás Link</value></data>
-  <data name="SelectSkill" xml:space="preserve"><value>Válassz képességet</value></data>
+  <data name="TitleIsRequiredError" xml:space="preserve">
+    <value>Cím kitöltése kötelező.</value>
+  </data>
+  <data name="DurationIsRequiredError" xml:space="preserve">
+    <value>Időtartam kitöltése kötelező.</value>
+  </data>
+  <data name="QualityIsRequiredError" xml:space="preserve">
+    <value>Minőség kitöltése kötelező.</value>
+  </data>
+  <data name="AuthorsIsRequiredError" xml:space="preserve">
+    <value>Szerzők kitöltése kötelező.</value>
+  </data>
+  <data name="PagesIsRequiredError" xml:space="preserve">
+    <value>Oldalak kitöltése kötelező.</value>
+  </data>
+  <data name="FormatIsRequiredError" xml:space="preserve">
+    <value>Formátum kitöltése kötelező.</value>
+  </data>
+  <data name="PublicationYearIsRequiredError" xml:space="preserve">
+    <value>Megjelenés Éve kitöltése kötelező.</value>
+  </data>
+  <data name="PublicationDateIsRequiredError" xml:space="preserve">
+    <value>Megjelenés Dátuma kitöltése kötelező.</value>
+  </data>
+  <data name="ResourceLinkIsRequiredError" xml:space="preserve">
+    <value>Forrás Link kitöltése kötelező.</value>
+  </data>
+  <data name="SelectSkill" xml:space="preserve"><value>Válassz Ismeretet</value></data>
   <data name="Search" xml:space="preserve"><value>Keresés</value></data>
-  <data name="Skill" xml:space="preserve"><value>Képesség</value></data>
+  <data name="Skill" xml:space="preserve"><value>Ismeret</value></data>
   <data name="Level" xml:space="preserve"><value>Szint</value></data>
   <data name="AcquiredCount" xml:space="preserve"><value>Megszerezték</value></data>
-  <data name="HighestAcquiredLevel" xml:space="preserve"><value>Legmagasabb megszerzett szint</value></data>
-  <data name="SelectVideo" xml:space="preserve"><value>Válassz videót</value></data>
-  <data name="SelectPublication" xml:space="preserve"><value>Válassz kiadványt</value></data>
-  <data name="SelectArticle" xml:space="preserve"><value>Válassz cikket</value></data>
+  <data name="HighestAcquiredLevel" xml:space="preserve"><value>Legmagasabb Megszerzett Szint</value></data>
+  <data name="SelectVideo" xml:space="preserve"><value>Válassz Videót</value></data>
+  <data name="SelectPublication" xml:space="preserve"><value>Válassz Kiadványt</value></data>
+  <data name="SelectArticle" xml:space="preserve"><value>Válassz Cikket</value></data>
   <data name="Profile" xml:space="preserve"><value>Profil</value></data>
   <data name="Logout" xml:space="preserve"><value>Kilépés</value></data>
   <data name="FirstName" xml:space="preserve">
     <value>Keresztnév</value>
   </data>
+  <data name="FirstNameIsRequiredError" xml:space="preserve">
+    <value>Keresztnév kitöltése kötelező.</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Vezetéknév</value>
   </data>
+  <data name="LastNameIsRequiredError" xml:space="preserve">
+    <value>Vezetéknév kitöltése kötelező.</value>
+  </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>Emailcím</value>
+  </data>
+  <data name="EmailIsRequiredError" xml:space="preserve">
+    <value>Emailcím kitöltése kötelező.</value>
+  </data>
+  <data name="EmailFormatError" xml:space="preserve">
+    <value>Emailcím csak emailcím formátumban szerepelhet.</value>
+  </data>
+  <data name="EmailIsAlreadyTakenError" xml:space="preserve">
+    <value>Ez az emailcím már létezik.</value>
+  </data>
+  <data name="Enroll" xml:space="preserve">
+    <value>Jelentkezés</value>
+  </data>
+  <data name="Leave" xml:space="preserve">
+    <value>Lejelentkezés</value>
+  </data>
+  <data name="RegistrationFailedFlash" xml:space="preserve">
+    <value>Sikertelen regisztráció.</value>
+  </data>
+  <data name="AccountCreatedSuccessfullyYouAreNowLoggedInFlash" xml:space="preserve">
+    <value>A fiók sikeresen létrejött. Be vagy jelentkezve.</value>
+  </data>
+  <data name="LogInFailedFlash" xml:space="preserve">
+    <value>Sikertelen bejelentkezés.</value>
+  </data>
+  <data name="LoggedInSuccessfullyFlash" xml:space="preserve">
+    <value>Sikeres bejelentkezés.</value>
+  </data>
+  <data name="LoggedOutSuccessfullyFlash" xml:space="preserve">
+    <value>Sikeres kijelentkezés.</value>
+  </data>
+  <data name="CourseCreationFailedFlash" xml:space="preserve">
+    <value>A tanfolyam létrehozása sikertelen.</value>
+  </data>
+  <data name="CourseCreatedSuccessfullyFlash" xml:space="preserve">
+    <value>A tanfolyam létrehozása sikeres.</value>
+  </data>
+  <data name="CongratulationsYouPassedSuccessfullyFlash" xml:space="preserve">
+    <value>Gratulálok! A tanfolyamot sikeresen teljesítetted.</value>
+  </data>
+  <data name="YouEnrolledSuccessfullyFlash" xml:space="preserve">
+    <value>Sikeresen jelentkeztél.</value>
+  </data>
+  <data name="YouLeftTheCourseSuccessfullyFlash" xml:space="preserve">
+    <value>Sikeresen lejelentkeztél a tanfolyamról.</value>
+  </data>
+  <data name="MaterialMarkedAsDoneFlash" xml:space="preserve">
+    <value>A tananyagot Késznek jelölted.</value>
+  </data>
+  <data name="InvalidEmailOrPassword" xml:space="preserve">
+    <value>Hibás email vagy jelszó.</value>
+  </data>
+  <data name="CourseName_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Ez a tanfolyamnév ({0}) már létezik.</value>
+  </data>
+  <data name="SkillName_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Ez az ismeret ({0}) már létezik.</value>
+  </data>
+  <data name="SkillName_IsDuplicatedFlash" xml:space="preserve">
+    <value>Ezt az ismeretnevet ({0}) többször adtad meg.</value>
+  </data>
+  <data name="VideoTitle_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Ez a videócím ({0}) már létezik.</value>
+  </data>
+  <data name="VideoTitle_IsDuplicatedFlash" xml:space="preserve">
+    <value>Ezt a videócímet ({0}) többször adtad meg.</value>
+  </data>
+  <data name="PublicationTitle_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Ez a kiadványcím ({0}) már létezik.</value>
+  </data>
+  <data name="PublicationTitle_IsDuplicatedFlash" xml:space="preserve">
+    <value>Ezt a kiadványcímet ({0}) többször adtad meg.</value>
+  </data>
+  <data name="ArticleTitle_IsAlreadyTakenFlash" xml:space="preserve">
+    <value>Ez a cikkcím ({0}) már létezik.</value>
+  </data>
+  <data name="ArticleTitle_IsDuplicatedFlash" xml:space="preserve">
+    <value>Ezt a cikknevet ({0}) többször adtad meg.</value>
+  </data>
+  <data name="HomeHeader" xml:space="preserve">
+    <value>OktatóFelület</value>
+  </data>
+  <data name="HomeSubHeader" xml:space="preserve">
+    <value>A tudás és tanulás kapuja</value>
+  </data>
+  <data name="HomeWelcomeText" xml:space="preserve">
+    <value>Fejleszd az ismereteid különféle tanfolyamok elvégzésével, vagy hozz létre saját tanfolyamokat, hogy tanítsd a barátaidat</value>
+  </data>
+  <data name="HomeAdviceHeader" xml:space="preserve">
+    <value>Készítsd el a saját tanfolyamod</value>
+  </data>
+  <data name="HomeAdviceText" xml:space="preserve">
+    <value>Címkézd fel a kapcsolódó ismereteket, és add meg a tananyagokat</value>
+  </data>
+  <data name="ExampleGitCourseName" xml:space="preserve">
+    <value>Git - Gitlab</value>
+  </data>
+  <data name="ExampleGitCourseDescription" xml:space="preserve">
+    <value>A tanfolyam megtanít együttműködni másokkal a gitlab felületén</value>
+  </data>
+  <data name="ExampleGitCourseSkills" xml:space="preserve">
+    <value>Git, Gitlab</value>
+  </data>
+  <data name="ExampleDotnetCourseName" xml:space="preserve">
+    <value>Dotnet tanfolyam</value>
+  </data>
+  <data name="ExampleDotnetCourseDescription" xml:space="preserve">
+    <value>Egy tanfolyam Asp.Net Core MVC alkalmazások készítésére</value>
+  </data>
+  <data name="ExampleDotnetCourseSkills" xml:space="preserve">
+    <value>C#, Asp.Net Core</value>
+  </data>
+  <data name="ExampleAnswersCourseName" xml:space="preserve">
+    <value>Válassz</value>
+  </data>
+  <data name="ExampleAnswersCourseDescription" xml:space="preserve">
+    <value>Tanuld meg sok helyes válaszból gyorsan kiválasztani a leghelyesebbet</value>
+  </data>
+  <data name="ExampleAnswersCourseSkills" xml:space="preserve">
+    <value>Villámolvasás</value>
+  </data>
+  <data name="SomethingWentWrongError" xml:space="preserve">
+    <value>Hoppá! Valami rosszul sült el.</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Váratlan hiba történt. Kérlek, próbáld meg később.</value>
+  </data>
+  <data name="SqlError" xml:space="preserve">
+    <value>Problémák merültek fel az adatbáziskapcsolattal. Kérlek, próbáld meg később.</value>
+  </data>
+  <data name="XFetchBadRequestError" xml:space="preserve">
+    <value>A kérést nem lehet kiszolgálni. Kérlek ellenőrizd a megadott adatokat.</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Regisztrálj</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Főoldal</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Regisztráció</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Bejelentkezés</value>
+  </data>
+  <data name="IAlreadyHaveAnAccount" xml:space="preserve">
+    <value>Már van fiókom</value>
+  </data>
+  <data name="DoNotHaveAnAccount" xml:space="preserve">
+    <value>Nincs még fiókod?</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="PasswordIsRequiredError" xml:space="preserve">
+    <value>Jelszó kitöltése kötelező.</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Megerősítő Jelszó</value>
+  </data>
+  <data name="ConfirmPasswordIsRequiredError" xml:space="preserve">
+    <value>Megerősítő Jelszó kitöltése kötelező.</value>
+  </data>
+  <data name="PasswordAndConfirmPasswordDoNotMatchError" xml:space="preserve">
+    <value>"A jelszó és megerősítő jelszó nem egyezik."</value>
   </data>
 </root>

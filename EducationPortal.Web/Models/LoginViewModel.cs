@@ -1,15 +1,17 @@
 using System.ComponentModel.DataAnnotations;
+using EducationPortal.Web.LanguageResources;
 
 namespace EducationPortal.Web.Models;
 
 public class LoginViewModel
 {
-    [Required(ErrorMessage = "Email is required.")]
-    [EmailAddress(ErrorMessage = "Email should be in email address format.")]
-    [StringLength(50)]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "EmailIsRequiredError")]
+    [EmailAddress(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "EmailFormatError")]
+    [Display(ResourceType = typeof(Resource), Name = "Email")]
     public string Email { get; set; } = "";
 
-    [Required(ErrorMessage = "Password is required.")]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "PasswordIsRequiredError")]
     [DataType(DataType.Password)]
+    [Display(ResourceType = typeof(Resource), Name = "Password")]
     public string Password { get; set; } = "";
 }

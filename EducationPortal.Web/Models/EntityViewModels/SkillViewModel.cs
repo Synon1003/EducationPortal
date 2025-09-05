@@ -27,7 +27,7 @@ public class SkillDetailViewModel
 
 public class SkillCreateViewModel
 {
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "NameIsRequiredError")]
     [StringLength(50)]
     [Display(ResourceType = typeof(Resource), Name = "Name")]
     public string Name { get; set; } = "";

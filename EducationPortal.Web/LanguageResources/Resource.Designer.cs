@@ -8,11 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EducationPortal.Web.LanguageResources
-{
+namespace EducationPortal.Web.LanguageResources {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -23,632 +22,1139 @@ namespace EducationPortal.Web.LanguageResources
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resource
-    {
-
+    public class Resource {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resource()
-        {
+        internal Resource() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if (object.ReferenceEquals(resourceMan, null))
-                {
+        public static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EducationPortal.Web.LanguageResources.Resource", typeof(Resource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        public static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to AcquiredCount.
+        ///   Looks up a localized string similar to Account created successfully. You are now logged in..
         /// </summary>
-        public static string AcquiredCount
-        {
-            get
-            {
+        public static string AccountCreatedSuccessfullyYouAreNowLoggedInFlash {
+            get {
+                return ResourceManager.GetString("AccountCreatedSuccessfullyYouAreNowLoggedInFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acquired by.
+        /// </summary>
+        public static string AcquiredCount {
+            get {
                 return ResourceManager.GetString("AcquiredCount", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
-        public static string All
-        {
-            get
-            {
+        public static string All {
+            get {
                 return ResourceManager.GetString("All", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Education Portal.
         /// </summary>
-        public static string ApplicationName
-        {
-            get
-            {
+        public static string ApplicationName {
+            get {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Articles.
         /// </summary>
-        public static string Articles
-        {
-            get
-            {
+        public static string Articles {
+            get {
                 return ResourceManager.GetString("Articles", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Article title ({0}) is already taken..
+        /// </summary>
+        public static string ArticleTitle_IsAlreadyTakenFlash {
+            get {
+                return ResourceManager.GetString("ArticleTitle_IsAlreadyTakenFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Article title ({0}) is duplicated..
+        /// </summary>
+        public static string ArticleTitle_IsDuplicatedFlash {
+            get {
+                return ResourceManager.GetString("ArticleTitle_IsDuplicatedFlash", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Authors.
         /// </summary>
-        public static string Authors
-        {
-            get
-            {
+        public static string Authors {
+            get {
                 return ResourceManager.GetString("Authors", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authors is required..
+        /// </summary>
+        public static string AuthorsIsRequiredError {
+            get {
+                return ResourceManager.GetString("AuthorsIsRequiredError", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Available.
         /// </summary>
-        public static string Available
-        {
-            get
-            {
+        public static string Available {
+            get {
                 return ResourceManager.GetString("Available", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Available Courses.
         /// </summary>
-        public static string availableCourses
-        {
-            get
-            {
+        public static string availableCourses {
+            get {
                 return ResourceManager.GetString("availableCourses", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
-        public static string Back
-        {
-            get
-            {
+        public static string Back {
+            get {
                 return ResourceManager.GetString("Back", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Completed.
         /// </summary>
-        public static string Completed
-        {
-            get
-            {
+        public static string Completed {
+            get {
                 return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Completed Courses.
         /// </summary>
-        public static string completedCourses
-        {
-            get
-            {
+        public static string completedCourses {
+            get {
                 return ResourceManager.GetString("completedCourses", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password is required..
+        /// </summary>
+        public static string ConfirmPasswordIsRequiredError {
+            get {
+                return ResourceManager.GetString("ConfirmPasswordIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Congratulations! You passed successfully..
+        /// </summary>
+        public static string CongratulationsYouPassedSuccessfullyFlash {
+            get {
+                return ResourceManager.GetString("CongratulationsYouPassedSuccessfullyFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Course created successfully..
+        /// </summary>
+        public static string CourseCreatedSuccessfullyFlash {
+            get {
+                return ResourceManager.GetString("CourseCreatedSuccessfullyFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Course creation failed..
+        /// </summary>
+        public static string CourseCreationFailedFlash {
+            get {
+                return ResourceManager.GetString("CourseCreationFailedFlash", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Course Details.
         /// </summary>
-        public static string CourseDetails
-        {
-            get
-            {
+        public static string CourseDetails {
+            get {
                 return ResourceManager.GetString("CourseDetails", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Course name ({0}) is already taken..
+        /// </summary>
+        public static string CourseName_IsAlreadyTakenFlash {
+            get {
+                return ResourceManager.GetString("CourseName_IsAlreadyTakenFlash", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Courses.
         /// </summary>
-        public static string Courses
-        {
-            get
-            {
+        public static string Courses {
+            get {
                 return ResourceManager.GetString("Courses", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
-        public static string Create
-        {
-            get
-            {
+        public static string Create {
+            get {
                 return ResourceManager.GetString("Create", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Create Course.
         /// </summary>
-        public static string CreateCourse
-        {
-            get
-            {
+        public static string CreateCourse {
+            get {
                 return ResourceManager.GetString("CreateCourse", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Created.
         /// </summary>
-        public static string Created
-        {
-            get
-            {
+        public static string Created {
+            get {
                 return ResourceManager.GetString("Created", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Created By.
         /// </summary>
-        public static string CreatedBy
-        {
-            get
-            {
+        public static string CreatedBy {
+            get {
                 return ResourceManager.GetString("CreatedBy", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Created Courses.
         /// </summary>
-        public static string createdCourses
-        {
-            get
-            {
+        public static string createdCourses {
+            get {
                 return ResourceManager.GetString("createdCourses", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        public static string Delete
-        {
-            get
-            {
+        public static string Delete {
+            get {
                 return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
-        public static string Description
-        {
-            get
-            {
+        public static string Description {
+            get {
                 return ResourceManager.GetString("Description", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description is required..
+        /// </summary>
+        public static string DescriptionIsRequiredError {
+            get {
+                return ResourceManager.GetString("DescriptionIsRequiredError", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
-        public static string Done
-        {
-            get
-            {
+        public static string Done {
+            get {
                 return ResourceManager.GetString("Done", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not have an account?.
+        /// </summary>
+        public static string DoNotHaveAnAccount {
+            get {
+                return ResourceManager.GetString("DoNotHaveAnAccount", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
-        public static string Duration
-        {
-            get
-            {
+        public static string Duration {
+            get {
                 return ResourceManager.GetString("Duration", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Format.
+        ///   Looks up a localized string similar to Duration is required..
         /// </summary>
-        public static string Format
-        {
-            get
-            {
-                return ResourceManager.GetString("Format", resourceCulture);
+        public static string DurationIsRequiredError {
+            get {
+                return ResourceManager.GetString("DurationIsRequiredError", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Highest acquired level.
-        /// </summary>
-        public static string HighestAcquiredLevel
-        {
-            get
-            {
-                return ResourceManager.GetString("HighestAcquiredLevel", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to In-Progress.
-        /// </summary>
-        public static string InProgress
-        {
-            get
-            {
-                return ResourceManager.GetString("InProgress", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to In-Progress Courses.
-        /// </summary>
-        public static string inprogressCourses
-        {
-            get
-            {
-                return ResourceManager.GetString("inprogressCourses", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Level.
-        /// </summary>
-        public static string Level
-        {
-            get
-            {
-                return ResourceManager.GetString("Level", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Load.
-        /// </summary>
-        public static string Load
-        {
-            get
-            {
-                return ResourceManager.GetString("Load", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Logout.
-        /// </summary>
-        public static string Logout
-        {
-            get
-            {
-                return ResourceManager.GetString("Logout", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Mark as Done.
-        /// </summary>
-        public static string MarkAsDone
-        {
-            get
-            {
-                return ResourceManager.GetString("MarkAsDone", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Materials.
-        /// </summary>
-        public static string Materials
-        {
-            get
-            {
-                return ResourceManager.GetString("Materials", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string Name
-        {
-            get
-            {
-                return ResourceManager.GetString("Name", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to New.
-        /// </summary>
-        public static string New
-        {
-            get
-            {
-                return ResourceManager.GetString("New", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Pages.
-        /// </summary>
-        public static string Pages
-        {
-            get
-            {
-                return ResourceManager.GetString("Pages", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Profile.
-        /// </summary>
-        public static string Profile
-        {
-            get
-            {
-                return ResourceManager.GetString("Profile", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Progress.
-        /// </summary>
-        public static string Progress
-        {
-            get
-            {
-                return ResourceManager.GetString("Progress", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Publication Date.
-        /// </summary>
-        public static string PublicationDate
-        {
-            get
-            {
-                return ResourceManager.GetString("PublicationDate", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Publications.
-        /// </summary>
-        public static string Publications
-        {
-            get
-            {
-                return ResourceManager.GetString("Publications", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Publication Year.
-        /// </summary>
-        public static string PublicationYear
-        {
-            get
-            {
-                return ResourceManager.GetString("PublicationYear", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Quality.
-        /// </summary>
-        public static string Quality
-        {
-            get
-            {
-                return ResourceManager.GetString("Quality", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Registered Courses.
-        /// </summary>
-        public static string registeredCourses
-        {
-            get
-            {
-                return ResourceManager.GetString("registeredCourses", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Resource Link.
-        /// </summary>
-        public static string ResourceLink
-        {
-            get
-            {
-                return ResourceManager.GetString("ResourceLink", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Search.
-        /// </summary>
-        public static string Search
-        {
-            get
-            {
-                return ResourceManager.GetString("Search", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Select Article.
-        /// </summary>
-        public static string SelectArticle
-        {
-            get
-            {
-                return ResourceManager.GetString("SelectArticle", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Select Publication.
-        /// </summary>
-        public static string SelectPublication
-        {
-            get
-            {
-                return ResourceManager.GetString("SelectPublication", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Select Skill.
-        /// </summary>
-        public static string SelectSkill
-        {
-            get
-            {
-                return ResourceManager.GetString("SelectSkill", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Select Video.
-        /// </summary>
-        public static string SelectVideo
-        {
-            get
-            {
-                return ResourceManager.GetString("SelectVideo", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Skill.
-        /// </summary>
-        public static string Skill
-        {
-            get
-            {
-                return ResourceManager.GetString("Skill", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Skills.
-        /// </summary>
-        public static string Skills
-        {
-            get
-            {
-                return ResourceManager.GetString("Skills", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Title.
-        /// </summary>
-        public static string Title
-        {
-            get
-            {
-                return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Videos.
-        /// </summary>
-        public static string Videos
-        {
-            get
-            {
-                return ResourceManager.GetString("Videos", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to FirstName.
-        /// </summary>
-        public static string FirstName
-        {
-            get
-            {
-                return ResourceManager.GetString("FirstName", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to LastName.
-        /// </summary>
-        public static string LastName
-        {
-            get
-            {
-                return ResourceManager.GetString("LastName", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
-        public static string Email
-        {
-            get
-            {
+        public static string Email {
+            get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email should be in email address format..
+        /// </summary>
+        public static string EmailFormatError {
+            get {
+                return ResourceManager.GetString("EmailFormatError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is already taken..
+        /// </summary>
+        public static string EmailIsAlreadyTakenError {
+            get {
+                return ResourceManager.GetString("EmailIsAlreadyTakenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is required..
+        /// </summary>
+        public static string EmailIsRequiredError {
+            get {
+                return ResourceManager.GetString("EmailIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enroll.
+        /// </summary>
+        public static string Enroll {
+            get {
+                return ResourceManager.GetString("Enroll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Learn to choose between multiple correct answers quickly.
+        /// </summary>
+        public static string ExampleAnswersCourseDescription {
+            get {
+                return ResourceManager.GetString("ExampleAnswersCourseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Answers.
+        /// </summary>
+        public static string ExampleAnswersCourseName {
+            get {
+                return ResourceManager.GetString("ExampleAnswersCourseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speed reading.
+        /// </summary>
+        public static string ExampleAnswersCourseSkills {
+            get {
+                return ResourceManager.GetString("ExampleAnswersCourseSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A course to create Asp.Net Core MVC applications.
+        /// </summary>
+        public static string ExampleDotnetCourseDescription {
+            get {
+                return ResourceManager.GetString("ExampleDotnetCourseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dotnet course.
+        /// </summary>
+        public static string ExampleDotnetCourseName {
+            get {
+                return ResourceManager.GetString("ExampleDotnetCourseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C#, Asp.Net Core.
+        /// </summary>
+        public static string ExampleDotnetCourseSkills {
+            get {
+                return ResourceManager.GetString("ExampleDotnetCourseSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A course to teach you how to collaborate with others on gitlab.
+        /// </summary>
+        public static string ExampleGitCourseDescription {
+            get {
+                return ResourceManager.GetString("ExampleGitCourseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Git - Gitlab.
+        /// </summary>
+        public static string ExampleGitCourseName {
+            get {
+                return ResourceManager.GetString("ExampleGitCourseName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Git, Gitlab.
+        /// </summary>
+        public static string ExampleGitCourseSkills {
+            get {
+                return ResourceManager.GetString("ExampleGitCourseSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name is required..
+        /// </summary>
+        public static string FirstNameIsRequiredError {
+            get {
+                return ResourceManager.GetString("FirstNameIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format.
+        /// </summary>
+        public static string Format {
+            get {
+                return ResourceManager.GetString("Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Format is required..
+        /// </summary>
+        public static string FormatIsRequiredError {
+            get {
+                return ResourceManager.GetString("FormatIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highest Acquired Level.
+        /// </summary>
+        public static string HighestAcquiredLevel {
+            get {
+                return ResourceManager.GetString("HighestAcquiredLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create your own course.
+        /// </summary>
+        public static string HomeAdviceHeader {
+            get {
+                return ResourceManager.GetString("HomeAdviceHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label the skills it touches upon and provide the materials.
+        /// </summary>
+        public static string HomeAdviceText {
+            get {
+                return ResourceManager.GetString("HomeAdviceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Education Portal.
+        /// </summary>
+        public static string HomeHeader {
+            get {
+                return ResourceManager.GetString("HomeHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your gateway to knowledge and learning.
+        /// </summary>
+        public static string HomeSubHeader {
+            get {
+                return ResourceManager.GetString("HomeSubHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Improve your skills by completing various courses or create courses to teach your friends.
+        /// </summary>
+        public static string HomeWelcomeText {
+            get {
+                return ResourceManager.GetString("HomeWelcomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I already have an account.
+        /// </summary>
+        public static string IAlreadyHaveAnAccount {
+            get {
+                return ResourceManager.GetString("IAlreadyHaveAnAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In-Progress.
+        /// </summary>
+        public static string InProgress {
+            get {
+                return ResourceManager.GetString("InProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In-Progress Courses.
+        /// </summary>
+        public static string inprogressCourses {
+            get {
+                return ResourceManager.GetString("inprogressCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email or password..
+        /// </summary>
+        public static string InvalidEmailOrPasswordFlash {
+            get {
+                return ResourceManager.GetString("InvalidEmailOrPasswordFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name is required..
+        /// </summary>
+        public static string LastNameIsRequiredError {
+            get {
+                return ResourceManager.GetString("LastNameIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave.
+        /// </summary>
+        public static string Leave {
+            get {
+                return ResourceManager.GetString("Leave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load.
+        /// </summary>
+        public static string Load {
+            get {
+                return ResourceManager.GetString("Load", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged in successfully..
+        /// </summary>
+        public static string LoggedInSuccessfullyFlash {
+            get {
+                return ResourceManager.GetString("LoggedInSuccessfullyFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logged out successfully..
+        /// </summary>
+        public static string LoggedOutSuccessfullyFlash {
+            get {
+                return ResourceManager.GetString("LoggedOutSuccessfullyFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failed..
+        /// </summary>
+        public static string LogInFailedFlash {
+            get {
+                return ResourceManager.GetString("LogInFailedFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark as Done.
+        /// </summary>
+        public static string MarkAsDone {
+            get {
+                return ResourceManager.GetString("MarkAsDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Material marked as Done..
+        /// </summary>
+        public static string MaterialMarkedAsDoneFlash {
+            get {
+                return ResourceManager.GetString("MaterialMarkedAsDoneFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Materials.
+        /// </summary>
+        public static string Materials {
+            get {
+                return ResourceManager.GetString("Materials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is required..
+        /// </summary>
+        public static string NameIsRequiredError {
+            get {
+                return ResourceManager.GetString("NameIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages.
+        /// </summary>
+        public static string Pages {
+            get {
+                return ResourceManager.GetString("Pages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pages is required..
+        /// </summary>
+        public static string PagesIsRequiredError {
+            get {
+                return ResourceManager.GetString("PagesIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Password and Confirm Password do not match.&quot;.
+        /// </summary>
+        public static string PasswordAndConfirmPasswordDoNotMatchError {
+            get {
+                return ResourceManager.GetString("PasswordAndConfirmPasswordDoNotMatchError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required..
+        /// </summary>
+        public static string PasswordIsRequiredError {
+            get {
+                return ResourceManager.GetString("PasswordIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progress.
+        /// </summary>
+        public static string Progress {
+            get {
+                return ResourceManager.GetString("Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publication Date.
+        /// </summary>
+        public static string PublicationDate {
+            get {
+                return ResourceManager.GetString("PublicationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publication Date is required..
+        /// </summary>
+        public static string PublicationDateIsRequiredError {
+            get {
+                return ResourceManager.GetString("PublicationDateIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publications.
+        /// </summary>
+        public static string Publications {
+            get {
+                return ResourceManager.GetString("Publications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publication title ({0}) is already taken..
+        /// </summary>
+        public static string PublicationTitle_IsAlreadyTakenFlash {
+            get {
+                return ResourceManager.GetString("PublicationTitle_IsAlreadyTakenFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publication title ({0}) is duplicated..
+        /// </summary>
+        public static string PublicationTitle_IsDuplicatedFlash {
+            get {
+                return ResourceManager.GetString("PublicationTitle_IsDuplicatedFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publication Year.
+        /// </summary>
+        public static string PublicationYear {
+            get {
+                return ResourceManager.GetString("PublicationYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publication Year is required..
+        /// </summary>
+        public static string PublicationYearIsRequiredError {
+            get {
+                return ResourceManager.GetString("PublicationYearIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quality.
+        /// </summary>
+        public static string Quality {
+            get {
+                return ResourceManager.GetString("Quality", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quality is required..
+        /// </summary>
+        public static string QualityIsRequiredError {
+            get {
+                return ResourceManager.GetString("QualityIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registered Courses.
+        /// </summary>
+        public static string registeredCourses {
+            get {
+                return ResourceManager.GetString("registeredCourses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration failed..
+        /// </summary>
+        public static string RegistrationFailedFlash {
+            get {
+                return ResourceManager.GetString("RegistrationFailedFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource Link.
+        /// </summary>
+        public static string ResourceLink {
+            get {
+                return ResourceManager.GetString("ResourceLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource Link is required..
+        /// </summary>
+        public static string ResourceLinkIsRequiredError {
+            get {
+                return ResourceManager.GetString("ResourceLinkIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Article.
+        /// </summary>
+        public static string SelectArticle {
+            get {
+                return ResourceManager.GetString("SelectArticle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Publication.
+        /// </summary>
+        public static string SelectPublication {
+            get {
+                return ResourceManager.GetString("SelectPublication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Skill.
+        /// </summary>
+        public static string SelectSkill {
+            get {
+                return ResourceManager.GetString("SelectSkill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Video.
+        /// </summary>
+        public static string SelectVideo {
+            get {
+                return ResourceManager.GetString("SelectVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up.
+        /// </summary>
+        public static string SignUp {
+            get {
+                return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skill.
+        /// </summary>
+        public static string Skill {
+            get {
+                return ResourceManager.GetString("Skill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skill name ({0}) is already taken..
+        /// </summary>
+        public static string SkillName_IsAlreadyTakenFlash {
+            get {
+                return ResourceManager.GetString("SkillName_IsAlreadyTakenFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skill name ({0}) is duplicated..
+        /// </summary>
+        public static string SkillName_IsDuplicatedFlash {
+            get {
+                return ResourceManager.GetString("SkillName_IsDuplicatedFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skills.
+        /// </summary>
+        public static string Skills {
+            get {
+                return ResourceManager.GetString("Skills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oops! Something went wrong..
+        /// </summary>
+        public static string SomethingWentWrongError {
+            get {
+                return ResourceManager.GetString("SomethingWentWrongError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We are having trouble connecting to the database. Please try again later..
+        /// </summary>
+        public static string SqlError {
+            get {
+                return ResourceManager.GetString("SqlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title is required..
+        /// </summary>
+        public static string TitleIsRequiredError {
+            get {
+                return ResourceManager.GetString("TitleIsRequiredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred. Please try again later..
+        /// </summary>
+        public static string UnexpectedError {
+            get {
+                return ResourceManager.GetString("UnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Videos.
+        /// </summary>
+        public static string Videos {
+            get {
+                return ResourceManager.GetString("Videos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video title ({0}) is already taken..
+        /// </summary>
+        public static string VideoTitle_IsAlreadyTakenFlash {
+            get {
+                return ResourceManager.GetString("VideoTitle_IsAlreadyTakenFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video title ({0}) is duplicated..
+        /// </summary>
+        public static string VideoTitle_IsDuplicatedFlash {
+            get {
+                return ResourceManager.GetString("VideoTitle_IsDuplicatedFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The request could not be processed. Please make sure the data is correct..
+        /// </summary>
+        public static string XFetchBadRequestError {
+            get {
+                return ResourceManager.GetString("XFetchBadRequestError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You enrolled successfully..
+        /// </summary>
+        public static string YouEnrolledSuccessfullyFlash {
+            get {
+                return ResourceManager.GetString("YouEnrolledSuccessfullyFlash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You left the course successfully..
+        /// </summary>
+        public static string YouLeftTheCourseSuccessfullyFlash {
+            get {
+                return ResourceManager.GetString("YouLeftTheCourseSuccessfullyFlash", resourceCulture);
             }
         }
     }

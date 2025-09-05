@@ -19,17 +19,17 @@ public class VideoViewModel
 
 public class VideoCreateViewModel
 {
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "TitleIsRequiredError")]
     [StringLength(100)]
     [Display(ResourceType = typeof(Resource), Name = "Title")]
     public string Title { get; set; } = "";
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "DurationIsRequiredError")]
     [Range(0, 86400)]
     [Display(ResourceType = typeof(Resource), Name = "Duration")]
     public int Duration { get; set; }
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "QualityIsRequiredError")]
     [StringLength(20)]
     [Display(ResourceType = typeof(Resource), Name = "Quality")]
     public string Quality { get; set; } = "";

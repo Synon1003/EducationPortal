@@ -44,12 +44,12 @@ public class CourseDetailViewModel
 
 public class CourseCreateViewModel
 {
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "NameIsRequiredError")]
     [StringLength(50)]
     [Display(ResourceType = typeof(Resource), Name = "Name")]
     public string Name { get; set; } = "";
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "DescriptionIsRequiredError")]
     [StringLength(250)]
     [Display(ResourceType = typeof(Resource), Name = "Description")]
     public string Description { get; set; } = "";
