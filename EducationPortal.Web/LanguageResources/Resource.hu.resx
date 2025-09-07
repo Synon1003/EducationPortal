@@ -152,31 +152,31 @@
   <data name="InvalidEmailOrPassword" xml:space="preserve">
     <value>Hibás email vagy jelszó.</value>
   </data>
-  <data name="CourseName_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="CourseName_IsAlreadyTaken" xml:space="preserve">
     <value>Ez a tanfolyamnév ({0}) már létezik.</value>
   </data>
-  <data name="SkillName_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="SkillName_IsAlreadyTaken" xml:space="preserve">
     <value>Ez az ismeret ({0}) már létezik.</value>
   </data>
-  <data name="SkillName_IsDuplicatedFlash" xml:space="preserve">
+  <data name="SkillName_IsDuplicated" xml:space="preserve">
     <value>Ezt az ismeretnevet ({0}) többször adtad meg.</value>
   </data>
-  <data name="VideoTitle_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="VideoTitle_IsAlreadyTaken" xml:space="preserve">
     <value>Ez a videócím ({0}) már létezik.</value>
   </data>
-  <data name="VideoTitle_IsDuplicatedFlash" xml:space="preserve">
+  <data name="VideoTitle_IsDuplicated" xml:space="preserve">
     <value>Ezt a videócímet ({0}) többször adtad meg.</value>
   </data>
-  <data name="PublicationTitle_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="PublicationTitle_IsAlreadyTaken" xml:space="preserve">
     <value>Ez a kiadványcím ({0}) már létezik.</value>
   </data>
-  <data name="PublicationTitle_IsDuplicatedFlash" xml:space="preserve">
+  <data name="PublicationTitle_IsDuplicated" xml:space="preserve">
     <value>Ezt a kiadványcímet ({0}) többször adtad meg.</value>
   </data>
-  <data name="ArticleTitle_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="ArticleTitle_IsAlreadyTaken" xml:space="preserve">
     <value>Ez a cikkcím ({0}) már létezik.</value>
   </data>
-  <data name="ArticleTitle_IsDuplicatedFlash" xml:space="preserve">
+  <data name="ArticleTitle_IsDuplicated" xml:space="preserve">
     <value>Ezt a cikknevet ({0}) többször adtad meg.</value>
   </data>
   <data name="HomeHeader" xml:space="preserve">
@@ -213,7 +213,7 @@
     <value>C#, Asp.Net Core</value>
   </data>
   <data name="ExampleAnswersCourseName" xml:space="preserve">
-    <value>Válassz</value>
+    <value>FAQ</value>
   </data>
   <data name="ExampleAnswersCourseDescription" xml:space="preserve">
     <value>Tanuld meg sok helyes válaszból gyorsan kiválasztani a leghelyesebbet</value>

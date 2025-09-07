@@ -140,7 +140,7 @@ public class AccountController : Controller
     [FetchOnly]
     public async Task<IActionResult> SetUserTheme(string theme)
     {
-        List<string> validThemes = ["business", "corporate"];
+        List<string> validThemes = ["business", "corporate", "cyberpunk"];
         if (!validThemes.Contains(theme))
         {
             return BadRequest("Invalid theme.");

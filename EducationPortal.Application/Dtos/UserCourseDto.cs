@@ -2,7 +2,7 @@ namespace EducationPortal.Application.Dtos;
 
 public record UserCourseDto(
     Guid UserId,
-    int courseId,
+    int CourseId,
     bool IsCompleted,
     int ProgressPercentage
 );

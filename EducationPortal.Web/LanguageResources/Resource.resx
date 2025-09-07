@@ -259,31 +259,31 @@
   <data name="InvalidEmailOrPasswordFlash" xml:space="preserve">
     <value>Invalid email or password.</value>
   </data>
-  <data name="CourseName_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="CourseName_IsAlreadyTaken" xml:space="preserve">
     <value>Course name ({0}) is already taken.</value>
   </data>
-  <data name="SkillName_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="SkillName_IsAlreadyTaken" xml:space="preserve">
     <value>Skill name ({0}) is already taken.</value>
   </data>
-  <data name="SkillName_IsDuplicatedFlash" xml:space="preserve">
+  <data name="SkillName_IsDuplicated" xml:space="preserve">
     <value>Skill name ({0}) is duplicated.</value>
   </data>
-  <data name="VideoTitle_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="VideoTitle_IsAlreadyTaken" xml:space="preserve">
     <value>Video title ({0}) is already taken.</value>
   </data>
-  <data name="VideoTitle_IsDuplicatedFlash" xml:space="preserve">
+  <data name="VideoTitle_IsDuplicated" xml:space="preserve">
     <value>Video title ({0}) is duplicated.</value>
   </data>
-  <data name="PublicationTitle_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="PublicationTitle_IsAlreadyTaken" xml:space="preserve">
     <value>Publication title ({0}) is already taken.</value>
   </data>
-  <data name="PublicationTitle_IsDuplicatedFlash" xml:space="preserve">
+  <data name="PublicationTitle_IsDuplicated" xml:space="preserve">
     <value>Publication title ({0}) is duplicated.</value>
   </data>
-  <data name="ArticleTitle_IsAlreadyTakenFlash" xml:space="preserve">
+  <data name="ArticleTitle_IsAlreadyTaken" xml:space="preserve">
     <value>Article title ({0}) is already taken.</value>
   </data>
-  <data name="ArticleTitle_IsDuplicatedFlash" xml:space="preserve">
+  <data name="ArticleTitle_IsDuplicated" xml:space="preserve">
     <value>Article title ({0}) is duplicated.</value>
   </data>
   <data name="HomeHeader" xml:space="preserve">
@@ -320,7 +320,7 @@
     <value>C#, Asp.Net Core</value>
   </data>
   <data name="ExampleAnswersCourseName" xml:space="preserve">
-    <value>Answers</value>
+    <value>FAQ</value>
   </data>
   <data name="ExampleAnswersCourseDescription" xml:space="preserve">
     <value>Learn to choose between multiple correct answers quickly</value>

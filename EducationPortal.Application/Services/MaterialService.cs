@@ -4,7 +4,6 @@ using EducationPortal.Application.Dtos;
 using EducationPortal.Application.Services.Interfaces;
 using EducationPortal.Application.Exceptions;
 using EducationPortal.Data.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace EducationPortal.Application.Services;
 
