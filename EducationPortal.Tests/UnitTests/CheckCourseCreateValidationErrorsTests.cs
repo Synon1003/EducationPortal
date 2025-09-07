@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using EducationPortal.Tests.Mocks;
 using EducationPortal.Application.Mappings;
 
-namespace EducationPortal.Tests;
+namespace EducationPortal.Tests.UnitTests;
 
 public class CheckCourseCreateValidationErrorsTests
 {

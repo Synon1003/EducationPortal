@@ -12,9 +12,8 @@ using EducationPortal.Application.Mappings;
 using EducationPortal.Application.Exceptions;
 using EducationPortal.Data.Entities;
 using System.Linq.Expressions;
-using Moq.Protected;
 
-namespace EducationPortal.Tests;
+namespace EducationPortal.Tests.UnitTests;
 
 public class CourseServiceTests
 {
