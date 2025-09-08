@@ -6,6 +6,7 @@ using EducationPortal.Application.Services.Interfaces;
 using EducationPortal.Application.Dtos;
 using Microsoft.AspNetCore.Identity;
 using EducationPortal.Data.Entities;
+using EducationPortal.Web.Authorization;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -128,10 +129,16 @@ public class CourseController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Materials(int id)
+    public async Task<IActionResult> Materials(int id, [FromServices] IAuthorizationService authService)
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
+
+        var authResult = await authService.AuthorizeAsync(User,
+            new CourseAuthorizationResource(user.Id, id), new EnrolledInCourseRequirement());
+
+        if (!authResult.Succeeded)
+            return Forbid();
 
         var course = await _courseService.GetCourseByIdAsync(id);
 

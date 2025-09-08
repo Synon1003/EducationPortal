@@ -48,4 +48,15 @@ public class HomeController : Controller
 
         return View(model);
     }
+
+    public IActionResult Forbidden()
+    {
+        var model = new ErrorViewModel
+        {
+            ErrorMessage = "ForbiddenError",
+            ErrorType = "Forbidden"
+        };
+
+        return View("Error", model);
+    }
 }

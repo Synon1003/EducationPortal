@@ -1313,6 +1313,17 @@ namespace EducationPortal.Web.LanguageResources
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to You do not have permission to access this resource. Please contact the administrator...
+        /// </summary>
+        public static string ForbiddenError
+        {
+            get
+            {
+                return ResourceManager.GetString("ForbiddenError", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title

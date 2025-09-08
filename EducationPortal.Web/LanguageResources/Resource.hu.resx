@@ -230,6 +230,11 @@
   <data name="SqlError" xml:space="preserve">
     <value>Problémák merültek fel az adatbáziskapcsolattal. Kérlek, próbáld meg később.</value>
   </data>
+  <data name="ForbiddenError" xml:space="preserve">
+  <value>
+    Nincs jogosultságod az erőforrás eléréséhez. Fordulj a rendszergazdához.
+  </value>
+</data>
   <data name="XFetchBadRequestError" xml:space="preserve">
     <value>A kérést nem lehet kiszolgálni. Kérlek ellenőrizd a megadott adatokat.</value>
   </data>
