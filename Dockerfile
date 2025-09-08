@@ -9,6 +9,7 @@ COPY educationportal.sln ./
 COPY EducationPortal.Web/EducationPortal.Web.csproj EducationPortal.Web/
 COPY EducationPortal.Application/EducationPortal.Application.csproj EducationPortal.Application/
 COPY EducationPortal.Data/EducationPortal.Data.csproj EducationPortal.Data/
+COPY EducationPortal.Tests/EducationPortal.Tests.csproj EducationPortal.Tests/
 
 # Restore dependencies
 RUN dotnet restore
