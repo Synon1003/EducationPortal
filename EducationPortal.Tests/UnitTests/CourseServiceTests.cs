@@ -223,7 +223,7 @@ public class CourseServiceTests
         var result = await service.CreateCourseAsync(courseDto);
 
         // Assert
-        _mockUnitOfWork.Verify(r => r.CourseRepository.InsertAsync(It.IsAny<Course>()), Times.Once);
+        _mockUnitOfWork.Verify(r => r.CourseRepository.Insert(It.IsAny<Course>()), Times.Once);
         _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
 
         result.Should().NotBeNull();
@@ -302,7 +302,7 @@ public class CourseServiceTests
 
         // Assert
         result.Should().BeFalse();
-        _mockUnitOfWork.Verify(u => u.UserCourseRepository.InsertAsync(
+        _mockUnitOfWork.Verify(u => u.UserCourseRepository.Insert(
             It.Is<UserCourse>(uc => uc.UserId == _userId &&
                 uc.CourseId == _courseDetailDto.Id && uc.ProgressPercentage == 50 // course2 has 2materials / 1coursematerial
         )), Times.Once);
@@ -331,7 +331,7 @@ public class CourseServiceTests
 
         // Assert
         result.Should().BeTrue();
-        _mockUnitOfWork.Verify(u => u.UserCourseRepository.InsertAsync(
+        _mockUnitOfWork.Verify(u => u.UserCourseRepository.Insert(
             It.Is<UserCourse>(uc => uc.UserId == _userId &&
                 uc.CourseId == _courseListDto.Id && uc.ProgressPercentage == 100 // course1 has 1material / 1coursematerial
         )), Times.Once);
@@ -407,7 +407,7 @@ public class CourseServiceTests
 
         // Assert
         result.Should().BeTrue();
-        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.InsertAsync(
+        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.Insert(
             It.Is<UserMaterial>(um => um.UserId == _userId && um.MaterialId == materialId)), Times.Once);
         _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
 
@@ -436,7 +436,7 @@ public class CourseServiceTests
 
         // Assert
         result.Should().BeFalse();
-        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.InsertAsync(
+        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.Insert(
             It.Is<UserMaterial>(um => um.UserId == _userId && um.MaterialId == materialId)), Times.Once);
         _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
 

@@ -21,8 +21,8 @@ public static class MockSkillRepository
         mockRepository.Setup(r => r.ExistsAsync(It.IsAny<Expression<Func<Skill, bool>>>()))
             .ReturnsAsync((Expression<Func<Skill, bool>> predicate) => predicate.Compile()(new Skill { Name = "ExistingSkillName" }));
 
-        mockRepository.Setup(u => u.GetByIdAsync(1))
-            .ReturnsAsync(new Skill { Id = 1, Name = "LoadedSkill" });
+        mockRepository.Setup(r => r.GetAllAsync(It.IsAny<Expression<Func<Skill, bool>>>()))
+            .ReturnsAsync((Expression<Func<Skill, bool>> predicate) => [new Skill { Id = 1, Name = "LoadedSkill" }]);
 
         mockRepository.Setup(u => u.GetSkillsByCourseIdAsync(
             It.IsAny<int>())).ReturnsAsync(skills);

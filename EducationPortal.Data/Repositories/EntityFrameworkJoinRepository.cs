@@ -25,8 +25,8 @@ public class EntityFrameworkJoinRepository<TEntity> : IJoinRepository<TEntity> w
         return await _context.Set<TEntity>().AsNoTracking().Where(predicate).FirstOrDefaultAsync();
     }
 
-    public async Task InsertAsync(TEntity entity)
+    public void Insert(TEntity entity)
     {
-        await _context.Set<TEntity>().AddAsync(entity);
+        _context.Set<TEntity>().Add(entity);
     }
 }

@@ -1,7 +1,6 @@
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace EducationPortal.Data.Repositories;
 
@@ -9,9 +8,6 @@ public class MaterialRepository : EntityFrameworkRepository<Material>, IMaterial
 {
     public MaterialRepository(EducationPortalDbContext context) : base(context)
     { }
-
-    public async Task<IEnumerable<Material>> GetAllAsync(Expression<Func<Material, bool>> predicate) =>
-        await GetAll().Where(predicate).ToListAsync();
 
     public async Task<ICollection<Material>> GetMaterialsByCourseIdAsync(int courseId) =>
         await _context.Materials.AsNoTracking()

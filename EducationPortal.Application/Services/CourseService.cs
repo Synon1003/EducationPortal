@@ -86,7 +86,7 @@ public class CourseService : ICourseService
         AddCoursePublications(course, courseCreateDto);
         AddCourseArticles(course, courseCreateDto);
         await AddLoadedMaterials(course, courseCreateDto);
-        await _unitOfWork.CourseRepository.InsertAsync(course);
+        _unitOfWork.CourseRepository.Insert(course);
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation("<User Id={userId}> created <Course Id={courseId} Name={courseName}> done",
             course.CreatedBy, course.Id, course.Name);
@@ -111,7 +111,7 @@ public class CourseService : ICourseService
         (int completedCount, int totalCount) = await GetCountersFromMaterialRatioAsync(userId, course);
         bool isInstantCompleted = completedCount == totalCount;
 
-        await _unitOfWork.UserCourseRepository.InsertAsync(new UserCourse()
+        _unitOfWork.UserCourseRepository.Insert(new UserCourse()
         {
             ProgressPercentage = totalCount == 0 ? 0 : 100 * completedCount / totalCount,
             UserId = userId,
@@ -149,7 +149,7 @@ public class CourseService : ICourseService
     {
         var userCourses = await _unitOfWork.UserCourseRepository.GetAllByUserIdAsync(userId);
 
-        await _unitOfWork.UserMaterialRepository.InsertAsync(
+        _unitOfWork.UserMaterialRepository.Insert(
             new UserMaterial() { UserId = userId, MaterialId = materialId });
 
         var materialRelatedCourses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
@@ -198,9 +198,19 @@ public class CourseService : ICourseService
         foreach (var skill in courseCreateDto.Skills)
             course.Skills.Add(new Skill { Name = skill.Name });
 
-        foreach (var skill in courseCreateDto.LoadedSkills)
+        var existingSkillIds = courseCreateDto.LoadedSkills
+            .Select(s => s.Id)
+            .ToList();
+
+        if (existingSkillIds.Any())
         {
-            course.Skills.Add((await _unitOfWork.SkillRepository.GetByIdAsync(skill.Id))!);
+            var existingSkills = await _unitOfWork.SkillRepository
+                .GetAllAsync(s => existingSkillIds.Contains(s.Id));
+
+            foreach (var skill in existingSkills)
+            {
+                course.Skills.Add(skill);
+            }
         }
     }
 
@@ -292,7 +302,7 @@ public class CourseService : ICourseService
 
             if (userSkill is null)
             {
-                await _unitOfWork.UserSkillRepository.InsertAsync(
+                _unitOfWork.UserSkillRepository.Insert(
                     new UserSkill() { UserId = userId, SkillId = skill.Id, Level = 1 });
             }
             else
