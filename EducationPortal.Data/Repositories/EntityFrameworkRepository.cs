@@ -20,7 +20,7 @@ public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEn
 
     public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null)
     {
-        IQueryable<TEntity> query = GetAll();
+        IQueryable<TEntity> query = _context.Set<TEntity>();
 
         if (predicate != null)
         {

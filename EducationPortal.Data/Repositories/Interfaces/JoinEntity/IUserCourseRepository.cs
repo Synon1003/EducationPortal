@@ -1,11 +1,11 @@
-using System.Linq.Expressions;
 using EducationPortal.Data.Entities;
+using EducationPortal.Data.Helpers;
 
 namespace EducationPortal.Data.Repositories.Interfaces;
 
 public interface IUserCourseRepository : IJoinRepository<UserCourse>
 {
-    Task<ICollection<UserCourse>> GetAllByUserIdAsync(Guid userId);
+    Task<List<UserCourse>> GetAllAsync(UserCoursesFilter filter);
     void Update(UserCourse userCourse);
     void Delete(UserCourse userCourse);
 }

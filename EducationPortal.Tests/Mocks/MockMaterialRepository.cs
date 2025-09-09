@@ -28,6 +28,13 @@ public static class MockMaterialRepository
                 new Article { Id = 3, Title = "LoadedArticle" }
             ]);
 
+        mockRepository.Setup(r => r.GetMaterialsByCourseIdAsync(It.IsAny<int>()))
+            .ReturnsAsync([
+                new Video { Id = 1, Title = "LoadedVideo" },
+                new Publication { Id = 2, Title = "LoadedPublication" },
+                new Article { Id = 3, Title = "LoadedArticle" }
+            ]);
+
         return mockRepository;
     }
 }

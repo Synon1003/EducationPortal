@@ -394,48 +394,16 @@ public class CourseServiceTests
     }
 
     [Fact]
-    public async Task MarkMaterialDoneAsync_WithLastMaterial_ReturnsTrue()
+    public async Task MarkMaterialDoneAsync_WithLastMaterial_CallsUserMaterialInsert()
     {
+        // Arrange
         int materialId = _course.Materials.First().Id;
-        int courseId = 2; // UserCourse with materialId in 2materials and 50ProgressPercentage
-
-        // Arrange
         var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
 
         // Act
-        var result = await service.MarkMaterialDoneAsync(_userId, materialId, courseId);
+        await service.MarkMaterialDoneAsync(_userId, materialId);
 
         // Assert
-        result.Should().BeTrue();
-        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.Insert(
-            It.Is<UserMaterial>(um => um.UserId == _userId && um.MaterialId == materialId)), Times.Once);
-        _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
-
-        _mockLogger.Verify(
-            l => l.Log(
-                LogLevel.Information,
-                It.IsAny<EventId>(),
-                It.Is<It.IsAnyType>((v, t) =>
-                    v.ToString()!.Contains($"<User Id={_userId}> marked <Material Id={materialId}> done")),
-                It.IsAny<Exception>(),
-                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
-            Times.Once);
-    }
-
-    [Fact]
-    public async Task MarkMaterialDoneAsync_WithNotTheLastMaterial_ReturnsFalse()
-    {
-        int materialId = 2;
-        int courseId = 2; // UserCourse with materialId not the last in 2materials
-
-        // Arrange
-        var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
-
-        // Act
-        var result = await service.MarkMaterialDoneAsync(_userId, materialId, courseId);
-
-        // Assert
-        result.Should().BeFalse();
         _mockUnitOfWork.Verify(u => u.UserMaterialRepository.Insert(
             It.Is<UserMaterial>(um => um.UserId == _userId && um.MaterialId == materialId)), Times.Once);
         _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);

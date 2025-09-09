@@ -5,6 +5,7 @@ using EducationPortal.Application.Dtos;
 using EducationPortal.Application.Services.Interfaces;
 using EducationPortal.Application.Exceptions;
 using Microsoft.Extensions.Logging;
+using EducationPortal.Data.Helpers;
 
 namespace EducationPortal.Application.Services;
 
@@ -119,7 +120,7 @@ public class CourseService : ICourseService
         });
 
         if (isInstantCompleted)
-            await UpdateUserSkillsByCourseSkillsAsync(userId, course.Skills);
+            await UpdateUserSkillsByCompletedSkillIdsAsync(userId, [.. course.Skills.Select(s => s.Id)]);
 
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation("<User Id={userId}> enrolled on <Course Id={courseId} Name={courseName}>",
@@ -145,38 +146,30 @@ public class CourseService : ICourseService
             .ExistsAsync(c => c.UserId == userId && c.MaterialId == materialId);
     }
 
-    public async Task<bool> MarkMaterialDoneAsync(Guid userId, int materialId, int courseId)
+    public async Task MarkMaterialDoneAsync(Guid userId, int materialId)
     {
-        var userCourses = await _unitOfWork.UserCourseRepository.GetAllByUserIdAsync(userId);
-
         _unitOfWork.UserMaterialRepository.Insert(
             new UserMaterial() { UserId = userId, MaterialId = materialId });
 
-        var materialRelatedCourses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
+        var userCourses = await _unitOfWork.UserCourseRepository.GetAllAsync(
+            new UserCoursesFilter() { MaterialId = materialId, UserId = userId, IsCompleted = false });
 
-
-        foreach (var relatedCourse in materialRelatedCourses)
+        var allCompletedSkillIds = new List<int>();
+        foreach (var userCourse in userCourses)
         {
-            foreach (var userCourse in userCourses)
+            var courseRelatedMaterials = await _unitOfWork.MaterialRepository.GetMaterialsByCourseIdAsync(userCourse.CourseId);
+            await UpdateUserCoursePercentageAsync(userId, userCourse, courseRelatedMaterials);
+
+            if (userCourse.IsCompleted)
             {
-                if (relatedCourse.Id == userCourse.CourseId && userCourse.ProgressPercentage != 100)
-                {
-                    await UpdateUserCoursePercentageAsync(userId, userCourse, relatedCourse.Materials);
-
-                    if (userCourse.IsCompleted)
-                    {
-                        var relatedSkills = await _unitOfWork.SkillRepository.GetSkillsByCourseIdAsync(relatedCourse.Id);
-
-                        await UpdateUserSkillsByCourseSkillsAsync(userId, relatedSkills);
-                    }
-                }
+                var relatedSkills = await _unitOfWork.SkillRepository.GetSkillsByCourseIdAsync(userCourse.CourseId);
+                allCompletedSkillIds.AddRange(relatedSkills.Select(s => s.Id));
             }
         }
+        await UpdateUserSkillsByCompletedSkillIdsAsync(userId, allCompletedSkillIds);
 
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation("<User Id={userId}> marked <Material Id={Id}> done", userId, materialId);
-
-        return userCourses.First(uc => uc.CourseId == courseId).IsCompleted;
     }
 
     private async Task<(int, int)> GetCountersFromMaterialRatioAsync(Guid userId, Course course)
@@ -294,21 +287,30 @@ public class CourseService : ICourseService
         _unitOfWork.UserCourseRepository.Update(userCourse);
     }
 
-    private async Task UpdateUserSkillsByCourseSkillsAsync(Guid userId, ICollection<Skill> skills)
+    private async Task UpdateUserSkillsByCompletedSkillIdsAsync(Guid userId, ICollection<int> completedSkillIds)
     {
-        foreach (var skill in skills)
-        {
-            var userSkill = await _unitOfWork.UserSkillRepository.GetByFilterAsync(us => us.UserId == userId && us.SkillId == skill.Id);
+        var existingUserSkills = await _unitOfWork.UserSkillRepository
+            .GetAllAsync(us => us.UserId == userId && completedSkillIds.Contains(us.SkillId));
 
-            if (userSkill is null)
+        var existingMap = existingUserSkills.ToDictionary(us => us.SkillId);
+
+        foreach (var skillId in completedSkillIds)
+        {
+            if (existingMap.TryGetValue(skillId, out var userSkill))
             {
-                _unitOfWork.UserSkillRepository.Insert(
-                    new UserSkill() { UserId = userId, SkillId = skill.Id, Level = 1 });
+                userSkill.Level++;
             }
             else
             {
-                userSkill.Level++;
-                _unitOfWork.UserSkillRepository.Update(userSkill);
+                var newUserSkill = new UserSkill
+                {
+                    UserId = userId,
+                    SkillId = skillId,
+                    Level = 1
+                };
+
+                _unitOfWork.UserSkillRepository.Insert(newUserSkill);
+                existingMap[skillId] = newUserSkill;
             }
         }
     }
