@@ -112,8 +112,7 @@ public class CourseController : Controller
 
         var courseCreateDto = _mapper.Map<CourseCreateDto>(courseCreateViewModel) with { CreatedBy = user.Id! };
 
-        _courseService.CheckCourseCreateValidationErrors(
-            courseCreateDto, out List<string> validationErrors);
+        List<string> validationErrors = await _courseService.GetCourseCreateValidationErrorsAsync(courseCreateDto);
         if (validationErrors.Count != 0)
         {
             TempData.Put<List<string>>("errors", validationErrors);
@@ -149,7 +148,7 @@ public class CourseController : Controller
         var materials = _mapper.Map<List<MaterialViewModel>>(materialDtos);
         foreach (var material in materials)
         {
-            material.IsDoneByUser = _courseService.IsUserDoneWithMaterial(user.Id, material.Id);
+            material.IsDoneByUser = await _courseService.IsUserDoneWithMaterialAsync(user.Id, material.Id);
             counter.Total++;
             if (material.IsDoneByUser)
                 counter.Done++;

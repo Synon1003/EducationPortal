@@ -2,6 +2,7 @@ using Moq;
 
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Entities;
+using System.Linq.Expressions;
 
 namespace EducationPortal.Tests.Mocks;
 
@@ -17,8 +18,8 @@ public static class MockSkillRepository
 
         var mockRepository = new Mock<ISkillRepository>();
 
-        mockRepository.Setup(r => r.Exists(It.IsAny<Func<Skill, bool>>()))
-            .Returns((Func<Skill, bool> predicate) => predicate(new Skill { Name = "ExistingSkillName" }));
+        mockRepository.Setup(r => r.ExistsAsync(It.IsAny<Expression<Func<Skill, bool>>>()))
+            .ReturnsAsync((Expression<Func<Skill, bool>> predicate) => predicate.Compile()(new Skill { Name = "ExistingSkillName" }));
 
         mockRepository.Setup(u => u.GetByIdAsync(1))
             .ReturnsAsync(new Skill { Id = 1, Name = "LoadedSkill" });

@@ -57,18 +57,19 @@ public class CourseService : ICourseService
         return _mapper.Map<CourseDetailDto>(course);
     }
 
-    public void CheckCourseCreateValidationErrors(
-        CourseCreateDto courseCreateDto, out List<string> validationErrors)
+    public async Task<List<string>> GetCourseCreateValidationErrorsAsync(CourseCreateDto courseCreateDto)
     {
-        validationErrors = [];
+        List<string> validationErrors = [];
 
-        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
+        if (await _unitOfWork.CourseRepository.ExistsAsync(c => c.Name == courseCreateDto.Name))
             validationErrors.Add($"CourseName({courseCreateDto.Name})IsAlreadyTaken");
 
-        CheckSkillCreateValidationErrors(courseCreateDto.Skills, validationErrors);
-        CheckVideoCreateValidationErrors(courseCreateDto.Videos, validationErrors);
-        CheckPublicationCreateValidationErrors(courseCreateDto.Publications, validationErrors);
-        CheckArticleCreateValidationErrors(courseCreateDto.Articles, validationErrors);
+        await CheckSkillCreateValidationErrorsAsync(courseCreateDto.Skills, validationErrors);
+        await CheckVideoCreateValidationErrorsAsync(courseCreateDto.Videos, validationErrors);
+        await CheckPublicationCreateValidationErrorsAsync(courseCreateDto.Publications, validationErrors);
+        await CheckArticleCreateValidationErrorsAsync(courseCreateDto.Articles, validationErrors);
+
+        return validationErrors;
     }
 
     public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
@@ -138,13 +139,13 @@ public class CourseService : ICourseService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public bool IsUserDoneWithMaterial(Guid userId, int materialId)
+    public async Task<bool> IsUserDoneWithMaterialAsync(Guid userId, int materialId)
     {
-        return _unitOfWork.UserMaterialRepository
-            .Exists(c => c.UserId == userId && c.MaterialId == materialId);
+        return await _unitOfWork.UserMaterialRepository
+            .ExistsAsync(c => c.UserId == userId && c.MaterialId == materialId);
     }
 
-    public async Task<bool> MarkMaterialDone(Guid userId, int materialId, int courseId)
+    public async Task<bool> MarkMaterialDoneAsync(Guid userId, int materialId, int courseId)
     {
         var userCourses = await _unitOfWork.UserCourseRepository.GetAllByUserIdAsync(userId);
 
@@ -160,7 +161,7 @@ public class CourseService : ICourseService
             {
                 if (relatedCourse.Id == userCourse.CourseId && userCourse.ProgressPercentage != 100)
                 {
-                    UpdateUserCoursePercentage(userId, userCourse, relatedCourse.Materials);
+                    await UpdateUserCoursePercentageAsync(userId, userCourse, relatedCourse.Materials);
 
                     if (userCourse.IsCompleted)
                     {
@@ -263,22 +264,22 @@ public class CourseService : ICourseService
         }
     }
 
-    private int CountUserMaterials(Guid userId, ICollection<Material> materials)
+    private async Task<int> CountUserMaterialsAsync(Guid userId, ICollection<Material> materials)
     {
         int count = 0;
         foreach (var material in materials)
         {
-            if (_unitOfWork.UserMaterialRepository
-                .Exists(us => us.MaterialId == material.Id && us.UserId == userId))
+            if (await _unitOfWork.UserMaterialRepository
+                .ExistsAsync(us => us.MaterialId == material.Id && us.UserId == userId))
                 count++;
         }
 
         return count;
     }
 
-    private void UpdateUserCoursePercentage(Guid userId, UserCourse userCourse, ICollection<Material> materials)
+    private async Task UpdateUserCoursePercentageAsync(Guid userId, UserCourse userCourse, ICollection<Material> materials)
     {
-        int acquiredUserMaterials = CountUserMaterials(userId, materials);
+        int acquiredUserMaterials = await CountUserMaterialsAsync(userId, materials);
         userCourse.ProgressPercentage = 100 * (acquiredUserMaterials + 1) / materials.Count;
 
         _unitOfWork.UserCourseRepository.Update(userCourse);
@@ -303,7 +304,7 @@ public class CourseService : ICourseService
         }
     }
 
-    private void CheckSkillCreateValidationErrors(
+    private async Task CheckSkillCreateValidationErrorsAsync(
         List<SkillCreateDto> skills, List<string> validationErrors)
     {
         var duplicateSkillNames = skills
@@ -313,11 +314,11 @@ public class CourseService : ICourseService
             validationErrors.Add($"SkillName({skill})IsDuplicated");
 
         foreach (var skill in skills)
-            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
+            if (await _unitOfWork.SkillRepository.ExistsAsync(s => s.Name == skill.Name))
                 validationErrors.Add($"SkillName({skill.Name})IsAlreadyTaken");
     }
 
-    private void CheckVideoCreateValidationErrors(
+    private async Task CheckVideoCreateValidationErrorsAsync(
         List<VideoCreateDto> videos, List<string> validationErrors)
     {
         var duplicateVideoTitles = videos
@@ -327,12 +328,12 @@ public class CourseService : ICourseService
             validationErrors.Add($"VideoTitle({video})IsDuplicated");
 
         foreach (var video in videos)
-            if (_unitOfWork.MaterialRepository.Exists(
+            if (await _unitOfWork.MaterialRepository.ExistsAsync(
                 m => m.Title == video.Title && m.Type == "Video"))
                 validationErrors.Add($"VideoTitle({video.Title})IsAlreadyTaken");
     }
 
-    private void CheckPublicationCreateValidationErrors(
+    private async Task CheckPublicationCreateValidationErrorsAsync(
         List<PublicationCreateDto> publications, List<string> validationErrors)
     {
         var duplicatePublicationTitles = publications
@@ -342,12 +343,12 @@ public class CourseService : ICourseService
             validationErrors.Add($"PublicationTitle({publication})IsDuplicated");
 
         foreach (var publication in publications)
-            if (_unitOfWork.MaterialRepository.Exists(
+            if (await _unitOfWork.MaterialRepository.ExistsAsync(
                 m => m.Title == publication.Title && m.Type == "Publication"))
                 validationErrors.Add($"PublicationTitle({publication.Title})IsAlreadyTaken");
     }
 
-    private void CheckArticleCreateValidationErrors(
+    private async Task CheckArticleCreateValidationErrorsAsync(
         List<ArticleCreateDto> articles, List<string> validationErrors)
     {
         var duplicateArticleTitles = articles
@@ -357,7 +358,7 @@ public class CourseService : ICourseService
             validationErrors.Add($"ArticleTitle({article})IsDuplicated");
 
         foreach (var article in articles)
-            if (_unitOfWork.MaterialRepository.Exists(
+            if (await _unitOfWork.MaterialRepository.ExistsAsync(
                 m => m.Title == article.Title && m.Type == "Article"))
                 validationErrors.Add($"ArticleTitle({article.Title})IsAlreadyTaken");
     }

@@ -12,7 +12,7 @@ using EducationPortal.Application.Mappings;
 
 namespace EducationPortal.Tests.UnitTests;
 
-public class CheckCourseCreateValidationErrorsTests
+public class GetCourseCreateValidationErrorsAsyncTests
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly Mock<IUnitOfWork> _mockUnitOfWork;
@@ -21,7 +21,7 @@ public class CheckCourseCreateValidationErrorsTests
 
     private readonly IMapper _mapper;
 
-    public CheckCourseCreateValidationErrorsTests()
+    public GetCourseCreateValidationErrorsAsyncTests()
     {
         var mapperConfig = new MapperConfiguration(c =>
         {
@@ -38,19 +38,19 @@ public class CheckCourseCreateValidationErrorsTests
         _logger = _mockLogger.Object;
     }
 
-    public class CheckValidationErrorTestCase
+    public class GetValidationErrorsTestCase
     {
         public string CaseName { get; set; } = string.Empty;
         public CourseCreateDto courseCreateDto { get; set; } = default!;
         public string ExpectedError { get; set; } = string.Empty;
     }
 
-    public static IEnumerable<object[]> CheckValidationErrorTestCases =>
+    public static IEnumerable<object[]> GetValidationErrorsTestCases =>
     new List<object[]>
     {
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Course already taken",
                 courseCreateDto = new CourseCreateDto(
@@ -63,7 +63,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Skill already taken",
                 courseCreateDto = new CourseCreateDto(
@@ -77,7 +77,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Skill duplicated",
                 courseCreateDto = new CourseCreateDto(
@@ -94,7 +94,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Video already taken",
                 courseCreateDto = new CourseCreateDto(
@@ -108,7 +108,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Video duplicated",
                 courseCreateDto = new CourseCreateDto(
@@ -124,7 +124,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Publication already taken",
                 courseCreateDto = new CourseCreateDto(
@@ -139,7 +139,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Publication duplicated",
                 courseCreateDto = new CourseCreateDto(
@@ -155,7 +155,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Article already taken",
                 courseCreateDto = new CourseCreateDto(
@@ -169,7 +169,7 @@ public class CheckCourseCreateValidationErrorsTests
         },
         new object[]
         {
-            new CheckValidationErrorTestCase
+            new GetValidationErrorsTestCase
             {
                 CaseName = "Article duplicated",
                 courseCreateDto = new CourseCreateDto(
@@ -186,22 +186,21 @@ public class CheckCourseCreateValidationErrorsTests
     };
 
     [Theory]
-    [MemberData(nameof(CheckValidationErrorTestCases))]
-    public void CheckCourseCreateValidationErrors_WithExistingProperty_AddsValidationError(CheckValidationErrorTestCase testCase)
+    [MemberData(nameof(GetValidationErrorsTestCases))]
+    public async Task GetCourseCreateValidationErrorsAsync_WithExistingProperty_AddsValidationError(GetValidationErrorsTestCase testCase)
     {
         // Arrange
         CourseService service = new CourseService(_unitOfWork, _mapper, _logger);
 
         // Act
-        service.CheckCourseCreateValidationErrors(testCase.courseCreateDto, out var validationErrors);
+        List<string> result = await service.GetCourseCreateValidationErrorsAsync(testCase.courseCreateDto);
 
         // Assert
-        validationErrors.Should().ContainSingle()
-            .Which.Should().Be(testCase.ExpectedError);
+        result.Should().ContainSingle().Which.Should().Be(testCase.ExpectedError);
     }
 
     [Fact]
-    public void CheckCourseCreateValidationErrors_WithUniqueProperty_NoValidationError()
+    public async Task GetCourseCreateValidationErrorsAsync_WithUniqueProperty_NoValidationError()
     {
         // Arrange
         CourseCreateDto _courseCreateDto = new CourseCreateDto
@@ -218,9 +217,9 @@ public class CheckCourseCreateValidationErrorsTests
         CourseService service = new CourseService(_unitOfWork, _mapper, _logger);
 
         // Act
-        service.CheckCourseCreateValidationErrors(_courseCreateDto, out var validationErrors);
+        List<string> result = await service.GetCourseCreateValidationErrorsAsync(_courseCreateDto);
 
         // Assert
-        validationErrors.Should().BeEmpty();
+        result.Should().BeEmpty();
     }
 }

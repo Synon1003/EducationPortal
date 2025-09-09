@@ -61,7 +61,7 @@ public class UserController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
 
-        var isCourseDone = await _courseService.MarkMaterialDone(user.Id, materialId, courseId);
+        var isCourseDone = await _courseService.MarkMaterialDoneAsync(user.Id, materialId, courseId);
 
         TempData.CreateFlash(isCourseDone ? "CongratulationsYouPassedSuccessfullyFlash" : "MaterialMarkedAsDoneFlash", "info");
 

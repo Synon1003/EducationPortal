@@ -380,21 +380,21 @@ public class CourseServiceTests
     [Theory]
     [InlineData(true, 1)]
     [InlineData(false, 0)] // notExistingMaterialId
-    public void IsUserDoneWithMaterial_WithExistsFilter_ReturnsExpected(bool exists, int materialId)
+    public async Task IsUserDoneWithMaterialAsync_WithExistsAsyncFilter_ReturnsExpected(bool exists, int materialId)
     {
         // Arrange
         var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
 
         // Act
-        var result = service.IsUserDoneWithMaterial(_userId, materialId);
+        var result = await service.IsUserDoneWithMaterialAsync(_userId, materialId);
 
         // Assert
         result.Should().Be(exists);
-        _mockUnitOfWork.Verify(r => r.UserMaterialRepository.Exists(It.IsAny<Func<UserMaterial, bool>>()), Times.Once);
+        _mockUnitOfWork.Verify(r => r.UserMaterialRepository.ExistsAsync(It.IsAny<Expression<Func<UserMaterial, bool>>>()), Times.Once);
     }
 
     [Fact]
-    public async Task MarkMaterialDone_WithLastMaterial_ReturnsTrue()
+    public async Task MarkMaterialDoneAsync_WithLastMaterial_ReturnsTrue()
     {
         int materialId = _course.Materials.First().Id;
         int courseId = 2; // UserCourse with materialId in 2materials and 50ProgressPercentage
@@ -403,7 +403,7 @@ public class CourseServiceTests
         var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
 
         // Act
-        var result = await service.MarkMaterialDone(_userId, materialId, courseId);
+        var result = await service.MarkMaterialDoneAsync(_userId, materialId, courseId);
 
         // Assert
         result.Should().BeTrue();
@@ -423,7 +423,7 @@ public class CourseServiceTests
     }
 
     [Fact]
-    public async Task MarkMaterialDone_WithNotTheLastMaterial_ReturnsFalse()
+    public async Task MarkMaterialDoneAsync_WithNotTheLastMaterial_ReturnsFalse()
     {
         int materialId = 2;
         int courseId = 2; // UserCourse with materialId not the last in 2materials
@@ -432,7 +432,7 @@ public class CourseServiceTests
         var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
 
         // Act
-        var result = await service.MarkMaterialDone(_userId, materialId, courseId);
+        var result = await service.MarkMaterialDoneAsync(_userId, materialId, courseId);
 
         // Assert
         result.Should().BeFalse();

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using EducationPortal.Data.Repositories.Interfaces;
+using System.Linq.Expressions;
 
 namespace EducationPortal.Data.Repositories;
 
@@ -22,9 +23,9 @@ public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEn
         return await _context.Set<TEntity>().FindAsync(id);
     }
 
-    public bool Exists(Func<TEntity, bool> predicate)
+    public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return _context.Set<TEntity>().AsNoTracking().Any(predicate);
+        return _context.Set<TEntity>().AsNoTracking().AnyAsync(predicate);
     }
 
     public async Task InsertAsync(TEntity entity)

@@ -29,10 +29,10 @@ public static class MockUserMaterialRepository
             })
         ))).ReturnsAsync(userMaterial);
 
-        mockRepository.Setup(r => r.Exists(It.IsAny<Func<UserMaterial, bool>>())
-        ).Returns((Func<UserMaterial, bool> predicate) =>
+        mockRepository.Setup(r => r.ExistsAsync(It.IsAny<Expression<Func<UserMaterial, bool>>>())
+        ).ReturnsAsync((Expression<Func<UserMaterial, bool>> predicate) =>
         {
-            return predicate(new UserMaterial { UserId = Guid.Empty, MaterialId = 1 });
+            return predicate.Compile()(new UserMaterial { UserId = Guid.Empty, MaterialId = 1 });
         });
 
         return mockRepository;

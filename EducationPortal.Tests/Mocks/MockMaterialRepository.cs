@@ -2,6 +2,7 @@ using Moq;
 
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Entities;
+using System.Linq.Expressions;
 
 namespace EducationPortal.Tests.Mocks;
 
@@ -17,8 +18,8 @@ public static class MockMaterialRepository
             new Publication { Title = "ExistingPublicationTitle", Type = "Publication" },
             new Article { Title = "ExistingArticleTitle", Type = "Article" }
         };
-        mockRepository.Setup(r => r.Exists(It.IsAny<Func<Material, bool>>()))
-            .Returns((Func<Material, bool> predicate) => existingMaterials.Any(predicate));
+        mockRepository.Setup(r => r.ExistsAsync(It.IsAny<Expression<Func<Material, bool>>>()))
+            .ReturnsAsync((Expression<Func<Material, bool>> predicate) => existingMaterials.Any(predicate.Compile()));
 
 
         mockRepository.Setup(u => u.GetByIdAsync(1))
