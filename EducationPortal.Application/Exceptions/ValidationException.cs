@@ -6,10 +6,7 @@ public class ValidationException : ApplicationException
 
     public ValidationException(List<string> errors)
     {
-        foreach (var error in errors)
-        {
-            Errors.Add(error);
-        }
+        Errors.AddRange(errors);
     }
 
     public void Add(string error)

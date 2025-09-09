@@ -50,7 +50,7 @@ public class UserController : Controller
 
         await _courseService.LeaveCourseAsync(user.Id, id);
 
-        TempData.CreateFlash("You left the course successfully.", "info");
+        TempData.CreateFlash("YouLeftTheCourseSuccessfullyFlash", "info");
 
         return RedirectToAction(nameof(CourseController.Details), "Course", new { id = id });
     }

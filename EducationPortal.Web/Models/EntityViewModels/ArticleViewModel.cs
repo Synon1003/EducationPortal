@@ -9,13 +9,13 @@ public class ArticleViewModel
     public int Id { get; set; }
 
     [Display(ResourceType = typeof(Resource), Name = "Title")]
-    public string Title { get; set; } = "";
+    public string Title { get; set; } = string.Empty;
 
     [Display(ResourceType = typeof(Resource), Name = "PublicationDate")]
     public DateOnly PublicationDate { get; set; }
 
     [Display(ResourceType = typeof(Resource), Name = "ResourceLink")]
-    public string ResourceLink { get; set; } = "";
+    public string ResourceLink { get; set; } = string.Empty;
 }
 
 public class ArticleCreateViewModel
@@ -23,7 +23,7 @@ public class ArticleCreateViewModel
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "TitleIsRequiredError")]
     [StringLength(100)]
     [Display(ResourceType = typeof(Resource), Name = "Title")]
-    public string Title { get; set; } = "";
+    public string Title { get; set; } = string.Empty;
 
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "PublicationDateIsRequiredError")]
     [DataType(DataType.Date)]
@@ -33,5 +33,5 @@ public class ArticleCreateViewModel
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "ResourceLinkIsRequiredError")]
     [StringLength(500)]
     [Display(ResourceType = typeof(Resource), Name = "ResourceLink")]
-    public string ResourceLink { get; set; } = "";
+    public string ResourceLink { get; set; } = string.Empty;
 }

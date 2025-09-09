@@ -73,7 +73,7 @@ public class CourseServiceTests
                 new SkillDto(1, "Skill1"),
                 new SkillDto(2, "Skill2")
             },
-            CreatedBy: ""
+            CreatedBy: string.Empty
         );
 
         _courseDetailDto = new CourseDetailDto
@@ -90,7 +90,7 @@ public class CourseServiceTests
                 new MaterialDto(1, "Material1", "Video"),
                 new MaterialDto(2, "Material2", "Article"),
             },
-            CreatedBy: ""
+            CreatedBy: string.Empty
         );
 
     }
@@ -211,7 +211,7 @@ public class CourseServiceTests
             Videos: new List<VideoCreateDto> { new("Video", 60, "HD") },
             Publications: new List<PublicationCreateDto> { new("Publication", "Authors", 10, "pfd", 2025) },
             Articles: new List<ArticleCreateDto> { new("Article", new DateOnly(), "link") },
-            LoadedVideos: new List<VideoDto> { new(1, "LoadedVideo", 0, "") },
+            LoadedVideos: new List<VideoDto> { new(1, "LoadedVideo", 0, string.Empty) },
             LoadedPublications: new List<PublicationDto> { new(2, "LoadedPublication", "Authors", 10, "pdf", 2025) },
             LoadedArticles: new List<ArticleDto> { new(3, "LoadedArticle", new DateOnly(), "link") },
             CreatedBy: Guid.NewGuid()
@@ -229,7 +229,7 @@ public class CourseServiceTests
         result.Should().NotBeNull();
         result.Name.Should().Be(courseDto.Name);
         result.Description.Should().Be(courseDto.Description);
-        result.CreatedBy.Should().Be("");
+        result.CreatedBy.Should().Be(string.Empty);
 
         result.Skills.Should().ContainSingle(s => s.Name == "Skill");
         result.Skills.Should().ContainSingle(s => s.Name == "LoadedSkill");

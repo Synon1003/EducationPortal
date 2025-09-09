@@ -40,9 +40,9 @@ public class CheckCourseCreateValidationErrorsTests
 
     public class CheckValidationErrorTestCase
     {
-        public string CaseName { get; set; } = "";
+        public string CaseName { get; set; } = string.Empty;
         public CourseCreateDto courseCreateDto { get; set; } = default!;
-        public string ExpectedError { get; set; } = "";
+        public string ExpectedError { get; set; } = string.Empty;
     }
 
     public static IEnumerable<object[]> CheckValidationErrorTestCases =>
@@ -100,7 +100,7 @@ public class CheckCourseCreateValidationErrorsTests
                 courseCreateDto = new CourseCreateDto(
                     "UniqueCourseName",
                     "UniqueCourseDescription",
-                    [], [ new VideoCreateDto("ExistingVideoTitle", 0, "") ],
+                    [], [ new VideoCreateDto("ExistingVideoTitle", 0, string.Empty) ],
                     [], [], [], [], [], [], Guid.NewGuid()
                 ),
                 ExpectedError = "VideoTitle(ExistingVideoTitle)IsAlreadyTaken"
@@ -115,8 +115,8 @@ public class CheckCourseCreateValidationErrorsTests
                     "UniqueCourseName",
                     "UniqueCourseDescription",
                     [], [
-                        new VideoCreateDto("DuplicatedVideoTitle", 0, ""),
-                        new VideoCreateDto("DuplicatedVideoTitle", 0, "")
+                        new VideoCreateDto("DuplicatedVideoTitle", 0, string.Empty),
+                        new VideoCreateDto("DuplicatedVideoTitle", 0, string.Empty)
                     ], [], [], [], [], [], [], Guid.NewGuid()
                 ),
                 ExpectedError = "VideoTitle(DuplicatedVideoTitle)IsDuplicated"
@@ -131,7 +131,7 @@ public class CheckCourseCreateValidationErrorsTests
                     "UniqueCourseName",
                     "UniqueCourseDescription",
                     [], [],
-                    [ new PublicationCreateDto("ExistingPublicationTitle", "", 0, "", 0) ],
+                    [ new PublicationCreateDto("ExistingPublicationTitle", string.Empty, 0, string.Empty, 0) ],
                     [], [], [], [], [], Guid.NewGuid()
                 ),
                 ExpectedError = "PublicationTitle(ExistingPublicationTitle)IsAlreadyTaken"
@@ -146,8 +146,8 @@ public class CheckCourseCreateValidationErrorsTests
                     "UniqueCourseName",
                     "UniqueCourseDescription",
                     [], [], [
-                        new PublicationCreateDto("DuplicatedPublicationTitle", "", 0, "", 0),
-                        new PublicationCreateDto("DuplicatedPublicationTitle", "", 0, "", 0)
+                        new PublicationCreateDto("DuplicatedPublicationTitle", string.Empty, 0, string.Empty, 0),
+                        new PublicationCreateDto("DuplicatedPublicationTitle", string.Empty, 0, string.Empty, 0)
                     ], [], [], [], [], [], Guid.NewGuid()
                 ),
                 ExpectedError = "PublicationTitle(DuplicatedPublicationTitle)IsDuplicated"
@@ -161,7 +161,7 @@ public class CheckCourseCreateValidationErrorsTests
                 courseCreateDto = new CourseCreateDto(
                     "UniqueCourseName",
                     "UniqueCourseDescription",
-                    [], [], [], [ new ArticleCreateDto("ExistingArticleTitle", new DateOnly(), "") ],
+                    [], [], [], [ new ArticleCreateDto("ExistingArticleTitle", new DateOnly(), string.Empty) ],
                     [], [], [], [], Guid.NewGuid()
                 ),
                 ExpectedError = "ArticleTitle(ExistingArticleTitle)IsAlreadyTaken"
@@ -176,8 +176,8 @@ public class CheckCourseCreateValidationErrorsTests
                     "UniqueCourseName",
                     "UniqueCourseDescription",
                     [], [], [], [
-                        new ArticleCreateDto("DuplicatedArticleTitle", new DateOnly(), ""),
-                        new ArticleCreateDto("DuplicatedArticleTitle", new DateOnly(), "")
+                        new ArticleCreateDto("DuplicatedArticleTitle", new DateOnly(), string.Empty),
+                        new ArticleCreateDto("DuplicatedArticleTitle", new DateOnly(), string.Empty)
                     ], [], [], [], [], Guid.NewGuid()
                 ),
                 ExpectedError = "ArticleTitle(DuplicatedArticleTitle)IsDuplicated"
@@ -209,9 +209,9 @@ public class CheckCourseCreateValidationErrorsTests
             Name: "UniqueCourseName",
             Description: "UniqueCourseDescription",
             Skills: [new SkillCreateDto("UniqueSkillName")],
-            Videos: [new VideoCreateDto("UniqueVideoTitle", 0, "")],
-            Publications: [new PublicationCreateDto("UniquePublicationTitle", "", 0, "", 0)],
-            Articles: [new ArticleCreateDto("UniqueArticleTitle", new DateOnly(), "")],
+            Videos: [new VideoCreateDto("UniqueVideoTitle", 0, string.Empty)],
+            Publications: [new PublicationCreateDto("UniquePublicationTitle", string.Empty, 0, string.Empty, 0)],
+            Articles: [new ArticleCreateDto("UniqueArticleTitle", new DateOnly(), string.Empty)],
             LoadedSkills: [], LoadedVideos: [], LoadedPublications: [],
             LoadedArticles: [], CreatedBy: new Guid()
         );
