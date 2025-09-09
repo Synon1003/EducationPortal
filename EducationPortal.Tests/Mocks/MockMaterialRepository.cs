@@ -21,13 +21,12 @@ public static class MockMaterialRepository
         mockRepository.Setup(r => r.ExistsAsync(It.IsAny<Expression<Func<Material, bool>>>()))
             .ReturnsAsync((Expression<Func<Material, bool>> predicate) => existingMaterials.Any(predicate.Compile()));
 
-
-        mockRepository.Setup(u => u.GetByIdAsync(1))
-            .ReturnsAsync(new Video { Id = 1, Title = "LoadedVideo" });
-        mockRepository.Setup(u => u.GetByIdAsync(2))
-            .ReturnsAsync(new Publication { Id = 2, Title = "LoadedPublication" });
-        mockRepository.Setup(u => u.GetByIdAsync(3))
-            .ReturnsAsync(new Article { Id = 3, Title = "LoadedArticle" });
+        mockRepository.Setup(r => r.GetAllAsync(It.IsAny<Expression<Func<Material, bool>>>()))
+            .ReturnsAsync((Expression<Func<Material, bool>> predicate) => [
+                new Video { Id = 1, Title = "LoadedVideo" },
+                new Publication { Id = 2, Title = "LoadedPublication" },
+                new Article { Id = 3, Title = "LoadedArticle" }
+            ]);
 
         return mockRepository;
     }

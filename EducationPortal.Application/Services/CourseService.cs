@@ -206,20 +206,19 @@ public class CourseService : ICourseService
 
     private async Task AddLoadedMaterials(Course course, CourseCreateDto courseCreateDto)
     {
-        foreach (var video in courseCreateDto.LoadedVideos)
-        {
-            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(video.Id))!);
-        }
+        var materialIds = courseCreateDto.LoadedVideos.Select(v => v.Id)
+            .Concat(courseCreateDto.LoadedPublications.Select(p => p.Id))
+            .Concat(courseCreateDto.LoadedArticles.Select(a => a.Id))
+            .ToList();
 
-        foreach (var publication in courseCreateDto.LoadedPublications)
-        {
-            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(publication.Id))!);
-        }
+        if (materialIds.Count == 0)
+            return;
 
-        foreach (var article in courseCreateDto.LoadedArticles)
-        {
-            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(article.Id))!);
-        }
+        var materials = await _unitOfWork.MaterialRepository
+            .GetAllAsync(m => materialIds.Contains(m.Id));
+
+        foreach (var material in materials)
+            course.Materials.Add(material);
     }
 
     private void AddCourseVideos(Course course, CourseCreateDto courseCreateDto)
