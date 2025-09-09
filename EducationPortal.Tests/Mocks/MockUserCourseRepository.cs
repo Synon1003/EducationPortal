@@ -3,6 +3,7 @@ using Moq;
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Entities;
 using System.Linq.Expressions;
+using EducationPortal.Data.Helpers;
 
 namespace EducationPortal.Tests.Mocks;
 
@@ -29,8 +30,8 @@ public static class MockUserCourseRepository
 
         var mockRepository = new Mock<IUserCourseRepository>();
 
-        mockRepository.Setup(u => u.GetAllByUserIdAsync(It.IsAny<Guid>()))
-        .ReturnsAsync([userCourses.Last()]);
+        mockRepository.Setup(r => r.GetAllAsync(It.IsAny<UserCoursesFilter>()))
+            .ReturnsAsync((UserCoursesFilter filter) => [userCourses.Last()]);
 
         mockRepository.Setup(uc => uc.GetByFilterAsync(It.IsAny<Expression<Func<UserCourse, bool>>>()))
             .ReturnsAsync((Expression<Func<UserCourse, bool>> filter) =>

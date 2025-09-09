@@ -50,7 +50,7 @@ public class UserController : Controller
 
         await _courseService.LeaveCourseAsync(user.Id, id);
 
-        TempData.CreateFlash("You left the course successfully.", "info");
+        TempData.CreateFlash("YouLeftTheCourseSuccessfullyFlash", "info");
 
         return RedirectToAction(nameof(CourseController.Details), "Course", new { id = id });
     }
@@ -61,9 +61,10 @@ public class UserController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
 
-        var isCourseDone = await _courseService.MarkMaterialDone(user.Id, materialId, courseId);
+        await _courseService.MarkMaterialDoneAsync(user.Id, materialId);
 
-        TempData.CreateFlash(isCourseDone ? "CongratulationsYouPassedSuccessfullyFlash" : "MaterialMarkedAsDoneFlash", "info");
+        var userCourse = await _courseService.GetUserCourseAsync(user.Id, courseId);
+        TempData.CreateFlash(userCourse!.IsCompleted ? "CongratulationsYouPassedSuccessfullyFlash" : "MaterialMarkedAsDoneFlash", "info");
 
         return RedirectToAction(nameof(CourseController.Materials), "Course", new { id = courseId });
     }

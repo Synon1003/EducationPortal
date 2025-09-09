@@ -7,11 +7,11 @@ public class ApplicationUser : IdentityUser<Guid>
 {
     [Required]
     [StringLength(50)]
-    public string FirstName { get; set; } = "";
+    public string FirstName { get; set; } = string.Empty;
 
     [Required]
     [StringLength(50)]
-    public string LastName { get; set; } = "";
+    public string LastName { get; set; } = string.Empty;
 
     [Required]
     [StringLength(20)]

@@ -73,7 +73,7 @@ public class CourseServiceTests
                 new SkillDto(1, "Skill1"),
                 new SkillDto(2, "Skill2")
             },
-            CreatedBy: ""
+            CreatedBy: string.Empty
         );
 
         _courseDetailDto = new CourseDetailDto
@@ -90,7 +90,7 @@ public class CourseServiceTests
                 new MaterialDto(1, "Material1", "Video"),
                 new MaterialDto(2, "Material2", "Article"),
             },
-            CreatedBy: ""
+            CreatedBy: string.Empty
         );
 
     }
@@ -211,7 +211,7 @@ public class CourseServiceTests
             Videos: new List<VideoCreateDto> { new("Video", 60, "HD") },
             Publications: new List<PublicationCreateDto> { new("Publication", "Authors", 10, "pfd", 2025) },
             Articles: new List<ArticleCreateDto> { new("Article", new DateOnly(), "link") },
-            LoadedVideos: new List<VideoDto> { new(1, "LoadedVideo", 0, "") },
+            LoadedVideos: new List<VideoDto> { new(1, "LoadedVideo", 0, string.Empty) },
             LoadedPublications: new List<PublicationDto> { new(2, "LoadedPublication", "Authors", 10, "pdf", 2025) },
             LoadedArticles: new List<ArticleDto> { new(3, "LoadedArticle", new DateOnly(), "link") },
             CreatedBy: Guid.NewGuid()
@@ -223,13 +223,13 @@ public class CourseServiceTests
         var result = await service.CreateCourseAsync(courseDto);
 
         // Assert
-        _mockUnitOfWork.Verify(r => r.CourseRepository.InsertAsync(It.IsAny<Course>()), Times.Once);
+        _mockUnitOfWork.Verify(r => r.CourseRepository.Insert(It.IsAny<Course>()), Times.Once);
         _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
 
         result.Should().NotBeNull();
         result.Name.Should().Be(courseDto.Name);
         result.Description.Should().Be(courseDto.Description);
-        result.CreatedBy.Should().Be("");
+        result.CreatedBy.Should().Be(string.Empty);
 
         result.Skills.Should().ContainSingle(s => s.Name == "Skill");
         result.Skills.Should().ContainSingle(s => s.Name == "LoadedSkill");
@@ -302,7 +302,7 @@ public class CourseServiceTests
 
         // Assert
         result.Should().BeFalse();
-        _mockUnitOfWork.Verify(u => u.UserCourseRepository.InsertAsync(
+        _mockUnitOfWork.Verify(u => u.UserCourseRepository.Insert(
             It.Is<UserCourse>(uc => uc.UserId == _userId &&
                 uc.CourseId == _courseDetailDto.Id && uc.ProgressPercentage == 50 // course2 has 2materials / 1coursematerial
         )), Times.Once);
@@ -331,7 +331,7 @@ public class CourseServiceTests
 
         // Assert
         result.Should().BeTrue();
-        _mockUnitOfWork.Verify(u => u.UserCourseRepository.InsertAsync(
+        _mockUnitOfWork.Verify(u => u.UserCourseRepository.Insert(
             It.Is<UserCourse>(uc => uc.UserId == _userId &&
                 uc.CourseId == _courseListDto.Id && uc.ProgressPercentage == 100 // course1 has 1material / 1coursematerial
         )), Times.Once);
@@ -380,63 +380,31 @@ public class CourseServiceTests
     [Theory]
     [InlineData(true, 1)]
     [InlineData(false, 0)] // notExistingMaterialId
-    public void IsUserDoneWithMaterial_WithExistsFilter_ReturnsExpected(bool exists, int materialId)
+    public async Task IsUserDoneWithMaterialAsync_WithExistsAsyncFilter_ReturnsExpected(bool exists, int materialId)
     {
         // Arrange
         var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
 
         // Act
-        var result = service.IsUserDoneWithMaterial(_userId, materialId);
+        var result = await service.IsUserDoneWithMaterialAsync(_userId, materialId);
 
         // Assert
         result.Should().Be(exists);
-        _mockUnitOfWork.Verify(r => r.UserMaterialRepository.Exists(It.IsAny<Func<UserMaterial, bool>>()), Times.Once);
+        _mockUnitOfWork.Verify(r => r.UserMaterialRepository.ExistsAsync(It.IsAny<Expression<Func<UserMaterial, bool>>>()), Times.Once);
     }
 
     [Fact]
-    public async Task MarkMaterialDone_WithLastMaterial_ReturnsTrue()
+    public async Task MarkMaterialDoneAsync_WithLastMaterial_CallsUserMaterialInsert()
     {
+        // Arrange
         int materialId = _course.Materials.First().Id;
-        int courseId = 2; // UserCourse with materialId in 2materials and 50ProgressPercentage
-
-        // Arrange
         var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
 
         // Act
-        var result = await service.MarkMaterialDone(_userId, materialId, courseId);
+        await service.MarkMaterialDoneAsync(_userId, materialId);
 
         // Assert
-        result.Should().BeTrue();
-        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.InsertAsync(
-            It.Is<UserMaterial>(um => um.UserId == _userId && um.MaterialId == materialId)), Times.Once);
-        _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
-
-        _mockLogger.Verify(
-            l => l.Log(
-                LogLevel.Information,
-                It.IsAny<EventId>(),
-                It.Is<It.IsAnyType>((v, t) =>
-                    v.ToString()!.Contains($"<User Id={_userId}> marked <Material Id={materialId}> done")),
-                It.IsAny<Exception>(),
-                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
-            Times.Once);
-    }
-
-    [Fact]
-    public async Task MarkMaterialDone_WithNotTheLastMaterial_ReturnsFalse()
-    {
-        int materialId = 2;
-        int courseId = 2; // UserCourse with materialId not the last in 2materials
-
-        // Arrange
-        var service = new CourseService(_mockUnitOfWork.Object, _mapper, _logger);
-
-        // Act
-        var result = await service.MarkMaterialDone(_userId, materialId, courseId);
-
-        // Assert
-        result.Should().BeFalse();
-        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.InsertAsync(
+        _mockUnitOfWork.Verify(u => u.UserMaterialRepository.Insert(
             It.Is<UserMaterial>(um => um.UserId == _userId && um.MaterialId == materialId)), Times.Once);
         _mockUnitOfWork.Verify(u => u.SaveChangesAsync(), Times.Once);
 

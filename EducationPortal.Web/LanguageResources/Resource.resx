@@ -337,6 +337,9 @@
   <data name="SqlError" xml:space="preserve">
     <value>We are having trouble connecting to the database. Please try again later.</value>
   </data>
+  <data name="ForbiddenError" xml:space="preserve">
+    <value>You do not have permission to access this resource. Please contact the administrator.</value>
+  </data>
   <data name="XFetchBadRequestError" xml:space="preserve">
     <value>The request could not be processed. Please make sure the data is correct.</value>
   </data>

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using EducationPortal.Data.Repositories.Interfaces;
+using System.Linq.Expressions;
 
 namespace EducationPortal.Data.Repositories;
 
@@ -17,23 +18,35 @@ public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEn
         return _context.Set<TEntity>().AsNoTracking();
     }
 
+    public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null)
+    {
+        IQueryable<TEntity> query = _context.Set<TEntity>();
+
+        if (predicate != null)
+        {
+            query = query.Where(predicate);
+        }
+
+        return await query.ToListAsync();
+    }
+
     public async Task<TEntity?> GetByIdAsync(int id)
     {
         return await _context.Set<TEntity>().FindAsync(id);
     }
 
-    public bool Exists(Func<TEntity, bool> predicate)
+    public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return _context.Set<TEntity>().AsNoTracking().Any(predicate);
+        return _context.Set<TEntity>().AsNoTracking().AnyAsync(predicate);
     }
 
-    public async Task InsertAsync(TEntity entity)
+    public void Insert(TEntity entity)
     {
-        await _context.Set<TEntity>().AddAsync(entity);
+        _context.Set<TEntity>().Add(entity);
     }
 
-    public async Task InsertRangeAsync(List<TEntity> entities)
+    public void InsertRange(List<TEntity> entities)
     {
-        await _context.Set<TEntity>().AddRangeAsync(entities);
+        _context.Set<TEntity>().AddRange(entities);
     }
 }

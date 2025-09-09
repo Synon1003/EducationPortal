@@ -6,6 +6,7 @@ using EducationPortal.Application.Services.Interfaces;
 using EducationPortal.Application.Dtos;
 using Microsoft.AspNetCore.Identity;
 using EducationPortal.Data.Entities;
+using EducationPortal.Web.Authorization;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -111,8 +112,7 @@ public class CourseController : Controller
 
         var courseCreateDto = _mapper.Map<CourseCreateDto>(courseCreateViewModel) with { CreatedBy = user.Id! };
 
-        _courseService.CheckCourseCreateValidationErrors(
-            courseCreateDto, out List<string> validationErrors);
+        List<string> validationErrors = await _courseService.GetCourseCreateValidationErrorsAsync(courseCreateDto);
         if (validationErrors.Count != 0)
         {
             TempData.Put<List<string>>("errors", validationErrors);
@@ -128,10 +128,16 @@ public class CourseController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Materials(int id)
+    public async Task<IActionResult> Materials(int id, [FromServices] IAuthorizationService authService)
     {
         var user = await _userManager.GetUserAsync(User);
         if (user == null) return Unauthorized();
+
+        var authResult = await authService.AuthorizeAsync(User,
+            new CourseAuthorizationResource(user.Id, id), new EnrolledInCourseRequirement());
+
+        if (!authResult.Succeeded)
+            return Forbid();
 
         var course = await _courseService.GetCourseByIdAsync(id);
 
@@ -142,7 +148,7 @@ public class CourseController : Controller
         var materials = _mapper.Map<List<MaterialViewModel>>(materialDtos);
         foreach (var material in materials)
         {
-            material.IsDoneByUser = _courseService.IsUserDoneWithMaterial(user.Id, material.Id);
+            material.IsDoneByUser = await _courseService.IsUserDoneWithMaterialAsync(user.Id, material.Id);
             counter.Total++;
             if (material.IsDoneByUser)
                 counter.Done++;

@@ -2,6 +2,7 @@ using Moq;
 
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Entities;
+using System.Linq.Expressions;
 
 namespace EducationPortal.Tests.Mocks;
 
@@ -17,16 +18,22 @@ public static class MockMaterialRepository
             new Publication { Title = "ExistingPublicationTitle", Type = "Publication" },
             new Article { Title = "ExistingArticleTitle", Type = "Article" }
         };
-        mockRepository.Setup(r => r.Exists(It.IsAny<Func<Material, bool>>()))
-            .Returns((Func<Material, bool> predicate) => existingMaterials.Any(predicate));
+        mockRepository.Setup(r => r.ExistsAsync(It.IsAny<Expression<Func<Material, bool>>>()))
+            .ReturnsAsync((Expression<Func<Material, bool>> predicate) => existingMaterials.Any(predicate.Compile()));
 
+        mockRepository.Setup(r => r.GetAllAsync(It.IsAny<Expression<Func<Material, bool>>>()))
+            .ReturnsAsync((Expression<Func<Material, bool>> predicate) => [
+                new Video { Id = 1, Title = "LoadedVideo" },
+                new Publication { Id = 2, Title = "LoadedPublication" },
+                new Article { Id = 3, Title = "LoadedArticle" }
+            ]);
 
-        mockRepository.Setup(u => u.GetByIdAsync(1))
-            .ReturnsAsync(new Video { Id = 1, Title = "LoadedVideo" });
-        mockRepository.Setup(u => u.GetByIdAsync(2))
-            .ReturnsAsync(new Publication { Id = 2, Title = "LoadedPublication" });
-        mockRepository.Setup(u => u.GetByIdAsync(3))
-            .ReturnsAsync(new Article { Id = 3, Title = "LoadedArticle" });
+        mockRepository.Setup(r => r.GetMaterialsByCourseIdAsync(It.IsAny<int>()))
+            .ReturnsAsync([
+                new Video { Id = 1, Title = "LoadedVideo" },
+                new Publication { Id = 2, Title = "LoadedPublication" },
+                new Article { Id = 3, Title = "LoadedArticle" }
+            ]);
 
         return mockRepository;
     }

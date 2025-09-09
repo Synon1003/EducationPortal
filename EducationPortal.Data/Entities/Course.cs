@@ -10,11 +10,11 @@ public class Course
 
     [Required]
     [StringLength(50)]
-    public string Name { get; set; } = "";
+    public string Name { get; set; } = string.Empty;
 
     [Required]
     [StringLength(250)]
-    public string Description { get; set; } = "";
+    public string Description { get; set; } = string.Empty;
 
     public virtual ICollection<Skill> Skills { get; set; } = [];
 

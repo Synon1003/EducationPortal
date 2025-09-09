@@ -2,6 +2,7 @@ using Moq;
 
 using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Entities;
+using System.Linq.Expressions;
 
 namespace EducationPortal.Tests.Mocks;
 
@@ -55,8 +56,9 @@ public static class MockCourseRepository
         mockRepository.Setup(r => r.GetCourseWithRelationshipsByIdAsync(It.IsAny<int>()))
             .ReturnsAsync((int id) => id == 0 ? null : courses.First(c => c.Id == id));
 
-        mockRepository.Setup(r => r.Exists(It.IsAny<Func<Course, bool>>()))
-            .Returns((Func<Course, bool> predicate) => predicate(new Course { Name = "ExistingCourseName" }));
+        mockRepository.Setup(r => r.ExistsAsync(It.IsAny<Expression<Func<Course, bool>>>()))
+            .ReturnsAsync((Expression<Func<Course, bool>> predicate) =>
+                predicate.Compile()(new Course { Name = "ExistingCourseName" }));
 
         mockRepository.Setup(u => u.GetCoursesByMaterialIdAsync(
             It.IsAny<int>())).ReturnsAsync((int id) => id == 2 ? [courses.First()] : [courses.Last()]);

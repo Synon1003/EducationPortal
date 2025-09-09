@@ -7,13 +7,12 @@ public interface ICourseService
     Task<ICollection<CourseListDto>> GetFilteredCoursesWithSkillsAsync(Guid userId, string filter);
     Task<CourseListDto> GetCourseByIdAsync(int id);
     Task<CourseDetailDto> GetCourseWithRelationshipsByIdAsync(int id);
-    void CheckCourseCreateValidationErrors(
-        CourseCreateDto courseCreateDto, out List<string> validationErrors);
+    Task<List<string>> GetCourseCreateValidationErrorsAsync(CourseCreateDto courseCreateDto);
     Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto);
 
     Task<UserCourseDto?> GetUserCourseAsync(Guid userId, int courseId);
-    bool IsUserDoneWithMaterial(Guid userId, int materialId);
+    Task<bool> IsUserDoneWithMaterialAsync(Guid userId, int materialId);
     Task<bool> EnrollUserOnCourseAsync(Guid userId, int courseId);
     Task LeaveCourseAsync(Guid userId, int courseId);
-    Task<bool> MarkMaterialDone(Guid userId, int materialId, int courseId);
+    Task MarkMaterialDoneAsync(Guid userId, int materialId);
 }

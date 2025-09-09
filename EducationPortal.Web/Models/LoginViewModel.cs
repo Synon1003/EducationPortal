@@ -8,10 +8,10 @@ public class LoginViewModel
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "EmailIsRequiredError")]
     [EmailAddress(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "EmailFormatError")]
     [Display(ResourceType = typeof(Resource), Name = "Email")]
-    public string Email { get; set; } = "";
+    public string Email { get; set; } = string.Empty;
 
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "PasswordIsRequiredError")]
     [DataType(DataType.Password)]
     [Display(ResourceType = typeof(Resource), Name = "Password")]
-    public string Password { get; set; } = "";
+    public string Password { get; set; } = string.Empty;
 }

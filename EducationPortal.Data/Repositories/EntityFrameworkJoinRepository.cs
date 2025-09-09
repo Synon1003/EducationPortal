@@ -13,9 +13,11 @@ public class EntityFrameworkJoinRepository<TEntity> : IJoinRepository<TEntity> w
         _context = context;
     }
 
-    public bool Exists(Func<TEntity, bool> predicate)
+    public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return _context.Set<TEntity>().AsNoTracking().Any(predicate);
+        return await _context.Set<TEntity>()
+            .AsNoTracking()
+            .AnyAsync(predicate);
     }
 
     public async Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>> predicate)
@@ -23,8 +25,8 @@ public class EntityFrameworkJoinRepository<TEntity> : IJoinRepository<TEntity> w
         return await _context.Set<TEntity>().AsNoTracking().Where(predicate).FirstOrDefaultAsync();
     }
 
-    public async Task InsertAsync(TEntity entity)
+    public void Insert(TEntity entity)
     {
-        await _context.Set<TEntity>().AddAsync(entity);
+        _context.Set<TEntity>().Add(entity);
     }
 }

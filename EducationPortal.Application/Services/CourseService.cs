@@ -5,6 +5,7 @@ using EducationPortal.Application.Dtos;
 using EducationPortal.Application.Services.Interfaces;
 using EducationPortal.Application.Exceptions;
 using Microsoft.Extensions.Logging;
+using EducationPortal.Data.Helpers;
 
 namespace EducationPortal.Application.Services;
 
@@ -57,18 +58,19 @@ public class CourseService : ICourseService
         return _mapper.Map<CourseDetailDto>(course);
     }
 
-    public void CheckCourseCreateValidationErrors(
-        CourseCreateDto courseCreateDto, out List<string> validationErrors)
+    public async Task<List<string>> GetCourseCreateValidationErrorsAsync(CourseCreateDto courseCreateDto)
     {
-        validationErrors = [];
+        List<string> validationErrors = [];
 
-        if (_unitOfWork.CourseRepository.Exists(c => c.Name == courseCreateDto.Name))
+        if (await _unitOfWork.CourseRepository.ExistsAsync(c => c.Name == courseCreateDto.Name))
             validationErrors.Add($"CourseName({courseCreateDto.Name})IsAlreadyTaken");
 
-        CheckSkillCreateValidationErrors(courseCreateDto.Skills, validationErrors);
-        CheckVideoCreateValidationErrors(courseCreateDto.Videos, validationErrors);
-        CheckPublicationCreateValidationErrors(courseCreateDto.Publications, validationErrors);
-        CheckArticleCreateValidationErrors(courseCreateDto.Articles, validationErrors);
+        await CheckSkillCreateValidationErrorsAsync(courseCreateDto.Skills, validationErrors);
+        await CheckVideoCreateValidationErrorsAsync(courseCreateDto.Videos, validationErrors);
+        await CheckPublicationCreateValidationErrorsAsync(courseCreateDto.Publications, validationErrors);
+        await CheckArticleCreateValidationErrorsAsync(courseCreateDto.Articles, validationErrors);
+
+        return validationErrors;
     }
 
     public async Task<CourseDetailDto> CreateCourseAsync(CourseCreateDto courseCreateDto)
@@ -85,7 +87,7 @@ public class CourseService : ICourseService
         AddCoursePublications(course, courseCreateDto);
         AddCourseArticles(course, courseCreateDto);
         await AddLoadedMaterials(course, courseCreateDto);
-        await _unitOfWork.CourseRepository.InsertAsync(course);
+        _unitOfWork.CourseRepository.Insert(course);
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation("<User Id={userId}> created <Course Id={courseId} Name={courseName}> done",
             course.CreatedBy, course.Id, course.Name);
@@ -110,7 +112,7 @@ public class CourseService : ICourseService
         (int completedCount, int totalCount) = await GetCountersFromMaterialRatioAsync(userId, course);
         bool isInstantCompleted = completedCount == totalCount;
 
-        await _unitOfWork.UserCourseRepository.InsertAsync(new UserCourse()
+        _unitOfWork.UserCourseRepository.Insert(new UserCourse()
         {
             ProgressPercentage = totalCount == 0 ? 0 : 100 * completedCount / totalCount,
             UserId = userId,
@@ -118,7 +120,7 @@ public class CourseService : ICourseService
         });
 
         if (isInstantCompleted)
-            await UpdateUserSkillsByCourseSkillsAsync(userId, course.Skills);
+            await UpdateUserSkillsByCompletedSkillIdsAsync(userId, [.. course.Skills.Select(s => s.Id)]);
 
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation("<User Id={userId}> enrolled on <Course Id={courseId} Name={courseName}>",
@@ -138,44 +140,36 @@ public class CourseService : ICourseService
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public bool IsUserDoneWithMaterial(Guid userId, int materialId)
+    public async Task<bool> IsUserDoneWithMaterialAsync(Guid userId, int materialId)
     {
-        return _unitOfWork.UserMaterialRepository
-            .Exists(c => c.UserId == userId && c.MaterialId == materialId);
+        return await _unitOfWork.UserMaterialRepository
+            .ExistsAsync(c => c.UserId == userId && c.MaterialId == materialId);
     }
 
-    public async Task<bool> MarkMaterialDone(Guid userId, int materialId, int courseId)
+    public async Task MarkMaterialDoneAsync(Guid userId, int materialId)
     {
-        var userCourses = await _unitOfWork.UserCourseRepository.GetAllByUserIdAsync(userId);
-
-        await _unitOfWork.UserMaterialRepository.InsertAsync(
+        _unitOfWork.UserMaterialRepository.Insert(
             new UserMaterial() { UserId = userId, MaterialId = materialId });
 
-        var materialRelatedCourses = await _unitOfWork.CourseRepository.GetCoursesByMaterialIdAsync(materialId);
+        var userCourses = await _unitOfWork.UserCourseRepository.GetAllAsync(
+            new UserCoursesFilter() { MaterialId = materialId, UserId = userId, IsCompleted = false });
 
-
-        foreach (var relatedCourse in materialRelatedCourses)
+        var allCompletedSkillIds = new List<int>();
+        foreach (var userCourse in userCourses)
         {
-            foreach (var userCourse in userCourses)
+            var courseRelatedMaterials = await _unitOfWork.MaterialRepository.GetMaterialsByCourseIdAsync(userCourse.CourseId);
+            await UpdateUserCoursePercentageAsync(userId, userCourse, courseRelatedMaterials);
+
+            if (userCourse.IsCompleted)
             {
-                if (relatedCourse.Id == userCourse.CourseId && userCourse.ProgressPercentage != 100)
-                {
-                    UpdateUserCoursePercentage(userId, userCourse, relatedCourse.Materials);
-
-                    if (userCourse.IsCompleted)
-                    {
-                        var relatedSkills = await _unitOfWork.SkillRepository.GetSkillsByCourseIdAsync(relatedCourse.Id);
-
-                        await UpdateUserSkillsByCourseSkillsAsync(userId, relatedSkills);
-                    }
-                }
+                var relatedSkills = await _unitOfWork.SkillRepository.GetSkillsByCourseIdAsync(userCourse.CourseId);
+                allCompletedSkillIds.AddRange(relatedSkills.Select(s => s.Id));
             }
         }
+        await UpdateUserSkillsByCompletedSkillIdsAsync(userId, allCompletedSkillIds);
 
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation("<User Id={userId}> marked <Material Id={Id}> done", userId, materialId);
-
-        return userCourses.First(uc => uc.CourseId == courseId).IsCompleted;
     }
 
     private async Task<(int, int)> GetCountersFromMaterialRatioAsync(Guid userId, Course course)
@@ -197,28 +191,37 @@ public class CourseService : ICourseService
         foreach (var skill in courseCreateDto.Skills)
             course.Skills.Add(new Skill { Name = skill.Name });
 
-        foreach (var skill in courseCreateDto.LoadedSkills)
+        var existingSkillIds = courseCreateDto.LoadedSkills
+            .Select(s => s.Id)
+            .ToList();
+
+        if (existingSkillIds.Any())
         {
-            course.Skills.Add((await _unitOfWork.SkillRepository.GetByIdAsync(skill.Id))!);
+            var existingSkills = await _unitOfWork.SkillRepository
+                .GetAllAsync(s => existingSkillIds.Contains(s.Id));
+
+            foreach (var skill in existingSkills)
+            {
+                course.Skills.Add(skill);
+            }
         }
     }
 
     private async Task AddLoadedMaterials(Course course, CourseCreateDto courseCreateDto)
     {
-        foreach (var video in courseCreateDto.LoadedVideos)
-        {
-            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(video.Id))!);
-        }
+        var materialIds = courseCreateDto.LoadedVideos.Select(v => v.Id)
+            .Concat(courseCreateDto.LoadedPublications.Select(p => p.Id))
+            .Concat(courseCreateDto.LoadedArticles.Select(a => a.Id))
+            .ToList();
 
-        foreach (var publication in courseCreateDto.LoadedPublications)
-        {
-            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(publication.Id))!);
-        }
+        if (materialIds.Count == 0)
+            return;
 
-        foreach (var article in courseCreateDto.LoadedArticles)
-        {
-            course.Materials.Add((await _unitOfWork.MaterialRepository.GetByIdAsync(article.Id))!);
-        }
+        var materials = await _unitOfWork.MaterialRepository
+            .GetAllAsync(m => materialIds.Contains(m.Id));
+
+        foreach (var material in materials)
+            course.Materials.Add(material);
     }
 
     private void AddCourseVideos(Course course, CourseCreateDto courseCreateDto)
@@ -263,47 +266,56 @@ public class CourseService : ICourseService
         }
     }
 
-    private int CountUserMaterials(Guid userId, ICollection<Material> materials)
+    private async Task<int> CountUserMaterialsAsync(Guid userId, ICollection<Material> materials)
     {
         int count = 0;
         foreach (var material in materials)
         {
-            if (_unitOfWork.UserMaterialRepository
-                .Exists(us => us.MaterialId == material.Id && us.UserId == userId))
+            if (await _unitOfWork.UserMaterialRepository
+                .ExistsAsync(us => us.MaterialId == material.Id && us.UserId == userId))
                 count++;
         }
 
         return count;
     }
 
-    private void UpdateUserCoursePercentage(Guid userId, UserCourse userCourse, ICollection<Material> materials)
+    private async Task UpdateUserCoursePercentageAsync(Guid userId, UserCourse userCourse, ICollection<Material> materials)
     {
-        int acquiredUserMaterials = CountUserMaterials(userId, materials);
+        int acquiredUserMaterials = await CountUserMaterialsAsync(userId, materials);
         userCourse.ProgressPercentage = 100 * (acquiredUserMaterials + 1) / materials.Count;
 
         _unitOfWork.UserCourseRepository.Update(userCourse);
     }
 
-    private async Task UpdateUserSkillsByCourseSkillsAsync(Guid userId, ICollection<Skill> skills)
+    private async Task UpdateUserSkillsByCompletedSkillIdsAsync(Guid userId, ICollection<int> completedSkillIds)
     {
-        foreach (var skill in skills)
-        {
-            var userSkill = await _unitOfWork.UserSkillRepository.GetByFilterAsync(us => us.UserId == userId && us.SkillId == skill.Id);
+        var existingUserSkills = await _unitOfWork.UserSkillRepository
+            .GetAllAsync(us => us.UserId == userId && completedSkillIds.Contains(us.SkillId));
 
-            if (userSkill is null)
+        var existingMap = existingUserSkills.ToDictionary(us => us.SkillId);
+
+        foreach (var skillId in completedSkillIds)
+        {
+            if (existingMap.TryGetValue(skillId, out var userSkill))
             {
-                await _unitOfWork.UserSkillRepository.InsertAsync(
-                    new UserSkill() { UserId = userId, SkillId = skill.Id, Level = 1 });
+                userSkill.Level++;
             }
             else
             {
-                userSkill.Level++;
-                _unitOfWork.UserSkillRepository.Update(userSkill);
+                var newUserSkill = new UserSkill
+                {
+                    UserId = userId,
+                    SkillId = skillId,
+                    Level = 1
+                };
+
+                _unitOfWork.UserSkillRepository.Insert(newUserSkill);
+                existingMap[skillId] = newUserSkill;
             }
         }
     }
 
-    private void CheckSkillCreateValidationErrors(
+    private async Task CheckSkillCreateValidationErrorsAsync(
         List<SkillCreateDto> skills, List<string> validationErrors)
     {
         var duplicateSkillNames = skills
@@ -313,11 +325,11 @@ public class CourseService : ICourseService
             validationErrors.Add($"SkillName({skill})IsDuplicated");
 
         foreach (var skill in skills)
-            if (_unitOfWork.SkillRepository.Exists(s => s.Name == skill.Name))
+            if (await _unitOfWork.SkillRepository.ExistsAsync(s => s.Name == skill.Name))
                 validationErrors.Add($"SkillName({skill.Name})IsAlreadyTaken");
     }
 
-    private void CheckVideoCreateValidationErrors(
+    private async Task CheckVideoCreateValidationErrorsAsync(
         List<VideoCreateDto> videos, List<string> validationErrors)
     {
         var duplicateVideoTitles = videos
@@ -327,12 +339,12 @@ public class CourseService : ICourseService
             validationErrors.Add($"VideoTitle({video})IsDuplicated");
 
         foreach (var video in videos)
-            if (_unitOfWork.MaterialRepository.Exists(
+            if (await _unitOfWork.MaterialRepository.ExistsAsync(
                 m => m.Title == video.Title && m.Type == "Video"))
                 validationErrors.Add($"VideoTitle({video.Title})IsAlreadyTaken");
     }
 
-    private void CheckPublicationCreateValidationErrors(
+    private async Task CheckPublicationCreateValidationErrorsAsync(
         List<PublicationCreateDto> publications, List<string> validationErrors)
     {
         var duplicatePublicationTitles = publications
@@ -342,12 +354,12 @@ public class CourseService : ICourseService
             validationErrors.Add($"PublicationTitle({publication})IsDuplicated");
 
         foreach (var publication in publications)
-            if (_unitOfWork.MaterialRepository.Exists(
+            if (await _unitOfWork.MaterialRepository.ExistsAsync(
                 m => m.Title == publication.Title && m.Type == "Publication"))
                 validationErrors.Add($"PublicationTitle({publication.Title})IsAlreadyTaken");
     }
 
-    private void CheckArticleCreateValidationErrors(
+    private async Task CheckArticleCreateValidationErrorsAsync(
         List<ArticleCreateDto> articles, List<string> validationErrors)
     {
         var duplicateArticleTitles = articles
@@ -357,7 +369,7 @@ public class CourseService : ICourseService
             validationErrors.Add($"ArticleTitle({article})IsDuplicated");
 
         foreach (var article in articles)
-            if (_unitOfWork.MaterialRepository.Exists(
+            if (await _unitOfWork.MaterialRepository.ExistsAsync(
                 m => m.Title == article.Title && m.Type == "Article"))
                 validationErrors.Add($"ArticleTitle({article.Title})IsAlreadyTaken");
     }
