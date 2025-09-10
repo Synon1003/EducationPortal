@@ -292,4 +292,16 @@
   <data name="AtLeastOneMaterialError" xml:space="preserve">
     <value>Tanfolyam létrehozásához legalább egy tananyag (Videó, Kiadvány, vagy Cikk) megadása szükséges.</value>
   </data>
+  <data name="Course_WasNotFound" xml:space="preserve">
+    <value>Tanfolyam ({0}) nem található.</value>
+  </data>
+  <data name="UserCourse_WasNotFound" xml:space="preserve">
+    <value>Tanfolyam résztelei ({0}) nem találhatóak.</value>
+  </data>
+  <data name="Material_WasNotFound" xml:space="preserve">
+    <value>Tananyag ({0}) nem található.</value>
+  </data>
+  <data name="Skill_WasNotFound" xml:space="preserve">
+    <value>Ismeret ({0}) nem található.</value>
+  </data>
 </root>

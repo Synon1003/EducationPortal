@@ -8,7 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EducationPortal.Web.LanguageResources {
+namespace EducationPortal.Web.LanguageResources
+{
     using System;
 
 
@@ -1475,7 +1476,7 @@ namespace EducationPortal.Web.LanguageResources {
                 return ResourceManager.GetString("YouLeftTheCourseSuccessfullyFlash", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to At least One Material..
         /// </summary>
@@ -1484,6 +1485,50 @@ namespace EducationPortal.Web.LanguageResources {
             get
             {
                 return ResourceManager.GetString("AtLeastOneMaterialError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Course was not found..
+        /// </summary>
+        public static string Course_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("Course_WasNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to UserCourse was not found..
+        /// </summary>
+        public static string UserCourse_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("UserCourse_WasNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Material was not found..
+        /// </summary>
+        public static string Material_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("Material_WasNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Skill was not found..
+        /// </summary>
+        public static string Skill_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("Skill_WasNotFound", resourceCulture);
             }
         }
     }

@@ -117,7 +117,7 @@ public class UserServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Skill ({notExistingSkillId}) was not found.");
+            .WithMessage($"Skill({notExistingSkillId})WasNotFound");
         _mockSkillRepository.Verify(r => r.GetByIdAsync(notExistingSkillId), Times.Once);
     }
 

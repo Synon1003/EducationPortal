@@ -397,4 +397,16 @@
   <data name="AtLeastOneMaterialError" xml:space="preserve">
     <value>At least one Material (Video, Publication, or Article) must be provided to create a Course.</value>
   </data>
+  <data name="Course_WasNotFound" xml:space="preserve">
+    <value>Course ({0}) was not found.</value>
+  </data>
+  <data name="UserCourse_WasNotFound" xml:space="preserve">
+    <value>UserCourse ({0}) was not found.</value>
+  </data>
+  <data name="Material_WasNotFound" xml:space="preserve">
+    <value>Material ({0}) was not found.</value>
+  </data>
+  <data name="Skill_WasNotFound" xml:space="preserve">
+    <value>Skill ({0}) was not found.</value>
+  </data>
 </root>
