@@ -7,15 +7,15 @@ namespace EducationPortal.Web.Models;
 public class UserProfileViewModel
 {
     [Display(ResourceType = typeof(Resource), Name = "FirstName")]
-    public string FirstName { get; set; } = "";
+    public string FirstName { get; set; } = string.Empty;
 
     [Display(ResourceType = typeof(Resource), Name = "LastName")]
-    public string LastName { get; set; } = "";
+    public string LastName { get; set; } = string.Empty;
 
-    public string UserName { get; set; } = "";
+    public string UserName { get; set; } = string.Empty;
 
     [Display(ResourceType = typeof(Resource), Name = "Email")]
-    public string Email { get; set; } = "";
+    public string Email { get; set; } = string.Empty;
 
     public List<VideoViewModel> Videos { get; set; } = [];
     public List<PublicationViewModel> Publications { get; set; } = [];

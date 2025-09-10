@@ -4,6 +4,9 @@ using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using EducationPortal.Web.Filters;
+using Microsoft.Extensions.Localization;
+using EducationPortal.Web.LanguageResources;
+using EducationPortal.Web.Helpers;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -12,16 +15,20 @@ public class AccountController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ILogger<AccountController> _logger;
+    private readonly IStringLocalizer _localizer;
 
     public AccountController(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        ILogger<AccountController> logger
+        ILogger<AccountController> logger,
+        IStringLocalizerFactory factory
     )
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _logger = logger;
+        _localizer = factory.Create(
+            "Resource", typeof(Resource).Assembly.FullName!);
     }
 
     [HttpGet]
@@ -38,10 +45,7 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid)
         {
-            TempData.Put<List<string>>("errors",
-                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
             TempData.CreateFlash("RegistrationFailedFlash", "error");
-
             return View(registerViewModel);
         }
 
@@ -65,7 +69,8 @@ public class AccountController : Controller
         }
 
         foreach (IdentityError error in result.Errors)
-            ModelState.AddModelError("Register", error.Description);
+            ModelState.AddModelError("Register",
+                Translator.Translate(_localizer, error.Description));
         TempData.CreateFlash("RegistrationFailedFlash", "error");
 
         return View(registerViewModel);
@@ -92,10 +97,7 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid)
         {
-            TempData.Put<List<string>>("errors",
-                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
             TempData.CreateFlash("LogInFailedFlash", "error");
-
             return View(loginViewModel);
         }
 
@@ -113,7 +115,8 @@ public class AccountController : Controller
             return RedirectToAction("List", "Course");
         }
 
-        ModelState.AddModelError("Login", "InvalidEmailOrPasswordFlash");
+        ModelState.AddModelError("Login",
+            Translator.Translate(_localizer, "InvalidEmailOrPassword"));
         TempData.CreateFlash("LogInFailedFlash", "error");
 
         return View(loginViewModel);

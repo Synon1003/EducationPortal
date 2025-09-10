@@ -256,7 +256,7 @@
   <data name="MaterialMarkedAsDoneFlash" xml:space="preserve">
     <value>Material marked as Done.</value>
   </data>
-  <data name="InvalidEmailOrPasswordFlash" xml:space="preserve">
+  <data name="InvalidEmailOrPassword" xml:space="preserve">
     <value>Invalid email or password.</value>
   </data>
   <data name="CourseName_IsAlreadyTaken" xml:space="preserve">
@@ -377,6 +377,24 @@
     <value>Confirm Password is required.</value>
   </data>
   <data name="PasswordAndConfirmPasswordDoNotMatchError" xml:space="preserve">
-    <value>"Password and Confirm Password do not match."</value>
+    <value>Password and Confirm Password do not match.</value>
+  </data>
+  <data name="Passwords must be at least 8 characters." xml:space="preserve">
+    <value>Passwords must be at least 8 characters.</value>
+  </data>
+  <data name="Passwords must have at least one non alphanumeric character." xml:space="preserve">
+    <value>Passwords must have at least one non alphanumeric character.</value>
+  </data>
+  <data name="Passwords must have at least one lowercase _." xml:space="preserve">
+    <value>Passwords must have at least one lowercase ({0}).</value>
+  </data>
+  <data name="Passwords must have at least one uppercase _." xml:space="preserve">
+    <value>Passwords must have at least one uppercase ({0}).</value>
+  </data>
+  <data name="Passwords must use at least 5 different characters." xml:space="preserve">
+    <value>Passwords must use at least 5 different characters.</value>
+  </data>
+  <data name="AtLeastOneMaterialError" xml:space="preserve">
+    <value>At least one Material (Video, Publication, or Article) must be provided to create a Course.</value>
   </data>
 </root>
