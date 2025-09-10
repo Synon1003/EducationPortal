@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using EducationPortal.Web.Filters;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using EducationPortal.Web.LanguageResources;
 using EducationPortal.Web.Helpers;
+using EducationPortal.Web.Options;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -16,12 +18,14 @@ public class AccountController : Controller
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ILogger<AccountController> _logger;
     private readonly IStringLocalizer _localizer;
+    private readonly AppearanceOptions _appearance;
 
     public AccountController(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         ILogger<AccountController> logger,
-        IStringLocalizerFactory factory
+        IStringLocalizerFactory factory,
+        IOptions<AppearanceOptions> appearance
     )
     {
         _userManager = userManager;
@@ -29,6 +33,7 @@ public class AccountController : Controller
         _logger = logger;
         _localizer = factory.Create(
             "Resource", typeof(Resource).Assembly.FullName!);
+        _appearance = appearance.Value;
     }
 
     [HttpGet]
@@ -143,8 +148,7 @@ public class AccountController : Controller
     [FetchOnly]
     public async Task<IActionResult> SetUserTheme(string theme)
     {
-        List<string> validThemes = ["business", "corporate", "cyberpunk"];
-        if (!validThemes.Contains(theme))
+        if (!_appearance.ValidThemes.Contains(theme))
         {
             return BadRequest("Invalid theme.");
         }
@@ -165,8 +169,7 @@ public class AccountController : Controller
     [FetchOnly]
     public async Task<IActionResult> SetUserLanguage(string language)
     {
-        List<string> validLanguages = ["en", "hu"];
-        if (!validLanguages.Contains(language))
+        if (!_appearance.ValidLanguages.Contains(language))
         {
             return BadRequest("Invalid language.");
         }
