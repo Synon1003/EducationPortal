@@ -7,6 +7,9 @@ using EducationPortal.Application.Dtos;
 using Microsoft.AspNetCore.Identity;
 using EducationPortal.Data.Entities;
 using EducationPortal.Web.Authorization;
+using Microsoft.Extensions.Localization;
+using EducationPortal.Web.LanguageResources;
+using EducationPortal.Web.Helpers;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -96,14 +99,13 @@ public class CourseController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromForm] CourseCreateViewModel courseCreateViewModel)
+    public async Task<IActionResult> Create(
+        [FromForm] CourseCreateViewModel courseCreateViewModel,
+        [FromServices] IStringLocalizerFactory factory)
     {
         if (!ModelState.IsValid)
         {
-            TempData.Put<List<string>>("errors",
-                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
             TempData.CreateFlash("CourseCreationFailedFlash", "error");
-
             return View(courseCreateViewModel);
         }
 
@@ -115,7 +117,11 @@ public class CourseController : Controller
         List<string> validationErrors = await _courseService.GetCourseCreateValidationErrorsAsync(courseCreateDto);
         if (validationErrors.Count != 0)
         {
-            TempData.Put<List<string>>("errors", validationErrors);
+            IStringLocalizer localizer = factory.Create("Resource", typeof(Resource).Assembly.FullName!);
+
+            foreach (string error in validationErrors)
+                ModelState.AddModelError("", Translator.Translate(localizer, error));
+
             TempData.CreateFlash("CourseCreationFailedFlash", "error");
 
             return View(courseCreateViewModel);

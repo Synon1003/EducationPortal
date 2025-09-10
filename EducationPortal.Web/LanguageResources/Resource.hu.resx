@@ -274,4 +274,34 @@
   <data name="PasswordAndConfirmPasswordDoNotMatchError" xml:space="preserve">
     <value>"A jelszó és megerősítő jelszó nem egyezik."</value>
   </data>
+  <data name="Passwords must be at least 8 characters." xml:space="preserve">
+    <value>A jelszó legalább 8 karakterhosszúságú kell legyen.</value>
+  </data>
+  <data name="Passwords must have at least one non alphanumeric character." xml:space="preserve">
+    <value>A jelszónak legalább egy nem alfanumerikus karaktert tartalmaznia kell.</value>
+  </data>
+  <data name="Passwords must have at least one lowercase _." xml:space="preserve">
+    <value>A jelszónak legalább egy kisbetűt tartalmaznia kell ({0}).</value>
+  </data>
+  <data name="Passwords must have at least one uppercase _." xml:space="preserve">
+    <value>A jelszónak legalább egy nagybetűt tartalmaznia kell ({0}).</value>
+  </data>
+  <data name="Passwords must use at least 5 different characters." xml:space="preserve">
+    <value>A jelszó legalább 5 különböző karaktert kell tartalmazzon.</value>
+  </data>
+  <data name="AtLeastOneMaterialError" xml:space="preserve">
+    <value>Tanfolyam létrehozásához legalább egy tananyag (Videó, Kiadvány, vagy Cikk) megadása szükséges.</value>
+  </data>
+  <data name="Course_WasNotFound" xml:space="preserve">
+    <value>Tanfolyam ({0}) nem található.</value>
+  </data>
+  <data name="UserCourse_WasNotFound" xml:space="preserve">
+    <value>Tanfolyam résztelei ({0}) nem találhatóak.</value>
+  </data>
+  <data name="Material_WasNotFound" xml:space="preserve">
+    <value>Tananyag ({0}) nem található.</value>
+  </data>
+  <data name="Skill_WasNotFound" xml:space="preserve">
+    <value>Ismeret ({0}) nem található.</value>
+  </data>
 </root>

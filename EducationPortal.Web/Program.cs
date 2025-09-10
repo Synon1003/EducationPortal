@@ -4,6 +4,7 @@ using EducationPortal.Web.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using EducationPortal.Web.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddSerilogLogging();
@@ -13,6 +14,8 @@ builder.Services.AddDataServices(builder.Configuration)
                 .AddIdentityProviders();
 builder.Services.AddApplicationServices();
 builder.Services.AddViewModelMappers();
+builder.Services.Configure<AppearanceOptions>(
+    builder.Configuration.GetSection("Appearance"));
 
 if (builder.Environment.IsProduction())
 {

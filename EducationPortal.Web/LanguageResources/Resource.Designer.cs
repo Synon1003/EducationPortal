@@ -521,7 +521,7 @@ namespace EducationPortal.Web.LanguageResources
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Answers.
+        ///   Looks up a localized string similar to FAQ.
         /// </summary>
         public static string ExampleAnswersCourseName
         {
@@ -627,6 +627,17 @@ namespace EducationPortal.Web.LanguageResources
             get
             {
                 return ResourceManager.GetString("FirstNameIsRequiredError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to You do not have permission to access this resource. Please contact the administrator..
+        /// </summary>
+        public static string ForbiddenError
+        {
+            get
+            {
+                return ResourceManager.GetString("ForbiddenError", resourceCulture);
             }
         }
 
@@ -765,11 +776,11 @@ namespace EducationPortal.Web.LanguageResources
         /// <summary>
         ///   Looks up a localized string similar to Invalid email or password..
         /// </summary>
-        public static string InvalidEmailOrPasswordFlash
+        public static string InvalidEmailOrPassword
         {
             get
             {
-                return ResourceManager.GetString("InvalidEmailOrPasswordFlash", resourceCulture);
+                return ResourceManager.GetString("InvalidEmailOrPassword", resourceCulture);
             }
         }
 
@@ -983,7 +994,7 @@ namespace EducationPortal.Web.LanguageResources
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Password and Confirm Password do not match.&quot;.
+        ///   Looks up a localized string similar to Password and Confirm Password do not match..
         /// </summary>
         public static string PasswordAndConfirmPasswordDoNotMatchError
         {
@@ -1001,6 +1012,61 @@ namespace EducationPortal.Web.LanguageResources
             get
             {
                 return ResourceManager.GetString("PasswordIsRequiredError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords must be at least 8 characters..
+        /// </summary>
+        public static string Passwords_must_be_at_least_8_characters_
+        {
+            get
+            {
+                return ResourceManager.GetString("Passwords must be at least 8 characters.", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords must have at least one lowercase ({0})..
+        /// </summary>
+        public static string Passwords_must_have_at_least_one_lowercase___
+        {
+            get
+            {
+                return ResourceManager.GetString("Passwords must have at least one lowercase _.", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords must have at least one non alphanumeric character..
+        /// </summary>
+        public static string Passwords_must_have_at_least_one_non_alphanumeric_character_
+        {
+            get
+            {
+                return ResourceManager.GetString("Passwords must have at least one non alphanumeric character.", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords must have at least one uppercase ({0})..
+        /// </summary>
+        public static string Passwords_must_have_at_least_one_uppercase___
+        {
+            get
+            {
+                return ResourceManager.GetString("Passwords must have at least one uppercase _.", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords must use at least 5 different characters..
+        /// </summary>
+        public static string Passwords_must_use_at_least_5_different_characters_
+        {
+            get
+            {
+                return ResourceManager.GetString("Passwords must use at least 5 different characters.", resourceCulture);
             }
         }
 
@@ -1313,17 +1379,6 @@ namespace EducationPortal.Web.LanguageResources
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to You do not have permission to access this resource. Please contact the administrator...
-        /// </summary>
-        public static string ForbiddenError
-        {
-            get
-            {
-                return ResourceManager.GetString("ForbiddenError", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title
@@ -1419,6 +1474,61 @@ namespace EducationPortal.Web.LanguageResources
             get
             {
                 return ResourceManager.GetString("YouLeftTheCourseSuccessfullyFlash", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to At least One Material..
+        /// </summary>
+        public static string AtLeastOneMaterialError
+        {
+            get
+            {
+                return ResourceManager.GetString("AtLeastOneMaterialError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Course was not found..
+        /// </summary>
+        public static string Course_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("Course_WasNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to UserCourse was not found..
+        /// </summary>
+        public static string UserCourse_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("UserCourse_WasNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Material was not found..
+        /// </summary>
+        public static string Material_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("Material_WasNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Skill was not found..
+        /// </summary>
+        public static string Skill_WasNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("Skill_WasNotFound", resourceCulture);
             }
         }
     }

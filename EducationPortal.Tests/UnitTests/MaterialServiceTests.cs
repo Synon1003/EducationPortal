@@ -101,7 +101,7 @@ public class MaterialServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Material ({notExistingMaterialId}) was not found.");
+            .WithMessage($"Material({notExistingMaterialId})WasNotFound");
         _mockMaterialRepository.Verify(r => r.GetByIdAsync(notExistingMaterialId), Times.Once);
     }
 
@@ -151,7 +151,7 @@ public class MaterialServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Material ({notExistingMaterialId}) was not found.");
+            .WithMessage($"Material({notExistingMaterialId})WasNotFound");
         _mockMaterialRepository.Verify(r => r.GetVideoByMaterialIdAsync(notExistingMaterialId), Times.Once);
     }
 
@@ -203,7 +203,7 @@ public class MaterialServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Material ({notExistingMaterialId}) was not found.");
+            .WithMessage($"Material({notExistingMaterialId})WasNotFound");
         _mockMaterialRepository.Verify(r => r.GetPublicationByMaterialIdAsync(notExistingMaterialId), Times.Once);
     }
 
@@ -253,7 +253,7 @@ public class MaterialServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Material ({notExistingMaterialId}) was not found.");
+            .WithMessage($"Material({notExistingMaterialId})WasNotFound");
         _mockMaterialRepository.Verify(r => r.GetArticleByMaterialIdAsync(notExistingMaterialId), Times.Once);
     }
 }

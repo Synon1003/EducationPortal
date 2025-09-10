@@ -164,7 +164,7 @@ public class CourseServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Course ({notExistingCourseId}) was not found.");
+            .WithMessage($"Course({notExistingCourseId})WasNotFound");
         _mockUnitOfWork.Verify(u => u.CourseRepository.GetByIdAsync(notExistingCourseId), Times.Once);
     }
 
@@ -195,7 +195,7 @@ public class CourseServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Course ({notExistingCourseId}) was not found.");
+            .WithMessage($"Course({notExistingCourseId})WasNotFound");
         _mockUnitOfWork.Verify(u => u.CourseRepository.GetCourseWithRelationshipsByIdAsync(notExistingCourseId), Times.Once);
     }
 
@@ -288,7 +288,7 @@ public class CourseServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"Course ({notExistingCourseId}) was not found.");
+            .WithMessage($"Course({notExistingCourseId})WasNotFound");
     }
 
     [Fact]
@@ -374,7 +374,7 @@ public class CourseServiceTests
 
         // Assert
         await act.Should().ThrowAsync<NotFoundException>()
-            .WithMessage($"UserCourse (({_userId}, {notExistingCourseId})) was not found.");
+            .WithMessage($"UserCourse(({_userId}, {notExistingCourseId}))WasNotFound");
     }
 
     [Theory]

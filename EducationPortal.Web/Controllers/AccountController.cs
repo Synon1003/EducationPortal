@@ -4,6 +4,11 @@ using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using EducationPortal.Web.Filters;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
+using EducationPortal.Web.LanguageResources;
+using EducationPortal.Web.Helpers;
+using EducationPortal.Web.Options;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -12,16 +17,23 @@ public class AccountController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ILogger<AccountController> _logger;
+    private readonly IStringLocalizer _localizer;
+    private readonly AppearanceOptions _appearance;
 
     public AccountController(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
-        ILogger<AccountController> logger
+        ILogger<AccountController> logger,
+        IStringLocalizerFactory factory,
+        IOptions<AppearanceOptions> appearance
     )
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _logger = logger;
+        _localizer = factory.Create(
+            "Resource", typeof(Resource).Assembly.FullName!);
+        _appearance = appearance.Value;
     }
 
     [HttpGet]
@@ -38,10 +50,7 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid)
         {
-            TempData.Put<List<string>>("errors",
-                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
             TempData.CreateFlash("RegistrationFailedFlash", "error");
-
             return View(registerViewModel);
         }
 
@@ -65,7 +74,8 @@ public class AccountController : Controller
         }
 
         foreach (IdentityError error in result.Errors)
-            ModelState.AddModelError("Register", error.Description);
+            ModelState.AddModelError("Register",
+                Translator.Translate(_localizer, error.Description));
         TempData.CreateFlash("RegistrationFailedFlash", "error");
 
         return View(registerViewModel);
@@ -92,10 +102,7 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid)
         {
-            TempData.Put<List<string>>("errors",
-                [.. ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)]);
             TempData.CreateFlash("LogInFailedFlash", "error");
-
             return View(loginViewModel);
         }
 
@@ -113,7 +120,8 @@ public class AccountController : Controller
             return RedirectToAction("List", "Course");
         }
 
-        ModelState.AddModelError("Login", "InvalidEmailOrPasswordFlash");
+        ModelState.AddModelError("Login",
+            Translator.Translate(_localizer, "InvalidEmailOrPassword"));
         TempData.CreateFlash("LogInFailedFlash", "error");
 
         return View(loginViewModel);
@@ -140,8 +148,7 @@ public class AccountController : Controller
     [FetchOnly]
     public async Task<IActionResult> SetUserTheme(string theme)
     {
-        List<string> validThemes = ["business", "corporate", "cyberpunk"];
-        if (!validThemes.Contains(theme))
+        if (!_appearance.ValidThemes.Contains(theme))
         {
             return BadRequest("Invalid theme.");
         }
@@ -162,8 +169,7 @@ public class AccountController : Controller
     [FetchOnly]
     public async Task<IActionResult> SetUserLanguage(string language)
     {
-        List<string> validLanguages = ["en", "hu"];
-        if (!validLanguages.Contains(language))
+        if (!_appearance.ValidLanguages.Contains(language))
         {
             return BadRequest("Invalid language.");
         }

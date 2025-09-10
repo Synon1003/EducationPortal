@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using EducationPortal.Web.Helpers;
 using EducationPortal.Web.LanguageResources;
+using Microsoft.Extensions.Localization;
 
 namespace EducationPortal.Web.Models;
 
@@ -42,7 +44,7 @@ public class CourseDetailViewModel
     public UserCourseViewModel? UserCourse { get; set; }
 }
 
-public class CourseCreateViewModel
+public class CourseCreateViewModel : IValidatableObject
 {
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "NameIsRequiredError")]
     [StringLength(50)]
@@ -69,4 +71,16 @@ public class CourseCreateViewModel
     public List<PublicationViewModel> LoadedPublications { get; set; } = [];
     public List<ArticleViewModel> LoadedArticles { get; set; } = [];
 
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (Videos.Count > 0 || Publications.Count > 0 || Articles.Count > 0)
+            yield break;
+
+        var factory = (IStringLocalizerFactory)validationContext.GetService(typeof(IStringLocalizerFactory))!;
+        var localizer = factory.Create(
+            "Resource", typeof(Resource).Assembly.FullName!);
+
+        var errorMessage = localizer["AtLeastOneMaterialError"];
+        yield return new ValidationResult(errorMessage);
+    }
 }

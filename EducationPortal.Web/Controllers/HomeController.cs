@@ -27,13 +27,16 @@ public class HomeController : Controller
 
     public IActionResult Error()
     {
+        string message = "UnexpectedError";
         var ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-
-        string message = ex?.Message ?? "UnexpectedError";
 
         if (ex is SqlException)
         {
             message = "SqlError";
+        }
+        else if (ex is NotFoundException || ex is BadRequestException)
+        {
+            message = ex?.Message!;
         }
         else if (ex is ValidationException vex)
         {
