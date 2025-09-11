@@ -4,16 +4,16 @@
     ViewBag.CurrentUrl = "~/Course/List";
 }
 
-<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
-    <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268" data-aos="zoom-in">
+<div class="flex items-center justify-center min-h-[calc(100vh-98px)]">
+    <div class="card card-border" data-aos="zoom-in">
         <div class="card-body">
-            <div class="flex items-center justify-start ml-2">
+            <div class="flex items-center justify-start ml-2 mb-4">
                 <div class="text-3xl font-medium">@Html.Translate("Courses")</div>
             </div>
 
-            <div class="flex items-center justify-between ml-2 mb-4">
+            <div class="flex flex-col xs:flex-row xs:items-center xs:justify-between mx-2 gap-2">
                 <span class="text-sm font-medium">@Html.Translate(@Model.TotalCountText): @Model.TotalCount</span>
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center justify-between space-x-2">
                     <form asp-controller="Course" asp-action="List" method="get" class="flex items-center">
                         <select class="select w-32" name="filter" onchange="this.form.submit()">
                             @foreach (var selectOption in Model.SelectOptions)

@@ -238,8 +238,9 @@
 
         openButton.addEventListener('click', () => modal.showModal());
 
-        list.addEventListener("pointerdown", (e) =>
+        list.addEventListener("click", (e) =>
         {
+            e.preventDefault();
             const label = e.target.closest(`.${itemClass}`);
             if (!label) return;
 

@@ -4,6 +4,41 @@
 @source inline("alert-error");
 @source inline("alert-info");
 
+@theme {
+    /* Extra small phones */
+    --breakpoint-3xs: 320px;
+    /* Smaller phones */
+    --breakpoint-2xs: 400px;
+    /* Small phones */
+    --breakpoint-xs: 480px;
+    /* Phones */
+    --breakpoint-sm: 640px;
+    /* Tablets */
+    --breakpoint-md: 768px;
+    /* Small laptops */
+    --breakpoint-lg: 1024px;
+    /* Desktop */
+    --breakpoint-xl: 1280px;
+    /* Large screens */
+    --breakpoint-2xl: 1536px;
+}
+
 @plugin "daisyui" {
     themes: corporate --default, business --prefersdark, cyberpunk;
+}
+
+@utility card {
+    @apply w-[calc(100vw-32px)] 2xs:w-90 xs:w-112 sm:w-144 md:w-168 lg:w-226 xl:w-268 bg-base-200 shadow-sm
+}
+
+@utility modal-box {
+    @apply w-[calc(100vw-32px)]
+}
+
+@utility small-card {
+    @apply card max-w-112;
+}
+
+@utility medium-card {
+    @apply card max-w-168;
 }

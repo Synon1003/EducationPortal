@@ -4,8 +4,8 @@
     ViewBag.CurrentUrl = "~/Course/Create";
 }
 
-<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
-    <div class="card card-border bg-base-200 shadow-sm w-120 sm:w-144 md:w-168 lg:w-226 xl:w-268" data-aos="zoom-in">
+<div class="flex items-center justify-center min-h-[calc(100vh-98px)]">
+    <div class="card card-border" data-aos="zoom-in">
         <div class="card-body">
             <h3 class="font-medium text-3xl ml-2 mb-4">@Html.Translate("CreateCourse")</h3>
             <form asp-controller="Course" asp-action="Create" method="post" id="create-course-form">
@@ -28,14 +28,14 @@
 
                 @await Html.PartialAsync("~/Views/Course/_RehydrateLoadedPartial.cshtml", Model)
 
-                <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
                     <h3 class="font-medium text-2xl">@Html.Translate("Skills")</h3>
 
-                    <div>
+                    <div class="flex flex-nowrap gap-2">
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addSkillToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-skills-button"
-                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
+                            class="btn btn-info btn-sm w-20">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -51,13 +51,14 @@
                     <h3 class="font-medium text-2xl">@Html.Translate("Materials")</h3>
                 </div>
 
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl ml-4">@Html.Translate("Videos")</h3>
-                    <div>
+                <div class="flex items-center justify-between flex-wrap gap-2 mb-4 ml-4">
+                    <h3 class="font-medium text-2xl">@Html.Translate("Videos")</h3>
+
+                    <div class="flex flex-nowrap gap-2">
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addVideoToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-videos-button"
-                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
+                            class="btn btn-info btn-sm w-20">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -69,13 +70,13 @@
                     @await Html.PartialAsync("~/Views/Material/_CreateVideosListPartial.cshtml", Model.Videos)
                 </div>
 
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl ml-4">@Html.Translate("Publications")</h3>
-                    <div>
+                <div class="flex items-center justify-between flex-wrap gap-2 mb-4 ml-4">
+                    <h3 class="font-medium text-2xl">@Html.Translate("Publications")</h3>
+                    <div class="flex flex-nowrap gap-2">
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addPublicationToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-publications-button"
-                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
+                            class="btn btn-info btn-sm w-20">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -89,13 +90,13 @@
                                         Model.Publications)
                 </div>
 
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-medium text-2xl ml-4">@Html.Translate("Articles")</h3>
-                    <div>
+                <div class="flex items-center justify-between flex-wrap gap-2 mb-4 ml-4">
+                    <h3 class="font-medium text-2xl">@Html.Translate("Articles")</h3>
+                    <div class="flex flex-nowrap gap-2">
                         <button type="button" class="btn btn-info btn-sm w-20"
                             onclick="addArticleToViewModel()">@Html.Translate("New")</button>
                         <button type="button" id="open-load-articles-button"
-                            class="btn btn-info btn-sm w-20 ml-1">@Html.Translate("Load")</button>
+                            class="btn btn-info btn-sm w-20">@Html.Translate("Load")</button>
                     </div>
                 </div>
 
@@ -110,7 +111,7 @@
 
                 <div asp-validation-summary="All" class="text-error text-sm"></div>
 
-                <div class="flex items-center justify-between mt-4">
+                <div class="flex items-center justify-between mt-4 mx-2">
                     <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
                         @Html.Translate("Back")
                     </a>

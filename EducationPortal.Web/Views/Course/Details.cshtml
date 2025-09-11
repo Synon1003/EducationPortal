@@ -4,11 +4,11 @@
     ViewBag.CurrentUrl = "~/Course/Details";
 }
 
-<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
-    <div class="card card-border w-120 sm:w-144 md:w-168 bg-base-200 shadow-sm" data-aos="zoom-in">
+<div class="flex items-center justify-center min-h-[calc(100vh-98px)]">
+    <div class="medium-card card-border" data-aos="zoom-in">
         <div class="card-body">
-            <div class="flex items-center justify-between">
-                <h3 class="font-medium text-3xl ml-2 mb-4">@Html.DisplayFor(c => c.Name)</h3>
+            <div class="flex items-center justify-between mx-2 mb-4">
+                <h3 class="font-medium text-3xl ml-2">@Html.DisplayFor(c => c.Name)</h3>
                 @if (Model.UserCourse is not null)
                 {
                     <div class="radial-progress @(Model.UserCourse.IsCompleted ? "text-success" : "text-info")"
@@ -19,7 +19,7 @@
                 else
                 {
                     <a asp-controller="User" asp-action="EnrollOnCourse" asp-route-id="@Model.Id"
-                        class="btn btn-primary btn-md w-24">Enroll</a>
+                        class="btn btn-primary btn-md w-24">@Html.Translate("Enroll")</a>
                 }
             </div>
             <table class="table">
@@ -42,24 +42,23 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="flex items-center justify-between mt-4">
-                <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
-                    @Html.Translate("Back")
-                </a>
+            <div class="flex items-start justify-between mt-2 mx-2 gap-2">
+                <div class="flex flex-col-reverse xs:flex-row items-start justify-start gap-2">
+                    <a asp-controller="Course" asp-action="List" class="btn btn-md btn-secondary w-20">
+                        @Html.Translate("Back")
+                    </a>
+                    @if (Model.UserCourse is not null && Model.UserCourse.ProgressPercentage != 100)
+                    {
+                        <a asp-controller="User" asp-action="LeaveCourse" asp-route-id="@Model.Id"
+                            class="btn btn-error btn-md w-24">@Html.Translate("Leave")</a>
+                    }
+                </div>
                 @if (Model.UserCourse is not null)
                 {
-                    <div class="flex items-center space-x-2">
-                        @if (Model.UserCourse.ProgressPercentage != 100)
-                        {
-                            <a asp-controller="User" asp-action="LeaveCourse" asp-route-id="@Model.Id"
-                                class="btn btn-error btn-md w-24">@Html.Translate("Leave")</a>
-                        }
-
-                        <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
-                            class="btn btn-md btn-info w-24">
-                            @Html.Translate("Materials")
-                        </a>
-                    </div>
+                    <a asp-controller="Course" asp-action="Materials" asp-route-id="@Model.Id"
+                        class="btn btn-md btn-info w-24">
+                        @Html.Translate("Materials")
+                    </a>
                 }
             </div>
         </div>

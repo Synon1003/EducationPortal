@@ -395,7 +395,7 @@
     <value>Passwords must use at least 5 different characters.</value>
   </data>
   <data name="AtLeastOneMaterialError" xml:space="preserve">
-    <value>At least one Material (Video, Publication, or Article) must be provided to create a Course.</value>
+    <value>At least one material (video, publication, or article) must be provided to create a course.</value>
   </data>
   <data name="Course_WasNotFound" xml:space="preserve">
     <value>Course ({0}) was not found.</value>
@@ -410,9 +410,21 @@
     <value>Skill ({0}) was not found.</value>
   </data>
   <data name="NoSkillsAcquired" xml:space="preserve">
-    <value>You have not acquired any skills yet.</value>
+    <value>You have not acquired any skills.</value>
   </data>
   <data name="NoMaterialsAcquired" xml:space="preserve">
-    <value>You have not acquired any materials yet.</value>
+    <value>You have not acquired any materials.</value>
+  </data>
+  <data name="NoSkillsFound" xml:space="preserve">
+    <value>There are not any registered skills.</value>
+  </data>
+  <data name="NoVideosCreated" xml:space="preserve">
+    <value>You have not registered any videos.</value>
+  </data>
+  <data name="NoPublicationsCreated" xml:space="preserve">
+    <value>You have not registered any publications.</value>
+  </data>
+  <data name="NoArticlesCreated" xml:space="preserve">
+    <value>You have not registered any materials.</value>
   </data>
 </root>

@@ -17,7 +17,24 @@
                 <div class="collapse-title text-2xl font-medium">@Html.Translate("Videos")</div>
                 <div class="collapse-content">
                     <div class="overflow-x-auto">
-                        <table class="table table-fixed w-full">
+                        <div class="md:hidden w-full">
+                            @foreach (var video in Model.Videos)
+                            {
+                                <div class="border-b border-base-200">
+                                    <div class="font-bold mt-1">
+                                        @Html.DisplayNameFor(c => c.Videos.First().Title)</div>
+                                    <div>@video.Title</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Videos.First().Duration)</div>
+                                    <div>@video.Duration</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Videos.First().Quality)</div>
+                                    <div class="mb-1 text-wrap">@video.Quality</div>
+                                </div>
+                            }
+                        </div>
+
+                        <table class="hidden md:table md:table-fixed w-full">
                             <thead>
                                 <tr>
                                     <th class="w-4/6">@Html.DisplayNameFor(c => c.Videos.First().Title)</th>
@@ -48,7 +65,30 @@
                 <div class="collapse-title text-2xl font-medium">@Html.Translate("Publications")</div>
                 <div class="collapse-content">
                     <div class="overflow-x-auto">
-                        <table class="table table-fixed w-full">
+                        <div class="md:hidden w-full">
+                            @foreach (var publication in Model.Publications)
+                            {
+                                <div class="border-b border-base-200">
+                                    <div class="font-bold mt-1">
+                                        @Html.DisplayNameFor(c => c.Publications.First().Title)</div>
+                                    <div>@publication.Title</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Publications.First().Authors)</div>
+                                    <div>@publication.Authors</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Publications.First().Pages)</div>
+                                    <div>@publication.Pages</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Publications.First().Format)</div>
+                                    <div>@publication.Format</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Publications.First().PublicationYear)</div>
+                                    <div class="mb-1">@publication.PublicationYear</div>
+                                </div>
+                            }
+                        </div>
+
+                        <table class="hidden md:table md:table-fixed w-full">
                             <thead>
                                 <tr>
                                     <th class="w-4/12">@Html.DisplayNameFor(c => c.Publications.First().Title)</th>
@@ -83,7 +123,24 @@
                 <div class="collapse-title text-2xl font-medium">@Html.Translate("Articles")</div>
                 <div class="collapse-content">
                     <div class="overflow-x-auto">
-                        <table class="table table-fixed w-full">
+                        <div class="md:hidden w-full">
+                            @foreach (var article in Model.Articles)
+                            {
+                                <div class="border-b border-base-200">
+                                    <div class="font-bold mt-1">
+                                        @Html.DisplayNameFor(c => c.Articles.First().Title)</div>
+                                    <div>@article.Title</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Articles.First().ResourceLink)</div>
+                                    <div>@article.ResourceLink</div>
+                                    <div class="font-bold mt-2">
+                                        @Html.DisplayNameFor(c => c.Articles.First().PublicationDate)</div>
+                                    <div class="mb-1">@article.PublicationDate</div>
+                                </div>
+                            }
+                        </div>
+
+                        <table class="hidden md:table md:table-fixed w-full">
                             <thead>
                                 <tr>
                                     <th class="w-2/5">@Html.DisplayNameFor(c => c.Articles.First().Title)</th>
