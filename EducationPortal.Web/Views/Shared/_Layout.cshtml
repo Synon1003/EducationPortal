@@ -14,33 +14,35 @@
 <body>
     <div class="min-h-[calc(100vh-65px)]">
         <div class="navbar bg-base-100 shadow-sm">
-            <div class="navbar-start">
-
-                @if (User?.Identity?.IsAuthenticated ?? false)
-                {
-                    <div class="dropdown">
-                        <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h8m-8 6h16" />
-                            </svg>
-                        </div>
-                        <ul tabindex="0"
-                            class="menu menu-sm dropdown-content mt-3 z-10 w-52 p-2 shadow bg-base-100 rounded-box">
+            <div class="navbar-start flex-shrink">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost sm:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content mt-3 z-10 w-52 p-2 shadow bg-base-100 rounded-box">
+                        <li><a asp-controller="Home" asp-action="Index"
+                                class="@(ViewBag.CurrentUrl == "~/Home/Index" ? "text-info" : "")">@Html.Translate("Home")</a>
+                        </li>
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
                             <li><a asp-controller="Course" asp-action="List"
                                     class="@(ViewBag.CurrentUrl == "~/Course/List" ? "text-info" : "")">@Html.Translate("Courses")</a>
                             </li>
-                        </ul>
-                    </div>
-                }
+                        }
+                    </ul>
+                </div>
 
                 <a asp-controller="Home" asp-action="Index"
-                    class="btn btn-ghost text-md @(ViewBag.CurrentUrl == "~/Home/Index" ? "text-info" : "")">@Html.Translate("ApplicationName")</a>
+                    class="hidden sm:inline btn btn-ghost text-md p-2 @(ViewBag.CurrentUrl == "~/Home/Index" ? "text-info" : "")">@Html.Translate("ApplicationName")</a>
 
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <div class="hidden lg:flex">
+                    <div class="hidden sm:flex">
                         <ul class="menu menu-horizontal px-1">
                             <li>
                             <li><a asp-controller="Course" asp-action="List"
@@ -53,8 +55,8 @@
             </div>
 
             <!-- Right side: account menu -->
-            <div class="navbar-end">
-                <ul class="menu menu-horizontal px-1">
+            <div class="navbar-end ml-auto">
+                <ul class="menu menu-horizontal px-1 flex-nowrap">
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
                         <label class="swap swap-flip cursor-pointer">

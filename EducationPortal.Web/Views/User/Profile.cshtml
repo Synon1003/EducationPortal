@@ -39,7 +39,7 @@
 
             <dialog id="skill-list-modal" class="modal">
                 <div class="modal-box max-w-120">
-                    @await Html.PartialAsync("~/Views/User/_SkillListPartial.cshtml", Model.UserSkills)
+                    @await Html.PartialAsync("~/Views/User/_AcquiredSkillListPartial.cshtml", Model.UserSkills)
                 </div>
                 <form method="dialog" class="modal-backdrop">
                     <button>close</button>
@@ -48,7 +48,7 @@
 
             <dialog id="material-list-modal" class="modal">
                 <div class="modal-box min-w-226 max-w-226 xl:max-w-268">
-                    @await Html.PartialAsync("~/Views/User/_MaterialListPartial.cshtml", Model)
+                    @await Html.PartialAsync("~/Views/User/_AcquiredMaterialListPartial.cshtml", Model)
                 </div>
                 <form method="dialog" class="modal-backdrop">
                     <button>close</button>

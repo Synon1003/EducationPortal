@@ -304,4 +304,10 @@
   <data name="Skill_WasNotFound" xml:space="preserve">
     <value>Ismeret ({0}) nem található.</value>
   </data>
+  <data name="NoSkillsAcquired" xml:space="preserve">
+    <value>Még nem sajátítottál el semmilyen ismeretet.</value>
+  </data>
+  <data name="NoMaterialsAcquired" xml:space="preserve">
+    <value>Még nem sajátítottál el semmilyen tananyagot.</value>
+  </data>
 </root>
