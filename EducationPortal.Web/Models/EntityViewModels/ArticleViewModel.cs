@@ -28,7 +28,7 @@ public class ArticleCreateViewModel
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "PublicationDateIsRequiredError")]
     [DataType(DataType.Date)]
     [Display(ResourceType = typeof(Resource), Name = "PublicationDate")]
-    public DateOnly PublicationDate { get; set; }
+    public DateOnly PublicationDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     [Required(ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "ResourceLinkIsRequiredError")]
     [StringLength(500)]

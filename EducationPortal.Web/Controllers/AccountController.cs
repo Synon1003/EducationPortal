@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using EducationPortal.Web.LanguageResources;
 using EducationPortal.Web.Helpers;
 using EducationPortal.Web.Options;
+using System.Globalization;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -54,12 +55,17 @@ public class AccountController : Controller
             return View(registerViewModel);
         }
 
+        var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        if (!_appearance.ValidLanguages.Contains(currentLanguage))
+            currentLanguage = "en";
+
         ApplicationUser user = new ApplicationUser()
         {
             FirstName = registerViewModel.FirstName,
             LastName = registerViewModel.LastName,
             Email = registerViewModel.Email,
             UserName = registerViewModel.Email,
+            Language = currentLanguage
         };
 
         IdentityResult result = await _userManager.CreateAsync(user, registerViewModel.Password);

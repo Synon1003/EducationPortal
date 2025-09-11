@@ -37,39 +37,40 @@
             }
         </div>
         <div class="block lg:flex items-center justify-center lg:w-2/3">
-            <div class="card card-border bg-base-200 shadow-sm" data-aos="flip-left" data-aos-delay="1000"
-                data-aos-duration="1000">
+            <div class="card card-border" data-aos="flip-left" data-aos-delay="1000" data-aos-duration="1000">
                 <div class="card-body">
-                    <table class="table w-full">
-                        <thead>
-                            <tr data-aos="fade-left" data-aos-delay="1500" data-aos-duration="1000">
-                                <th>@Html.Translate("Name")</th>
-                                <th>@Html.Translate("Description")</th>
-                                <th>@Html.Translate("Skills")</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-aos="fade-left" data-aos-delay="2000" data-aos-duration="1000">
-                                <td class="font-bold">@Html.Translate("ExampleGitCourseName")</td>
-                                <td>@Html.Translate("ExampleGitCourseDescription")</td>
-                                <td class="font-semibold">@Html.Translate("ExampleGitCourseSkills")</td>
-                            </tr>
-                            <tr data-aos="fade-left" data-aos-delay="2250" data-aos-duration="1000">
-                                <td class="font-bold">@Html.Translate("ExampleDotnetCourseName")</td>
-                                <td>@Html.Translate("ExampleDotnetCourseDescription")</td>
-                                <td class="font-semibold">@Html.Translate("ExampleDotnetCourseSkills")</td>
-                            </tr>
-                            <tr data-aos="fade-left" data-aos-delay="2500" data-aos-duration="1000">
-                                <td class="font-bold"><span class="text-warning cursor-pointer"
-                                        onclick="setUserTheme('cyberpunk')"><img src="~/svg/sparkles.svg" alt="✨"
-                                            class="inline w-4 h-4" />@Html.Translate("ExampleAnswersCourseName")<img
-                                            src="~/svg/sparkles.svg" alt="✨" class="inline w-4 h-4" /></span>
-                                </td>
-                                <td>@Html.Translate("ExampleAnswersCourseDescription")</td>
-                                <td class="font-semibold">@Html.Translate("ExampleAnswersCourseSkills")</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="table w-full">
+                            <thead>
+                                <tr data-aos="fade-left" data-aos-delay="1500" data-aos-duration="1000">
+                                    <th>@Html.Translate("Name")</th>
+                                    <th>@Html.Translate("Description")</th>
+                                    <th>@Html.Translate("Skills")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-aos="fade-left" data-aos-delay="2000" data-aos-duration="1000">
+                                    <td class="font-bold">@Html.Translate("ExampleGitCourseName")</td>
+                                    <td>@Html.Translate("ExampleGitCourseDescription")</td>
+                                    <td class="font-semibold">@Html.Translate("ExampleGitCourseSkills")</td>
+                                </tr>
+                                <tr data-aos="fade-left" data-aos-delay="2250" data-aos-duration="1000">
+                                    <td class="font-bold">@Html.Translate("ExampleDotnetCourseName")</td>
+                                    <td>@Html.Translate("ExampleDotnetCourseDescription")</td>
+                                    <td class="font-semibold">@Html.Translate("ExampleDotnetCourseSkills")</td>
+                                </tr>
+                                <tr data-aos="fade-left" data-aos-delay="2500" data-aos-duration="1000">
+                                    <td class="font-bold"><span class="text-warning cursor-pointer"
+                                            onclick="setUserTheme('cyberpunk')"><img src="~/svg/sparkles.svg" alt="✨"
+                                                class="inline w-4 h-4" />@Html.Translate("ExampleAnswersCourseName")<img
+                                                src="~/svg/sparkles.svg" alt="✨" class="inline w-4 h-4" /></span>
+                                    </td>
+                                    <td>@Html.Translate("ExampleAnswersCourseDescription")</td>
+                                    <td class="font-semibold">@Html.Translate("ExampleAnswersCourseSkills")</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

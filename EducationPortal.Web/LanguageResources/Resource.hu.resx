@@ -290,7 +290,7 @@
     <value>A jelszó legalább 5 különböző karaktert kell tartalmazzon.</value>
   </data>
   <data name="AtLeastOneMaterialError" xml:space="preserve">
-    <value>Tanfolyam létrehozásához legalább egy tananyag (Videó, Kiadvány, vagy Cikk) megadása szükséges.</value>
+    <value>Tanfolyam létrehozásához legalább egy tananyag (videó, kiadvány, vagy cikk) megadása szükséges.</value>
   </data>
   <data name="Course_WasNotFound" xml:space="preserve">
     <value>Tanfolyam ({0}) nem található.</value>
@@ -303,5 +303,23 @@
   </data>
   <data name="Skill_WasNotFound" xml:space="preserve">
     <value>Ismeret ({0}) nem található.</value>
+  </data>
+  <data name="NoSkillsAcquired" xml:space="preserve">
+    <value>Még nem sajátítottál el semmilyen ismeretet.</value>
+  </data>
+  <data name="NoMaterialsAcquired" xml:space="preserve">
+    <value>Még nem sajátítottál el semmilyen tananyagot.</value>
+  </data>
+  <data name="NoSkillsFound" xml:space="preserve">
+    <value>Még nincsenek ismeretek regisztrálva.</value>
+  </data>
+  <data name="NoVideosCreated" xml:space="preserve">
+    <value>Még nem regisztráltál videókat.</value>
+  </data>
+  <data name="NoPublicationsCreated" xml:space="preserve">
+    <value>Még nem regisztráltál kiadványokat.</value>
+  </data>
+  <data name="NoArticlesCreated" xml:space="preserve">
+    <value>Még nem regisztráltál cikkeket.</value>
   </data>
 </root>

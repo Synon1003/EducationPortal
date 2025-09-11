@@ -4,8 +4,8 @@
     ViewBag.CurrentUrl = "~/Account/Login";
 }
 
-<div class="flex items-center justify-center min-h-[calc(100vh-11.0rem)]">
-    <div class="card card-border w-96 bg-base-200 shadow-sm" data-aos="zoom-in">
+<div class="flex items-center justify-center min-h-[calc(100vh-98px)]">
+    <div class="small-card card-border" data-aos="zoom-in">
         <div class="card-body">
             <h3 class="font-medium text-3xl ml-2 mb-4">@Html.Translate("Login")</h3>
 
@@ -25,7 +25,7 @@
                             class="input input-md w-full" />
                         <span asp-validation-for="Password" class="text-error text-sm ml-1"></span>
                 </div>
-                <div class="flex items-center justify-end">@Html.Translate("DoNotHaveAnAccount")<a
+                <div class="flex items-center justify-end mb-1">@Html.Translate("DoNotHaveAnAccount")<a
                         asp-controller="Account" asp-action="Register" class="text-primary ml-1">
                         @Html.Translate("SignUp")</a></div>
                 <div asp-validation-summary="All" class="text-error text-sm"></div>
