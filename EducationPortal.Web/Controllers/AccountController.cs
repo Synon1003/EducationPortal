@@ -73,7 +73,7 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             await _signInManager.SignInAsync(user, isPersistent: false);
-            TempData.CreateFlash("AccountCreatedSuccessfullyYouAreNowLoggedInFlash.", "info");
+            TempData.CreateFlash("AccountCreatedSuccessfullyYouAreNowLoggedInFlash", "info");
             _logger.LogInformation("Created <User Email={Email}>", user.Email);
 
             return RedirectToAction("List", "Course");

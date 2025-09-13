@@ -228,11 +228,12 @@
         });
     }
 
-    function registerLoadModal({ modalId, buttonId, listId, itemClass, onSelect })
+    function registerLoadModal({ modalId, buttonId, listId, itemClass, onSelect, searchInputId = null })
     {
         const modal = document.getElementById(modalId);
         const openButton = document.getElementById(buttonId);
         const list = document.getElementById(listId);
+        const searchInput = searchInputId ? document.getElementById(searchInputId) : null;
 
         if (!modal || !openButton || !list) return;
 
@@ -250,6 +251,18 @@
             onSelect(id, title);
             modal.close();
         });
+
+        if (searchInput)
+        {
+            modal.addEventListener('close', () =>
+            {
+                searchInput.value = "";
+                list.querySelectorAll(`.${itemClass}`).forEach(item =>
+                {
+                    item.style.display = "";
+                });
+            });
+        }
     }
 
     registerLoadModal({
@@ -257,6 +270,7 @@
         buttonId: "open-load-skills-button",
         listId: "load-skills-list",
         itemClass: "load-skill-item",
+        searchInputId: "skill-search",
         onSelect: (id, name) => loadSkillToViewModel(id, name)
     });
     registerSkillSearchBar();

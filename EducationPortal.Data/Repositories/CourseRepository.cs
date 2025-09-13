@@ -15,7 +15,8 @@ public class CourseRepository : EntityFrameworkRepository<Course>, ICourseReposi
         return GetAll()
             .Include(c => c.Skills)
             .Include(c => c.CreatedByUser)
-            .Where(predicate);
+            .Where(predicate)
+            .OrderByDescending(c => c.Id);
     }
 
     public async Task<ICollection<Course>> GetAllCoursesWithSkillsAsync() =>

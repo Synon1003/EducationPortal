@@ -62,8 +62,8 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             new Course
             {
                 Id = 1,
-                Name = "Dotnet course",
-                Description = "Dotnet course to learn how to create C# Asp.Net Core MVC application",
+                Name = ".Net course",
+                Description = ".Net course to learn how to create C# Asp.Net Core MVC application",
                 CreatedBy = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe")
             },
             new Course
@@ -82,19 +82,20 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
         modelBuilder.Entity<Skill>().HasData(
             new Skill { Id = 1, Name = "C#" },
             new Skill { Id = 2, Name = "Git" },
-            new Skill { Id = 3, Name = "Sql" },
-            new Skill { Id = 4, Name = "Uml" },
-            new Skill { Id = 5, Name = "Md" },
+            new Skill { Id = 3, Name = "MVC" },
+            new Skill { Id = 4, Name = ".Net" },
+            new Skill { Id = 5, Name = "Github" },
             new Skill { Id = 6, Name = "Gitlab" }
         );
 
         modelBuilder.Entity("CourseSkills").HasData(
             new { CourseId = 1, SkillId = 1 },
+            new { CourseId = 1, SkillId = 2 },
             new { CourseId = 2, SkillId = 2 },
             new { CourseId = 1, SkillId = 3 },
             new { CourseId = 1, SkillId = 4 },
             new { CourseId = 2, SkillId = 5 },
-            new { CourseId = 2, SkillId = 6 }
+            new { CourseId = 1, SkillId = 6 }
         );
 
         modelBuilder.Entity<UserSkill>().HasData(
@@ -102,6 +103,12 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             {
                 UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
                 SkillId = 1,
+                Level = 1
+            },
+            new UserSkill
+            {
+                UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
+                SkillId = 2,
                 Level = 1
             },
             new UserSkill
@@ -115,6 +122,12 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
                 UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
                 SkillId = 4,
                 Level = 1
+            },
+            new UserSkill
+            {
+                UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"),
+                SkillId = 6,
+                Level = 1
             }
         );
 
@@ -123,71 +136,47 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
             {
                 Id = 1,
                 Title = "Ultimate C# Masterclass",
-                Duration = 120,
+                Duration = 5200,
                 Quality = "1080p",
             },
             new Video
             {
                 Id = 2,
-                Title = "Asp.Net Core",
-                Duration = 90,
+                Title = "Asp.Net Core MVC",
+                Duration = 2900,
                 Quality = "720p"
-            }
-        );
-
-        modelBuilder.Entity<Article>().HasData(
-            new Article
+            },
+            new Video
             {
                 Id = 3,
-                Title = "Vue 3 + Pinia - JWT Authentication Tutorial & Example",
-                PublicationDate = new DateOnly(2022, 5, 26),
-                ResourceLink = "https://jasonwatmore.com/post/2022/05/26/vue-3-pinia-jwt-authentication-tutorial-example"
-            },
-            new Article
-            {
-                Id = 4,
-                Title = "Vue 3 + Pinia - JWT Authentication with Refresh Tokens Example & Tutorial",
-                PublicationDate = new DateOnly(2022, 5, 26),
-                ResourceLink = "https://jasonwatmore.com/vue-3-pinia-jwt-authentication-with-refresh-tokens-example-tutorial"
+                Title = "The Git & Github Bootcamp",
+                Duration = 1000,
+                Quality = "720p"
             }
         );
 
         modelBuilder.Entity<Publication>().HasData(
             new Publication
             {
-                Id = 5,
-                Title = "Gutenberg Bible",
-                Format = "txt",
-                Authors = "Johann Gutenberg",
-                Pages = 1286,
-                PublicationYear = 1455
-            },
-            new Publication
-            {
-                Id = 6,
-                Title = "Star Wars",
-                Format = "txt",
-                Authors = "Alan Dean Foster, George Lucas",
-                Pages = 272,
-                PublicationYear = 1976
+                Id = 4,
+                Title = "ProGit",
+                Pages = 501,
+                Format = "pdf",
+                PublicationYear = 2014,
+                Authors = "Scott Chacon, Ben Straub"
             }
         );
-
 
         modelBuilder.Entity("CourseMaterials").HasData(
             new { CourseId = 1, MaterialId = 1 },
             new { CourseId = 1, MaterialId = 2 },
-            new { CourseId = 1, MaterialId = 3 },
-            new { CourseId = 1, MaterialId = 4 },
-            new { CourseId = 2, MaterialId = 5 },
-            new { CourseId = 2, MaterialId = 6 }
+            new { CourseId = 2, MaterialId = 3 },
+            new { CourseId = 2, MaterialId = 4 }
         );
 
         modelBuilder.Entity<UserMaterial>().HasData(
             new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 1 },
-            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 2 },
-            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 3 },
-            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 4 }
+            new UserMaterial { UserId = new Guid("2fc3ecef-00ee-4aa3-f194-08dde5627abe"), MaterialId = 2 }
         );
     }
 }
