@@ -21,7 +21,7 @@
                             @foreach (var video in Model.Videos)
                             {
                                 <div class="border-b border-base-200">
-                                    <div class="font-bold mt-1">
+                                    <div class="font-bold mt-2">
                                         @Html.DisplayNameFor(c => c.Videos.First().Title)</div>
                                     <div>@video.Title</div>
                                     <div class="font-bold mt-2">
@@ -29,7 +29,7 @@
                                     <div>@video.Duration</div>
                                     <div class="font-bold mt-2">
                                         @Html.DisplayNameFor(c => c.Videos.First().Quality)</div>
-                                    <div class="mb-1 text-wrap">@video.Quality</div>
+                                    <div class="mb-2 text-wrap">@video.Quality</div>
                                 </div>
                             }
                         </div>
@@ -69,7 +69,7 @@
                             @foreach (var publication in Model.Publications)
                             {
                                 <div class="border-b border-base-200">
-                                    <div class="font-bold mt-1">
+                                    <div class="font-bold mt-2">
                                         @Html.DisplayNameFor(c => c.Publications.First().Title)</div>
                                     <div>@publication.Title</div>
                                     <div class="font-bold mt-2">
@@ -83,7 +83,7 @@
                                     <div>@publication.Format</div>
                                     <div class="font-bold mt-2">
                                         @Html.DisplayNameFor(c => c.Publications.First().PublicationYear)</div>
-                                    <div class="mb-1">@publication.PublicationYear</div>
+                                    <div class="mb-2">@publication.PublicationYear</div>
                                 </div>
                             }
                         </div>
@@ -127,7 +127,7 @@
                             @foreach (var article in Model.Articles)
                             {
                                 <div class="border-b border-base-200">
-                                    <div class="font-bold mt-1">
+                                    <div class="font-bold mt-2">
                                         @Html.DisplayNameFor(c => c.Articles.First().Title)</div>
                                     <div>@article.Title</div>
                                     <div class="font-bold mt-2">
@@ -135,7 +135,7 @@
                                     <div>@article.ResourceLink</div>
                                     <div class="font-bold mt-2">
                                         @Html.DisplayNameFor(c => c.Articles.First().PublicationDate)</div>
-                                    <div class="mb-1">@article.PublicationDate</div>
+                                    <div class="mb-2">@article.PublicationDate</div>
                                 </div>
                             }
                         </div>

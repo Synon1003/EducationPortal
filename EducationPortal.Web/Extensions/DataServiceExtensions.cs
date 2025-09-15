@@ -4,7 +4,6 @@ using EducationPortal.Data.Repositories.Interfaces;
 using EducationPortal.Data.Repositories;
 using EducationPortal.Data.Entities;
 using Microsoft.AspNetCore.Identity;
-using EducationPortal.Data.Helpers;
 
 namespace EducationPortal.Extensions;
 
@@ -42,8 +41,6 @@ public static class DataServiceExtensions
             options.Password.RequiredUniqueChars = 5;
         })
         .AddEntityFrameworkStores<EducationPortalDbContext>();
-
-        services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
 
         return services;
     }

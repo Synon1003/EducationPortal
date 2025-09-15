@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using EducationPortal.Web.Helpers;
 using EducationPortal.Web.LanguageResources;
 using Microsoft.Extensions.Localization;
 
@@ -73,7 +72,8 @@ public class CourseCreateViewModel : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        if (Videos.Count > 0 || Publications.Count > 0 || Articles.Count > 0)
+        if (Videos.Count > 0 || Publications.Count > 0 || Articles.Count > 0 ||
+            LoadedVideos.Count > 0 || LoadedPublications.Count > 0 || LoadedArticles.Count > 0)
             yield break;
 
         var factory = (IStringLocalizerFactory)validationContext.GetService(typeof(IStringLocalizerFactory))!;

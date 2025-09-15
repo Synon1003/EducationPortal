@@ -1,10 +1,7 @@
 using EducationPortal.Extensions;
 using EducationPortal.Web.Middlewares;
-using EducationPortal.Web.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using EducationPortal.Web.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddSerilogLogging();
@@ -13,18 +10,8 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "LanguageRes
 builder.Services.AddDataServices(builder.Configuration)
                 .AddIdentityProviders();
 builder.Services.AddApplicationServices();
-builder.Services.AddViewModelMappers();
-builder.Services.Configure<AppearanceOptions>(
-    builder.Configuration.GetSection("Appearance"));
+builder.Services.AddWebServices(builder.Configuration);
 
-if (builder.Environment.IsProduction())
-{
-    builder.Services.AddDataProtection()
-        .PersistKeysToFileSystem(new DirectoryInfo("/keys"))
-        .SetApplicationName("EducationPortal");
-}
-
-builder.Services.AddScoped<IAuthorizationHandler, EnrolledInCourseHandler>();
 builder.Services.AddAuthorization();
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -36,6 +23,13 @@ builder.Services.AddControllersWithViews(
     options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
 ).AddViewLocalization()
 .AddDataAnnotationsLocalization();
+
+if (builder.Environment.IsProduction())
+{
+    builder.Services.AddDataProtection()
+        .PersistKeysToFileSystem(new DirectoryInfo("/keys"))
+        .SetApplicationName("EducationPortal");
+}
 
 var app = builder.Build();
 app.UseExceptionHandler("/Home/Error");

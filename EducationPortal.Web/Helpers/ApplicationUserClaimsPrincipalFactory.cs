@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using EducationPortal.Data.Entities;
 
-namespace EducationPortal.Data.Helpers;
+namespace EducationPortal.Web.Helpers;
 
 public class ApplicationUserClaimsPrincipalFactory
     : UserClaimsPrincipalFactory<ApplicationUser, IdentityRole<Guid>>

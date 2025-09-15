@@ -29,7 +29,7 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
         modelBuilder.ApplyConfiguration(new MaterialConfigurations());
         modelBuilder.ApplyConfiguration(new ApplicationUserConfigurations());
 
-        SeedData(modelBuilder);
+        SeedData(modelBuilder); // only for demo purposes, not needed in production
     }
 
     private void SeedData(ModelBuilder modelBuilder)
