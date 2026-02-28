@@ -1,12 +1,52 @@
 # EducationPortal
 
+### Images
+
+| Homepage |
+| :---: |
+| ![Home](EducationPortal.Images/homepagelight.png) |
+
+| Courses |
+| :---: |
+| ![Home](EducationPortal.Images/coursespagedark.png) |
+
+<details>
+<summary>Click to view the full gallery</summary>
+
+| RegistrationPage |
+| :---: |
+| ![Home](EducationPortal.Images/registrationpagelight.png) |
+
+| LoginPage |
+| :---: |
+| ![Home](EducationPortal.Images/loginpagelight.png) |
+
+| Create Course |
+| :---: |
+| ![Home](EducationPortal.Images/createcoursepagedark.png) |
+
+| Course Details |
+| :---: |
+| ![Home](EducationPortal.Images/coursedetailpagedark.png) |
+
+| Course Materials |
+| :---: |
+| ![Home](EducationPortal.Images/coursematerialspagedark.png) |
+
+| Profile Materials |
+| :---: |
+| ![Home](EducationPortal.Images/profilepagematerialsdark.png) |
+
+</details>
+
+### Development - dotnet run
 Running the application on https://localhost:7133 | http://localhost:5012
 ```bash
 cd EducationPortal.Web
 dotnet run
 ```
 
-### Docker
+### Production - docker
 Db-only:
 ```bash
 docker compose up educationportalsqldb
