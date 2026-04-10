@@ -53,13 +53,14 @@ public static class DatabaseExtensions
 
     private static async Task EnsureDatabaseAsync(EducationPortalDbContext dbContext)
     {
-        var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
-
         var strategy = dbContext.Database.CreateExecutionStrategy();
         await strategy.ExecuteAsync(async () =>
         {
-            if (!await dbCreator.ExistsAsync())
+            if (!await dbContext.Database.CanConnectAsync())
+            {
+                var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
                 await dbCreator.CreateAsync();
+            }
         });
     }
 

@@ -3,7 +3,7 @@ using EducationPortal.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using EducationPortal.Application.Exceptions;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 
 namespace EducationPortal.Web.Controllers;
 
@@ -30,7 +30,7 @@ public class HomeController : Controller
         string message = "UnexpectedError";
         var ex = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
 
-        if (ex is SqlException)
+        if (ex is NpgsqlException)
         {
             message = "SqlError";
         }
