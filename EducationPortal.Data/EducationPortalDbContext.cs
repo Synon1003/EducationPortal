@@ -30,6 +30,11 @@ public class EducationPortalDbContext : IdentityDbContext<ApplicationUser, Ident
         modelBuilder.ApplyConfiguration(new ApplicationUserConfigurations());
 
         SeedData(modelBuilder); // only for demo purposes, not needed in production
+
+        modelBuilder.Entity<UserCourse>().ToTable(tb => {
+            tb.HasTrigger("trg_maintain_enrollment_count");
+            tb.HasTrigger("trg_reward_user_completion");
+        });
     }
 
     private void SeedData(ModelBuilder modelBuilder)
