@@ -1,17 +1,18 @@
 # EducationPortal
-
+EducationPortal is available in 2 languages, Hungarian and English  
+Check the [application](https://educationportalapp-cpdqc9g5abh9epg0.polandcentral-01.azurewebsites.net/)
 ### Images
 
 | Homepage |
 | :---: |
 | ![Home](EducationPortal.Images/homepagelight.png) |
 
+<details>
+<summary>Click to view the full gallery</summary>
+
 | Courses |
 | :---: |
 | ![Home](EducationPortal.Images/coursespagedark.png) |
-
-<details>
-<summary>Click to view the full gallery</summary>
 
 | RegistrationPage |
 | :---: |
@@ -39,14 +40,17 @@
 
 </details>
 
-### Development - dotnet run
-Running the application on https://localhost:7133 | http://localhost:5012
+### Development
+Run the application on https://localhost:7133 | http://localhost:5012
 ```bash
 cd EducationPortal.Web
 dotnet run
 ```
 
-### Production - docker
+### Production
+Deployed by Github Actions to [Azure](https://educationportalapp-cpdqc9g5abh9epg0.polandcentral-01.azurewebsites.net/)  
+But it can be run by Docker locally  
+
 Db-only:
 ```bash
 docker compose up educationportalsqldb
