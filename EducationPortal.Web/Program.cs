@@ -2,6 +2,7 @@ using EducationPortal.Extensions;
 using EducationPortal.Web.Middlewares;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddSerilogLogging();
@@ -12,7 +13,20 @@ builder.Services.AddDataServices(builder.Configuration)
 builder.Services.AddApplicationServices();
 builder.Services.AddWebServices(builder.Configuration);
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser().Build();
+
+    options.AddPolicy("NotAuthorized", policy =>
+    {
+        policy.RequireAssertion(context =>
+        {
+            return context.User.Identity is not null ?
+                !context.User.Identity.IsAuthenticated : true;
+        });
+    });
+});
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
